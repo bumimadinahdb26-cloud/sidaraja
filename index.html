@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pencarian Pendaftaran Pasien Rawat Jalan Dialisis</title>
+    <title>Daftar Antri Pasien Rawat Jalan Dialisis</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -50,7 +50,6 @@
             --text-secondary: #475569;
             --text-muted: #94a3b8;
             --border: #e2e8f0;
-            --border-focus: #3b82f6;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -179,9 +178,9 @@
             color: var(--text-muted);
             font-size: 16px;
             transition: color 0.25s ease;
+            z-index: 2;
         }
-        .search-input:focus ~ .input-icon,
-        .search-input:focus + .input-icon { color: var(--blue-500); }
+        .search-input:focus ~ .input-icon { color: var(--blue-500); }
 
         /* ===== BUTTONS ===== */
         .btn-primary {
@@ -257,7 +256,7 @@
         }
         .data-table thead th {
             background: linear-gradient(135deg, var(--blue-900), var(--blue-700));
-            padding: 14px 18px;
+            padding: 14px 16px;
             text-align: left;
             font-weight: 700;
             font-size: 11.5px;
@@ -279,7 +278,7 @@
         .data-table tbody tr:nth-child(odd) { background: var(--white); }
         .data-table tbody tr:hover { background: var(--blue-50); }
         .data-table tbody td {
-            padding: 13px 18px;
+            padding: 13px 16px;
             border-bottom: 1px solid var(--border);
             font-size: 13.5px;
             color: var(--text-secondary);
@@ -289,6 +288,20 @@
             white-space: nowrap;
         }
         .data-table tbody tr:last-child td { border-bottom: none; }
+
+        /* Kolom antrian khusus */
+        .antrian-cell {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px; height: 36px;
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 14px;
+            background: linear-gradient(135deg, var(--blue-500), var(--blue-600));
+            color: white;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.2);
+        }
 
         /* Highlight */
         .highlight-match {
@@ -377,16 +390,7 @@
         ::-webkit-scrollbar-thumb { background: var(--blue-200); border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--blue-300); }
 
-        /* ===== KIDNEY SVG ANIM ===== */
-        .kidney-pulse {
-            animation: kidneyPulse 2.5s ease-in-out infinite;
-        }
-        @keyframes kidneyPulse {
-            0%,100% { transform: scale(1); opacity: 0.9; }
-            50% { transform: scale(1.06); opacity: 1; }
-        }
-
-        /* ===== MEDICAL STRIPE ===== */
+        /* Medical stripe */
         .med-stripe {
             height: 4px;
             background: repeating-linear-gradient(
@@ -396,6 +400,14 @@
                 var(--green-500) 20px,
                 var(--green-500) 40px
             );
+        }
+
+        /* Timestamp column style */
+        .timestamp-cell {
+            font-size: 12px !important;
+            color: var(--text-muted) !important;
+            font-weight: 600;
+            white-space: nowrap !important;
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -435,7 +447,6 @@
                 <!-- Top bar -->
                 <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
                     <div class="flex items-center gap-3">
-                        <!-- Medical cross icon -->
                         <div class="w-12 h-12 rounded-2xl flex items-center justify-center" style="background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.15);">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                                 <rect x="9" y="2" width="6" height="20" rx="2" fill="#34d399"/>
@@ -443,7 +454,7 @@
                             </svg>
                         </div>
                         <div>
-                            <div class="text-white font-extrabold text-lg leading-tight tracking-tight">INSTALASI DIALISIS RSSA MALANG</div>
+                            <div class="text-white font-extrabold text-lg leading-tight tracking-tight">RS Umum</div>
                             <div class="text-blue-200 text-xs font-medium tracking-wide">UNIT RAWAT JALAN DIALISIS</div>
                         </div>
                     </div>
@@ -455,11 +466,11 @@
 
                 <!-- Title -->
                 <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight mb-3">
-                    Pencarian Pendaftaran<br>
+                    Daftar Antri<br>
                     <span style="background:linear-gradient(135deg,#6ee7b7,#34d399,#10b981); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">Pasien Rawat Jalan Dialisis</span>
                 </h1>
                 <p class="text-blue-200 text-base sm:text-lg font-light max-w-xl">
-                    Cari dan verifikasi data pendaftaran pasien dialisis berdasarkan nama pasien dan nomor rekam medis secara realtime.
+                    Cari dan verifikasi data antrian pasien dialisis berdasarkan nama pasien dan nomor rekam medis. Diurutkan berdasarkan waktu pendaftaran.
                 </p>
             </div>
         </div>
@@ -480,19 +491,17 @@
                     </div>
                     <div>
                         <h2 class="text-lg font-extrabold" style="color:var(--blue-900);">Filter Pencarian</h2>
-                        <p class="text-xs" style="color:var(--text-muted);">Masukkan nama pasien atau nomor rekam medis untuk memfilter data</p>
+                        <p class="text-xs" style="color:var(--text-muted);">Masukkan nama pasien atau nomor rekam medis untuk memfilter data antrian</p>
                     </div>
                 </div>
 
                 <div class="search-grid grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6">
-                    <!-- Nama Pasien -->
                     <div class="relative">
-                        <i class="fa-solid fa-user-injured input-icon" style="z-index:2;"></i>
+                        <i class="fa-solid fa-user-injured input-icon"></i>
                         <input type="text" id="inputNama" class="search-input" placeholder="Ketik Nama Pasien..." autocomplete="off">
                     </div>
-                    <!-- Nomor Rekam Medis -->
                     <div class="relative">
-                        <i class="fa-solid fa-id-card-clip input-icon" style="z-index:2;"></i>
+                        <i class="fa-solid fa-id-card-clip input-icon"></i>
                         <input type="text" id="inputRM" class="search-input" placeholder="Ketik Nomor Rekam Medis..." autocomplete="off">
                     </div>
                 </div>
@@ -505,7 +514,7 @@
                         <i class="fa-solid fa-rotate-left"></i> Reset
                     </button>
                     <div class="ml-auto">
-                        <button class="btn-green" style="padding:13px 20px;" onclick="exportCSV()" title="Ekspor data ke CSV">
+                        <button class="btn-green" style="padding:13px 20px;" onclick="exportCSV()">
                             <i class="fa-solid fa-file-export"></i> Ekspor CSV
                         </button>
                     </div>
@@ -521,7 +530,7 @@
                         <i class="fa-solid fa-users text-xl" style="color:var(--blue-600);"></i>
                     </div>
                     <div>
-                        <div class="text-xs font-bold uppercase tracking-wider" style="color:var(--text-muted);">Total Pasien</div>
+                        <div class="text-xs font-bold uppercase tracking-wider" style="color:var(--text-muted);">Total Antri</div>
                         <div class="text-2xl font-black" style="color:var(--blue-900);" id="statTotal">—</div>
                     </div>
                 </div>
@@ -558,15 +567,14 @@
         <!-- Table Section -->
         <section class="max-w-7xl mx-auto mt-6 fade-up" style="animation-delay:0.3s">
             <div class="card overflow-hidden">
-                <!-- Table header bar -->
                 <div class="flex flex-wrap items-center justify-between gap-4 p-5 border-b" style="border-color:var(--border);">
                     <div class="flex items-center gap-3">
-                        <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:var(--blue-50);">
-                            <i class="fa-solid fa-table-list" style="color:var(--blue-600);"></i>
+                        <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:var(--green-50);">
+                            <i class="fa-solid fa-clipboard-list" style="color:var(--green-600);"></i>
                         </div>
                         <div>
-                            <span class="font-extrabold text-sm" style="color:var(--blue-900);">Data Pendaftaran Pasien</span>
-                            <span class="text-xs block" style="color:var(--text-muted);">Sumber: Google Sheets — Sheet "Form Responses 1"</span>
+                            <span class="font-extrabold text-sm" style="color:var(--blue-900);">Daftar Antri Pasien Dialisis</span>
+                            <span class="text-xs block" style="color:var(--text-muted);">Diurutkan berdasarkan waktu pendaftaran — Data yang diblok tidak ditampilkan</span>
                         </div>
                     </div>
                     <div class="flex items-center gap-3">
@@ -583,7 +591,7 @@
                 <!-- Loading State -->
                 <div id="loadingState" class="flex flex-col items-center justify-center py-20">
                     <div class="spinner mb-4"></div>
-                    <p class="text-sm font-semibold" style="color:var(--text-muted);">Mengambil data dari Google Sheets...</p>
+                    <p class="text-sm font-semibold" style="color:var(--text-muted);">Mengambil data antrian dari Google Sheets...</p>
                     <p class="text-xs mt-1" style="color:var(--gray-400);">Mohon tunggu sebentar</p>
                 </div>
 
@@ -602,7 +610,7 @@
                         <i class="fa-solid fa-search text-3xl" style="color:#f59e0b;"></i>
                     </div>
                     <p class="text-lg font-extrabold mb-1" style="color:var(--text-primary);">Pencarian Tidak Ditemukan</p>
-                    <p class="text-sm" style="color:var(--text-muted);">Coba ubah kata kunci pencarian Anda.</p>
+                    <p class="text-sm" style="color:var(--text-muted);">Tidak ada pasien yang sesuai dengan filter Anda.</p>
                 </div>
 
                 <!-- Table Container -->
@@ -614,7 +622,6 @@
                         </table>
                     </div>
 
-                    <!-- Pagination -->
                     <div class="flex flex-wrap items-center justify-between gap-4 p-5 border-t" style="border-color:var(--border);background:var(--gray-50);">
                         <p class="text-sm font-medium" style="color:var(--text-muted);" id="paginationInfo">—</p>
                         <div class="flex items-center gap-2" id="paginationButtons"></div>
@@ -633,7 +640,7 @@
                     <rect x="9" y="2" width="6" height="20" rx="2" fill="#3b82f6"/>
                     <rect x="2" y="9" width="20" height="6" rx="2" fill="#3b82f6"/>
                 </svg>
-                <span class="text-xs font-semibold" style="color:var(--text-muted);">Sistem Informasi Rawat Jalan Dialisis</span>
+                <span class="text-xs font-semibold" style="color:var(--text-muted);">Sistem Antrian Rawat Jalan Dialisis</span>
             </div>
             <p class="text-xs" style="color:var(--gray-400);">
                 Unit Dialisis &copy; <span id="footerYear"></span> — Data tersinkronisasi dari Google Sheets
@@ -653,11 +660,11 @@
         let pageSize = 25;
         let namaColIdx = -1;
         let rmColIdx = -1;
+        let timestampKey = '_timestamp'; // Key internal untuk simpan timestamp dari kolom A
 
         /* ===== INISIALISASI ===== */
         document.getElementById('footerYear').textContent = new Date().getFullYear();
 
-        // Debounce pencarian real-time
         let debounceTimer = null;
         document.getElementById('inputNama').addEventListener('input', () => {
             clearTimeout(debounceTimer);
@@ -667,33 +674,24 @@
             clearTimeout(debounceTimer);
             debounceTimer = setTimeout(handleSearch, 350);
         });
-
-        // Enter untuk cari
         document.getElementById('inputNama').addEventListener('keydown', (e) => { if(e.key==='Enter') handleSearch(); });
         document.getElementById('inputRM').addEventListener('keydown', (e) => { if(e.key==='Enter') handleSearch(); });
 
-        // Muat data
         fetchCSVData();
 
-        /* ===== FETCH DATA CSV ===== */
+        /* ===== FETCH & PARSE CSV ===== */
         async function fetchCSVData() {
             showLoading();
             try {
                 const response = await fetch(CSV_URL);
                 if (!response.ok) throw new Error('Gagal mengakses data CSV');
                 const csvText = await response.text();
-
-                if (!csvText || csvText.trim().length === 0) {
-                    throw new Error('Data CSV kosong');
-                }
+                if (!csvText || csvText.trim().length === 0) throw new Error('Data CSV kosong');
 
                 const parsed = parseCSV(csvText);
+                if (parsed.length < 2) throw new Error('Data tidak cukup');
 
-                if (parsed.length < 2) {
-                    throw new Error('Data tidak cukup');
-                }
-
-                // Baris pertama = header, mulai kolom B (index 1)
+                // Header dari baris pertama, mulai kolom B (index 1)
                 const rawHeaders = parsed[0];
                 headers = [];
                 for (let i = 1; i < rawHeaders.length; i++) {
@@ -712,19 +710,23 @@
                     h.toLowerCase().includes('rekam medis') || h.toLowerCase().includes('no rm') ||
                     h.toLowerCase().includes('nomor rm') || h.toLowerCase().includes('no. rm') ||
                     h.toLowerCase().includes('no.rekam') || h.toLowerCase().includes('norm') ||
-                    h.toLowerCase().includes('no rm') || h.toLowerCase().includes('medical record')
+                    h.toLowerCase().includes('medical record')
                 );
                 if (rmColIdx === -1) {
                     rmColIdx = headers.findIndex(h => h.toLowerCase().includes('rm') || h.toLowerCase().includes('rekam'));
                 }
 
-                // Parse baris data (mulai dari baris ke-2)
+                // Parse baris data
                 allData = [];
                 for (let r = 1; r < parsed.length; r++) {
                     const row = parsed[r];
                     if (!row || row.length <= 1) continue;
 
-                    // Lewati kolom A (index 0)
+                    // Ambil timestamp dari kolom A (index 0)
+                    const timestampRaw = (row[0] || '').trim();
+                    const timestampParsed = parseSheetTimestamp(timestampRaw);
+
+                    // Lewati baris yang diblok (kosong total / tidak ada data di kolom B ke atas)
                     const rowData = {};
                     let hasData = false;
                     for (let i = 1; i < rawHeaders.length; i++) {
@@ -733,8 +735,25 @@
                         rowData[key] = val;
                         if (val) hasData = true;
                     }
-                    if (hasData) allData.push(rowData);
+
+                    if (!hasData) continue; // Baris kosong, lewati
+
+                    // Simpan timestamp internal untuk sorting
+                    rowData[timestampKey] = timestampRaw;
+                    rowData['_tsDate'] = timestampParsed; // Date object untuk sorting
+
+                    allData.push(rowData);
                 }
+
+                // Urutkan berdasarkan timestamp (terlama di atas = antrian pertama)
+                allData.sort((a, b) => {
+                    const da = a._tsDate;
+                    const db = b._tsDate;
+                    if (da && db) return da.getTime() - db.getTime();
+                    if (da) return -1;
+                    if (db) return 1;
+                    return 0;
+                });
 
                 // Update statistik
                 document.getElementById('statTotal').textContent = allData.length.toLocaleString('id-ID');
@@ -745,17 +764,7 @@
                 const todayStr = new Date().toLocaleDateString('id-ID');
                 let todayCount = 0;
                 allData.forEach(row => {
-                    const vals = Object.values(row);
-                    if (vals.some(v => {
-                        if (!v) return false;
-                        // Cek apakah ada tanggal hari ini
-                        try {
-                            const d = new Date(v);
-                            if (!isNaN(d.getTime()) && d.toLocaleDateString('id-ID') === todayStr) return true;
-                        } catch(e) {}
-                        // Juga cek string langsung
-                        return v.includes(new Date().getFullYear().toString());
-                    })) todayCount++;
+                    if (row._tsDate && row._tsDate.toLocaleDateString('id-ID') === todayStr) todayCount++;
                 });
                 document.getElementById('statToday').textContent = todayCount.toLocaleString('id-ID');
 
@@ -763,12 +772,62 @@
                 currentPage = 1;
                 renderTable();
 
-                showToast('success', `Berhasil memuat ${allData.length} data pasien dari Google Sheets.`);
+                showToast('success', `Berhasil memuat ${allData.length} data antrian pasien dari Google Sheets.`);
             } catch (err) {
                 console.error('Error fetching CSV:', err);
                 showEmpty();
                 showToast('error', 'Gagal memuat data. Pastikan spreadsheet dipublikasikan ke web (File > Share > Publish to web).');
             }
+        }
+
+        /* ===== PARSE TIMESTAMP GOOGLE SHEETS ===== */
+        function parseSheetTimestamp(str) {
+            if (!str) return null;
+
+            // Coba format Date standar
+            let d = new Date(str);
+            if (!isNaN(d.getTime())) return d;
+
+            // Format Google Sheets: M/D/YYYY H:MM:SS atau D/M/YYYY H:MM:SS
+            const matchSlash = str.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})\s+(\d{1,2}):(\d{2}):(\d{2})$/);
+            if (matchSlash) {
+                const [, p1, p2, year, hour, min, sec] = matchSlash.map(Number);
+                // Heuristik: jika p1 > 12 maka p1=tanggal, jika p2 > 12 maka p2=tanggal
+                let day, month;
+                if (p1 > 12) { day = p1; month = p2 - 1; }
+                else if (p2 > 12) { day = p2; month = p1 - 1; }
+                else { day = p2; month = p1 - 1; } // Asumsi M/D/YYYY (format US Google Sheets)
+                d = new Date(year, month, day, hour, min, sec);
+                if (!isNaN(d.getTime())) return d;
+            }
+
+            // Format tanpa jam: M/D/YYYY
+            const matchDate = str.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+            if (matchDate) {
+                const [, p1, p2, year] = matchDate.map(Number);
+                let day, month;
+                if (p1 > 12) { day = p1; month = p2 - 1; }
+                else if (p2 > 12) { day = p2; month = p1 - 1; }
+                else { day = p2; month = p1 - 1; }
+                d = new Date(year, month, day);
+                if (!isNaN(d.getTime())) return d;
+            }
+
+            return null;
+        }
+
+        /* ===== FORMAT TIMESTAMP UNTUK TAMPILAN ===== */
+        function formatTimestampDisplay(str) {
+            const d = parseSheetTimestamp(str);
+            if (d && !isNaN(d.getTime())) {
+                const day = String(d.getDate()).padStart(2, '0');
+                const month = String(d.getMonth() + 1).padStart(2, '0');
+                const year = d.getFullYear();
+                const hour = String(d.getHours()).padStart(2, '0');
+                const min = String(d.getMinutes()).padStart(2, '0');
+                return `${day}/${month}/${year} ${hour}:${min}`;
+            }
+            return str; // Fallback: tampilkan string mentah
         }
 
         /* ===== PARSER CSV ROBUST ===== */
@@ -781,10 +840,8 @@
 
             while (i < text.length) {
                 const ch = text[i];
-
                 if (inQuotes) {
                     if (ch === '"') {
-                        // Cek escaped quote ""
                         if (i + 1 < text.length && text[i + 1] === '"') {
                             field += '"';
                             i += 2;
@@ -805,7 +862,6 @@
                         field = '';
                         i++;
                     } else if (ch === '\r') {
-                        // Skip carriage return
                         i++;
                     } else if (ch === '\n') {
                         current.push(field);
@@ -819,13 +875,10 @@
                     }
                 }
             }
-
-            // Field terakhir
             if (field !== '' || current.length > 0) {
                 current.push(field);
                 rows.push(current);
             }
-
             return rows;
         }
 
@@ -846,7 +899,7 @@
                             const colName = headers[namaColIdx];
                             matchNama = row[colName] && row[colName].toLowerCase().includes(namaQuery);
                         } else {
-                            matchNama = Object.values(row).some(v => v && v.toLowerCase().includes(namaQuery));
+                            matchNama = Object.values(row).some(v => v && typeof v === 'string' && v.toLowerCase().includes(namaQuery));
                         }
                     }
 
@@ -855,7 +908,7 @@
                             const colRM = headers[rmColIdx];
                             matchRM = row[colRM] && String(row[colRM]).toLowerCase().includes(rmQuery);
                         } else {
-                            matchRM = Object.values(row).some(v => v && String(v).toLowerCase().includes(rmQuery));
+                            matchRM = Object.values(row).some(v => v && typeof v === 'string' && String(v).toLowerCase().includes(rmQuery));
                         }
                     }
 
@@ -892,9 +945,9 @@
             noResultState.classList.add('hidden');
             noResultState.classList.remove('flex');
 
-            // Header
+            // Header: No Antrian | Waktu Daftar | ...kolom data...
             const thead = document.getElementById('tableHead');
-            let headHTML = '<tr><th style="width:56px;text-align:center;">No</th>';
+            let headHTML = '<tr><th style="width:64px;text-align:center;">No</th><th style="width:160px;">Waktu Daftar</th>';
             headers.forEach(h => {
                 headHTML += `<th>${escapeHTML(h)}</th>`;
             });
@@ -915,20 +968,27 @@
             let bodyHTML = '';
 
             if (pageData.length === 0) {
-                bodyHTML = `<tr><td colspan="${headers.length + 1}" style="text-align:center;padding:40px;color:var(--text-muted);">
+                bodyHTML = `<tr><td colspan="${headers.length + 3}" style="text-align:center;padding:40px;color:var(--text-muted);">
                     <i class="fa-solid fa-inbox text-3xl block mb-3" style="color:var(--gray-300);"></i>
-                    Tidak ada data untuk ditampilkan
+                    Tidak ada data antrian untuk ditampilkan
                 </td></tr>`;
             } else {
                 pageData.forEach((row, idx) => {
                     const rowNum = startIdx + idx + 1;
                     bodyHTML += '<tr>';
-                    bodyHTML += `<td style="text-align:center;font-weight:700;color:var(--blue-600);font-size:12px;">${rowNum}</td>`;
+
+                    // Kolom Nomor Antrian
+                    bodyHTML += `<td style="text-align:center;"><span class="antrian-cell">${rowNum}</span></td>`;
+
+                    // Kolom Waktu Daftar (dari timestamp kolom A)
+                    const tsDisplay = formatTimestampDisplay(row[timestampKey]);
+                    bodyHTML += `<td class="timestamp-cell"><i class="fa-regular fa-clock" style="margin-right:4px;color:var(--blue-400);"></i>${escapeHTML(tsDisplay)}</td>`;
+
+                    // Kolom data dari kolom B ke atas
                     headers.forEach((h, hIdx) => {
                         let val = row[h] || '';
                         let displayVal = escapeHTML(val);
 
-                        // Highlight pencarian
                         if (namaQuery && hIdx === namaColIdx && val.toLowerCase().includes(namaQuery)) {
                             displayVal = highlightText(val, namaQuery);
                         }
@@ -936,7 +996,6 @@
                             displayVal = highlightText(val, rmQuery);
                         }
 
-                        // Badge untuk kolom tertentu
                         const hLower = h.toLowerCase();
                         if (hLower.includes('status') || hLower.includes('jenis kelamin') || hLower.includes('gender') || hLower.includes('j. kelamin')) {
                             displayVal = renderBadge(val, hLower);
@@ -949,9 +1008,8 @@
             }
             tbody.innerHTML = bodyHTML;
 
-            // Info pagination
             document.getElementById('paginationInfo').textContent =
-                `Menampilkan ${filteredData.length === 0 ? 0 : startIdx + 1}–${endIdx} dari ${filteredData.length} data`;
+                `Menampilkan ${filteredData.length === 0 ? 0 : startIdx + 1}–${endIdx} dari ${filteredData.length} data antrian`;
 
             renderPagination(totalPages);
         }
@@ -1022,9 +1080,9 @@
             let bg, color;
 
             if (headerLower.includes('status')) {
-                if (v.includes('aktif') || v.includes('daftar') || v.includes('terdaftar') || v.includes('verified') || v.includes('lanjut')) {
+                if (v.includes('aktif') || v.includes('daftar') || v.includes('terdaftar') || v.includes('verified') || v.includes('lanjut') || v.includes('antri')) {
                     bg = '#d1fae5'; color = '#065f46';
-                } else if (v.includes('batal') || v.includes('ditolak') || v.includes('rejected') || v.includes('selesai')) {
+                } else if (v.includes('batal') || v.includes('ditolak') || v.includes('rejected') || v.includes('selesai') || v.includes('selesai')) {
                     bg = '#fee2e2'; color = '#991b1b';
                 } else {
                     bg = '#e2e8f0'; color = '#475569';
@@ -1051,23 +1109,27 @@
                 return;
             }
 
-            let csv = headers.map(h => `"${h.replace(/"/g,'""')}"`).join(',') + '\n';
-            filteredData.forEach(row => {
-                const vals = headers.map(h => {
-                    let v = row[h] || '';
-                    return `"${v.replace(/"/g,'""')}"`;
-                });
+            let csv = '"No","Waktu Daftar",' + headers.map(h => `"${h.replace(/"/g,'""')}"`).join(',') + '\n';
+            filteredData.forEach((row, idx) => {
+                const vals = [
+                    `"${idx + 1}"`,
+                    `"${formatTimestampDisplay(row[timestampKey]).replace(/"/g,'""')}"`,
+                    ...headers.map(h => {
+                        let v = row[h] || '';
+                        return `"${v.replace(/"/g,'""')}"`;
+                    })
+                ];
                 csv += vals.join(',') + '\n';
             });
 
             const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = `Data_Pasien_Dialisis_${new Date().toISOString().slice(0,10)}.csv`;
+            link.download = `Daftar_Antri_Pasien_Dialisis_${new Date().toISOString().slice(0,10)}.csv`;
             link.click();
             URL.revokeObjectURL(link.href);
 
-            showToast('success', `Berhasil mengekspor ${filteredData.length} data ke CSV.`);
+            showToast('success', `Berhasil mengekspor ${filteredData.length} data antrian ke CSV.`);
         }
 
         /* ===== UI STATE ===== */
