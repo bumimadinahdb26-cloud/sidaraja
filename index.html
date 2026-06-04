@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pencarian Pendaftaran Pasien Rawat Jalan Dialisis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --blue-900: #1e3a5f;
+            --blue-800: #1e40af;
+            --blue-700: #1d4ed8;
+            --blue-600: #2563eb;
+            --blue-500: #3b82f6;
+            --blue-400: #60a5fa;
+            --blue-300: #93c5fd;
+            --blue-200: #bfdbfe;
+            --blue-100: #dbeafe;
+            --blue-50: #eff6ff;
+            --green-700: #047857;
+            --green-600: #059669;
+            --green-500: #10b981;
+            --green-400: #34d399;
+            --green-300: #6ee7b7;
+            --green-100: #d1fae5;
+            --green-50: #ecfdf5;
+            --white: #ffffff;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --surface: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --border: #e2e8f0;
+            --border-focus: #3b82f6;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--gray-50);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+
+        /* ===== HEADER ===== */
+        .main-header {
+            background: linear-gradient(135deg, var(--blue-900) 0%, var(--blue-700) 40%, var(--blue-600) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .main-header::before {
+            content: '';
+            position: absolute;
+            top: -50%; right: -10%;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .main-header::after {
+            content: '';
+            position: absolute;
+            bottom: -60%; left: -5%;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* ECG line animation */
+        .ecg-line {
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 60px;
+            overflow: hidden;
+            opacity: 0.3;
+        }
+        .ecg-line svg {
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 200%; height: 60px;
+            animation: ecgScroll 6s linear infinite;
+        }
+        @keyframes ecgScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Medical cross pattern */
+        .med-pattern {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        /* ===== CARDS ===== */
+        .card {
+            background: var(--white);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.02);
+            transition: box-shadow 0.3s ease;
+        }
+        .card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04);
+        }
+
+        /* ===== STAT CARDS ===== */
+        .stat-card {
+            background: var(--white);
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            opacity: 0.06;
+            transform: translate(20px, -20px);
+        }
+        .stat-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+        .stat-icon {
+            width: 52px; height: 52px;
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* ===== INPUTS ===== */
+        .search-input {
+            width: 100%;
+            padding: 13px 16px 13px 48px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-size: 15px;
+            color: var(--text-primary);
+            background: var(--white);
+            transition: all 0.25s ease;
+            outline: none;
+            font-family: inherit;
+        }
+        .search-input::placeholder { color: var(--text-muted); }
+        .search-input:focus {
+            border-color: var(--blue-500);
+            box-shadow: 0 0 0 4px rgba(59,130,246,0.1);
+        }
+        .input-icon {
+            position: absolute;
+            left: 16px; top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 16px;
+            transition: color 0.25s ease;
+        }
+        .search-input:focus ~ .input-icon,
+        .search-input:focus + .input-icon { color: var(--blue-500); }
+
+        /* ===== BUTTONS ===== */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--blue-600), var(--blue-700));
+            color: white;
+            font-weight: 700;
+            padding: 13px 28px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-size: 14px;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--blue-500), var(--blue-600));
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(37,99,235,0.3);
+        }
+        .btn-primary:active { transform: translateY(0); }
+
+        .btn-green {
+            background: linear-gradient(135deg, var(--green-500), var(--green-600));
+            color: white;
+            font-weight: 700;
+            padding: 13px 28px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-size: 14px;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-green:hover {
+            background: linear-gradient(135deg, var(--green-400), var(--green-500));
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(16,185,129,0.3);
+        }
+
+        .btn-outline {
+            background: var(--white);
+            color: var(--text-secondary);
+            font-weight: 600;
+            padding: 13px 28px;
+            border-radius: 12px;
+            border: 2px solid var(--border);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-size: 14px;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-outline:hover {
+            border-color: var(--blue-300);
+            color: var(--blue-600);
+            background: var(--blue-50);
+        }
+
+        /* ===== TABLE ===== */
+        .table-wrap { overflow-x: auto; }
+        .data-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        .data-table thead th {
+            background: linear-gradient(135deg, var(--blue-900), var(--blue-700));
+            padding: 14px 18px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 11.5px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: rgba(255,255,255,0.95);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            white-space: nowrap;
+            border-bottom: 3px solid var(--green-500);
+        }
+        .data-table thead th:first-child { border-radius: 12px 0 0 0; }
+        .data-table thead th:last-child { border-radius: 0 12px 0 0; }
+        .data-table tbody tr {
+            transition: background 0.15s ease;
+        }
+        .data-table tbody tr:nth-child(even) { background: var(--gray-50); }
+        .data-table tbody tr:nth-child(odd) { background: var(--white); }
+        .data-table tbody tr:hover { background: var(--blue-50); }
+        .data-table tbody td {
+            padding: 13px 18px;
+            border-bottom: 1px solid var(--border);
+            font-size: 13.5px;
+            color: var(--text-secondary);
+            max-width: 260px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .data-table tbody tr:last-child td { border-bottom: none; }
+
+        /* Highlight */
+        .highlight-match {
+            background: rgba(16,185,129,0.18);
+            color: var(--green-700);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+
+        /* ===== PAGINATION ===== */
+        .page-btn {
+            width: 38px; height: 38px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 10px;
+            font-size: 13px; font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid var(--border);
+            background: var(--white);
+            color: var(--text-secondary);
+            font-family: inherit;
+        }
+        .page-btn:hover { border-color: var(--blue-300); color: var(--blue-600); background: var(--blue-50); }
+        .page-btn.active {
+            background: linear-gradient(135deg, var(--blue-600), var(--blue-700));
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(37,99,235,0.25);
+        }
+        .page-btn:disabled { opacity: 0.35; cursor: not-allowed; pointer-events: none; }
+
+        /* ===== LOADING ===== */
+        .spinner {
+            width: 48px; height: 48px;
+            border: 4px solid var(--blue-100);
+            border-top-color: var(--blue-600);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ===== TOAST ===== */
+        .toast-container {
+            position: fixed; top: 24px; right: 24px;
+            z-index: 9999;
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .toast {
+            padding: 14px 20px; border-radius: 12px;
+            font-size: 14px; font-weight: 500;
+            display: flex; align-items: center; gap: 10px;
+            animation: toastIn 0.4s cubic-bezier(0.16,1,0.3,1);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            max-width: 420px;
+            font-family: inherit;
+        }
+        .toast-success { background: #ecfdf5; border: 1px solid #a7f3d0; color: #065f46; }
+        .toast-error { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; }
+        .toast-info { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; }
+        @keyframes toastIn { from { opacity:0; transform:translateX(40px); } to { opacity:1; transform:translateX(0); } }
+        .toast-exit { animation: toastOut 0.3s ease forwards; }
+        @keyframes toastOut { to { opacity:0; transform:translateX(40px); } }
+
+        /* ===== BADGE ===== */
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        /* ===== FADE ===== */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(16px);
+            animation: fadeUp 0.5s cubic-bezier(0.16,1,0.3,1) forwards;
+        }
+        @keyframes fadeUp { to { opacity:1; transform:translateY(0); } }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--gray-100); }
+        ::-webkit-scrollbar-thumb { background: var(--blue-200); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--blue-300); }
+
+        /* ===== KIDNEY SVG ANIM ===== */
+        .kidney-pulse {
+            animation: kidneyPulse 2.5s ease-in-out infinite;
+        }
+        @keyframes kidneyPulse {
+            0%,100% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.06); opacity: 1; }
+        }
+
+        /* ===== MEDICAL STRIPE ===== */
+        .med-stripe {
+            height: 4px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--blue-600) 0px,
+                var(--blue-600) 20px,
+                var(--green-500) 20px,
+                var(--green-500) 40px
+            );
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        @media (max-width: 768px) {
+            .search-grid { grid-template-columns: 1fr !important; }
+            .stats-grid { grid-template-columns: 1fr 1fr !important; }
+        }
+        @media (max-width: 480px) {
+            .stats-grid { grid-template-columns: 1fr !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ===== HEADER ===== -->
+    <header class="main-header">
+        <div class="med-pattern"></div>
+
+        <!-- ECG Line -->
+        <div class="ecg-line">
+            <svg viewBox="0 0 1200 60" preserveAspectRatio="none" fill="none">
+                <polyline points="0,30 60,30 80,30 95,8 110,52 125,12 140,48 155,30 240,30 260,30 275,8 290,52 305,12 320,48 335,30 420,30 440,30 455,8 470,52 485,12 500,48 515,30 600,30 620,30 635,8 650,52 665,12 680,48 695,30 780,30 800,30 815,8 830,52 845,12 860,48 875,30 960,30 980,30 995,8 1010,52 1025,12 1040,48 1055,30 1140,30 1160,30 1175,8 1190,52 1200,30"
+                    stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+
+        <div class="relative z-10 px-4 sm:px-8 pt-8 pb-10">
+            <div class="max-w-7xl mx-auto">
+                <!-- Top bar -->
+                <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+                    <div class="flex items-center gap-3">
+                        <!-- Medical cross icon -->
+                        <div class="w-12 h-12 rounded-2xl flex items-center justify-center" style="background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.15);">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <rect x="9" y="2" width="6" height="20" rx="2" fill="#34d399"/>
+                                <rect x="2" y="9" width="20" height="6" rx="2" fill="#34d399"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="text-white font-extrabold text-lg leading-tight tracking-tight">RS Umum</div>
+                            <div class="text-blue-200 text-xs font-medium tracking-wide">UNIT RAWAT JALAN DIALISIS</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 px-4 py-2 rounded-full" style="background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.25);">
+                        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                        <span class="text-green-300 text-xs font-bold tracking-wide">SISTEM AKTIF</span>
+                    </div>
+                </div>
+
+                <!-- Title -->
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight mb-3">
+                    Pencarian Pendaftaran<br>
+                    <span style="background:linear-gradient(135deg,#6ee7b7,#34d399,#10b981); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">Pasien Rawat Jalan Dialisis</span>
+                </h1>
+                <p class="text-blue-200 text-base sm:text-lg font-light max-w-xl">
+                    Cari dan verifikasi data pendaftaran pasien dialisis berdasarkan nama pasien dan nomor rekam medis secara realtime.
+                </p>
+            </div>
+        </div>
+
+        <!-- Medical stripe -->
+        <div class="med-stripe"></div>
+    </header>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="px-4 sm:px-8 -mt-2 relative z-20 pb-16">
+
+        <!-- Search Section -->
+        <section class="max-w-7xl mx-auto mt-8 fade-up" style="animation-delay:0.1s">
+            <div class="card p-6 sm:p-8">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,var(--blue-500),var(--blue-600));">
+                        <i class="fa-solid fa-magnifying-glass text-white text-sm"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-extrabold" style="color:var(--blue-900);">Filter Pencarian</h2>
+                        <p class="text-xs" style="color:var(--text-muted);">Masukkan nama pasien atau nomor rekam medis untuk memfilter data</p>
+                    </div>
+                </div>
+
+                <div class="search-grid grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6">
+                    <!-- Nama Pasien -->
+                    <div class="relative">
+                        <i class="fa-solid fa-user-injured input-icon" style="z-index:2;"></i>
+                        <input type="text" id="inputNama" class="search-input" placeholder="Ketik Nama Pasien..." autocomplete="off">
+                    </div>
+                    <!-- Nomor Rekam Medis -->
+                    <div class="relative">
+                        <i class="fa-solid fa-id-card-clip input-icon" style="z-index:2;"></i>
+                        <input type="text" id="inputRM" class="search-input" placeholder="Ketik Nomor Rekam Medis..." autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-3">
+                    <button class="btn-primary" onclick="handleSearch()">
+                        <i class="fa-solid fa-search"></i> Cari Data
+                    </button>
+                    <button class="btn-outline" onclick="handleReset()">
+                        <i class="fa-solid fa-rotate-left"></i> Reset
+                    </button>
+                    <div class="ml-auto">
+                        <button class="btn-green" style="padding:13px 20px;" onclick="exportCSV()" title="Ekspor data ke CSV">
+                            <i class="fa-solid fa-file-export"></i> Ekspor CSV
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="max-w-7xl mx-auto mt-6 fade-up" style="animation-delay:0.2s">
+            <div class="stats-grid grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe);">
+                        <i class="fa-solid fa-users text-xl" style="color:var(--blue-600);"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs font-bold uppercase tracking-wider" style="color:var(--text-muted);">Total Pasien</div>
+                        <div class="text-2xl font-black" style="color:var(--blue-900);" id="statTotal">—</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0);">
+                        <i class="fa-solid fa-filter text-xl" style="color:var(--green-600);"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs font-bold uppercase tracking-wider" style="color:var(--text-muted);">Hasil Filter</div>
+                        <div class="text-2xl font-black" style="color:var(--green-700);" id="statFiltered">—</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background:linear-gradient(135deg,#fef3c7,#fde68a);">
+                        <i class="fa-solid fa-calendar-check text-xl" style="color:#b45309;"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs font-bold uppercase tracking-wider" style="color:var(--text-muted);">Hari Ini</div>
+                        <div class="text-2xl font-black" style="color:#92400e;" id="statToday">—</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe);">
+                        <i class="fa-solid fa-clock text-xl" style="color:#7c3aed;"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs font-bold uppercase tracking-wider" style="color:var(--text-muted);">Update Terakhir</div>
+                        <div class="text-lg font-extrabold" style="color:#5b21b6;" id="statUpdated">—</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Table Section -->
+        <section class="max-w-7xl mx-auto mt-6 fade-up" style="animation-delay:0.3s">
+            <div class="card overflow-hidden">
+                <!-- Table header bar -->
+                <div class="flex flex-wrap items-center justify-between gap-4 p-5 border-b" style="border-color:var(--border);">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:var(--blue-50);">
+                            <i class="fa-solid fa-table-list" style="color:var(--blue-600);"></i>
+                        </div>
+                        <div>
+                            <span class="font-extrabold text-sm" style="color:var(--blue-900);">Data Pendaftaran Pasien</span>
+                            <span class="text-xs block" style="color:var(--text-muted);">Sumber: Google Sheets — Sheet "Form Responses 1"</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <label class="text-xs font-semibold" style="color:var(--text-muted);">Tampilkan:</label>
+                        <select id="pageSize" onchange="changePageSize()" class="text-sm rounded-lg px-3 py-2 font-semibold outline-none" style="background:var(--white);color:var(--text-primary);border:2px solid var(--border);font-family:inherit;">
+                            <option value="10">10</option>
+                            <option value="25" selected>25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div id="loadingState" class="flex flex-col items-center justify-center py-20">
+                    <div class="spinner mb-4"></div>
+                    <p class="text-sm font-semibold" style="color:var(--text-muted);">Mengambil data dari Google Sheets...</p>
+                    <p class="text-xs mt-1" style="color:var(--gray-400);">Mohon tunggu sebentar</p>
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyState" class="hidden flex-col items-center justify-center py-20">
+                    <div class="w-20 h-20 rounded-2xl flex items-center justify-center mb-4" style="background:#fef2f2;">
+                        <i class="fa-solid fa-triangle-exclamation text-3xl" style="color:#ef4444;"></i>
+                    </div>
+                    <p class="text-lg font-extrabold mb-1" style="color:var(--text-primary);">Data Tidak Tersedia</p>
+                    <p class="text-sm" style="color:var(--text-muted);">Gagal memuat data atau sheet kosong. Pastikan link CSV dapat diakses.</p>
+                </div>
+
+                <!-- No Results State -->
+                <div id="noResultState" class="hidden flex-col items-center justify-center py-20">
+                    <div class="w-20 h-20 rounded-2xl flex items-center justify-center mb-4" style="background:#fef3c7;">
+                        <i class="fa-solid fa-search text-3xl" style="color:#f59e0b;"></i>
+                    </div>
+                    <p class="text-lg font-extrabold mb-1" style="color:var(--text-primary);">Pencarian Tidak Ditemukan</p>
+                    <p class="text-sm" style="color:var(--text-muted);">Coba ubah kata kunci pencarian Anda.</p>
+                </div>
+
+                <!-- Table Container -->
+                <div id="tableContainer" class="hidden">
+                    <div class="table-wrap">
+                        <table class="data-table" id="dataTable">
+                            <thead id="tableHead"></thead>
+                            <tbody id="tableBody"></tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="flex flex-wrap items-center justify-between gap-4 p-5 border-t" style="border-color:var(--border);background:var(--gray-50);">
+                        <p class="text-sm font-medium" style="color:var(--text-muted);" id="paginationInfo">—</p>
+                        <div class="flex items-center gap-2" id="paginationButtons"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer style="background:var(--white); border-top:1px solid var(--border);">
+        <div class="med-stripe"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="flex items-center gap-2">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <rect x="9" y="2" width="6" height="20" rx="2" fill="#3b82f6"/>
+                    <rect x="2" y="9" width="20" height="6" rx="2" fill="#3b82f6"/>
+                </svg>
+                <span class="text-xs font-semibold" style="color:var(--text-muted);">Sistem Informasi Rawat Jalan Dialisis</span>
+            </div>
+            <p class="text-xs" style="color:var(--gray-400);">
+                Unit Dialisis &copy; <span id="footerYear"></span> — Data tersinkronisasi dari Google Sheets
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        /* ===== KONFIGURASI ===== */
+        const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQZVO38b4R1ptmVVoMCRwRDsgTCN_KfTgpzus4VtTLRlXvfhZ6IHaXl25tubcrpzRgrgIFztik4_-Li/pub?gid=1588121083&single=true&output=csv';
+
+        /* ===== STATE ===== */
+        let allData = [];
+        let headers = [];
+        let filteredData = [];
+        let currentPage = 1;
+        let pageSize = 25;
+        let namaColIdx = -1;
+        let rmColIdx = -1;
+
+        /* ===== INISIALISASI ===== */
+        document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+        // Debounce pencarian real-time
+        let debounceTimer = null;
+        document.getElementById('inputNama').addEventListener('input', () => {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(handleSearch, 350);
+        });
+        document.getElementById('inputRM').addEventListener('input', () => {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(handleSearch, 350);
+        });
+
+        // Enter untuk cari
+        document.getElementById('inputNama').addEventListener('keydown', (e) => { if(e.key==='Enter') handleSearch(); });
+        document.getElementById('inputRM').addEventListener('keydown', (e) => { if(e.key==='Enter') handleSearch(); });
+
+        // Muat data
+        fetchCSVData();
+
+        /* ===== FETCH DATA CSV ===== */
+        async function fetchCSVData() {
+            showLoading();
+            try {
+                const response = await fetch(CSV_URL);
+                if (!response.ok) throw new Error('Gagal mengakses data CSV');
+                const csvText = await response.text();
+
+                if (!csvText || csvText.trim().length === 0) {
+                    throw new Error('Data CSV kosong');
+                }
+
+                const parsed = parseCSV(csvText);
+
+                if (parsed.length < 2) {
+                    throw new Error('Data tidak cukup');
+                }
+
+                // Baris pertama = header, mulai kolom B (index 1)
+                const rawHeaders = parsed[0];
+                headers = [];
+                for (let i = 1; i < rawHeaders.length; i++) {
+                    headers.push(rawHeaders[i].trim());
+                }
+
+                // Identifikasi kolom filter
+                namaColIdx = headers.findIndex(h =>
+                    h.toLowerCase().includes('nama') && h.toLowerCase().includes('pasien')
+                );
+                if (namaColIdx === -1) {
+                    namaColIdx = headers.findIndex(h => h.toLowerCase().includes('nama'));
+                }
+
+                rmColIdx = headers.findIndex(h =>
+                    h.toLowerCase().includes('rekam medis') || h.toLowerCase().includes('no rm') ||
+                    h.toLowerCase().includes('nomor rm') || h.toLowerCase().includes('no. rm') ||
+                    h.toLowerCase().includes('no.rekam') || h.toLowerCase().includes('norm') ||
+                    h.toLowerCase().includes('no rm') || h.toLowerCase().includes('medical record')
+                );
+                if (rmColIdx === -1) {
+                    rmColIdx = headers.findIndex(h => h.toLowerCase().includes('rm') || h.toLowerCase().includes('rekam'));
+                }
+
+                // Parse baris data (mulai dari baris ke-2)
+                allData = [];
+                for (let r = 1; r < parsed.length; r++) {
+                    const row = parsed[r];
+                    if (!row || row.length <= 1) continue;
+
+                    // Lewati kolom A (index 0)
+                    const rowData = {};
+                    let hasData = false;
+                    for (let i = 1; i < rawHeaders.length; i++) {
+                        const key = headers[i - 1];
+                        const val = (i < row.length) ? (row[i] || '').trim() : '';
+                        rowData[key] = val;
+                        if (val) hasData = true;
+                    }
+                    if (hasData) allData.push(rowData);
+                }
+
+                // Update statistik
+                document.getElementById('statTotal').textContent = allData.length.toLocaleString('id-ID');
+                document.getElementById('statFiltered').textContent = allData.length.toLocaleString('id-ID');
+                document.getElementById('statUpdated').textContent = new Date().toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit' });
+
+                // Hitung data hari ini
+                const todayStr = new Date().toLocaleDateString('id-ID');
+                let todayCount = 0;
+                allData.forEach(row => {
+                    const vals = Object.values(row);
+                    if (vals.some(v => {
+                        if (!v) return false;
+                        // Cek apakah ada tanggal hari ini
+                        try {
+                            const d = new Date(v);
+                            if (!isNaN(d.getTime()) && d.toLocaleDateString('id-ID') === todayStr) return true;
+                        } catch(e) {}
+                        // Juga cek string langsung
+                        return v.includes(new Date().getFullYear().toString());
+                    })) todayCount++;
+                });
+                document.getElementById('statToday').textContent = todayCount.toLocaleString('id-ID');
+
+                filteredData = [...allData];
+                currentPage = 1;
+                renderTable();
+
+                showToast('success', `Berhasil memuat ${allData.length} data pasien dari Google Sheets.`);
+            } catch (err) {
+                console.error('Error fetching CSV:', err);
+                showEmpty();
+                showToast('error', 'Gagal memuat data. Pastikan spreadsheet dipublikasikan ke web (File > Share > Publish to web).');
+            }
+        }
+
+        /* ===== PARSER CSV ROBUST ===== */
+        function parseCSV(text) {
+            const rows = [];
+            let current = [];
+            let field = '';
+            let inQuotes = false;
+            let i = 0;
+
+            while (i < text.length) {
+                const ch = text[i];
+
+                if (inQuotes) {
+                    if (ch === '"') {
+                        // Cek escaped quote ""
+                        if (i + 1 < text.length && text[i + 1] === '"') {
+                            field += '"';
+                            i += 2;
+                        } else {
+                            inQuotes = false;
+                            i++;
+                        }
+                    } else {
+                        field += ch;
+                        i++;
+                    }
+                } else {
+                    if (ch === '"') {
+                        inQuotes = true;
+                        i++;
+                    } else if (ch === ',') {
+                        current.push(field);
+                        field = '';
+                        i++;
+                    } else if (ch === '\r') {
+                        // Skip carriage return
+                        i++;
+                    } else if (ch === '\n') {
+                        current.push(field);
+                        field = '';
+                        rows.push(current);
+                        current = [];
+                        i++;
+                    } else {
+                        field += ch;
+                        i++;
+                    }
+                }
+            }
+
+            // Field terakhir
+            if (field !== '' || current.length > 0) {
+                current.push(field);
+                rows.push(current);
+            }
+
+            return rows;
+        }
+
+        /* ===== PENCARIAN ===== */
+        function handleSearch() {
+            const namaQuery = document.getElementById('inputNama').value.trim().toLowerCase();
+            const rmQuery = document.getElementById('inputRM').value.trim().toLowerCase();
+
+            if (namaQuery === '' && rmQuery === '') {
+                filteredData = [...allData];
+            } else {
+                filteredData = allData.filter(row => {
+                    let matchNama = true;
+                    let matchRM = true;
+
+                    if (namaQuery !== '') {
+                        if (namaColIdx !== -1) {
+                            const colName = headers[namaColIdx];
+                            matchNama = row[colName] && row[colName].toLowerCase().includes(namaQuery);
+                        } else {
+                            matchNama = Object.values(row).some(v => v && v.toLowerCase().includes(namaQuery));
+                        }
+                    }
+
+                    if (rmQuery !== '') {
+                        if (rmColIdx !== -1) {
+                            const colRM = headers[rmColIdx];
+                            matchRM = row[colRM] && String(row[colRM]).toLowerCase().includes(rmQuery);
+                        } else {
+                            matchRM = Object.values(row).some(v => v && String(v).toLowerCase().includes(rmQuery));
+                        }
+                    }
+
+                    return matchNama && matchRM;
+                });
+            }
+
+            currentPage = 1;
+            document.getElementById('statFiltered').textContent = filteredData.length.toLocaleString('id-ID');
+            renderTable();
+
+            if (filteredData.length === 0 && (namaQuery || rmQuery)) {
+                showNoResult();
+            }
+        }
+
+        function handleReset() {
+            document.getElementById('inputNama').value = '';
+            document.getElementById('inputRM').value = '';
+            filteredData = [...allData];
+            currentPage = 1;
+            document.getElementById('statFiltered').textContent = allData.length.toLocaleString('id-ID');
+            renderTable();
+            showToast('info', 'Filter pencarian telah direset.');
+        }
+
+        /* ===== RENDER TABEL ===== */
+        function renderTable() {
+            if (allData.length === 0) return;
+
+            const tableContainer = document.getElementById('tableContainer');
+            const noResultState = document.getElementById('noResultState');
+            tableContainer.classList.remove('hidden');
+            noResultState.classList.add('hidden');
+            noResultState.classList.remove('flex');
+
+            // Header
+            const thead = document.getElementById('tableHead');
+            let headHTML = '<tr><th style="width:56px;text-align:center;">No</th>';
+            headers.forEach(h => {
+                headHTML += `<th>${escapeHTML(h)}</th>`;
+            });
+            headHTML += '</tr>';
+            thead.innerHTML = headHTML;
+
+            // Pagination
+            const totalPages = Math.max(1, Math.ceil(filteredData.length / pageSize));
+            if (currentPage > totalPages) currentPage = totalPages;
+            const startIdx = (currentPage - 1) * pageSize;
+            const endIdx = Math.min(startIdx + pageSize, filteredData.length);
+            const pageData = filteredData.slice(startIdx, endIdx);
+
+            const namaQuery = document.getElementById('inputNama').value.trim().toLowerCase();
+            const rmQuery = document.getElementById('inputRM').value.trim().toLowerCase();
+
+            const tbody = document.getElementById('tableBody');
+            let bodyHTML = '';
+
+            if (pageData.length === 0) {
+                bodyHTML = `<tr><td colspan="${headers.length + 1}" style="text-align:center;padding:40px;color:var(--text-muted);">
+                    <i class="fa-solid fa-inbox text-3xl block mb-3" style="color:var(--gray-300);"></i>
+                    Tidak ada data untuk ditampilkan
+                </td></tr>`;
+            } else {
+                pageData.forEach((row, idx) => {
+                    const rowNum = startIdx + idx + 1;
+                    bodyHTML += '<tr>';
+                    bodyHTML += `<td style="text-align:center;font-weight:700;color:var(--blue-600);font-size:12px;">${rowNum}</td>`;
+                    headers.forEach((h, hIdx) => {
+                        let val = row[h] || '';
+                        let displayVal = escapeHTML(val);
+
+                        // Highlight pencarian
+                        if (namaQuery && hIdx === namaColIdx && val.toLowerCase().includes(namaQuery)) {
+                            displayVal = highlightText(val, namaQuery);
+                        }
+                        if (rmQuery && hIdx === rmColIdx && val.toLowerCase().includes(rmQuery)) {
+                            displayVal = highlightText(val, rmQuery);
+                        }
+
+                        // Badge untuk kolom tertentu
+                        const hLower = h.toLowerCase();
+                        if (hLower.includes('status') || hLower.includes('jenis kelamin') || hLower.includes('gender') || hLower.includes('j. kelamin')) {
+                            displayVal = renderBadge(val, hLower);
+                        }
+
+                        bodyHTML += `<td title="${escapeHTML(val)}">${displayVal}</td>`;
+                    });
+                    bodyHTML += '</tr>';
+                });
+            }
+            tbody.innerHTML = bodyHTML;
+
+            // Info pagination
+            document.getElementById('paginationInfo').textContent =
+                `Menampilkan ${filteredData.length === 0 ? 0 : startIdx + 1}–${endIdx} dari ${filteredData.length} data`;
+
+            renderPagination(totalPages);
+        }
+
+        function renderPagination(totalPages) {
+            const container = document.getElementById('paginationButtons');
+            let html = '';
+
+            html += `<button class="page-btn" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
+                <i class="fa-solid fa-chevron-left text-xs"></i>
+            </button>`;
+
+            const maxVisible = 5;
+            let startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+            let endPage = Math.min(totalPages, startPage + maxVisible - 1);
+            if (endPage - startPage + 1 < maxVisible) {
+                startPage = Math.max(1, endPage - maxVisible + 1);
+            }
+
+            if (startPage > 1) {
+                html += `<button class="page-btn" onclick="goToPage(1)">1</button>`;
+                if (startPage > 2) html += `<span class="text-xs px-1" style="color:var(--gray-400);">...</span>`;
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+                html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+            }
+
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) html += `<span class="text-xs px-1" style="color:var(--gray-400);">...</span>`;
+                html += `<button class="page-btn" onclick="goToPage(${totalPages})">${totalPages}</button>`;
+            }
+
+            html += `<button class="page-btn" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
+                <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>`;
+
+            container.innerHTML = html;
+        }
+
+        function goToPage(page) {
+            const totalPages = Math.max(1, Math.ceil(filteredData.length / pageSize));
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            renderTable();
+            document.getElementById('tableContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function changePageSize() {
+            pageSize = parseInt(document.getElementById('pageSize').value);
+            currentPage = 1;
+            renderTable();
+        }
+
+        /* ===== HIGHLIGHT ===== */
+        function highlightText(text, query) {
+            const escaped = escapeHTML(text);
+            const regex = new RegExp(`(${escapeRegex(query)})`, 'gi');
+            return escaped.replace(regex, '<span class="highlight-match">$1</span>');
+        }
+        function escapeRegex(str) {
+            return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+
+        /* ===== BADGE ===== */
+        function renderBadge(val, headerLower) {
+            const v = val.toLowerCase().trim();
+            let bg, color;
+
+            if (headerLower.includes('status')) {
+                if (v.includes('aktif') || v.includes('daftar') || v.includes('terdaftar') || v.includes('verified') || v.includes('lanjut')) {
+                    bg = '#d1fae5'; color = '#065f46';
+                } else if (v.includes('batal') || v.includes('ditolak') || v.includes('rejected') || v.includes('selesai')) {
+                    bg = '#fee2e2'; color = '#991b1b';
+                } else {
+                    bg = '#e2e8f0'; color = '#475569';
+                }
+            } else if (headerLower.includes('kelamin') || headerLower.includes('gender')) {
+                if (v.includes('laki') || v === 'l' || v === 'pria' || v === 'laki-laki') {
+                    bg = '#dbeafe'; color = '#1e40af';
+                } else if (v.includes('perem') || v === 'p' || v === 'wanita' || v.includes('perempuan')) {
+                    bg = '#fce7f3'; color = '#9d174d';
+                } else {
+                    bg = '#e2e8f0'; color = '#475569';
+                }
+            } else {
+                return escapeHTML(val);
+            }
+
+            return `<span class="badge" style="background:${bg};color:${color};">${escapeHTML(val)}</span>`;
+        }
+
+        /* ===== EKSPOR CSV ===== */
+        function exportCSV() {
+            if (filteredData.length === 0) {
+                showToast('error', 'Tidak ada data untuk diekspor.');
+                return;
+            }
+
+            let csv = headers.map(h => `"${h.replace(/"/g,'""')}"`).join(',') + '\n';
+            filteredData.forEach(row => {
+                const vals = headers.map(h => {
+                    let v = row[h] || '';
+                    return `"${v.replace(/"/g,'""')}"`;
+                });
+                csv += vals.join(',') + '\n';
+            });
+
+            const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `Data_Pasien_Dialisis_${new Date().toISOString().slice(0,10)}.csv`;
+            link.click();
+            URL.revokeObjectURL(link.href);
+
+            showToast('success', `Berhasil mengekspor ${filteredData.length} data ke CSV.`);
+        }
+
+        /* ===== UI STATE ===== */
+        function showLoading() {
+            document.getElementById('loadingState').classList.remove('hidden');
+            document.getElementById('loadingState').classList.add('flex');
+            document.getElementById('emptyState').classList.add('hidden');
+            document.getElementById('emptyState').classList.remove('flex');
+            document.getElementById('noResultState').classList.add('hidden');
+            document.getElementById('noResultState').classList.remove('flex');
+            document.getElementById('tableContainer').classList.add('hidden');
+        }
+
+        function showEmpty() {
+            document.getElementById('loadingState').classList.add('hidden');
+            document.getElementById('loadingState').classList.remove('flex');
+            document.getElementById('emptyState').classList.remove('hidden');
+            document.getElementById('emptyState').classList.add('flex');
+            document.getElementById('tableContainer').classList.add('hidden');
+        }
+
+        function showNoResult() {
+            document.getElementById('noResultState').classList.remove('hidden');
+            document.getElementById('noResultState').classList.add('flex');
+        }
+
+        /* ===== TOAST ===== */
+        function showToast(type, message) {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            const iconMap = { success: 'fa-circle-check', error: 'fa-circle-xmark', info: 'fa-circle-info' };
+            toast.className = `toast toast-${type}`;
+            toast.innerHTML = `<i class="fa-solid ${iconMap[type]}"></i><span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.add('toast-exit');
+                setTimeout(() => toast.remove(), 300);
+            }, 4500);
+        }
+
+        /* ===== UTILITAS ===== */
+        function escapeHTML(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>
