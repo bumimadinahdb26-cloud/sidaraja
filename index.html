@@ -1,860 +1,674 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Antri Pasien Rawat Jalan Dialisis</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
-                }
-            }
-        }
-    </script>
-    <style>
-        :root {
-            --blue-900:#1e3a5f; --blue-800:#1e40af; --blue-700:#1d4ed8;
-            --blue-600:#2563eb; --blue-500:#3b82f6; --blue-400:#60a5fa;
-            --blue-300:#93c5fd; --blue-200:#bfdbfe; --blue-100:#dbeafe; --blue-50:#eff6ff;
-            --green-700:#047857; --green-600:#059669; --green-500:#10b981;
-            --green-400:#34d399; --green-300:#6ee7b7; --green-100:#d1fae5; --green-50:#ecfdf5;
-            --white:#ffffff; --gray-50:#f8fafc; --gray-100:#f1f5f9;
-            --gray-200:#e2e8f0; --gray-300:#cbd5e1; --gray-400:#94a3b8;
-            --gray-500:#64748b; --gray-600:#475569; --gray-700:#334155; --gray-800:#1e293b;
-            --text-primary:#1e293b; --text-secondary:#475569; --text-muted:#94a3b8; --border:#e2e8f0;
-        }
-        *{box-sizing:border-box;margin:0;padding:0}
-        body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--gray-50);color:var(--text-primary);min-height:100vh}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daftar Antri Pasien Rawat Jalan Dialisis</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+tailwind.config={theme:{extend:{fontFamily:{sans:['Plus Jakarta Sans','sans-serif']}}}}
+</script>
+<style>
+:root{
+--b900:#1e3a5f;--b800:#1e40af;--b700:#1d4ed8;--b600:#2563eb;--b500:#3b82f6;
+--b400:#60a5fa;--b300:#93c5fd;--b200:#bfdbfe;--b100:#dbeafe;--b50:#eff6ff;
+--g700:#047857;--g600:#059669;--g500:#10b981;--g400:#34d399;--g100:#d1fae5;--g50:#ecfdf5;
+--w:#ffffff;--g50:#f8fafc;--g100:#f1f5f9;--g200:#e2e8f0;--g300:#cbd5e1;
+--g400:#94a3b8;--g500:#64748b;--g600:#475569;--g800:#1e293b;
+--txt:#1e293b;--txt2:#475569;--muted:#94a3b8;--bdr:#e2e8f0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--g50);color:var(--txt);min-height:100vh}
 
-        .main-header{background:linear-gradient(135deg,var(--blue-900) 0%,var(--blue-700) 40%,var(--blue-600) 100%);position:relative;overflow:hidden}
-        .main-header::before{content:'';position:absolute;top:-50%;right:-10%;width:600px;height:600px;background:radial-gradient(circle,rgba(16,185,129,.15) 0%,transparent 70%);border-radius:50%;pointer-events:none}
-        .main-header::after{content:'';position:absolute;bottom:-60%;left:-5%;width:500px;height:500px;background:radial-gradient(circle,rgba(59,130,246,.1) 0%,transparent 70%);border-radius:50%;pointer-events:none}
-        .ecg-line{position:absolute;bottom:0;left:0;width:100%;height:60px;overflow:hidden;opacity:.3}
-        .ecg-line svg{position:absolute;bottom:0;left:0;width:200%;height:60px;animation:ecgScroll 6s linear infinite}
-        @keyframes ecgScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-        .med-pattern{position:absolute;top:0;left:0;right:0;bottom:0;background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
-        .med-stripe{height:4px;background:repeating-linear-gradient(90deg,var(--blue-600) 0px,var(--blue-600) 20px,var(--green-500) 20px,var(--green-500) 40px)}
+/* HEADER */
+.hdr{background:linear-gradient(135deg,var(--b900),var(--b700) 40%,var(--b600));position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;top:-50%;right:-10%;width:600px;height:600px;background:radial-gradient(circle,rgba(16,185,129,.15),transparent 70%);border-radius:50%;pointer-events:none}
+.ecg{position:absolute;bottom:0;left:0;width:100%;height:50px;overflow:hidden;opacity:.25}
+.ecg svg{position:absolute;bottom:0;left:0;width:200%;height:50px;animation:ecgS 6s linear infinite}
+@keyframes ecgS{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.stripe{height:4px;background:repeating-linear-gradient(90deg,var(--b600) 0 20px,var(--g500) 20px 40px)}
 
-        .card{background:var(--white);border-radius:16px;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.02);transition:box-shadow .3s ease}
-        .card:hover{box-shadow:0 4px 16px rgba(0,0,0,.06),0 8px 24px rgba(0,0,0,.04)}
+/* NAV */
+.nav-tab{padding:12px 24px;font-weight:700;font-size:14px;border-radius:12px 12px 0 0;cursor:pointer;transition:all .25s;border:2px solid transparent;border-bottom:none;font-family:inherit}
+.nav-tab.active{background:var(--w);color:var(--b700);border-color:var(--bdr);box-shadow:0 -2px 8px rgba(0,0,0,.04)}
+.nav-tab:not(.active){background:var(--g100);color:var(--g500)}
+.nav-tab:not(.active):hover{background:var(--g200);color:var(--g600)}
 
-        .stat-card{background:var(--white);border-radius:14px;border:1px solid var(--border);padding:20px;display:flex;align-items:center;gap:16px;transition:all .3s ease;position:relative;overflow:hidden}
-        .stat-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
-        .stat-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+/* CARDS */
+.card{background:var(--w);border-radius:16px;border:1px solid var(--bdr);box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.02)}
+.sc{background:var(--w);border-radius:14px;border:1px solid var(--bdr);padding:20px;display:flex;align-items:center;gap:16px;transition:all .3s}
+.sc:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.si{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 
-        .search-input{width:100%;padding:13px 16px 13px 48px;border:2px solid var(--border);border-radius:12px;font-size:15px;color:var(--text-primary);background:var(--white);transition:all .25s ease;outline:none;font-family:inherit}
-        .search-input::placeholder{color:var(--text-muted)}
-        .search-input:focus{border-color:var(--blue-500);box-shadow:0 0 0 4px rgba(59,130,246,.1)}
-        .input-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:16px;transition:color .25s ease;z-index:2}
-        .search-input:focus~.input-icon{color:var(--blue-500)}
+/* INPUTS */
+.si2{width:100%;padding:13px 16px 13px 48px;border:2px solid var(--bdr);border-radius:12px;font-size:15px;color:var(--txt);background:var(--w);transition:all .25s;outline:none;font-family:inherit}
+.si2::placeholder{color:var(--muted)}.si2:focus{border-color:var(--b500);box-shadow:0 0 0 4px rgba(59,130,246,.1)}
+.iic{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:16px;z-index:2}
 
-        .btn-primary{background:linear-gradient(135deg,var(--blue-600),var(--blue-700));color:#fff;font-weight:700;padding:13px 28px;border-radius:12px;border:none;cursor:pointer;transition:all .25s ease;font-size:14px;font-family:inherit;display:inline-flex;align-items:center;gap:8px}
-        .btn-primary:hover{background:linear-gradient(135deg,var(--blue-500),var(--blue-600));transform:translateY(-1px);box-shadow:0 6px 20px rgba(37,99,235,.3)}
-        .btn-green{background:linear-gradient(135deg,var(--green-500),var(--green-600));color:#fff;font-weight:700;padding:13px 28px;border-radius:12px;border:none;cursor:pointer;transition:all .25s ease;font-size:14px;font-family:inherit;display:inline-flex;align-items:center;gap:8px}
-        .btn-green:hover{background:linear-gradient(135deg,var(--green-400),var(--green-500));transform:translateY(-1px);box-shadow:0 6px 20px rgba(16,185,129,.3)}
-        .btn-outline{background:var(--white);color:var(--text-secondary);font-weight:600;padding:13px 28px;border-radius:12px;border:2px solid var(--border);cursor:pointer;transition:all .25s ease;font-size:14px;font-family:inherit;display:inline-flex;align-items:center;gap:8px}
-        .btn-outline:hover{border-color:var(--blue-300);color:var(--blue-600);background:var(--blue-50)}
+/* BUTTONS */
+.bp{background:linear-gradient(135deg,var(--b600),var(--b700));color:#fff;font-weight:700;padding:13px 28px;border-radius:12px;border:none;cursor:pointer;transition:all .25s;font-size:14px;font-family:inherit;display:inline-flex;align-items:center;gap:8px}
+.bp:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(37,99,235,.3)}
+.bg2{background:linear-gradient(135deg,var(--g500),var(--g600));color:#fff;font-weight:700;padding:13px 28px;border-radius:12px;border:none;cursor:pointer;transition:all .25s;font-size:14px;font-family:inherit;display:inline-flex;align-items:center;gap:8px}
+.bg2:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(16,185,129,.3)}
+.bo{background:var(--w);color:var(--txt2);font-weight:600;padding:13px 28px;border-radius:12px;border:2px solid var(--bdr);cursor:pointer;transition:all .25s;font-size:14px;font-family:inherit;display:inline-flex;align-items:center;gap:8px}
+.bo:hover{border-color:var(--b300);color:var(--b600);background:var(--b50)}
+.br{background:#ef4444;color:#fff;font-weight:700;padding:13px 28px;border-radius:12px;border:none;cursor:pointer;transition:all .25s;font-size:14px;font-family:inherit;display:inline-flex;align-items:center;gap:8px}
+.br:hover{background:#dc2626;transform:translateY(-1px)}
 
-        .table-wrap{overflow-x:auto}
-        .data-table{width:100%;border-collapse:separate;border-spacing:0}
-        .data-table thead th{background:linear-gradient(135deg,var(--blue-900),var(--blue-700));padding:14px 16px;text-align:left;font-weight:700;font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.95);position:sticky;top:0;z-index:10;white-space:nowrap;border-bottom:3px solid var(--green-500)}
-        .data-table thead th:first-child{border-radius:12px 0 0 0}
-        .data-table thead th:last-child{border-radius:0 12px 0 0}
-        .data-table tbody tr{transition:background .15s ease}
-        .data-table tbody tr:nth-child(even){background:var(--gray-50)}
-        .data-table tbody tr:nth-child(odd){background:var(--white)}
-        .data-table tbody tr:hover{background:var(--blue-50)}
-        .data-table tbody td{padding:13px 16px;border-bottom:1px solid var(--border);font-size:13.5px;color:var(--text-secondary);max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-        .data-table tbody tr:last-child td{border-bottom:none}
+/* TABLE */
+.tw{overflow-x:auto}
+.dt{width:100%;border-collapse:separate;border-spacing:0}
+.dt thead th{background:linear-gradient(135deg,var(--b900),var(--b700));padding:14px 16px;text-align:left;font-weight:700;font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.95);position:sticky;top:0;z-index:10;white-space:nowrap;border-bottom:3px solid var(--g500)}
+.dt thead th:first-child{border-radius:12px 0 0 0}.dt thead th:last-child{border-radius:0 12px 0 0}
+.dt tbody tr{transition:background .15s}.dt tbody tr:nth-child(even){background:var(--g50)}.dt tbody tr:nth-child(odd){background:var(--w)}
+.dt tbody tr:hover{background:var(--b50)}.dt tbody tr.row-colored{background:#fef9c3!important}.dt tbody tr.row-colored:hover{background:#fef08a!important}
+.dt tbody td{padding:13px 16px;border-bottom:1px solid var(--bdr);font-size:13.5px;color:var(--txt2);max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dt tbody tr:last-child td{border-bottom:none}
 
-        .antrian-cell{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;font-weight:800;font-size:14px;background:linear-gradient(135deg,var(--blue-500),var(--blue-600));color:#fff;box-shadow:0 2px 8px rgba(37,99,235,.2)}
-        .highlight-match{background:rgba(16,185,129,.18);color:var(--green-700);padding:2px 6px;border-radius:4px;font-weight:700}
-        .timestamp-cell{font-size:12px!important;color:var(--text-muted)!important;font-weight:600;white-space:nowrap!important}
+.ac{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;font-weight:800;font-size:14px;color:#fff;box-shadow:0 2px 8px rgba(37,99,235,.2)}
+.ac-blue{background:linear-gradient(135deg,var(--b500),var(--b600))}.ac-green{background:linear-gradient(135deg,var(--g500),var(--g600))}
+.hm{background:rgba(16,185,129,.18);color:var(--g700);padding:2px 6px;border-radius:4px;font-weight:700}
+.tc{font-size:12px!important;color:var(--muted)!important;font-weight:600;white-space:nowrap!important}
+.badge{display:inline-block;padding:3px 10px;border-radius:8px;font-size:12px;font-weight:700}
+.color-dot{display:inline-block;width:12px;height:12px;border-radius:4px;border:1px solid rgba(0,0,0,.1)}
 
-        .page-btn{width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s ease;border:2px solid var(--border);background:var(--white);color:var(--text-secondary);font-family:inherit}
-        .page-btn:hover{border-color:var(--blue-300);color:var(--blue-600);background:var(--blue-50)}
-        .page-btn.active{background:linear-gradient(135deg,var(--blue-600),var(--blue-700));color:#fff;border-color:transparent;box-shadow:0 4px 12px rgba(37,99,235,.25)}
-        .page-btn:disabled{opacity:.35;cursor:not-allowed;pointer-events:none}
+.pb{width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;border:2px solid var(--bdr);background:var(--w);color:var(--txt2);font-family:inherit}
+.pb:hover{border-color:var(--b300);color:var(--b600);background:var(--b50)}
+.pb.act{background:linear-gradient(135deg,var(--b600),var(--b700));color:#fff;border-color:transparent;box-shadow:0 4px 12px rgba(37,99,235,.25)}
+.pb:disabled{opacity:.35;cursor:not-allowed}
 
-        .spinner{width:48px;height:48px;border:4px solid var(--blue-100);border-top-color:var(--blue-600);border-radius:50%;animation:spin .8s linear infinite}
-        @keyframes spin{to{transform:rotate(360deg)}}
+.spin{width:48px;height:48px;border:4px solid var(--b100);border-top-color:var(--b600);border-radius:50%;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
 
-        .toast-container{position:fixed;top:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:10px}
-        .toast{padding:14px 20px;border-radius:12px;font-size:14px;font-weight:500;display:flex;align-items:center;gap:10px;animation:toastIn .4s cubic-bezier(.16,1,.3,1);box-shadow:0 8px 32px rgba(0,0,0,.12);max-width:420px;font-family:inherit}
-        .toast-success{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46}
-        .toast-error{background:#fef2f2;border:1px solid #fecaca;color:#991b1b}
-        .toast-info{background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af}
-        .toast-warn{background:#fffbeb;border:1px solid #fde68a;color:#92400e}
-        @keyframes toastIn{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
-        .toast-exit{animation:toastOut .3s ease forwards}
-        @keyframes toastOut{to{opacity:0;transform:translateX(40px)}}
+.tc2{position:fixed;top:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:10px}
+.tt{padding:14px 20px;border-radius:12px;font-size:14px;font-weight:500;display:flex;align-items:center;gap:10px;animation:ti .4s cubic-bezier(.16,1,.3,1);box-shadow:0 8px 32px rgba(0,0,0,.12);max-width:420px;font-family:inherit}
+.tt-s{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46}
+.tt-e{background:#fef2f2;border:1px solid #fecaca;color:#991b1b}
+.tt-i{background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af}
+.tt-w{background:#fffbeb;border:1px solid #fde68a;color:#92400e}
+@keyframes ti{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+.tt-x{animation:to .3s ease forwards}
+@keyframes to{to{opacity:0;transform:translateX(40px)}}
 
-        .badge{display:inline-block;padding:3px 10px;border-radius:8px;font-size:12px;font-weight:700;letter-spacing:.02em}
-        .fade-up{opacity:0;transform:translateY(16px);animation:fadeUp .5s cubic-bezier(.16,1,.3,1) forwards}
-        @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+.fu{opacity:0;transform:translateY(16px);animation:fu2 .5s cubic-bezier(.16,1,.3,1) forwards}
+@keyframes fu2{to{opacity:1;transform:translateY(0)}}
 
-        ::-webkit-scrollbar{width:8px;height:8px}
-        ::-webkit-scrollbar-track{background:var(--gray-100)}
-        ::-webkit-scrollbar-thumb{background:var(--blue-200);border-radius:4px}
-        ::-webkit-scrollbar-thumb:hover{background:var(--blue-300)}
+.cc{position:relative;width:100%;max-width:240px;margin:0 auto}
 
-        .chart-container{position:relative;width:100%;max-width:260px;margin:0 auto}
+/* LOGIN */
+.login-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(15,23,42,.7);backdrop-filter:blur(8px);z-index:1000;display:flex;align-items:center;justify-content:center}
+.login-box{background:var(--w);border-radius:20px;padding:40px;max-width:420px;width:90%;box-shadow:0 25px 60px rgba(0,0,0,.2)}
 
-        @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-        @media(max-width:768px){.search-grid{grid-template-columns:1fr!important}.stats-grid{grid-template-columns:1fr 1fr!important}.chart-stats-grid{grid-template-columns:1fr!important}}
-        @media(max-width:480px){.stats-grid{grid-template-columns:1fr!important}}
-    </style>
+::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-track{background:var(--g100)}::-webkit-scrollbar-thumb{background:var(--b200);border-radius:4px}
+@media(max-width:768px){.sg{grid-template-columns:1fr!important}.stg{grid-template-columns:1fr 1fr!important}.csg{grid-template-columns:1fr!important}}
+@media(max-width:480px){.stg{grid-template-columns:1fr!important}}
+</style>
 </head>
 <body>
-    <div class="toast-container" id="toastContainer"></div>
+<div class="tc2" id="toastC"></div>
 
-    <!-- HEADER -->
-    <header class="main-header">
-        <div class="med-pattern"></div>
-        <div class="ecg-line">
-            <svg viewBox="0 0 1200 60" preserveAspectRatio="none" fill="none">
-                <polyline points="0,30 60,30 80,30 95,8 110,52 125,12 140,48 155,30 240,30 260,30 275,8 290,52 305,12 320,48 335,30 420,30 440,30 455,8 470,52 485,12 500,48 515,30 600,30 620,30 635,8 650,52 665,12 680,48 695,30 780,30 800,30 815,8 830,52 845,12 860,48 875,30 960,30 980,30 995,8 1010,52 1025,12 1040,48 1055,30 1140,30 1160,30 1175,8 1190,52 1200,30" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </div>
-        <div class="relative z-10 px-4 sm:px-8 pt-8 pb-10">
-            <div class="max-w-7xl mx-auto">
-                <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-2xl flex items-center justify-center" style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15)">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="9" y="2" width="6" height="20" rx="2" fill="#34d399"/><rect x="2" y="9" width="20" height="6" rx="2" fill="#34d399"/></svg>
-                        </div>
-                        <div>
-                            <div class="text-white font-extrabold text-lg leading-tight tracking-tight">RS Umum</div>
-                            <div class="text-blue-200 text-xs font-medium tracking-wide">UNIT RAWAT JALAN DIALISIS</div>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-2 px-4 py-2 rounded-full" style="background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.25)">
-                        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-                        <span class="text-green-300 text-xs font-bold tracking-wide">SISTEM AKTIF</span>
-                    </div>
-                </div>
-                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight mb-3">
-                    Daftar Antri<br>
-                    <span style="background:linear-gradient(135deg,#6ee7b7,#34d399,#10b981);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Pasien Rawat Jalan Dialisis</span>
-                </h1>
-                <p class="text-blue-200 text-base sm:text-lg font-light max-w-xl">
-                    Hanya menampilkan pasien yang <strong class="text-white">belum diproses</strong> (baris putih/tanpa warna blok). Pasien yang sudah diblok otomatis tersembunyi.
-                </p>
-            </div>
-        </div>
-        <div class="med-stripe"></div>
-    </header>
+<!-- LOGIN OVERLAY (Slide 2) -->
+<div class="login-overlay" id="loginOverlay" style="display:none">
+<div class="login-box">
+<div class="text-center mb-8">
+<div class="w-16 h-16 rounded-2xl mx-auto mb-4 flex items-center justify-center" style="background:linear-gradient(135deg,var(--b600),var(--b700))">
+<i class="fa-solid fa-lock text-white text-2xl"></i>
+</div>
+<h2 class="text-2xl font-black" style="color:var(--b900)">Login Admin</h2>
+<p class="text-sm mt-1" style="color:var(--muted)">Akses Data Lengkap Pasien</p>
+</div>
+<div class="mb-4">
+<label class="block text-xs font-bold uppercase tracking-wider mb-2" style="color:var(--muted)">Username</label>
+<div class="relative">
+<i class="fa-solid fa-user iic"></i>
+<input type="text" id="loginUser" class="si2" placeholder="Masukkan username">
+</div>
+</div>
+<div class="mb-6">
+<label class="block text-xs font-bold uppercase tracking-wider mb-2" style="color:var(--muted)">Password</label>
+<div class="relative">
+<i class="fa-solid fa-key iic"></i>
+<input type="password" id="loginPass" class="si2" placeholder="Masukkan password">
+</div>
+</div>
+<div id="loginError" class="hidden mb-4 p-3 rounded-lg text-sm font-semibold" style="background:#fef2f2;color:#991b1b;border:1px solid #fecaca">
+<i class="fa-solid fa-circle-xmark mr-1"></i> Username atau password salah!
+</div>
+<button class="bp w-full justify-center" onclick="doLogin()"><i class="fa-solid fa-right-to-bracket"></i> Masuk</button>
+<button class="bo w-full justify-center mt-3" onclick="cancelLogin()"><i class="fa-solid fa-arrow-left"></i> Kembali ke Dashboard</button>
+</div>
+</div>
 
-    <!-- MAIN -->
-    <main class="px-4 sm:px-8 -mt-2 relative z-20 pb-16">
+<!-- HEADER -->
+<header class="hdr">
+<div class="ecg"><svg viewBox="0 0 1200 50" fill="none"><polyline points="0,25 60,25 80,25 95,6 110,44 125,10 140,40 155,25 240,25 260,25 275,6 290,44 305,10 320,40 335,25 420,25 440,25 455,6 470,44 485,10 500,40 515,25 600,25 620,25 635,6 650,44 665,10 680,40 695,25 780,25 800,25 815,6 830,44 845,10 860,40 875,25 960,25 980,25 995,6 1010,44 1025,10 1040,40 1055,25 1140,25 1160,25 1175,6 1190,44 1200,25" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+<div class="relative z-10 px-4 sm:px-8 pt-6 pb-8">
+<div class="max-w-7xl mx-auto">
+<div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-xl flex items-center justify-center" style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15)">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="9" y="2" width="6" height="20" rx="2" fill="#34d399"/><rect x="2" y="9" width="20" height="6" rx="2" fill="#34d399"/></svg>
+</div>
+<div>
+<div class="text-white font-extrabold text-lg leading-tight">RS Umum</div>
+<div class="text-blue-200 text-xs font-medium tracking-wide">UNIT RAWAT JALAN DIALISIS</div>
+</div>
+</div>
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-full" style="background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.25)">
+<span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+<span class="text-green-300 text-xs font-bold">ONLINE</span>
+</div>
+</div>
+<h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-tight mb-2">
+Daftar Antri<br>
+<span style="background:linear-gradient(135deg,#6ee7b7,#34d399,#10b981);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Pasien Rawat Jalan Dialisis</span>
+</h1>
+<p class="text-blue-200 text-sm font-light max-w-xl">Dashboard antrian pasien yang belum mendapat jadwal. Baris berwarna = sudah diproses = disembunyikan dari daftar antrian.</p>
+</div>
+</div>
+<div class="stripe"></div>
+</header>
 
-        <!-- Search -->
-        <section class="max-w-7xl mx-auto mt-8 fade-up" style="animation-delay:.1s">
-            <div class="card p-6 sm:p-8">
-                <div class="flex items-center gap-3 mb-6">
-                    <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,var(--blue-500),var(--blue-600))">
-                        <i class="fa-solid fa-magnifying-glass text-white text-sm"></i>
-                    </div>
-                    <div>
-                        <h2 class="text-lg font-extrabold" style="color:var(--blue-900)">Filter Pencarian</h2>
-                        <p class="text-xs" style="color:var(--text-muted)">Cari pasien berdasarkan nama atau nomor rekam medis</p>
-                    </div>
-                </div>
-                <div class="search-grid grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6">
-                    <div class="relative">
-                        <i class="fa-solid fa-user-injured input-icon"></i>
-                        <input type="text" id="inputNama" class="search-input" placeholder="Ketik Nama Pasien..." autocomplete="off">
-                    </div>
-                    <div class="relative">
-                        <i class="fa-solid fa-id-card-clip input-icon"></i>
-                        <input type="text" id="inputRM" class="search-input" placeholder="Ketik Nomor Rekam Medis..." autocomplete="off">
-                    </div>
-                </div>
-                <div class="flex flex-wrap items-center gap-3">
-                    <button class="btn-primary" onclick="handleSearch()"><i class="fa-solid fa-search"></i> Cari Data</button>
-                    <button class="btn-outline" onclick="handleReset()"><i class="fa-solid fa-rotate-left"></i> Reset</button>
-                    <div class="ml-auto">
-                        <button class="btn-green" style="padding:13px 20px" onclick="exportCSV()"><i class="fa-solid fa-file-export"></i> Ekspor CSV</button>
-                    </div>
-                </div>
-            </div>
-        </section>
+<!-- NAV TABS -->
+<div class="max-w-7xl mx-auto px-4 sm:px-8 mt-6">
+<div class="flex gap-1">
+<button class="nav-tab active" id="tab1" onclick="switchSlide(1)"><i class="fa-solid fa-clipboard-list mr-2"></i>Dashboard Antrian</button>
+<button class="nav-tab" id="tab2" onclick="switchSlide(2)"><i class="fa-solid fa-database mr-2"></i>Data Lengkap<span class="ml-2 text-xs px-2 py-0.5 rounded-full" style="background:rgba(239,68,68,.15);color:#f87171"><i class="fa-solid fa-lock text-[10px] mr-1"></i>Login</span></button>
+</div>
+</div>
 
-        <!-- Chart + Stats -->
-        <section class="max-w-7xl mx-auto mt-6 fade-up" style="animation-delay:.2s">
-            <div class="chart-stats-grid grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Donut Chart -->
-                <div class="card p-6 flex flex-col items-center justify-center">
-                    <h3 class="text-sm font-bold mb-4" style="color:var(--blue-900)"><i class="fa-solid fa-chart-pie mr-2" style="color:var(--green-500)"></i>Status Antrian</h3>
-                    <div class="chart-container">
-                        <canvas id="statusChart"></canvas>
-                    </div>
-                    <div id="chartLegend" class="mt-4 flex flex-wrap justify-center gap-4 text-xs font-semibold"></div>
-                </div>
-                <!-- Stats -->
-                <div class="lg:col-span-2 grid grid-cols-2 gap-4">
-                    <div class="stat-card">
-                        <div class="stat-icon" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe)">
-                            <i class="fa-solid fa-users text-xl" style="color:var(--blue-600)"></i>
-                        </div>
-                        <div>
-                            <div class="text-xs font-bold uppercase tracking-wider" style="color:var(--text-muted)">Masih Antri</div>
-                            <div class="text-2xl font-black" style="color:var(--blue-900)" id="statTotal">—</div>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0)">
-                            <i class="fa-solid fa-filter text-xl" style="color:var(--green-600)"></i>
-                        </div>
-                        <div>
-                            <div class="text-xs font-bold uppercase tracking-wider" style="color:var(--text-muted)">Hasil Filter</div>
-                            <div class="text-2xl font-black" style="color:var(--green-700)" id="statFiltered">—</div>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon" style="background:linear-gradient(135deg,#fef3c7,#fde68a)">
-                            <i class="fa-solid fa-check-double text-xl" style="color:#b45309"></i>
-                        </div>
-                        <div>
-                            <div class="text-xs font-bold uppercase tracking-wider" style="color:var(--text-muted)">Sudah Diproses</div>
-                            <div class="text-2xl font-black" style="color:#92400e" id="statProcessed">—</div>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe)">
-                            <i class="fa-solid fa-clock text-xl" style="color:#7c3aed"></i>
-                        </div>
-                        <div>
-                            <div class="text-xs font-bold uppercase tracking-wider" style="color:var(--text-muted)">Update Terakhir</div>
-                            <div class="text-lg font-extrabold" style="color:#5b21b6" id="statUpdated">—</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+<!-- ====== SLIDE 1: DASHBOARD ANTRIAN ====== -->
+<main id="slide1" class="px-4 sm:px-8 pb-16">
+<div class="max-w-7xl mx-auto">
 
-        <!-- Table -->
-        <section class="max-w-7xl mx-auto mt-6 fade-up" style="animation-delay:.3s">
-            <div class="card overflow-hidden">
-                <div class="flex flex-wrap items-center justify-between gap-4 p-5 border-b" style="border-color:var(--border)">
-                    <div class="flex items-center gap-3">
-                        <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:var(--green-50)">
-                            <i class="fa-solid fa-clipboard-list" style="color:var(--green-600)"></i>
-                        </div>
-                        <div>
-                            <span class="font-extrabold text-sm" style="color:var(--blue-900)">Daftar Antri Pasien</span>
-                            <span class="text-xs block" style="color:var(--text-muted)">Hanya baris putih/belum diblok — diurutkan per waktu daftar</span>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <label class="text-xs font-semibold" style="color:var(--text-muted)">Tampilkan:</label>
-                        <select id="pageSize" onchange="changePageSize()" class="text-sm rounded-lg px-3 py-2 font-semibold outline-none" style="background:var(--white);color:var(--text-primary);border:2px solid var(--border);font-family:inherit">
-                            <option value="10">10</option>
-                            <option value="25" selected>25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select>
-                    </div>
-                </div>
-                <div id="loadingState" class="flex flex-col items-center justify-center py-20">
-                    <div class="spinner mb-4"></div>
-                    <p class="text-sm font-semibold" style="color:var(--text-muted)">Mengambil data & mendeteksi warna baris...</p>
-                    <p class="text-xs mt-1" style="color:var(--gray-400)">Memfilter pasien yang belum diblok</p>
-                </div>
-                <div id="emptyState" class="hidden flex-col items-center justify-center py-20">
-                    <div class="w-20 h-20 rounded-2xl flex items-center justify-center mb-4" style="background:#fef2f2"><i class="fa-solid fa-triangle-exclamation text-3xl" style="color:#ef4444"></i></div>
-                    <p class="text-lg font-extrabold mb-1" style="color:var(--text-primary)">Data Tidak Tersedia</p>
-                    <p class="text-sm" style="color:var(--text-muted)">Gagal memuat data atau tidak ada pasien antri.</p>
-                </div>
-                <div id="noResultState" class="hidden flex-col items-center justify-center py-20">
-                    <div class="w-20 h-20 rounded-2xl flex items-center justify-center mb-4" style="background:#fef3c7"><i class="fa-solid fa-search text-3xl" style="color:#f59e0b"></i></div>
-                    <p class="text-lg font-extrabold mb-1" style="color:var(--text-primary)">Pencarian Tidak Ditemukan</p>
-                    <p class="text-sm" style="color:var(--text-muted)">Tidak ada pasien antri yang sesuai filter.</p>
-                </div>
-                <div id="tableContainer" class="hidden">
-                    <div class="table-wrap">
-                        <table class="data-table" id="dataTable">
-                            <thead id="tableHead"></thead>
-                            <tbody id="tableBody"></tbody>
-                        </table>
-                    </div>
-                    <div class="flex flex-wrap items-center justify-between gap-4 p-5 border-t" style="border-color:var(--border);background:var(--gray-50)">
-                        <p class="text-sm font-medium" style="color:var(--text-muted)" id="paginationInfo">—</p>
-                        <div class="flex items-center gap-2" id="paginationButtons"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+<!-- Search S1 -->
+<section class="mt-6 fu" style="animation-delay:.1s">
+<div class="card p-6 sm:p-8">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,var(--b500),var(--b600))"><i class="fa-solid fa-magnifying-glass text-white text-sm"></i></div>
+<div>
+<h2 class="text-lg font-extrabold" style="color:var(--b900)">Filter Pencarian</h2>
+<p class="text-xs" style="color:var(--muted)">Cari pasien antri berdasarkan nama atau nomor rekam medis</p>
+</div>
+</div>
+<div class="sg grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6">
+<div class="relative"><i class="fa-solid fa-user-injured iic"></i><input type="text" id="s1Nama" class="si2" placeholder="Ketik Nama Pasien..." autocomplete="off"></div>
+<div class="relative"><i class="fa-solid fa-id-card-clip iic"></i><input type="text" id="s1RM" class="si2" placeholder="Ketik Nomor Rekam Medis..." autocomplete="off"></div>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<button class="bp" onclick="s1Search()"><i class="fa-solid fa-search"></i> Cari</button>
+<button class="bo" onclick="s1Reset()"><i class="fa-solid fa-rotate-left"></i> Reset</button>
+<div class="ml-auto"><button class="bg2" style="padding:13px 20px" onclick="s1Export()"><i class="fa-solid fa-file-export"></i> Ekspor CSV</button></div>
+</div>
+</div>
+</section>
 
-    <!-- FOOTER -->
-    <footer style="background:var(--white);border-top:1px solid var(--border)">
-        <div class="med-stripe"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-            <div class="flex items-center gap-2">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="9" y="2" width="6" height="20" rx="2" fill="#3b82f6"/><rect x="2" y="9" width="20" height="6" rx="2" fill="#3b82f6"/></svg>
-                <span class="text-xs font-semibold" style="color:var(--text-muted)">Sistem Antrian Rawat Jalan Dialisis</span>
-            </div>
-            <p class="text-xs" style="color:var(--gray-400)">Unit Dialisis &copy; <span id="footerYear"></span> — Data tersinkronisasi dari Google Sheets</p>
-        </div>
-    </footer>
+<!-- Chart + Stats S1 -->
+<section class="mt-6 fu" style="animation-delay:.2s">
+<div class="csg grid grid-cols-1 lg:grid-cols-3 gap-6">
+<div class="card p-6 flex flex-col items-center justify-center">
+<h3 class="text-sm font-bold mb-4" style="color:var(--b900)"><i class="fa-solid fa-chart-pie mr-2" style="color:var(--g500)"></i>Status Antrian</h3>
+<div class="cc"><canvas id="chart1"></canvas></div>
+<div id="leg1" class="mt-4 flex flex-wrap justify-center gap-4 text-xs font-semibold"></div>
+</div>
+<div class="lg:col-span-2 grid grid-cols-2 gap-4 stg">
+<div class="sc"><div class="si" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe)"><i class="fa-solid fa-users text-xl" style="color:var(--b600)"></i></div><div><div class="text-xs font-bold uppercase tracking-wider" style="color:var(--muted)">Masih Antri</div><div class="text-2xl font-black" style="color:var(--b900)" id="s1Antri">—</div></div></div>
+<div class="sc"><div class="si" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0)"><i class="fa-solid fa-filter text-xl" style="color:var(--g600)"></i></div><div><div class="text-xs font-bold uppercase tracking-wider" style="color:var(--muted)">Hasil Filter</div><div class="text-2xl font-black" style="color:var(--g700)" id="s1Filt">—</div></div></div>
+<div class="sc"><div class="si" style="background:linear-gradient(135deg,#fef3c7,#fde68a)"><i class="fa-solid fa-check-double text-xl" style="color:#b45309"></i></div><div><div class="text-xs font-bold uppercase tracking-wider" style="color:var(--muted)">Sudah Dapat Jadwal</div><div class="text-2xl font-black" style="color:#92400e" id="s1Proc">—</div></div></div>
+<div class="sc"><div class="si" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe)"><i class="fa-solid fa-database text-xl" style="color:#7c3aed"></i></div><div><div class="text-xs font-bold uppercase tracking-wider" style="color:var(--muted)">Total Seluruh Data</div><div class="text-2xl font-black" style="color:#5b21b6" id="s1Tot">—</div></div></div>
+</div>
+</div>
+</section>
 
-    <script>
-        /* ===== KONFIGURASI ===== */
-        const CSV_URL  = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQZVO38b4R1ptmVVoMCRwRDsgTCN_KfTgpzus4VtTLRlXvfhZ6IHaXl25tubcrpzRgrgIFztik4_-Li/pub?gid=1588121083&single=true&output=csv';
-        const HTML_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQZVO38b4R1ptmVVoMCRwRDsgTCN_KfTgpzus4VtTLRlXvfhZ6IHaXl25tubcrpzRgrgIFztik4_-Li/pubhtml?gid=1588121083';
-        const PROXY    = 'https://api.allorigins.win/raw?url=';
+<!-- Table S1 -->
+<section class="mt-6 fu" style="animation-delay:.3s">
+<div class="card overflow-hidden">
+<div class="flex flex-wrap items-center justify-between gap-4 p-5 border-b" style="border-color:var(--bdr)">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:var(--b50)"><i class="fa-solid fa-clipboard-list" style="color:var(--b600)"></i></div>
+<div><span class="font-extrabold text-sm" style="color:var(--b900)">Daftar Antri (Baris Putih Saja)</span><span class="text-xs block" style="color:var(--muted)">Baris berwarna = sudah dapat jadwal = disembunyikan</span></div>
+</div>
+<div class="flex items-center gap-3">
+<label class="text-xs font-semibold" style="color:var(--muted)">Tampilkan:</label>
+<select id="s1PS" onchange="s1CPS()" class="text-sm rounded-lg px-3 py-2 font-semibold outline-none" style="background:var(--w);color:var(--txt);border:2px solid var(--bdr);font-family:inherit"><option value="10">10</option><option value="25" selected>25</option><option value="50">50</option><option value="100">100</option></select>
+</div>
+</div>
+<div id="s1Load" class="flex flex-col items-center justify-center py-20"><div class="spin mb-4"></div><p class="text-sm font-semibold" style="color:var(--muted)">Mengambil data & mendeteksi warna...</p></div>
+<div id="s1Empty" class="hidden flex-col items-center justify-center py-20"><div class="w-20 h-20 rounded-2xl flex items-center justify-center mb-4" style="background:#d1fae5"><i class="fa-solid fa-check-circle text-3xl" style="color:#059669"></i></div><p class="text-lg font-extrabold mb-1">Semua Pasien Sudah Diproses</p><p class="text-sm" style="color:var(--muted)">Tidak ada pasien yang masih antri.</p></div>
+<div id="s1NoRes" class="hidden flex-col items-center justify-center py-20"><div class="w-20 h-20 rounded-2xl flex items-center justify-center mb-4" style="background:#fef3c7"><i class="fa-solid fa-search text-3xl" style="color:#f59e0b"></i></div><p class="text-lg font-extrabold mb-1">Pencarian Tidak Ditemukan</p><p class="text-sm" style="color:var(--muted)">Coba ubah kata kunci pencarian.</p></div>
+<div id="s1TC" class="hidden">
+<div class="tw"><table class="dt"><thead id="s1TH"></thead><tbody id="s1TB"></tbody></table></div>
+<div class="flex flex-wrap items-center justify-between gap-4 p-5 border-t" style="border-color:var(--bdr);background:var(--g50)"><p class="text-sm font-medium" style="color:var(--muted)" id="s1PI">—</p><div class="flex items-center gap-2" id="s1PB"></div></div>
+</div>
+</div>
+</section>
+</div>
+</main>
 
-        /* ===== STATE ===== */
-        let allData = [];
-        let headers = [];
-        let filteredData = [];
-        let currentPage = 1;
-        let pageSize = 25;
-        let namaColIdx = -1;
-        let rmColIdx = -1;
-        let totalAllRows = 0;
-        let coloredRowCount = 0;
-        let statusChart = null;
-        const TS_KEY = '_timestamp';
-        const TS_DATE = '_tsDate';
+<!-- ====== SLIDE 2: DATA LENGKAP ====== -->
+<main id="slide2" style="display:none" class="px-4 sm:px-8 pb-16">
+<div class="max-w-7xl mx-auto">
 
-        /* ===== INIT ===== */
-        document.getElementById('footerYear').textContent = new Date().getFullYear();
+<!-- Admin bar S2 -->
+<div class="mt-6 flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl" style="background:linear-gradient(135deg,var(--b900),var(--b700));border:1px solid rgba(255,255,255,.1)">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:rgba(255,255,255,.12)"><i class="fa-solid fa-shield-halved text-white"></i></div>
+<div><span class="text-white font-extrabold text-sm">Mode Admin — Data Lengkap</span><span class="text-blue-200 text-xs block">Termasuk pasien yang sudah mendapat jadwal (baris berwarna)</span></div>
+</div>
+<button class="br" onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+</div>
 
-        let debounceTimer = null;
-        document.getElementById('inputNama').addEventListener('input', () => { clearTimeout(debounceTimer); debounceTimer = setTimeout(handleSearch, 350); });
-        document.getElementById('inputRM').addEventListener('input', () => { clearTimeout(debounceTimer); debounceTimer = setTimeout(handleSearch, 350); });
-        document.getElementById('inputNama').addEventListener('keydown', e => { if(e.key==='Enter') handleSearch(); });
-        document.getElementById('inputRM').addEventListener('keydown', e => { if(e.key==='Enter') handleSearch(); });
+<!-- Search S2 -->
+<section class="mt-6">
+<div class="card p-6 sm:p-8">
+<div class="sg grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6">
+<div class="relative"><i class="fa-solid fa-user-injured iic"></i><input type="text" id="s2Nama" class="si2" placeholder="Ketik Nama Pasien..." autocomplete="off"></div>
+<div class="relative"><i class="fa-solid fa-id-card-clip iic"></i><input type="text" id="s2RM" class="si2" placeholder="Ketik Nomor Rekam Medis..." autocomplete="off"></div>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<button class="bp" onclick="s2Search()"><i class="fa-solid fa-search"></i> Cari</button>
+<button class="bo" onclick="s2Reset()"><i class="fa-solid fa-rotate-left"></i> Reset</button>
+<div class="ml-auto flex items-center gap-3">
+<span class="text-xs font-semibold flex items-center gap-2" style="color:var(--muted)"><span class="color-dot" style="background:#fef9c3"></span>Kuning = Sudah dapat jadwal</span>
+<button class="bg2" style="padding:13px 20px" onclick="s2Export()"><i class="fa-solid fa-file-export"></i> Ekspor Semua</button>
+</div>
+</div>
+</div>
+</section>
 
-        fetchSheetData();
+<!-- Stats S2 -->
+<section class="mt-6">
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 stg">
+<div class="sc"><div class="si" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe)"><i class="fa-solid fa-users text-xl" style="color:var(--b600)"></i></div><div><div class="text-xs font-bold uppercase tracking-wider" style="color:var(--muted)">Total Pasien</div><div class="text-2xl font-black" style="color:var(--b900)" id="s2Tot">—</div></div></div>
+<div class="sc"><div class="si" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0)"><i class="fa-solid fa-hourglass-half text-xl" style="color:var(--g600)"></i></div><div><div class="text-xs font-bold uppercase tracking-wider" style="color:var(--muted)">Masih Antri</div><div class="text-2xl font-black" style="color:var(--g700)" id="s2Antri2">—</div></div></div>
+<div class="sc"><div class="si" style="background:linear-gradient(135deg,#fef3c7,#fde68a)"><i class="fa-solid fa-calendar-check text-xl" style="color:#b45309"></i></div><div><div class="text-xs font-bold uppercase tracking-wider" style="color:var(--muted)">Sudah Dapat Jadwal</div><div class="text-2xl font-black" style="color:#92400e" id="s2Proc2">—</div></div></div>
+<div class="sc"><div class="si" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe)"><i class="fa-solid fa-filter text-xl" style="color:#7c3aed"></i></div><div><div class="text-xs font-bold uppercase tracking-wider" style="color:var(--muted)">Hasil Filter</div><div class="text-2xl font-black" style="color:#5b21b6" id="s2Filt">—</div></div></div>
+</div>
+</section>
 
-        /* ===== FETCH DATA — HTML + CSV FALLBACK ===== */
-        async function fetchSheetData() {
-            showLoading();
-            try {
-                // 1) Coba ambil HTML untuk deteksi warna baris
-                const htmlResult = await fetchHTMLAndParse();
-                if (htmlResult && htmlResult.whiteRows.length > 0) {
-                    headers = htmlResult.headers;
-                    allData = htmlResult.whiteRows;
-                    totalAllRows = htmlResult.totalDataRows;
-                    coloredRowCount = htmlResult.coloredCount;
-                    buildIndex();
-                    sortData();
-                    updateStats();
-                    filteredData = [...allData];
-                    currentPage = 1;
-                    renderTable();
-                    renderChart();
-                    showToast('success', `Berhasil memuat ${allData.length} pasien antri (baris putih). ${coloredRowCount} pasien sudah diproses (baris berwarna) disembunyikan.`);
-                    return;
-                }
-            } catch(e) {
-                console.warn('HTML fetch gagal, fallback ke CSV:', e);
-            }
+<!-- Table S2 -->
+<section class="mt-6">
+<div class="card overflow-hidden">
+<div class="flex flex-wrap items-center justify-between gap-4 p-5 border-b" style="border-color:var(--bdr)">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:#fef9c3"><i class="fa-solid fa-table-list" style="color:#b45309"></i></div>
+<div><span class="font-extrabold text-sm" style="color:var(--b900)">Semua Data Pendaftaran</span><span class="text-xs block" style="color:var(--muted)">Baris kuning = sudah dapat jadwal, baris putih = masih antri</span></div>
+</div>
+<select id="s2PS" onchange="s2CPS()" class="text-sm rounded-lg px-3 py-2 font-semibold outline-none" style="background:var(--w);color:var(--txt);border:2px solid var(--bdr);font-family:inherit"><option value="10">10</option><option value="25" selected>25</option><option value="50">50</option><option value="100">100</option></select>
+</div>
+<div id="s2TC">
+<div class="tw"><table class="dt"><thead id="s2TH"></thead><tbody id="s2TB"></tbody></table></div>
+<div class="flex flex-wrap items-center justify-between gap-4 p-5 border-t" style="border-color:var(--bdr);background:var(--g50)"><p class="text-sm font-medium" style="color:var(--muted)" id="s2PI">—</p><div class="flex items-center gap-2" id="s2PB"></div></div>
+</div>
+</div>
+</section>
+</div>
+</main>
 
-            // 2) Fallback: CSV tanpa filter warna
-            try {
-                await fetchCSVAndParse();
-                updateStats();
-                filteredData = [...allData];
-                currentPage = 1;
-                renderTable();
-                renderChart();
-                showToast('warn', 'Tidak bisa mendeteksi warna baris. Semua data ditampilkan. Pastikan spreadsheet dipublikasikan ke web.');
-            } catch(err) {
-                console.error('CSV fetch gagal:', err);
-                showEmpty();
-                showToast('error', 'Gagal memuat data. Pastikan spreadsheet dipublikasikan ke web (File > Share > Publish to web).');
-            }
+<!-- FOOTER -->
+<footer style="background:var(--w);border-top:1px solid var(--bdr)">
+<div class="stripe"></div>
+<div class="max-w-7xl mx-auto px-4 sm:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+<span class="text-xs font-semibold" style="color:var(--muted)"><i class="fa-solid fa-shield-halved mr-1" style="color:var(--b500)"></i>Sistem Antrian Rawat Jalan Dialisis</span>
+<span class="text-xs" style="color:var(--g400)">Unit Dialisis &copy; <span id="fYr"></span></span>
+</div>
+</footer>
+
+<script>
+/* ========== KONFIGURASI ========== */
+const CSV_URL='https://docs.google.com/spreadsheets/d/e/2PACX-1vQZVO38b4R1ptmVVoMCRwRDsgTCN_KfTgpzus4VtTLRlXvfhZ6IHaXl25tubcrpzRgrgIFztik4_-Li/pub?gid=1588121083&single=true&output=csv';
+const HTML_URL='https://docs.google.com/spreadsheets/d/e/2PACX-1vQZVO38b4R1ptmVVoMCRwRDsgTCN_KfTgpzus4VtTLRlXvfhZ6IHaXl25tubcrpzRgrgIFztik4_-Li/pubhtml?gid=1588121083';
+const PROXY='https://api.allorigins.win/raw?url=';
+const ADMIN_USER='admin';
+const ADMIN_PASS='dialisis2024';
+
+/* ========== STATE ========== */
+let headers=[], whiteRows=[], coloredRows=[], allRows=[];
+let totalRows=0, whiteCount=0, coloredCount=0;
+let namaIdx=-1, rmIdx=-1;
+let s1FD=[], s1Page=1, s1PS=25;
+let s2FD=[], s2Page=1, s2PS=25;
+let isLoggedIn=false, chart1=null;
+const TK='_ts', TD='_tsD', CK='_isColored', CBG='_colorBg';
+
+/* ========== INIT ========== */
+document.getElementById('fYr').textContent=new Date().getFullYear();
+
+// Debounce search
+let db1=null,db2=null;
+document.getElementById('s1Nama').addEventListener('input',()=>{clearTimeout(db1);db1=setTimeout(s1Search,350)});
+document.getElementById('s1RM').addEventListener('input',()=>{clearTimeout(db1);db1=setTimeout(s1Search,350)});
+document.getElementById('s2Nama').addEventListener('input',()=>{clearTimeout(db2);db2=setTimeout(s2Search,350)});
+document.getElementById('s2RM').addEventListener('input',()=>{clearTimeout(db2);db2=setTimeout(s2Search,350)});
+document.getElementById('s1Nama').addEventListener('keydown',e=>{if(e.key==='Enter')s1Search()});
+document.getElementById('s1RM').addEventListener('keydown',e=>{if(e.key==='Enter')s1Search()});
+document.getElementById('s2Nama').addEventListener('keydown',e=>{if(e.key==='Enter')s2Search()});
+document.getElementById('s2RM').addEventListener('keydown',e=>{if(e.key==='Enter')s2Search()});
+document.getElementById('loginPass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
+
+fetchData();
+
+/* ========== FETCH DATA ========== */
+async function fetchData(){
+    showS1Loading();
+    try{
+        const html=await fetchHTML();
+        if(html){const r=parseHTML(html);if(r){applyData(r);return}}
+    }catch(e){console.warn('HTML gagal:',e)}
+    try{const r=await fetchCSV();applyData(r);}
+    catch(e){console.error('CSV gagal:',e);showS1Empty();toast('e','Gagal memuat data. Pastikan spreadsheet dipublikasikan.')}
+}
+
+async function fetchHTML(){
+    let h;
+    try{const r=await fetch(HTML_URL);if(r.ok)h=await r.text();else throw new Error('direct')}
+    catch(e){try{const r2=await fetch(PROXY+encodeURIComponent(HTML_URL));if(r2.ok)h=await r2.text();else throw new Error('proxy')}catch(e2){throw new Error('HTML unavailable')}}
+    return h&&h.length>200?h:null;
+}
+
+function parseHTML(html){
+    const doc=new DOMParser().parseFromString(html,'text/html');
+    const cbm={};
+    doc.querySelectorAll('style').forEach(s=>{
+        const css=s.textContent||'';
+        const rx=/\.([a-zA-Z_][\w-]*)\s*\{([^}]*)\}/g;let m;
+        while((m=rx.exec(css))!==null){
+            const bg=m[2].match(/background(?:-color)?\s*:\s*([^;}\n]+)/i);
+            if(bg&&bg[1].trim()){cbm[m[1]]=bg[1].trim().toLowerCase()}
         }
+    });
+    const tbl=doc.querySelector('table');if(!tbl)return null;
+    const trs=tbl.querySelectorAll('tr');
+    const res={headers:[],whiteRows:[],coloredRows:[],totalDataRows:0,coloredCount:0};
+    let hd=false;
+    trs.forEach(tr=>{
+        const cells=tr.querySelectorAll('td,th');if(!cells.length)return;
+        const txts=[];let colored=false,hasC=false,bgColor='';
+        cells.forEach(c=>{
+            const t=(c.textContent||'').trim();txts.push(t);if(t)hasC=true;
+            const st=c.getAttribute('style')||'';
+            const bi=exBg(st);if(bi&&!isW(bi)){colored=true;bgColor=bi}
+            const cls=(c.getAttribute('class')||'').split(/\s+/);
+            for(const cl of cls){if(cbm[cl]&&!isW(cbm[cl])){colored=true;bgColor=cbm[cl];break}}
+        });
+        const ts=tr.getAttribute('style')||'';
+        const tbg=exBg(ts);if(tbg&&!isW(tbg)){colored=true;bgColor=tbg}
+        const tcls=(tr.getAttribute('class')||'').split(/\s+/);
+        for(const cl of tcls){if(cbm[cl]&&!isW(cbm[cl])){colored=true;bgColor=cbm[cl];break}}
+        if(!hasC)return;
+        if(!hd){res.headers=txts.map(h=>h.trim());hd=true;return}
+        res.totalDataRows++;
+        const rd={};rd[TK]=txts[0]||'';rd[TD]=pTS(txts[0]);rd[CK]=colored;rd[CBG]=bgColor;
+        for(let i=1;i<res.headers.length;i++){rd[res.headers[i]||'K'+i]=(i<txts.length)?txts[i]:''}
+        if(colored){res.coloredRows.push(rd);res.coloredCount++}
+        else{res.whiteRows.push(rd)}
+    });
+    if(res.headers.length>0)res.headers=res.headers.slice(1);
+    return res;
+}
 
-        /* ===== FETCH & PARSE HTML (deteksi warna) ===== */
-        async function fetchHTMLAndParse() {
-            let html;
-            try {
-                const r = await fetch(HTML_URL);
-                if (r.ok) { html = await r.text(); }
-                else { throw new Error('Direct HTML fetch failed'); }
-            } catch(e) {
-                // Coba via CORS proxy
-                try {
-                    const r2 = await fetch(PROXY + encodeURIComponent(HTML_URL));
-                    if (r2.ok) { html = await r2.text(); }
-                    else { throw new Error('Proxy fetch failed'); }
-                } catch(e2) {
-                    throw new Error('Tidak bisa mengakses HTML: ' + e2.message);
-                }
-            }
+async function fetchCSV(){
+    const r=await fetch(CSV_URL);if(!r.ok)throw new Error('CSV err');
+    const t=await r.text();if(!t||!t.trim())throw new Error('CSV empty');
+    const p=parseCSV(t);if(p.length<2)throw new Error('CSV short');
+    const rh=p[0];headers=[];
+    for(let i=1;i<rh.length;i++)headers.push(rh[i].trim());
+    const res={headers,whiteRows:[],coloredRows:[],totalDataRows:0,coloredCount:0};
+    for(let r=1;r<p.length;r++){
+        const row=p[r];if(!row||row.length<=1)continue;
+        const rd={};rd[TK]=(row[0]||'').trim();rd[TD]=pTS(rd[TK]);rd[CK]=false;rd[CBG]='';
+        let has=false;
+        for(let i=1;i<rh.length;i++){const k=headers[i-1];const v=(i<row.length)?(row[i]||'').trim():'';rd[k]=v;if(v)has=true}
+        if(has){res.whiteRows.push(rd);res.totalDataRows++}
+    }
+    return res;
+}
 
-            if (!html || html.length < 100) throw new Error('HTML kosong');
+function applyData(r){
+    headers=r.headers;whiteRows=r.whiteRows;coloredRows=r.coloredRows;
+    totalRows=r.totalDataRows;whiteCount=whiteRows.length;coloredCount=r.coloredCount;
+    allRows=[...whiteRows,...coloredRows];
+    allRows.sort((a,b)=>{const da=a[TD],db=b[TD];if(da&&db)return da.getTime()-db.getTime();if(da)return-1;if(db)return 1;return 0});
+    whiteRows=allRows.filter(r=>!r[CK]);coloredRows=allRows.filter(r=>r[CK]);
+    buildIdx();
+    // Slide 1
+    s1FD=[...whiteRows];s1Page=1;
+    updS1Stats();renderS1();renderChart1();
+    // Slide 2
+    s2FD=[...allRows];s2Page=1;
+    updS2Stats();renderS2();
+    toast('s',whiteCount+' pasien antri ditampilkan. '+coloredCount+' sudah dapat jadwal disembunyikan dari Dashboard.')
+}
 
-            return parsePublishedHTML(html);
-        }
+/* ========== UTILITAS WARNA ========== */
+function exBg(s){if(!s)return null;let m=s.match(/background-color\s*:\s*([^;}\n]+)/i);if(m)return m[1].trim().toLowerCase();m=s.match(/background\s*:\s*(#[0-9a-fA-F]{3,8}|rgb[a]?\([^)]+\)|[a-zA-Z]+)/i);return m?m[1].trim().toLowerCase():null}
+function isW(c){
+    if(!c)return true;const v=c.toLowerCase().trim();
+    if(['white','transparent','none','initial','inherit','unset',''].includes(v))return true;
+    if(['#fff','#ffffff','#fffffe','#fffefe'].includes(v))return true;
+    const m=v.match(/rgb[a]?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/);
+    if(m){const r=parseInt(m[1]),g=parseInt(m[2]),b=parseInt(m[3]);if(r>245&&g>245&&b>245)return true}
+    const h=v.match(/^#([0-9a-f]{6})$/);
+    if(h){const x=h[1];const r=parseInt(x.substr(0,2),16),g=parseInt(x.substr(2,2),16),b=parseInt(x.substr(4,2),16);if(r>245&&g>245&&b>245)return true}
+    return false
+}
 
-        function parsePublishedHTML(html) {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
+/* ========== CSV PARSER ========== */
+function parseCSV(t){const rs=[];let c=[],f='',q=false,i=0;while(i<t.length){const ch=t[i];if(q){if(ch==='"'){if(i+1<t.length&&t[i+1]==='"'){f+='"';i+=2}else{q=false;i++}}else{f+=ch;i++}}else{if(ch==='"'){q=true;i++}else if(ch===','){c.push(f);f='';i++}else if(ch==='\r'){i++}else if(ch==='\n'){c.push(f);f='';rs.push(c);c=[];i++}else{f+=ch;i++}}}if(f||c.length){c.push(f);rs.push(c)}return rs}
 
-            // Bangun mapping: CSS class → background-color
-            const classBgMap = {};
-            doc.querySelectorAll('style').forEach(styleEl => {
-                const css = styleEl.textContent || '';
-                const ruleRegex = /\.([a-zA-Z_][\w-]*)\s*\{([^}]*)\}/g;
-                let m;
-                while ((m = ruleRegex.exec(css)) !== null) {
-                    const cls = m[1];
-                    const props = m[2];
-                    // Cek background-color
-                    let bgMatch = props.match(/background-color\s*:\s*([^;}\s]+)/i);
-                    // Juga cek background shorthand
-                    if (!bgMatch) {
-                        bgMatch = props.match(/background\s*:\s*(#[0-9a-fA-F]{3,8}|rgb[a]?\([^)]+\)|\w+)/i);
-                    }
-                    if (bgMatch) {
-                        classBgMap[cls] = bgMatch[1].trim().toLowerCase();
-                    }
-                }
-            });
+/* ========== TIMESTAMP ========== */
+function pTS(s){
+    if(!s)return null;let d=new Date(s);if(!isNaN(d.getTime()))return d;
+    const m1=s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})\s+(\d{1,2}):(\d{2}):(\d{2})$/);
+    if(m1){const[,a,b,y,h,m,sc]=m1.map(Number);let dy,mo;if(a>12){dy=a;mo=b-1}else if(b>12){dy=b;mo=a-1}else{dy=b;mo=a-1}d=new Date(y,mo,dy,h,m,sc);if(!isNaN(d.getTime()))return d}
+    const m2=s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    if(m2){const[,a,b,y]=m2.map(Number);let dy,mo;if(a>12){dy=a;mo=b-1}else if(b>12){dy=b;mo=a-1}else{dy=b;mo=a-1}d=new Date(y,mo,dy);if(!isNaN(d.getTime()))return d}
+    return null
+}
+function fTS(s){const d=pTS(s);if(d&&!isNaN(d.getTime()))return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');return s}
 
-            // Cari tabel
-            const table = doc.querySelector('table');
-            if (!table) throw new Error('Tabel tidak ditemukan di HTML');
+/* ========== INDEX ========== */
+function buildIdx(){
+    namaIdx=headers.findIndex(h=>h.toLowerCase().includes('nama')&&h.toLowerCase().includes('pasien'));
+    if(namaIdx===-1)namaIdx=headers.findIndex(h=>h.toLowerCase().includes('nama'));
+    rmIdx=headers.findIndex(h=>/rekam medis|no\.?\s*rm|nomor rm|norm|medical record/i.test(h.toLowerCase()));
+    if(rmIdx===-1)rmIdx=headers.findIndex(h=>/\brm\b|rekam/i.test(h.toLowerCase()))
+}
 
-            const trList = table.querySelectorAll('tr');
-            const result = { headers: [], whiteRows: [], coloredCount: 0, totalDataRows: 0 };
-            let headerDetected = false;
+/* ========== SLIDE NAV ========== */
+function switchSlide(n){
+    if(n===2&&!isLoggedIn){document.getElementById('loginOverlay').style.display='flex';document.getElementById('loginUser').focus();return}
+    document.getElementById('slide1').style.display=n===1?'block':'none';
+    document.getElementById('slide2').style.display=n===2?'block':'none';
+    document.getElementById('tab1').className='nav-tab'+(n===1?' active':'');
+    document.getElementById('tab2').className='nav-tab'+(n===2?' active':'');
+}
 
-            trList.forEach((tr, trIdx) => {
-                const cells = tr.querySelectorAll('td, th');
-                if (cells.length === 0) return;
+/* ========== LOGIN ========== */
+function doLogin(){
+    const u=document.getElementById('loginUser').value.trim();
+    const p=document.getElementById('loginPass').value;
+    if(u===ADMIN_USER&&p===ADMIN_PASS){
+        isLoggedIn=true;
+        document.getElementById('loginOverlay').style.display='none';
+        document.getElementById('loginError').classList.add('hidden');
+        switchSlide(2);
+        toast('s','Login berhasil! Menampilkan semua data pasien.');
+    }else{
+        document.getElementById('loginError').classList.remove('hidden');
+    }
+}
+function cancelLogin(){document.getElementById('loginOverlay').style.display='none';document.getElementById('loginError').classList.add('hidden')}
+function doLogout(){isLoggedIn=false;switchSlide(1);toast('i','Anda telah logout dari mode admin.')}
 
-                const cellTexts = [];
-                let isColored = false;
-                let hasContent = false;
+/* ========== SLIDE 1: DASHBOARD ANTRIAN ========== */
+function updS1Stats(){
+    document.getElementById('s1Antri').textContent=whiteCount.toLocaleString('id-ID');
+    document.getElementById('s1Filt').textContent=s1FD.length.toLocaleString('id-ID');
+    document.getElementById('s1Proc').textContent=coloredCount.toLocaleString('id-ID');
+    document.getElementById('s1Tot').textContent=totalRows.toLocaleString('id-ID')
+}
+function s1Search(){
+    const nq=document.getElementById('s1Nama').value.trim().toLowerCase();
+    const rq=document.getElementById('s1RM').value.trim().toLowerCase();
+    s1FD=whiteRows.filter(r=>matchRow(r,nq,rq));
+    s1Page=1;document.getElementById('s1Filt').textContent=s1FD.length.toLocaleString('id-ID');
+    renderS1();if(s1FD.length===0&&(nq||rq))showS1NoRes()
+}
+function s1Reset(){document.getElementById('s1Nama').value='';document.getElementById('s1RM').value='';s1FD=[...whiteRows];s1Page=1;document.getElementById('s1Filt').textContent=whiteCount.toLocaleString('id-ID');renderS1();toast('i','Filter direset.')}
+function s1Export(){expCSV(s1FD,'Antri')}
+function s1CPS(){s1PS=parseInt(document.getElementById('s1PS').value);s1Page=1;renderS1()}
 
-                cells.forEach(cell => {
-                    const txt = (cell.textContent || '').trim();
-                    cellTexts.push(txt);
-                    if (txt) hasContent = true;
+function renderS1(){
+    if(whiteCount===0&&coloredCount>0){showS1Empty();return}
+    if(whiteCount===0&&coloredCount===0)return;
+    const tc=document.getElementById('s1TC'),nr=document.getElementById('s1NoRes'),em=document.getElementById('s1Empty');
+    tc.classList.remove('hidden');nr.classList.add('hidden');nr.classList.remove('flex');em.classList.add('hidden');em.classList.remove('flex');
+    document.getElementById('s1Load').classList.add('hidden');
 
-                    // Cek warna dari inline style
-                    const style = cell.getAttribute('style') || '';
-                    const bgInline = extractBgFromStyle(style);
-                    if (bgInline && !isWhiteOrTransparent(bgInline)) {
-                        isColored = true;
-                    }
+    // Header
+    let h='<tr><th style="width:64px;text-align:center">No</th><th style="width:155px">Waktu Daftar</th>';
+    headers.forEach(x=>{h+=`<th>${esc(x)}</th>`});h+='</tr>';
+    document.getElementById('s1TH').innerHTML=h;
 
-                    // Cek warna dari CSS class
-                    const clsList = (cell.getAttribute('class') || '').split(/\s+/);
-                    for (const cls of clsList) {
-                        if (classBgMap[cls] && !isWhiteOrTransparent(classBgMap[cls])) {
-                            isColored = true;
-                            break;
-                        }
-                    }
-                });
+    const tp=Math.max(1,Math.ceil(s1FD.length/s1PS));if(s1Page>tp)s1Page=tp;
+    const si=(s1Page-1)*s1PS,ei=Math.min(si+s1PS,s1FD.length),pd=s1FD.slice(si,ei);
+    const nq=document.getElementById('s1Nama').value.trim().toLowerCase();
+    const rq=document.getElementById('s1RM').value.trim().toLowerCase();
+    let b='';
+    if(!pd.length){b=`<tr><td colspan="${headers.length+2}" style="text-align:center;padding:40px;color:var(--muted)"><i class="fa-solid fa-inbox text-3xl block mb-3" style="color:var(--g300)"></i>Tidak ada data</td></tr>`}
+    else{pd.forEach((r,i)=>{
+        const rn=si+i+1;b+='<tr>';
+        b+=`<td style="text-align:center"><span class="ac ac-blue">${rn}</span></td>`;
+        b+=`<td class="tc"><i class="fa-regular fa-clock" style="margin-right:4px;color:var(--b400)"></i>${esc(fTS(r[TK]))}</td>`;
+        headers.forEach((x,xi)=>{let v=r[x]||'';let dv=esc(v);if(nq&&xi===namaIdx&&v.toLowerCase().includes(nq))dv=hl(v,nq);if(rq&&xi===rmIdx&&v.toLowerCase().includes(rq))dv=hl(v,rq);const xl=x.toLowerCase();if(/status|kelamin|gender/.test(xl))dv=bdg(v,xl);b+=`<td title="${esc(v)}">${dv}</td>`});
+        b+='</tr>'})}
+    document.getElementById('s1TB').innerHTML=b;
+    document.getElementById('s1PI').textContent=`Menampilkan ${s1FD.length?si+1:0}–${ei} dari ${s1FD.length} pasien antri`;
+    renderPg('s1PB',tp,s1Page,p=>{s1Page=p;renderS1();document.getElementById('s1TC').scrollIntoView({behavior:'smooth',block:'start'})})
+}
 
-                if (!hasContent) return;
+function showS1Loading(){document.getElementById('s1Load').classList.remove('hidden');document.getElementById('s1Load').classList.add('flex');['s1Empty','s1NoRes','s1TC'].forEach(id=>{document.getElementById(id).classList.add('hidden');document.getElementById(id).classList.remove('flex')})}
+function showS1Empty(){document.getElementById('s1Load').classList.add('hidden');document.getElementById('s1Empty').classList.remove('hidden');document.getElementById('s1Empty').classList.add('flex');document.getElementById('s1TC').classList.add('hidden')}
+function showS1NoRes(){document.getElementById('s1NoRes').classList.remove('hidden');document.getElementById('s1NoRes').classList.add('flex')}
 
-                // Baris pertama = header
-                if (!headerDetected) {
-                    result.headers = cellTexts.map(h => h.trim());
-                    headerDetected = true;
-                    return;
-                }
+/* ========== SLIDE 2: DATA LENGKAP ========== */
+function updS2Stats(){
+    document.getElementById('s2Tot').textContent=totalRows.toLocaleString('id-ID');
+    document.getElementById('s2Antri2').textContent=whiteCount.toLocaleString('id-ID');
+    document.getElementById('s2Proc2').textContent=coloredCount.toLocaleString('id-ID');
+    document.getElementById('s2Filt').textContent=s2FD.length.toLocaleString('id-ID')
+}
+function s2Search(){
+    const nq=document.getElementById('s2Nama').value.trim().toLowerCase();
+    const rq=document.getElementById('s2RM').value.trim().toLowerCase();
+    s2FD=allRows.filter(r=>matchRow(r,nq,rq));
+    s2Page=1;document.getElementById('s2Filt').textContent=s2FD.length.toLocaleString('id-ID');renderS2()
+}
+function s2Reset(){document.getElementById('s2Nama').value='';document.getElementById('s2RM').value='';s2FD=[...allRows];s2Page=1;document.getElementById('s2Filt').textContent=allRows.length.toLocaleString('id-ID');renderS2()}
+function s2Export(){expCSV(s2FD,'Semua')}
+function s2CPS(){s2PS=parseInt(document.getElementById('s2PS').value);s2Page=1;renderS2()}
 
-                result.totalDataRows++;
+function renderS2(){
+    let h='<tr><th style="width:56px;text-align:center">No</th><th style="width:155px">Waktu Daftar</th><th style="width:50px;text-align:center">Status</th>';
+    headers.forEach(x=>{h+=`<th>${esc(x)}</th>`});h+='</tr>';
+    document.getElementById('s2TH').innerHTML=h;
 
-                if (isColored) {
-                    result.coloredCount++;
-                } else {
-                    // Baris putih — masuk antrian
-                    const rowData = {};
-                    // Kolom A = index 0 = timestamp
-                    const tsRaw = cellTexts[0] || '';
-                    const tsDate = parseSheetTimestamp(tsRaw);
-                    rowData[TS_KEY] = tsRaw;
-                    rowData[TS_DATE] = tsDate;
+    const tp=Math.max(1,Math.ceil(s2FD.length/s2PS));if(s2Page>tp)s2Page=tp;
+    const si=(s2Page-1)*s2PS,ei=Math.min(si+s2PS,s2FD.length),pd=s2FD.slice(si,ei);
+    const nq=document.getElementById('s2Nama').value.trim().toLowerCase();
+    const rq=document.getElementById('s2RM').value.trim().toLowerCase();
+    let b='';
+    pd.forEach((r,i)=>{
+        const rn=si+i+1;const isC=r[CK];
+        b+=`<tr class="${isC?'row-colored':''}">`;
+        b+=`<td style="text-align:center"><span class="ac ${isC?'ac-green':'ac-blue'}">${rn}</span></td>`;
+        b+=`<td class="tc"><i class="fa-regular fa-clock" style="margin-right:4px;color:var(--b400)"></i>${esc(fTS(r[TK]))}</td>`;
+        b+=`<td style="text-align:center">${isC?'<span class="badge" style="background:#fef9c3;color:#92400e"><i class="fa-solid fa-check mr-1"></i>Jadwal</span>':'<span class="badge" style="background:#dbeafe;color:#1e40af"><i class="fa-solid fa-hourglass-half mr-1"></i>Antri</span>'}</td>`;
+        headers.forEach((x,xi)=>{let v=r[x]||'';let dv=esc(v);if(nq&&xi===namaIdx&&v.toLowerCase().includes(nq))dv=hl(v,nq);if(rq&&xi===rmIdx&&v.toLowerCase().includes(rq))dv=hl(v,rq);const xl=x.toLowerCase();if(/status|kelamin|gender/.test(xl))dv=bdg(v,xl);b+=`<td title="${esc(v)}">${dv}</td>`});
+        b+='</tr>'});
+    document.getElementById('s2TB').innerHTML=b;
+    document.getElementById('s2PI').textContent=`Menampilkan ${s2FD.length?si+1:0}–${ei} dari ${s2FD.length} data`;
+    renderPg('s2PB',tp,s2Page,p=>{s2Page=p;renderS2();document.getElementById('s2TC').scrollIntoView({behavior:'smooth',block:'start'})})
+}
 
-                    // Kolom B ke atas = data pasien
-                    for (let i = 1; i < result.headers.length; i++) {
-                        const key = result.headers[i] || `Kolom_${i}`;
-                        rowData[key] = (i < cellTexts.length) ? cellTexts[i] : '';
-                    }
-                    result.whiteRows.push(rowData);
-                }
-            });
+/* ========== CHART ========== */
+function renderChart1(){
+    const ctx=document.getElementById('chart1').getContext('2d');
+    if(chart1)chart1.destroy();
+    chart1=new Chart(ctx,{type:'doughnut',data:{labels:['Masih Antri','Sudah Dapat Jadwal'],datasets:[{data:[whiteCount,coloredCount],backgroundColor:['#3b82f6','#10b981'],borderColor:['#2563eb','#059669'],borderWidth:3,hoverOffset:8}]},options:{responsive:true,maintainAspectRatio:true,cutout:'65%',plugins:{legend:{display:false},tooltip:{backgroundColor:'#1e293b',titleFont:{family:'Plus Jakarta Sans',weight:'700'},bodyFont:{family:'Plus Jakarta Sans'},padding:12,cornerRadius:10,callbacks:{label:c=>{const t=c.dataset.data.reduce((a,b)=>a+b,0);return` ${c.raw} pasien (${t?Math.round(c.raw/t*100):0}%)`}}}},animation:{duration:1200}}});
+    document.getElementById('leg1').innerHTML=`<span class="flex items-center gap-2"><span class="w-3 h-3 rounded-full" style="background:#3b82f6"></span>Antri: <strong>${whiteCount}</strong></span><span class="flex items-center gap-2"><span class="w-3 h-3 rounded-full" style="background:#10b981"></span>Jadwal: <strong>${coloredCount}</strong></span>`
+}
 
-            // Header: mulai dari kolom B
-            if (result.headers.length > 0) {
-                result.headers = result.headers.slice(1);
-            }
+/* ========== PAGINATION ========== */
+function renderPg(id,tp,cp,fn){
+    const c=document.getElementById(id);let h=`<button class="pb" ${cp===1?'disabled':''} onclick="void(0)"><i class="fa-solid fa-chevron-left text-xs"></i></button>`;
+    const mv=5;let sp=Math.max(1,cp-Math.floor(mv/2)),ep=Math.min(tp,sp+mv-1);if(ep-sp+1<mv)sp=Math.max(1,ep-mv+1);
+    if(sp>1){h+=`<button class="pb" onclick="void(0)">1</button>`;if(sp>2)h+=`<span class="text-xs px-1" style="color:var(--g400)">...</span>`}
+    for(let i=sp;i<=ep;i++)h+=`<button class="pb ${i===cp?'act':''}" onclick="void(0)">${i}</button>`;
+    if(ep<tp){if(ep<tp-1)h+=`<span class="text-xs px-1" style="color:var(--g400)">...</span>`;h+=`<button class="pb" onclick="void(0)">${tp}</button>`}
+    h+=`<button class="pb" ${cp===tp?'disabled':''} onclick="void(0)"><i class="fa-solid fa-chevron-right text-xs"></i></button>`;
+    c.innerHTML=h;
+    // Attach events
+    const btns=c.querySelectorAll('.pb');let pi=0;
+    btns.forEach(b=>{
+        if(b.disabled)return;
+        const txt=b.textContent.trim();
+        if(b.querySelector('.fa-chevron-left')){b.onclick=()=>fn(cp-1)}
+        else if(b.querySelector('.fa-chevron-right')){b.onclick=()=>fn(cp+1)}
+        else{const p=parseInt(txt);if(!isNaN(p))b.onclick=()=>fn(p)}
+    })
+}
 
-            return result;
-        }
+/* ========== MATCH & HIGHLIGHT ========== */
+function matchRow(r,nq,rq){
+    let mN=true,mR=true;
+    if(nq){if(namaIdx!==-1){const c=headers[namaIdx];mN=r[c]&&r[c].toLowerCase().includes(nq)}else mN=Object.values(r).some(v=>v&&typeof v==='string'&&v.toLowerCase().includes(nq))}
+    if(rq){if(rmIdx!==-1){const c=headers[rmIdx];mR=r[c]&&String(r[c]).toLowerCase().includes(rq)}else mR=Object.values(r).some(v=>v&&typeof v==='string'&&String(v).toLowerCase().includes(rq))}
+    return mN&&mR
+}
+function hl(t,q){const e=esc(t);return e.replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`,'gi'),'<span class="hm">$1</span>')}
+function bdg(v,xl){
+    const vl=v.toLowerCase().trim();let bg,co;
+    if(/status/.test(xl)){
+        if(/aktif|daftar|terdaftar|antri|lanjut/.test(vl)){bg='#d1fae5';co='#065f46'}
+        else if(/batal|ditolak|selesai/.test(vl)){bg='#fee2e2';co='#991b1b'}
+        else{bg='#e2e8f0';co='#475569'}
+    }else{
+        if(/laki|^l$|pria|laki-laki/.test(vl)){bg='#dbeafe';co='#1e40af'}
+        else if(/perem|^p$|wanita|perempuan/.test(vl)){bg='#fce7f3';co='#9d174d'}
+        else{bg='#e2e8f0';co='#475569'}
+    }
+    return `<span class="badge" style="background:${bg};color:${co}">${esc(v)}</span>`
+}
 
-        /* ===== FETCH CSV FALLBACK ===== */
-        async function fetchCSVAndParse() {
-            const response = await fetch(CSV_URL);
-            if (!response.ok) throw new Error('CSV fetch gagal');
-            const csvText = await response.text();
-            if (!csvText || csvText.trim().length === 0) throw new Error('CSV kosong');
+/* ========== EXPORT CSV ========== */
+function expCSV(data,label){
+    if(!data.length){toast('e','Tidak ada data untuk diekspor.');return}
+    let csv='"No","Waktu Daftar","Status",' + headers.map(h=>`"${h.replace(/"/g,'""')}"`).join(',')+'\n';
+    data.forEach((r,i)=>{
+        csv+=`"${i+1}","${fTS(r[TK]).replace(/"/g,'""')}","${r[CK]?'Sudah Dapat Jadwal':'Masih Antri'}",`+headers.map(h=>{let v=r[h]||'';return`"${v.replace(/"/g,'""')}"`}).join(',')+'\n'
+    });
+    const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+    a.download=`${label}_Pasien_Dialisis_${new Date().toISOString().slice(0,10)}.csv`;
+    a.click();URL.revokeObjectURL(a.href);
+    toast('s',`Berhasil ekspor ${data.length} data ke CSV.`)
+}
 
-            const parsed = parseCSV(csvText);
-            if (parsed.length < 2) throw new Error('Data CSV tidak cukup');
+/* ========== TOAST ========== */
+function toast(t,m){
+    const c=document.getElementById('toastC'),el=document.createElement('div');
+    const ic={s:'fa-circle-check',e:'fa-circle-xmark',i:'fa-circle-info',w:'fa-triangle-exclamation'};
+    const cl={s:'tt-s',e:'tt-e',i:'tt-i',w:'tt-w'};
+    el.className=`tt ${cl[t]||'tt-i'}`;el.innerHTML=`<i class="fa-solid ${ic[t]||'fa-circle-info'}"></i><span>${m}</span>`;
+    c.appendChild(el);setTimeout(()=>{el.classList.add('tt-x');setTimeout(()=>el.remove(),300)},5000)
+}
 
-            const rawHeaders = parsed[0];
-            headers = [];
-            for (let i = 1; i < rawHeaders.length; i++) {
-                headers.push(rawHeaders[i].trim());
-            }
-
-            allData = [];
-            totalAllRows = 0;
-            coloredRowCount = 0;
-
-            for (let r = 1; r < parsed.length; r++) {
-                const row = parsed[r];
-                if (!row || row.length <= 1) continue;
-                const tsRaw = (row[0] || '').trim();
-                const tsDate = parseSheetTimestamp(tsRaw);
-                const rowData = {};
-                rowData[TS_KEY] = tsRaw;
-                rowData[TS_DATE] = tsDate;
-                let hasData = false;
-                for (let i = 1; i < rawHeaders.length; i++) {
-                    const key = headers[i - 1];
-                    const val = (i < row.length) ? (row[i] || '').trim() : '';
-                    rowData[key] = val;
-                    if (val) hasData = true;
-                }
-                if (hasData) { allData.push(rowData); totalAllRows++; }
-            }
-
-            buildIndex();
-            sortData();
-        }
-
-        /* ===== UTILITAS WARNA ===== */
-        function extractBgFromStyle(style) {
-            // Cek background-color
-            let m = style.match(/background-color\s*:\s*([^;}\s]+)/i);
-            if (m) return m[1].trim().toLowerCase();
-            // Cek background shorthand
-            m = style.match(/background\s*:\s*(#[0-9a-fA-F]{3,8}|rgb[a]?\([^)]+\)|[a-zA-Z]+)/i);
-            if (m) return m[1].trim().toLowerCase();
-            return null;
-        }
-
-        function isWhiteOrTransparent(color) {
-            if (!color) return true;
-            const c = color.toLowerCase().trim();
-            if (c === 'white' || c === 'transparent' || c === 'none') return true;
-            if (c === '#fff' || c === '#ffffff' || c === '#fffffe') return true;
-            if (c === 'rgb(255,255,255)' || c === 'rgb(255, 255, 255)') return true;
-            if (c === 'rgba(0,0,0,0)' || c === 'rgba(0, 0, 0, 0)') return true;
-            if (c === 'rgba(255,255,255,1)' || c === 'rgba(255, 255, 255, 1)') return true;
-            // Deteksi warna sangat terang (mendekati putih)
-            const rgbM = c.match(/rgb[a]?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/);
-            if (rgbM) {
-                const r = parseInt(rgbM[1]), g = parseInt(rgbM[2]), b = parseInt(rgbM[3]);
-                if (r > 245 && g > 245 && b > 245) return true;
-            }
-            // Hex 6 digit
-            const hexM = c.match(/^#([0-9a-f]{6})$/);
-            if (hexM) {
-                const hex = hexM[1];
-                const r = parseInt(hex.substr(0,2),16), g = parseInt(hex.substr(2,2),16), b = parseInt(hex.substr(4,2),16);
-                if (r > 245 && g > 245 && b > 245) return true;
-            }
-            return false;
-        }
-
-        /* ===== PARSE CSV ===== */
-        function parseCSV(text) {
-            const rows = [];
-            let current = [], field = '', inQ = false, i = 0;
-            while (i < text.length) {
-                const ch = text[i];
-                if (inQ) {
-                    if (ch === '"') {
-                        if (i+1 < text.length && text[i+1] === '"') { field += '"'; i += 2; }
-                        else { inQ = false; i++; }
-                    } else { field += ch; i++; }
-                } else {
-                    if (ch === '"') { inQ = true; i++; }
-                    else if (ch === ',') { current.push(field); field = ''; i++; }
-                    else if (ch === '\r') { i++; }
-                    else if (ch === '\n') { current.push(field); field = ''; rows.push(current); current = []; i++; }
-                    else { field += ch; i++; }
-                }
-            }
-            if (field !== '' || current.length > 0) { current.push(field); rows.push(current); }
-            return rows;
-        }
-
-        /* ===== PARSE TIMESTAMP ===== */
-        function parseSheetTimestamp(str) {
-            if (!str) return null;
-            let d = new Date(str);
-            if (!isNaN(d.getTime())) return d;
-            const m1 = str.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})\s+(\d{1,2}):(\d{2}):(\d{2})$/);
-            if (m1) {
-                const [,p1,p2,yr,hr,mn,sc] = m1.map(Number);
-                let day,month;
-                if (p1>12){day=p1;month=p2-1} else if(p2>12){day=p2;month=p1-1} else {day=p2;month=p1-1}
-                d=new Date(yr,month,day,hr,mn,sc);
-                if(!isNaN(d.getTime()))return d;
-            }
-            const m2 = str.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
-            if(m2){const[,p1,p2,yr]=m2.map(Number);let day,month;if(p1>12){day=p1;month=p2-1}else if(p2>12){day=p2;month=p1-1}else{day=p2;month=p1-1}d=new Date(yr,month,day);if(!isNaN(d.getTime()))return d}
-            return null;
-        }
-
-        function formatTsDisplay(str) {
-            const d = parseSheetTimestamp(str);
-            if (d && !isNaN(d.getTime())) {
-                return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
-            }
-            return str;
-        }
-
-        /* ===== BUILD INDEX & SORT ===== */
-        function buildIndex() {
-            namaColIdx = headers.findIndex(h => h.toLowerCase().includes('nama') && h.toLowerCase().includes('pasien'));
-            if (namaColIdx === -1) namaColIdx = headers.findIndex(h => h.toLowerCase().includes('nama'));
-            rmColIdx = headers.findIndex(h => h.toLowerCase().includes('rekam medis') || h.toLowerCase().includes('no rm') || h.toLowerCase().includes('nomor rm') || h.toLowerCase().includes('no. rm') || h.toLowerCase().includes('norm') || h.toLowerCase().includes('medical record'));
-            if (rmColIdx === -1) rmColIdx = headers.findIndex(h => h.toLowerCase().includes('rm') || h.toLowerCase().includes('rekam'));
-        }
-
-        function sortData() {
-            allData.sort((a, b) => {
-                const da = a[TS_DATE], db = b[TS_DATE];
-                if (da && db) return da.getTime() - db.getTime();
-                if (da) return -1;
-                if (db) return 1;
-                return 0;
-            });
-        }
-
-        function updateStats() {
-            document.getElementById('statTotal').textContent = allData.length.toLocaleString('id-ID');
-            document.getElementById('statFiltered').textContent = allData.length.toLocaleString('id-ID');
-            document.getElementById('statProcessed').textContent = coloredRowCount.toLocaleString('id-ID');
-            document.getElementById('statUpdated').textContent = new Date().toLocaleTimeString('id-ID', {hour:'2-digit',minute:'2-digit'});
-        }
-
-        /* ===== PENCARIAN ===== */
-        function handleSearch() {
-            const nq = document.getElementById('inputNama').value.trim().toLowerCase();
-            const rq = document.getElementById('inputRM').value.trim().toLowerCase();
-            if (nq === '' && rq === '') { filteredData = [...allData]; }
-            else {
-                filteredData = allData.filter(row => {
-                    let mN = true, mR = true;
-                    if (nq) { if (namaColIdx !== -1) { const c = headers[namaColIdx]; mN = row[c] && row[c].toLowerCase().includes(nq); } else { mN = Object.values(row).some(v => v && typeof v === 'string' && v.toLowerCase().includes(nq)); } }
-                    if (rq) { if (rmColIdx !== -1) { const c = headers[rmColIdx]; mR = row[c] && String(row[c]).toLowerCase().includes(rq); } else { mR = Object.values(row).some(v => v && typeof v === 'string' && String(v).toLowerCase().includes(rq)); } }
-                    return mN && mR;
-                });
-            }
-            currentPage = 1;
-            document.getElementById('statFiltered').textContent = filteredData.length.toLocaleString('id-ID');
-            renderTable();
-            if (filteredData.length === 0 && (nq || rq)) showNoResult();
-        }
-
-        function handleReset() {
-            document.getElementById('inputNama').value = '';
-            document.getElementById('inputRM').value = '';
-            filteredData = [...allData];
-            currentPage = 1;
-            document.getElementById('statFiltered').textContent = allData.length.toLocaleString('id-ID');
-            renderTable();
-            showToast('info', 'Filter pencarian telah direset.');
-        }
-
-        /* ===== RENDER TABEL ===== */
-        function renderTable() {
-            if (allData.length === 0) return;
-            const tc = document.getElementById('tableContainer');
-            const nr = document.getElementById('noResultState');
-            tc.classList.remove('hidden');
-            nr.classList.add('hidden');
-            nr.classList.remove('flex');
-
-            const thead = document.getElementById('tableHead');
-            let hHTML = '<tr><th style="width:64px;text-align:center">No</th><th style="width:160px">Waktu Daftar</th>';
-            headers.forEach(h => { hHTML += `<th>${escapeHTML(h)}</th>`; });
-            hHTML += '</tr>';
-            thead.innerHTML = hHTML;
-
-            const totalPages = Math.max(1, Math.ceil(filteredData.length / pageSize));
-            if (currentPage > totalPages) currentPage = totalPages;
-            const si = (currentPage-1)*pageSize, ei = Math.min(si+pageSize, filteredData.length);
-            const pd = filteredData.slice(si, ei);
-            const nq = document.getElementById('inputNama').value.trim().toLowerCase();
-            const rq = document.getElementById('inputRM').value.trim().toLowerCase();
-            const tbody = document.getElementById('tableBody');
-            let bHTML = '';
-
-            if (pd.length === 0) {
-                bHTML = `<tr><td colspan="${headers.length+3}" style="text-align:center;padding:40px;color:var(--text-muted)"><i class="fa-solid fa-inbox text-3xl block mb-3" style="color:var(--gray-300)"></i>Tidak ada data antrian</td></tr>`;
-            } else {
-                pd.forEach((row, idx) => {
-                    const rn = si+idx+1;
-                    bHTML += '<tr>';
-                    bHTML += `<td style="text-align:center"><span class="antrian-cell">${rn}</span></td>`;
-                    bHTML += `<td class="timestamp-cell"><i class="fa-regular fa-clock" style="margin-right:4px;color:var(--blue-400)"></i>${escapeHTML(formatTsDisplay(row[TS_KEY]))}</td>`;
-                    headers.forEach((h, hi) => {
-                        let val = row[h] || '';
-                        let dv = escapeHTML(val);
-                        if (nq && hi === namaColIdx && val.toLowerCase().includes(nq)) dv = highlightText(val, nq);
-                        if (rq && hi === rmColIdx && val.toLowerCase().includes(rq)) dv = highlightText(val, rq);
-                        const hl = h.toLowerCase();
-                        if (hl.includes('status') || hl.includes('jenis kelamin') || hl.includes('gender') || hl.includes('j. kelamin')) dv = renderBadge(val, hl);
-                        bHTML += `<td title="${escapeHTML(val)}">${dv}</td>`;
-                    });
-                    bHTML += '</tr>';
-                });
-            }
-            tbody.innerHTML = bHTML;
-            document.getElementById('paginationInfo').textContent = `Menampilkan ${filteredData.length===0?0:si+1}–${ei} dari ${filteredData.length} pasien antri`;
-            renderPagination(totalPages);
-        }
-
-        function renderPagination(tp) {
-            const c = document.getElementById('paginationButtons');
-            let h = `<button class="page-btn" onclick="goToPage(${currentPage-1})" ${currentPage===1?'disabled':''}><i class="fa-solid fa-chevron-left text-xs"></i></button>`;
-            const mv = 5;
-            let sp = Math.max(1, currentPage - Math.floor(mv/2));
-            let ep = Math.min(tp, sp+mv-1);
-            if (ep-sp+1<mv) sp = Math.max(1, ep-mv+1);
-            if (sp>1) { h += `<button class="page-btn" onclick="goToPage(1)">1</button>`; if(sp>2) h += `<span class="text-xs px-1" style="color:var(--gray-400)">...</span>`; }
-            for (let i=sp;i<=ep;i++) h += `<button class="page-btn ${i===currentPage?'active':''}" onclick="goToPage(${i})">${i}</button>`;
-            if (ep<tp) { if(ep<tp-1) h += `<span class="text-xs px-1" style="color:var(--gray-400)">...</span>`; h += `<button class="page-btn" onclick="goToPage(${tp})">${tp}</button>`; }
-            h += `<button class="page-btn" onclick="goToPage(${currentPage+1})" ${currentPage===tp?'disabled':''}><i class="fa-solid fa-chevron-right text-xs"></i></button>`;
-            c.innerHTML = h;
-        }
-
-        function goToPage(p) { const tp=Math.max(1,Math.ceil(filteredData.length/pageSize)); if(p<1||p>tp)return; currentPage=p; renderTable(); document.getElementById('tableContainer').scrollIntoView({behavior:'smooth',block:'start'}); }
-        function changePageSize() { pageSize=parseInt(document.getElementById('pageSize').value); currentPage=1; renderTable(); }
-
-        /* ===== CHART ===== */
-        function renderChart() {
-            const ctx = document.getElementById('statusChart').getContext('2d');
-            const whiteCount = allData.length;
-            const coloredCount = coloredRowCount;
-
-            if (statusChart) statusChart.destroy();
-
-            statusChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Masih Antri', 'Sudah Diproses'],
-                    datasets: [{
-                        data: [whiteCount, coloredCount],
-                        backgroundColor: ['#3b82f6', '#10b981'],
-                        borderColor: ['#2563eb', '#059669'],
-                        borderWidth: 3,
-                        hoverBorderWidth: 4,
-                        hoverOffset: 8
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: true,
-                    cutout: '68%',
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                            backgroundColor: '#1e293b',
-                            titleFont: { family: 'Plus Jakarta Sans', weight: '700', size: 13 },
-                            bodyFont: { family: 'Plus Jakarta Sans', weight: '500', size: 12 },
-                            padding: 12,
-                            cornerRadius: 10,
-                            callbacks: {
-                                label: function(ctx) {
-                                    const total = ctx.dataset.data.reduce((a,b) => a+b, 0);
-                                    const pct = total > 0 ? Math.round(ctx.raw / total * 100) : 0;
-                                    return ` ${ctx.raw} pasien (${pct}%)`;
-                                }
-                            }
-                        }
-                    },
-                    animation: { animateRotate: true, duration: 1200 }
-                }
-            });
-
-            // Custom legend
-            const legendEl = document.getElementById('chartLegend');
-            legendEl.innerHTML = `
-                <span class="flex items-center gap-2"><span class="w-3 h-3 rounded-full" style="background:#3b82f6"></span>Masih Antri: <strong>${whiteCount}</strong></span>
-                <span class="flex items-center gap-2"><span class="w-3 h-3 rounded-full" style="background:#10b981"></span>Sudah Diproses: <strong>${coloredCount}</strong></span>
-            `;
-        }
-
-        /* ===== HIGHLIGHT & BADGE ===== */
-        function highlightText(text, query) { const e = escapeHTML(text); const r = new RegExp(`(${escapeRegex(query)})`,'gi'); return e.replace(r,'<span class="highlight-match">$1</span>'); }
-        function escapeRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); }
-
-        function renderBadge(val, hl) {
-            const v = val.toLowerCase().trim();
-            let bg, color;
-            if (hl.includes('status')) {
-                if (v.includes('aktif')||v.includes('daftar')||v.includes('terdaftar')||v.includes('antri')||v.includes('lanjut')) { bg='#d1fae5';color='#065f46'; }
-                else if (v.includes('batal')||v.includes('ditolak')||v.includes('selesai')) { bg='#fee2e2';color='#991b1b'; }
-                else { bg='#e2e8f0';color='#475569'; }
-            } else if (hl.includes('kelamin')||hl.includes('gender')) {
-                if (v.includes('laki')||v==='l'||v==='pria'||v==='laki-laki') { bg='#dbeafe';color='#1e40af'; }
-                else if (v.includes('perem')||v==='p'||v==='wanita'||v.includes('perempuan')) { bg='#fce7f3';color='#9d174d'; }
-                else { bg='#e2e8f0';color='#475569'; }
-            } else { return escapeHTML(val); }
-            return `<span class="badge" style="background:${bg};color:${color}">${escapeHTML(val)}</span>`;
-        }
-
-        /* ===== EKSPOR CSV ===== */
-        function exportCSV() {
-            if (filteredData.length===0) { showToast('error','Tidak ada data untuk diekspor.'); return; }
-            let csv = '"No","Waktu Daftar",' + headers.map(h=>`"${h.replace(/"/g,'""')}"`).join(',') + '\n';
-            filteredData.forEach((row,idx) => {
-                csv += `"${idx+1}","${formatTsDisplay(row[TS_KEY]).replace(/"/g,'""')}",` + headers.map(h=>{let v=row[h]||'';return`"${v.replace(/"/g,'""')}"`}).join(',') + '\n';
-            });
-            const blob = new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = `Daftar_Antri_Pasien_Dialisis_${new Date().toISOString().slice(0,10)}.csv`;
-            link.click();
-            URL.revokeObjectURL(link.href);
-            showToast('success',`Berhasil mengekspor ${filteredData.length} data antrian ke CSV.`);
-        }
-
-        /* ===== UI STATE ===== */
-        function showLoading() { document.getElementById('loadingState').classList.remove('hidden'); document.getElementById('loadingState').classList.add('flex'); document.getElementById('emptyState').classList.add('hidden'); document.getElementById('emptyState').classList.remove('flex'); document.getElementById('noResultState').classList.add('hidden'); document.getElementById('noResultState').classList.remove('flex'); document.getElementById('tableContainer').classList.add('hidden'); }
-        function showEmpty() { document.getElementById('loadingState').classList.add('hidden'); document.getElementById('loadingState').classList.remove('flex'); document.getElementById('emptyState').classList.remove('hidden'); document.getElementById('emptyState').classList.add('flex'); document.getElementById('tableContainer').classList.add('hidden'); }
-        function showNoResult() { document.getElementById('noResultState').classList.remove('hidden'); document.getElementById('noResultState').classList.add('flex'); }
-
-        /* ===== TOAST ===== */
-        function showToast(type, message) {
-            const c = document.getElementById('toastContainer');
-            const t = document.createElement('div');
-            const icons = {success:'fa-circle-check',error:'fa-circle-xmark',info:'fa-circle-info',warn:'fa-triangle-exclamation'};
-            const cls = {success:'toast-success',error:'toast-error',info:'toast-info',warn:'toast-warn'};
-            t.className = `toast ${cls[type]||'toast-info'}`;
-            t.innerHTML = `<i class="fa-solid ${icons[type]||'fa-circle-info'}"></i><span>${message}</span>`;
-            c.appendChild(t);
-            setTimeout(()=>{t.classList.add('toast-exit');setTimeout(()=>t.remove(),300)},5000);
-        }
-
-        function escapeHTML(str) { const d=document.createElement('div');d.textContent=str;return d.innerHTML; }
-    </script>
+function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+</script>
 </body>
 </html>
