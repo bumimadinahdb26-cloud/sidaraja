@@ -110,7 +110,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--g50);color:var(
 <body>
 <div class="tc2" id="toastC"></div>
 
-<!-- LOGIN OVERLAY (Slide 2) -->
+<!-- LOGIN OVERLAY -->
 <div class="login-overlay" id="loginOverlay" style="display:none">
 <div class="login-box">
 <div class="text-center mb-8">
@@ -191,12 +191,12 @@ Daftar Antri<br>
 <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,var(--b500),var(--b600))"><i class="fa-solid fa-magnifying-glass text-white text-sm"></i></div>
 <div>
 <h2 class="text-lg font-extrabold" style="color:var(--b900)">Filter Pencarian</h2>
-<p class="text-xs" style="color:var(--muted)">Cari pasien antri berdasarkan nama atau nomor rekam medis</p>
+<p class="text-xs" style="color:var(--muted)">Cari berdasarkan Nama (B) atau No MR (C)</p>
 </div>
 </div>
 <div class="sg grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6">
-<div class="relative"><i class="fa-solid fa-user-injured iic"></i><input type="text" id="s1Nama" class="si2" placeholder="Ketik Nama Pasien..." autocomplete="off"></div>
-<div class="relative"><i class="fa-solid fa-id-card-clip iic"></i><input type="text" id="s1RM" class="si2" placeholder="Ketik Nomor Rekam Medis..." autocomplete="off"></div>
+<div class="relative"><i class="fa-solid fa-user-injured iic"></i><input type="text" id="s1Nama" class="si2" placeholder="Ketik Nama Pasien (Kolom B)..." autocomplete="off"></div>
+<div class="relative"><i class="fa-solid fa-id-card-clip iic"></i><input type="text" id="s1RM" class="si2" placeholder="Ketik No MR / Urutan (Kolom A/C)..." autocomplete="off"></div>
 </div>
 <div class="flex flex-wrap items-center gap-3">
 <button class="bp" onclick="s1Search()"><i class="fa-solid fa-search"></i> Cari</button>
@@ -266,7 +266,7 @@ Daftar Antri<br>
 <div class="card p-6 sm:p-8">
 <div class="sg grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6">
 <div class="relative"><i class="fa-solid fa-user-injured iic"></i><input type="text" id="s2Nama" class="si2" placeholder="Ketik Nama Pasien..." autocomplete="off"></div>
-<div class="relative"><i class="fa-solid fa-id-card-clip iic"></i><input type="text" id="s2RM" class="si2" placeholder="Ketik Nomor Rekam Medis..." autocomplete="off"></div>
+<div class="relative"><i class="fa-solid fa-id-card-clip iic"></i><input type="text" id="s2RM" class="si2" placeholder="Ketik No MR / Urutan..." autocomplete="off"></div>
 </div>
 <div class="flex flex-wrap items-center gap-3">
 <button class="bp" onclick="s2Search()"><i class="fa-solid fa-search"></i> Cari</button>
@@ -319,8 +319,10 @@ Daftar Antri<br>
 
 <script>
 /* ========== KONFIGURASI ========== */
-const CSV_URL='https://docs.google.com/spreadsheets/d/e/2PACX-1vQZVO38b4R1ptmVVoMCRwRDsgTCN_KfTgpzus4VtTLRlXvfhZ6IHaXl25tubcrpzRgrgIFztik4_-Li/pub?gid=1588121083&single=true&output=csv';
-const HTML_URL='https://docs.google.com/spreadsheets/d/e/2PACX-1vQZVO38b4R1ptmVVoMCRwRDsgTCN_KfTgpzus4VtTLRlXvfhZ6IHaXl25tubcrpzRgrgIFztik4_-Li/pubhtml?gid=1588121083';
+// Sheet ID Baru: 1UbMj1gbz-wDIUlT64-nnHPa2xvGxlS_fEgnaEzcU1cA
+// Target: Sheet "Form Responses 1" (Default gid=0)
+const CSV_URL='https://docs.google.com/spreadsheets/d/1UbMj1gbz-wDIUlT64-nnHPa2xvGxlS_fEgnaEzcU1cA/export?format=csv&gid=0';
+const HTML_URL='https://docs.google.com/spreadsheets/d/1UbMj1gbz-wDIUlT64-nnHPa2xvGxlS_fEgnaEzcU1cA/pubhtml?gid=0&single=true';
 const PROXY='https://api.allorigins.win/raw?url=';
 const ADMIN_USER='admin';
 const ADMIN_PASS='dialisis2024';
@@ -328,7 +330,7 @@ const ADMIN_PASS='dialisis2024';
 /* ========== STATE ========== */
 let headers=[], whiteRows=[], coloredRows=[], allRows=[];
 let totalRows=0, whiteCount=0, coloredCount=0;
-let namaIdx=-1, rmIdx=-1;
+let namaIdx=-1, rmIdx=-1, urutanIdx=-1; // Tambah urutanIdx
 let s1FD=[], s1Page=1, s1PS=25;
 let s2FD=[], s2Page=1, s2PS=25;
 let isLoggedIn=false, chart1=null;
@@ -472,10 +474,22 @@ function fTS(s){const d=pTS(s);if(d&&!isNaN(d.getTime()))return String(d.getDate
 
 /* ========== INDEX ========== */
 function buildIdx(){
-    namaIdx=headers.findIndex(h=>h.toLowerCase().includes('nama')&&h.toLowerCase().includes('pasien'));
-    if(namaIdx===-1)namaIdx=headers.findIndex(h=>h.toLowerCase().includes('nama'));
-    rmIdx=headers.findIndex(h=>/rekam medis|no\.?\s*rm|nomor rm|norm|medical record/i.test(h.toLowerCase()));
-    if(rmIdx===-1)rmIdx=headers.findIndex(h=>/\brm\b|rekam/i.test(h.toLowerCase()))
+    // Mencari index kolom berdasarkan header
+    // Asumsi header sudah di-slice (kolom A adalah TK, header mulai dari kolom B di array 'headers')
+    // Kolom A (Urutan) -> disimpan di TK, tidak ada di array headers.
+    // Kolom B (Nama) -> headers[0]
+    // Kolom C (MR) -> headers[1]
+    
+    // Cari Nama (Kolom B)
+    namaIdx=headers.findIndex(h=>h.toLowerCase().includes('nama'));
+    if(namaIdx===-1) namaIdx=0; // Default ke index 0 jika tidak ketemu (asumsi kolom pertama setelah timestamp adalah nama)
+    
+    // Cari MR (Kolom C)
+    rmIdx=headers.findIndex(h=>/no\.?\s*mr|norm|rekam medis|medical record/i.test(h.toLowerCase()));
+    if(rmIdx===-1) rmIdx=1; // Default ke index 1
+    
+    // Urutan (Kolom A) - Tidak ada di headers, jadi kita tandai dengan nilai khusus -2
+    urutanIdx=-2; // -2 menandakan ini ambil dari property TK (Timestamp/Urutan)
 }
 
 /* ========== SLIDE NAV ========== */
@@ -529,8 +543,10 @@ function renderS1(){
     tc.classList.remove('hidden');nr.classList.add('hidden');nr.classList.remove('flex');em.classList.add('hidden');em.classList.remove('flex');
     document.getElementById('s1Load').classList.add('hidden');
 
-    // Header
-    let h='<tr><th style="width:64px;text-align:center">No</th><th style="width:155px">Waktu Daftar</th>';
+    // Header - Urutan/Nama/MR mengikuti data
+    // Kolom 1: No
+    // Kolom 2: Waktu/Urutan (dari Col A) -> Header diganti dinamis atau generik
+    let h='<tr><th style="width:64px;text-align:center">No</th><th style="width:155px">Waktu/Urutan</th>';
     headers.forEach(x=>{h+=`<th>${esc(x)}</th>`});h+='</tr>';
     document.getElementById('s1TH').innerHTML=h;
 
@@ -544,7 +560,21 @@ function renderS1(){
         const rn=si+i+1;b+='<tr>';
         b+=`<td style="text-align:center"><span class="ac ac-blue">${rn}</span></td>`;
         b+=`<td class="tc"><i class="fa-regular fa-clock" style="margin-right:4px;color:var(--b400)"></i>${esc(fTS(r[TK]))}</td>`;
-        headers.forEach((x,xi)=>{let v=r[x]||'';let dv=esc(v);if(nq&&xi===namaIdx&&v.toLowerCase().includes(nq))dv=hl(v,nq);if(rq&&xi===rmIdx&&v.toLowerCase().includes(rq))dv=hl(v,rq);const xl=x.toLowerCase();if(/status|kelamin|gender/.test(xl))dv=bdg(v,xl);b+=`<td title="${esc(v)}">${dv}</td>`});
+        headers.forEach((x,xi)=>{
+            let v=r[x]||'';let dv=esc(v);
+            // Highlight search
+            if(nq&&xi===namaIdx&&v.toLowerCase().includes(nq))dv=hl(v,nq);
+            if(rq){
+                // Cek di kolom MR
+                if(xi===rmIdx&&v.toLowerCase().includes(rq))dv=hl(v,rq);
+                // Cek di kolom Urutan (TK)
+                if(urutanIdx===-2 && r[TK] && String(r[TK]).toLowerCase().includes(rq)){
+                    // Jika search query cocok dengan urutan, highlight cell TK (di luar loop ini) atau biarkan logic matchRow jalan
+                }
+            }
+            const xl=x.toLowerCase();if(/status|kelamin|gender/.test(xl))dv=bdg(v,xl);
+            b+=`<td title="${esc(v)}">${dv}</td>`;
+        });
         b+='</tr>'})}
     document.getElementById('s1TB').innerHTML=b;
     document.getElementById('s1PI').textContent=`Menampilkan ${s1FD.length?si+1:0}–${ei} dari ${s1FD.length} pasien antri`;
@@ -573,7 +603,7 @@ function s2Export(){expCSV(s2FD,'Semua')}
 function s2CPS(){s2PS=parseInt(document.getElementById('s2PS').value);s2Page=1;renderS2()}
 
 function renderS2(){
-    let h='<tr><th style="width:56px;text-align:center">No</th><th style="width:155px">Waktu Daftar</th><th style="width:50px;text-align:center">Status</th>';
+    let h='<tr><th style="width:56px;text-align:center">No</th><th style="width:155px">Waktu/Urutan</th><th style="width:50px;text-align:center">Status</th>';
     headers.forEach(x=>{h+=`<th>${esc(x)}</th>`});h+='</tr>';
     document.getElementById('s2TH').innerHTML=h;
 
@@ -588,7 +618,13 @@ function renderS2(){
         b+=`<td style="text-align:center"><span class="ac ${isC?'ac-green':'ac-blue'}">${rn}</span></td>`;
         b+=`<td class="tc"><i class="fa-regular fa-clock" style="margin-right:4px;color:var(--b400)"></i>${esc(fTS(r[TK]))}</td>`;
         b+=`<td style="text-align:center">${isC?'<span class="badge" style="background:#fef9c3;color:#92400e"><i class="fa-solid fa-check mr-1"></i>Jadwal</span>':'<span class="badge" style="background:#dbeafe;color:#1e40af"><i class="fa-solid fa-hourglass-half mr-1"></i>Antri</span>'}</td>`;
-        headers.forEach((x,xi)=>{let v=r[x]||'';let dv=esc(v);if(nq&&xi===namaIdx&&v.toLowerCase().includes(nq))dv=hl(v,nq);if(rq&&xi===rmIdx&&v.toLowerCase().includes(rq))dv=hl(v,rq);const xl=x.toLowerCase();if(/status|kelamin|gender/.test(xl))dv=bdg(v,xl);b+=`<td title="${esc(v)}">${dv}</td>`});
+        headers.forEach((x,xi)=>{
+            let v=r[x]||'';let dv=esc(v);
+            if(nq&&xi===namaIdx&&v.toLowerCase().includes(nq))dv=hl(v,nq);
+            if(rq&&xi===rmIdx&&v.toLowerCase().includes(rq))dv=hl(v,rq);
+            const xl=x.toLowerCase();if(/status|kelamin|gender/.test(xl))dv=bdg(v,xl);
+            b+=`<td title="${esc(v)}">${dv}</td>`;
+        });
         b+='</tr>'});
     document.getElementById('s2TB').innerHTML=b;
     document.getElementById('s2PI').textContent=`Menampilkan ${s2FD.length?si+1:0}–${ei} dari ${s2FD.length} data`;
@@ -612,7 +648,6 @@ function renderPg(id,tp,cp,fn){
     if(ep<tp){if(ep<tp-1)h+=`<span class="text-xs px-1" style="color:var(--g400)">...</span>`;h+=`<button class="pb" onclick="void(0)">${tp}</button>`}
     h+=`<button class="pb" ${cp===tp?'disabled':''} onclick="void(0)"><i class="fa-solid fa-chevron-right text-xs"></i></button>`;
     c.innerHTML=h;
-    // Attach events
     const btns=c.querySelectorAll('.pb');let pi=0;
     btns.forEach(b=>{
         if(b.disabled)return;
@@ -626,8 +661,24 @@ function renderPg(id,tp,cp,fn){
 /* ========== MATCH & HIGHLIGHT ========== */
 function matchRow(r,nq,rq){
     let mN=true,mR=true;
-    if(nq){if(namaIdx!==-1){const c=headers[namaIdx];mN=r[c]&&r[c].toLowerCase().includes(nq)}else mN=Object.values(r).some(v=>v&&typeof v==='string'&&v.toLowerCase().includes(nq))}
-    if(rq){if(rmIdx!==-1){const c=headers[rmIdx];mR=r[c]&&String(r[c]).toLowerCase().includes(rq)}else mR=Object.values(r).some(v=>v&&typeof v==='string'&&String(v).toLowerCase().includes(rq))}
+    // Cek Nama (Kolom B)
+    if(nq){
+        if(namaIdx!==-1){const c=headers[namaIdx];mN=r[c]&&r[c].toLowerCase().includes(nq)}
+        else mN=Object.values(r).some(v=>v&&typeof v==='string'&&v.toLowerCase().includes(nq))
+    }
+    // Cek MR (Kolom C) DAN Urutan (Kolom A)
+    if(rq){
+        let foundRM=false;
+        // Cek di Kolom C (MR)
+        if(rmIdx!==-1){
+            const c=headers[rmIdx]; 
+            if(r[c] && String(r[c]).toLowerCase().includes(rq)) foundRM=true;
+        }
+        // Cek di Kolom A (Urutan/TK) - property 'TK' pada object r
+        if(r[TK] && String(r[TK]).toLowerCase().includes(rq)) foundRM=true;
+        
+        mR = foundRM;
+    }
     return mN&&mR
 }
 function hl(t,q){const e=esc(t);return e.replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`,'gi'),'<span class="hm">$1</span>')}
@@ -648,7 +699,7 @@ function bdg(v,xl){
 /* ========== EXPORT CSV ========== */
 function expCSV(data,label){
     if(!data.length){toast('e','Tidak ada data untuk diekspor.');return}
-    let csv='"No","Waktu Daftar","Status",' + headers.map(h=>`"${h.replace(/"/g,'""')}"`).join(',')+'\n';
+    let csv='"No","Waktu/Urutan","Status",' + headers.map(h=>`"${h.replace(/"/g,'""')}"`).join(',')+'\n';
     data.forEach((r,i)=>{
         csv+=`"${i+1}","${fTS(r[TK]).replace(/"/g,'""')}","${r[CK]?'Sudah Dapat Jadwal':'Masih Antri'}",`+headers.map(h=>{let v=r[h]||'';return`"${v.replace(/"/g,'""')}"`}).join(',')+'\n'
     });
