@@ -1027,7 +1027,7 @@ function renderChart1(){
 var ctx=document.getElementById('chart1').getContext('2d');if(chart1)chart1.destroy();
 var data=ST_KEYS.map(function(k){return statusCounts[k]||0}),colors=ST_KEYS.map(function(k){return ST[k].color}),labels=ST_KEYS.map(function(k){return ST[k].label});
 if(statusCounts.lainnya>0){data.push(statusCounts.lainnya);colors.push('#94a3b8');labels.push('Lainnya')}
-chart1=new Chart(ctx,{type:'doughnut',data:{labels:labels,datasets:[{data:data,backgroundColor:colors,borderColor:colors.map(function(c){return c+'cc'}),borderWidth:3,hoverOffset:8}]},options:{responsive:true,maintainAspectRatio:true,cutout:'62%',plugins:{legend:{display:false},tooltip:{backgroundColor:'#1e293b',titleFont:{family:'Plus Jakarta Sans',weight:'700'},bodyFont:{family:'Plus Jakarta Sans'},padding:12,cornerRadius:10,callbacks:{label:function(c){var t=c.dataset.data.reduce(function(a,b){return a+b},0);return' '+c.raw+' pasien ('+(t?Math.round(c.raw/t*100):0)+'%)'}}}},animation:{duration:1200}}});
+chart1=new Chart(ctx,{type:'doughnut',data:{labels:labels,datasets:[{data:data,backgroundColor:colors,borderColor:colors.map(function(c){return c+'cc'}),borderWidth:3,hoverOffset:8}]},options:{responsive:true,maintainAspectRatio:true,cutout:'62%',plugins:{legend:{display:false},tooltip:{backgroundColor:'#1e293b',titleFont:{family:'Plus Jakarta Sans'},bodyFont:{family:'Plus Jakarta Sans'},padding:12,cornerRadius:10,callbacks:{label:function(c){var t=c.dataset.data.reduce(function(a,b){return a+b},0);return' '+c.raw+' pasien ('+(t?Math.round(c.raw/t*100):0)+'%)'}}}},animation:{duration:1200}}});
 var leg='';ST_KEYS.forEach(function(k){var s=ST[k];leg+='<span class="flex items-center gap-2"><span class="w-3 h-3 rounded-full" style="background:'+s.color+'"></span>'+s.label+': <strong>'+(statusCounts[k]||0)+'</strong></span>'});
 if(statusCounts.lainnya>0)leg+='<span class="flex items-center gap-2"><span class="w-3 h-3 rounded-full" style="background:#94a3b8"></span>Lainnya: <strong>'+statusCounts.lainnya+'</strong></span>';
 document.getElementById('leg1').innerHTML=leg;
@@ -1044,22 +1044,27 @@ function generateDoc(data,title,mode){
 var now=new Date(),dateStr=fDT(now);
 if(mode==='pdf'){
 var html='<div style="margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid #1e3a5f"><h1 style="font-size:18px;margin-bottom:4px;color:#1e3a5f">SIDARAJA — Unit Rawat Jalan Dialisis</h1><h2 style="font-size:14px;color:#475569;margin-bottom:8px">'+esc(title)+'</h2><p style="font-size:10px;color:#94a3b8">Tanggal cetak: '+dateStr+' | Jumlah data: '+data.length+' pasien</p></div>';
-html+='<table style="border-collapse:collapse;width:100%;font-size:9pt"><thead><tr style="background:#1e3a5f;color:#fff"><th style="padding:6px">No</th><th style="padding:6px">Urutan/Waktu</th><th style="padding:6px">Status</th>';headers.forEach(function(h){html+='<th style="padding:6px">'+esc(h)+'</th>'});html+='</tr></thead><tbody>';
-data.forEach(function(r,i){var sn=r[SN]||'menunggu',stC=ST[sn]||ST.meninggal;var bg=i%2===0?'#fff':'#f8fafc';html+='<tr style="background:'+bg+'"><td style="padding:4px 6px;border-bottom:1px solid #e2e8f0">'+(i+1)+'</td><td style="padding:4px 6px;border-bottom:1px solid #e2e8f0">'+esc(fTS(r[TK]))+'</td><td style="padding:4px 6px;border-bottom:1px solid #e2e8f0">'+esc(r[SK]||stC.label)+'</td>';headers.forEach(function(h){html+='<td style="padding:4px 6px;border-bottom:1px solid #e2e8f0">'+esc(r[h]||'')+'</td>'});html+='</tr>'});
+html+='<table style="border-collapse:collapse;width:100%;font-size:9pt"><thead><tr style="background:#1e3a5f;color:#fff"><th style="padding:6px">No</th><th style="padding:6px">Urutan/Waktu</th><th style="padding:6px">Status</th><th style="padding:6px">Nama Pasien</th><th style="padding:6px">No. Rekam Medis</th><th style="padding:6px">Alamat</th><th style="padding:6px">Nomor Telepon</th></tr></thead><tbody>';
+data.forEach(function(r,i){var sn=r[SN]||'menunggu',stC=ST[sn]||ST.meninggal;var bg=i%2===0?'#fff':'#f8fafc';
+var namaVal=(namaIdx!==-1&&r[headers[namaIdx]])?r[headers[namaIdx]]:'-';
+var rmVal=(rmIdx!==-1&&r[headers[rmIdx]])?r[headers[rmIdx]]:'-';
+var alamatVal=(alamatIdx!==-1&&r[headers[alamatIdx]])?r[headers[alamatIdx]]:'-';
+var phoneVal=(phoneIdx!==-1&&r[headers[phoneIdx]])?r[headers[phoneIdx]]:'-';
+html+='<tr style="background:'+bg+'"><td style="padding:4px 6px;border-bottom:1px solid #e2e8f0">'+(i+1)+'</td><td style="padding:4px 6px;border-bottom:1px solid #e2e8f0">'+esc(fTS(r[TK]))+'</td><td style="padding:4px 6px;border-bottom:1px solid #e2e8f0">'+esc(r[SK]||stC.label)+'</td><td style="padding:4px 6px;border-bottom:1px solid #e2e8f0">'+esc(namaVal)+'</td><td style="padding:4px 6px;border-bottom:1px solid #e2e8f0">'+esc(rmVal)+'</td><td style="padding:4px 6px;border-bottom:1px solid #e2e8f0">'+esc(alamatVal)+'</td><td style="padding:4px 6px;border-bottom:1px solid #e2e8f0">'+esc(phoneVal)+'</td></tr>'});
 html+='</tbody></table><div style="margin-top:16px;padding-top:8px;border-top:1px solid #e2e8f0;font-size:10px;color:#94a3b8">Dicetak dari Sistem Daftar Antrian Pasien Rawat Jalan Hemodialisis — '+dateStr+'</div>';
 document.getElementById('printArea').innerHTML=html;setTimeout(function(){window.print()},200);return;
 }
 if(mode==='word'){
 var whtml='<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="UTF-8"><title>'+esc(title)+'</title><style>body{font-family:Calibri,sans-serif;font-size:11pt}h1{font-size:16pt;color:#1e3a5f;margin-bottom:2px}h2{font-size:12pt;color:#475569;margin-bottom:8px}table{border-collapse:collapse;width:100%;margin-top:10px}th{background:#1e3a5f;color:#fff;padding:6px 8px;text-align:left;font-size:9pt}td{padding:5px 8px;border-bottom:1px solid #e2e8f0;font-size:9pt}tr:nth-child(even){background:#f8fafc}</style></head><body>';
 whtml+='<h1>SIDARAJA — Unit Rawat Jalan Dialisis</h1><h2>'+esc(title)+'</h2><p style="font-size:9pt;color:#64748b">Tanggal: '+dateStr+' | Jumlah: '+data.length+' pasien</p>';
-whtml+='<table><thead><tr><th>No</th><th>Urutan/Waktu</th><th>Status</th>';
-headers.forEach(function(h){whtml+='<th>'+esc(h)+'</th>'});
-whtml+='</tr></thead><tbody>';
+whtml+='<table><thead><tr><th>No</th><th>Urutan/Waktu</th><th>Status</th><th>Nama Pasien</th><th>No. Rekam Medis</th><th>Alamat</th><th>Nomor Telepon</th></tr></thead><tbody>';
 data.forEach(function(r,i){
 var sn=r[SN]||'menunggu';var stC=ST[sn]||ST.meninggal;
-whtml+='<tr><td>'+(i+1)+'</td><td>'+esc(fTS(r[TK]))+'</td><td>'+esc(r[SK]||stC.label)+'</td>';
-headers.forEach(function(h){whtml+='<td>'+esc(r[h]||'')+'</td>'});
-whtml+='</tr>';
+var namaVal=(namaIdx!==-1&&r[headers[namaIdx]])?r[headers[namaIdx]]:'-';
+var rmVal=(rmIdx!==-1&&r[headers[rmIdx]])?r[headers[rmIdx]]:'-';
+var alamatVal=(alamatIdx!==-1&&r[headers[alamatIdx]])?r[headers[alamatIdx]]:'-';
+var phoneVal=(phoneIdx!==-1&&r[headers[phoneIdx]])?r[headers[phoneIdx]]:'-';
+whtml+='<tr><td>'+(i+1)+'</td><td>'+esc(fTS(r[TK]))+'</td><td>'+esc(r[SK]||stC.label)+'</td><td>'+esc(namaVal)+'</td><td>'+esc(rmVal)+'</td><td>'+esc(alamatVal)+'</td><td>'+esc(phoneVal)+'</td></tr>';
 });
 whtml+='</tbody></table></body></html>';
 var blob=new Blob(['\uFEFF'+whtml],{type:'application/msword'});
@@ -1068,14 +1073,16 @@ toast('s','Berhasil menyimpan file Word ('+data.length+' data).');return;
 }
 if(mode==='text'){
 var txt='SIDARAJA — UNIT RAWAT JALAN DIALISIS\n'+title+'\nTanggal: '+dateStr+' | Jumlah: '+data.length+' pasien\n'+'='.repeat(80)+'\n\n';
-var cols=['No','Urutan/Waktu','Status'];var widths=[4,18,12];
-headers.forEach(function(h){cols.push(h);widths.push(16)});
+var cols=['No','Urutan/Waktu','Status','Nama Pasien','No. Rekam Medis','Alamat','Nomor Telepon'];var widths=[4,18,12,22,16,24,18];
 var headerLine='';cols.forEach(function(c,i){headerLine+=String(c).padEnd(widths[i],' ').substring(0,widths[i])+' | '});
 txt+=headerLine+'\n'+'_'.repeat(headerLine.length)+'\n';
 data.forEach(function(r,i){
 var sn=r[SN]||'menunggu';var stC=ST[sn]||ST.meninggal;
-var vals=[String(i+1),fTS(r[TK]),r[SK]||stC.label];
-headers.forEach(function(h){vals.push(r[h]||'')});
+var namaVal=(namaIdx!==-1&&r[headers[namaIdx]])?r[headers[namaIdx]]:'-';
+var rmVal=(rmIdx!==-1&&r[headers[rmIdx]])?r[headers[rmIdx]]:'-';
+var alamatVal=(alamatIdx!==-1&&r[headers[alamatIdx]])?r[headers[alamatIdx]]:'-';
+var phoneVal=(phoneIdx!==-1&&r[headers[phoneIdx]])?r[headers[phoneIdx]]:'-';
+var vals=[String(i+1),fTS(r[TK]),r[SK]||stC.label,namaVal,rmVal,alamatVal,phoneVal];
 var line='';vals.forEach(function(v,j){line+=String(v).padEnd(widths[j],' ').substring(0,widths[j])+' | '});
 txt+=line+'\n';
 });
@@ -1153,4 +1160,4 @@ function fDT(d){return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth
 function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
 </script>
 </body>
-</html>
+</html>                                                                                                                                                                                                                                                                                                
