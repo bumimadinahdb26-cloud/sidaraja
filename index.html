@@ -1243,10 +1243,70 @@ function generateDoc(data,title,mode,isS1){
 }
 
 /* ================================================================
-   NAVIGASI SLIDE
+  NAVIGASI SLIDE
    ================================================================ */
 function switchSlide(n){
     if(n===2&&appMode!=='admin'){toast('e','Akses ditolak. Fitur Data Lengkap hanya untuk Admin/Petugas.');return}
     document.getElementById('slide1').style.display=n===1?'block':'none';
     document.getElementById('slide2').style.display=n===2?'block':'none';
-    document.getElementById('tab1').className='nav-tab'+(n
+    document.getElementById('tab1').className='nav-tab'+(n===1?' active':'');
+    if(appMode==='admin')document.getElementById('tab2').className='nav-tab'+(n===2?' active':'');
+}
+
+/* ================================================================
+   PAGINATION
+   ================================================================ */
+function renderPg(id,tp,cp,fn){
+    var c=document.getElementById(id);
+    var h='<button class="pb" '+(cp===1?'disabled':'')+'><i class="fa-solid fa-chevron-left text-xs"></i></button>';
+    var mv=5,sp=Math.max(1,cp-Math.floor(mv/2)),ep=Math.min(tp,sp+mv-1);
+    if(ep-sp+1<mv)sp=Math.max(1,ep-mv+1);
+    if(sp>1){h+='<button class="pb">1</button>';if(sp>2)h+='<span class="text-xs px-1" style="color:var(--g400)">...</span>'}
+    for(var i=sp;i<=ep;i++)h+='<button class="pb '+(i===cp?'act':'')+'">'+i+'</button>';
+    if(ep<tp){if(ep<tp-1)h+='<span class="text-xs px-1" style="color:var(--g400)">...</span>';h+='<button class="pb">'+tp+'</button>'}
+    h+='<button class="pb" '+(cp===tp?'disabled':'')+'><i class="fa-solid fa-chevron-right text-xs"></i></button>';
+    c.innerHTML=h;
+    c.querySelectorAll('.pb').forEach(function(b){
+        if(b.disabled)return;
+        if(b.querySelector('.fa-chevron-left')){b.onclick=function(){fn(cp-1)}}
+        else if(b.querySelector('.fa-chevron-right')){b.onclick=function(){fn(cp+1)}}
+        else{var p=parseInt(b.textContent.trim());if(!isNaN(p))b.onclick=function(){fn(p)}}
+    });
+}
+
+/* ================================================================
+   UTILITAS
+   ================================================================ */
+function hl(t,q){var e=esc(t);var safe=q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');return e.replace(new RegExp('('+safe+')','gi'),'<span class="hm">$1</span>')}
+function toast(t,m){
+    var c=document.getElementById('toastC'),el=document.createElement('div');
+    var ic={s:'fa-circle-check',e:'fa-circle-xmark',i:'fa-circle-info',w:'fa-triangle-exclamation'};
+    var cl={s:'tt-s',e:'tt-e',i:'tt-i',w:'tt-e'};
+    el.className='tt '+(cl[t]||'tt-i');
+    el.innerHTML='<i class="fa-solid '+(ic[t]||'fa-circle-info')+'"></i><span>'+m+'</span>';
+    c.appendChild(el);
+    setTimeout(function(){el.classList.add('tt-x');setTimeout(function(){el.remove()},300)},6000);
+}
+function setConn(state,label){
+    var dot=document.getElementById('connDot'),lbl=document.getElementById('connLabel');
+    dot.className='conn-dot conn-'+(state==='ok'?'ok':state==='fail'?'fail':'load');
+    lbl.textContent=label;lbl.style.color=state==='ok'?'#6ee7b7':state==='fail'?'#fca5a5':'#fde68a';
+}
+function setConnLogin(state,label){
+    var dot=document.getElementById('connDotLogin'),lbl=document.getElementById('connLabelLogin');
+    if(!dot||!lbl)return;dot.className='conn-dot conn-'+(state==='ok'?'ok':state==='fail'?'fail':'load');lbl.textContent=label;
+}
+function pTS(s){
+    if(!s)return null;var d=new Date(s);if(!isNaN(d.getTime()))return d;
+    var m1=s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})\s+(\d{1,2}):(\d{2}):(\d{2})$/);
+    if(m1){var p=m1.slice(1).map(Number);var dy,mo;if(p[0]>12){dy=p[0];mo=p[1]-1}else if(p[1]>12){dy=p[1];mo=p[0]-1}else{dy=p[1];mo=p[0]-1}d=new Date(p[2],mo,dy,p[3],p[4],p[5]);if(!isNaN(d.getTime()))return d}
+    var m2=s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    if(m2){var p2=m2.slice(1).map(Number);var dy2,mo2;if(p2[0]>12){dy2=p2[0];mo2=p2[1]-1}else if(p2[1]>12){dy2=p2[1];mo2=p2[0]-1}else{dy2=p2[1];mo2=p2[0]-1}d=new Date(p2[2],mo2,dy2);if(!isNaN(d.getTime()))return d}
+    return null;
+}
+function fTS(s){var d=pTS(s);if(d&&!isNaN(d.getTime()))return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');return s||'-'}
+function fDT(d){return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')}
+function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
+</script>
+</body>
+</html>
