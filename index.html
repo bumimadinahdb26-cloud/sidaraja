@@ -579,7 +579,7 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 <footer style="background:var(--w);border-top:1px solid var(--bdr)" id="mainFooter">
 <div class="stripe" id="footerStripe"></div>
 <div class="max-w-7xl mx-auto px-4 sm:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-<span class="text-xs font-semibold" style="color:var(--muted)"><i class="fa-solid fa-shield-halved mr-1" style="color:var(--b500)"></i>Sistem Daftar Antrian Pasien — Instalasi Dialisis RSSA</span>
+<span class="text-xs font-semibold" style="color:var(--muted)"><i class="fa-solid fa-shield-halved mr-1" style="color:var(--b500)"></i>Sistem Daftaran Antrian Pasien Rawat Jalan HD RSSA— Instalasi Dialisis RSSA</span>
 <span class="text-xs" style="color:var(--g400)">SIDARAJA &copy; <span id="fYr"></span></span>
 </div>
 </footer>
@@ -1206,7 +1206,7 @@ filtered.forEach(function(r,idx){var phoneVal=phoneIdx!==-1?(r[headers[phoneIdx]
 var namaVal=namaIdx!==-1?(r[headers[namaIdx]]||''):'-',rmVal=rmIdx!==-1?(r[headers[rmIdx]]||''):'-',ruanganVal=ruanganIdx!==-1?(r[headers[ruanganIdx]]||''):'-';
 var bg=n%2===0?'#f8fafc':'#fff';
 html+='<tr style="background:'+bg+'"><td style="padding:6px 8px;border-bottom:1px solid #e2e8f0">'+n+'</td><td style="padding:6px 8px;border-bottom:1px solid #e2e8f0">'+esc(namaVal)+'</td><td style="padding:6px 8px;border-bottom:1px solid #e2e8f0">'+esc(rmVal)+'</td><td style="padding:6px 8px;border-bottom:1px solid #e2e8f0">'+esc(phoneVal)+'</td><td style="padding:6px 8px;border-bottom:1px solid #e2e8f0">'+esc(ruanganVal)+'</td></tr>'});
-html+='</tbody></table><div style="margin-top:16px;padding-top:8px;border-top:1px solid #e2e8f0;font-size:10px;color:#94a3b8">Dicetak dari Sistem Daftar Antrian Pasien — Instalasi Dialisis RSSA — '+dateStr+'</div>';
+html+='</tbody></table><div style="margin-top:16px;padding-top:8px;border-top:1px solid #e2e8f0;font-size:10px;color:#94a3b8">Dicetak dari Sistem Daftaran Antrian Pasien Rawat Jalan HD RSSA— Instalasi Dialisis RSSA — '+dateStr+'</div>';
 document.getElementById('printArea').innerHTML=html;setTimeout(function(){window.print()},250);
 }
 
@@ -1222,7 +1222,7 @@ var total=ST_KEYS.reduce(function(s,k){return s+(statusCounts[k]||0)},0)+(status
 ST_KEYS.forEach(function(k){var s=ST[k],cnt=statusCounts[k]||0,pct=total?Math.round(cnt/total*100):0;html+='<tr><td style="padding:6px 12px;border-bottom:1px solid #e2e8f0;text-align:center">'+s.label+'</td><td style="padding:6px 12px;border-bottom:1px solid #e2e8f0;text-align:center">'+cnt+'</td><td style="padding:6px 12px;border-bottom:1px solid #e2e8f0;text-align:center">'+pct+'%</td></tr>'});
 if(statusCounts.lainnya>0)html+='<tr><td style="padding:6px 12px;border-bottom:1px solid #e2e8f0;text-align:center">Lainnya</td><td style="padding:6px 12px;border-bottom:1px solid #e2e8f0;text-align:center">'+statusCounts.lainnya+'</td><td style="padding:6px 12px;border-bottom:1px solid #e2e8f0;text-align:center">'+(total?Math.round(statusCounts.lainnya/total*100):0)+'%</td></tr>';
 html+='<tr style="font-weight:bold;background:#f1f5f9"><td style="padding:6px 12px;text-align:center">TOTAL</td><td style="padding:6px 12px;text-align:center">'+total+'</td><td style="padding:6px 12px;text-align:center">100%</td></tr>';
-html+='</tbody></table><div style="margin-top:16px;text-align:center;font-size:10px;color:#94a3b8">Dicetak dari Sistem Daftar Antrian Pasien — Instalasi Dialisis RSSA — '+dateStr+'</div>';
+html+='</tbody></table><div style="margin-top:16px;text-align:center;font-size:10px;color:#94a3b8">Dicetak dari Sistem Daftaran Antrian Pasien Rawat Jalan HD RSSA— Instalasi Dialisis RSSA — '+dateStr+'</div>';
 document.getElementById('printArea').innerHTML=html;setTimeout(function(){window.print()},250);
 }
 
@@ -1384,7 +1384,7 @@ var rmVal=(rmIdx!==-1&&r[headers[rmIdx]])?r[headers[rmIdx]]:'-';
 var alamatVal=(alamatIdx!==-1&&r[headers[alamatIdx]])?r[headers[alamatIdx]]:'-';
 var phoneVal=(phoneIdx!==-1&&r[headers[phoneIdx]])?r[headers[phoneIdx]]:'-';
 html+='<tr style="background:'+bg+'"><td style="padding:4px 6px;border-bottom:1px solid #e2e8f0">'+(i+1)+'</td><td style="padding:4px 6px;border-bottom:1px solid #e2e8f0">'+esc(fTS(r[TK]))+'</td><td style="padding:4px 6px;border-bottom:1px solid #e2e8f0">'+esc(r[SK]||ST[sn].label)+'</td><td style="padding:4px 6px;border-bottom:1px solid #e2e8f0">'+esc(namaVal)+'</td><td style="padding:4px 6px;border-bottom:1px solid #e2e8f0">'+esc(rmVal)+'</td><td style="padding:4px 6px;border-bottom:1px solid #e2e8f0">'+esc(alamatVal)+'</td><td style="padding:4px 6px;border-bottom:1px solid #e2e8f0">'+esc(phoneVal)+'</td></tr>'});
-html+='</tbody></table><div style="margin-top:16px;padding-top:8px;border-top:1px solid #e2e8f0;font-size:10px;color:#94a3b8">Dicetak dari Sistem Daftar Antrian Pasien — Instalasi Dialisis RSSA — '+dateStr+'</div>';
+html+='</tbody></table><div style="margin-top:16px;padding-top:8px;border-top:1px solid #e2e8f0;font-size:10px;color:#94a3b8">Dicetak dari Sistem Daftaran Antrian Pasien Rawat Jalan HD RSSA— Instalasi Dialisis RSSA — '+dateStr+'</div>';
 document.getElementById('printArea').innerHTML=html;setTimeout(function(){window.print()},200);return;
 }
 if(mode==='word'){
@@ -1419,7 +1419,7 @@ var vals=[String(i+1),fTS(r[TK]),r[SK]||ST[sn].label,namaVal,rmVal,alamatVal,pho
 var line='';vals.forEach(function(v,j){line+=String(v).padEnd(widths[j],' ').substring(0,widths[j])+' | '});
 txt+=line+'\n';
 });
-txt+='\n'+'='.repeat(80)+'\nDicetak dari Sistem Daftar Antrian Pasien — Instalasi Dialisis RSSA — '+dateStr+'\n';
+txt+='\n'+'='.repeat(80)+'\nDicetak dari Sistem Daftaran Antrian Pasien Rawat Jalan HD RSSA— Instalasi Dialisis RSSA — '+dateStr+'\n';
 var blob2=new Blob(['\uFEFF'+txt],{type:'text/plain;charset=utf-8'});
 var a2=document.createElement('a');a2.href=URL.createObjectURL(blob2);a2.download='Antrian_Dialisis_'+now.toISOString().slice(0,10)+'.txt';a2.click();URL.revokeObjectURL(a2.href);
 toast('s','Berhasil menyimpan file Text ('+data.length+' data).');
