@@ -83,10 +83,6 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .dt tbody td{padding:13px 16px;border-bottom:1px solid var(--bdr);font-size:13.5px;color:var(--txt2);max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .dt tbody tr:last-child td{border-bottom:none}
 .badge{display:inline-block;padding:3px 10px;border-radius:8px;font-size:12px;font-weight:700;white-space:nowrap}
-.pb{width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;border:2px solid var(--bdr);background:var(--w);color:var(--txt2);font-family:inherit}
-.pb:hover{border-color:var(--b300);color:var(--b600);background:var(--b50)}
-.pb.act{background:linear-gradient(135deg,var(--b600),var(--b700));color:#fff;border-color:transparent;box-shadow:0 4px 12px rgba(37,99,235,.25)}
-.pb:disabled{opacity:.35;cursor:not-allowed}
 .spin{width:48px;height:48px;border:4px solid var(--b100);border-top-color:var(--b600);border-radius:50%;animation:sp .8s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
 .tc2{position:fixed;top:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:10px;pointer-events:none}
@@ -141,8 +137,23 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .hdr-content{position:relative;z-index:3}
 .login-shake{animation:shake .5s ease}
 @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-10px)}40%{transform:translateX(10px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
+.ambil-item{display:flex;align-items:center;gap:14px;padding:14px 16px;border:2px solid var(--bdr);border-radius:14px;margin-bottom:10px;transition:all .25s;background:var(--w);cursor:default}
+.ambil-item:hover{border-color:var(--g400);background:var(--g50)}
+.ambil-item .ai-rm{font-weight:800;color:var(--b700);font-size:13px;min-width:80px}
+.ambil-item .ai-nama{font-weight:700;color:var(--txt);font-size:14px;flex:1}
+.ambil-item .ai-diag{font-size:12px;color:var(--muted);min-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.patient-result-card{background:var(--w);border-radius:18px;border:2px solid var(--pg);overflow:hidden;margin-bottom:14px;animation:fu2 .4s cubic-bezier(.16,1,.3,1)}
+.patient-result-header{padding:18px 22px;background:linear-gradient(135deg,#ecfdf5,#d1fae5);display:flex;align-items:center;gap:14px}
+.patient-result-body{padding:18px 22px}
+.patient-result-body .pr-row{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--bdr);font-size:14px}
+.patient-result-body .pr-row:last-child{border-bottom:none}
+.patient-result-body .pr-label{font-weight:700;color:var(--muted);min-width:100px;font-size:12px;text-transform:uppercase;letter-spacing:.05em;padding-top:2px}
+.patient-result-body .pr-value{color:var(--txt);font-weight:600}
+.reload-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;transition:all .25s;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);font-family:inherit}
+.reload-btn:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.4);color:#fff}
+.reload-btn.spinning i{animation:sp .6s linear infinite}
 @media(max-width:768px){.hdr-logo-area{height:100px}.login-logo-area{height:110px}}
-@media(max-width:480px){.hdr-logo-area{height:80px}.login-logo-area{height:90px}.stg{grid-template-columns:1fr!important}.nav-tab{padding:10px 14px;font-size:12px}.login-body{padding:20px}}
+@media(max-width:480px){.hdr-logo-area{height:80px}.login-logo-area{height:90px}.stg{grid-template-columns:1fr 1fr!important}.nav-tab{padding:10px 14px;font-size:12px}.login-body{padding:20px}}
 @media print{body>*{display:none!important}#printArea{display:block!important}}
 ::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-track{background:var(--g100f)}::-webkit-scrollbar-thumb{background:var(--b200);border-radius:4px}
 </style>
@@ -172,8 +183,6 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 <div class="mc-desc">Cek antrian dan hubungi petugas ruangan</div>
 </div>
 </div>
-
-<!-- Admin Login Section -->
 <div id="adminSection" style="display:none">
 <div class="mb-4">
 <label class="block text-xs font-bold uppercase tracking-wider mb-2" style="color:var(--muted)">Kata Sandi Admin</label>
@@ -187,8 +196,6 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 <button class="bp w-full justify-center text-base" id="adminLoginBtn" onclick="doAdminLogin()"><i class="fa-solid fa-right-to-bracket"></i> Masuk sebagai Admin</button>
 <p class="text-center mt-3 text-xs" style="color:var(--muted)">Hint: kata sandi default = <strong>admin123</strong></p>
 </div>
-
-<!-- User Login Section -->
 <div id="userSection" style="display:none">
 <div class="p-4 rounded-xl mb-4" style="background:linear-gradient(135deg,#ecfdf5,#fffbeb,#fce7f3);border:1px solid #a7f3d0">
 <div class="flex items-center gap-3 mb-2"><i class="fa-solid fa-heart-pulse" style="color:var(--pp)"></i><span class="font-bold text-sm" style="color:var(--pg)">Mode Pasien / Keluarga</span></div>
@@ -196,7 +203,6 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 </div>
 <button class="bg2 w-full justify-center text-base" onclick="doUserLogin()" style="background:linear-gradient(135deg,var(--pg),#0d9488)"><i class="fa-solid fa-arrow-right"></i> Lanjutkan Cek Antrian</button>
 </div>
-
 <div class="mt-4 flex items-center justify-center gap-2">
 <span class="conn-dot conn-ok" id="connDotLogin"></span>
 <span class="text-xs font-semibold" style="color:var(--muted)" id="connLabelLogin">Siap</span>
@@ -225,6 +231,7 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 <span class="conn-dot conn-ok" id="connDot"></span>
 <span class="text-green-300 text-xs font-bold" id="connLabel">ONLINE</span>
 </div>
+<button class="reload-btn" id="reloadBtn" onclick="manualReload()" style="display:none" title="Muat ulang data"><i class="fa-solid fa-rotate"></i> Refresh</button>
 <button class="patient-logout" id="logoutBtn" onclick="doLogout()" style="display:none"><i class="fa-solid fa-right-from-bracket"></i> Keluar</button>
 </div>
 </div>
@@ -386,47 +393,276 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 /* ============================================================
    KONFIGURASI & STATE
    ============================================================ */
-const ADMIN_PASSWORD = 'admin123'; // Ganti sesuai kebutuhan
-let currentMode = null; // 'admin' | 'user'
+const ADMIN_PASSWORD = 'admin123';
+const SHEET_ID = '1UbMj1gbz-wDIUlT64-nnHPa2xvGxlS_fEgnaEzcU1cA';
+const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:csv';
+const REFRESH_INTERVAL = 60000; // auto-refresh setiap 60 detik
+
+let currentMode = null;
 let currentSlide = 1;
 let currentFilter = 'menunggu';
 let searchQuery = '';
 let allPatients = [];
 let chart1Instance = null;
+let refreshTimer = null;
+let isLoading = false;
 
 /* ============================================================
-   DATA PASIEN DEMO (ganti dengan data real / API)
+   PARSING CSV dari Google Sheets
    ============================================================ */
-const DEMO_PATIENTS = [
-    {no:1, rm:'RM-001', nama:'Ahmad Fauzi', diagnosa:'CKD Stage 5', status:'menunggu', ruangan:'-', jadwal:'Senin, Rabu, Jumat', catatan:'Hemodialisa rutin'},
-    {no:2, rm:'RM-002', nama:'Siti Aminah', diagnosa:'CKD Stage 5', status:'terjadwal', ruangan:'Ruang A', jadwal:'Selasa, Kamis, Sabtu', catatan:'Jadwal pagi'},
-    {no:3, rm:'RM-003', nama:'Budi Santoso', diagnosa:'CKD Stage 4', status:'menunggu', ruangan:'-', jadwal:'Senin, Rabu, Jumat', catatan:'Pasien baru'},
-    {no:4, rm:'RM-004', nama:'Dewi Lestari', diagnosa:'CKD Stage 5', status:'hdlain', ruangan:'RS Saiful Anwar', jadwal:'-', catatan:'Dirujuk ke RS lain'},
-    {no:5, rm:'RM-005', nama:'Eko Prasetyo', diagnosa:'CKD Stage 5', status:'terjadwal', ruangan:'Ruang B', jadwal:'Selasa, Kamis, Sabtu', catatan:'Jadwal siang'},
-    {no:6, rm:'RM-006', nama:'Fitri Handayani', diagnosa:'CKD Stage 3', status:'batal', ruangan:'-', jadwal:'-', catatan:'Batal oleh pasien'},
-    {no:7, rm:'RM-007', nama:'Gunawan Wibowo', diagnosa:'CKD Stage 5', status:'meninggal', ruangan:'-', jadwal:'-', catatan:'Meninggal 12/2024'},
-    {no:8, rm:'RM-008', nama:'Herlina Putri', diagnosa:'CKD Stage 5', status:'menunggu', ruangan:'-', jadwal:'Senin, Rabu, Jumat', catatan:'Menunggu ruangan'},
-    {no:9, rm:'RM-009', nama:'Irfan Hakim', diagnosa:'CKD Stage 4', status:'terjadwal', ruangan:'Ruang C', jadwal:'Selasa, Kamis', catatan:'Hemodialisa 2x/minggu'},
-    {no:10, rm:'RM-010', nama:'Joko Widodo', diagnosa:'CKD Stage 5', status:'menunggu', ruangan:'-', jadwal:'Senin, Rabu, Jumat', catatan:'Antrian ruangan A'},
-    {no:11, rm:'RM-011', nama:'Kartika Sari', diagnosa:'CKD Stage 5', status:'terjadwal', ruangan:'Ruang A', jadwal:'Rabu, Jumat, Sabtu', catatan:'Slot sore'},
-    {no:12, rm:'RM-012', nama:'Lukman Hakim', diagnosa:'CKD Stage 3', status:'hdlain', ruangan:'RS Universitas', jadwal:'-', catatan:'Pindah ke RS Universitas'},
-];
+
+// Parse CSV mentah menjadi array of objects
+// Menangani field yang di-quote dan berisi koma/newline
+function parseCSV(csvText) {
+    const rows = [];
+    let current = '';
+    let inQuote = false;
+    const lines = [];
+
+    // Split baris dengan memperhatikan quote
+    for (let i = 0; i < csvText.length; i++) {
+        const ch = csvText[i];
+        const next = csvText[i + 1];
+        if (inQuote) {
+            if (ch === '"' && next === '"') {
+                current += '"';
+                i++;
+            } else if (ch === '"') {
+                inQuote = false;
+            } else {
+                current += ch;
+            }
+        } else {
+            if (ch === '"') {
+                inQuote = true;
+            } else if (ch === '\n' || (ch === '\r' && next === '\n')) {
+                lines.push(current);
+                current = '';
+                if (ch === '\r') i++;
+            } else if (ch === '\r') {
+                lines.push(current);
+                current = '';
+            } else {
+                current += ch;
+            }
+        }
+    }
+    if (current.trim()) lines.push(current);
+
+    if (lines.length < 2) return rows;
+
+    // Parse header
+    const headers = splitCSVRow(lines[0]);
+    const cleanedHeaders = headers.map(h => h.trim().toLowerCase());
+
+    // Parse data rows
+    for (let i = 1; i < lines.length; i++) {
+        const line = lines[i].trim();
+        if (!line) continue;
+        const values = splitCSVRow(line);
+        const obj = {};
+        cleanedHeaders.forEach((h, idx) => {
+            obj[h] = (values[idx] !== undefined) ? values[idx].trim() : '';
+        });
+        rows.push(obj);
+    }
+    return rows;
+}
+
+// Split satu baris CSV berdasarkan koma, dengan menangani quote
+function splitCSVRow(row) {
+    const fields = [];
+    let current = '';
+    let inQuote = false;
+    for (let i = 0; i < row.length; i++) {
+        const ch = row[i];
+        const next = row[i + 1];
+        if (inQuote) {
+            if (ch === '"' && next === '"') {
+                current += '"';
+                i++;
+            } else if (ch === '"') {
+                inQuote = false;
+            } else {
+                current += ch;
+            }
+        } else {
+            if (ch === '"') {
+                inQuote = true;
+            } else if (ch === ',') {
+                fields.push(current);
+                current = '';
+            } else {
+                current += ch;
+            }
+        }
+    }
+    fields.push(current);
+    return fields;
+}
 
 /* ============================================================
-   SISTEM LOGIN — FUNGSI UTAMA (YANG DIPERBAIKI)
+   MAPPING KOLOM SHEET → FIELD APLIKASI
    ============================================================ */
 
-// Pilih mode akses (admin atau user)
+// Pemetaan fleksibel: berbagai kemungkinan nama kolom
+// Sesuaikan jika nama kolom di sheet kamu berbeda
+const COLUMN_MAP = {
+    rm: ['no. rm', 'no rm', 'norm', 'no rm', 'rm', 'no.rekam.medical', 'no rekam medical', 'no rekam medis', 'nomor rm', 'nomor rekam medical', 'norekammedis'],
+    nama: ['nama pasien', 'nama', 'nama pasien ', 'namapasien', 'patient name', 'name'],
+    diagnosa: ['diagnosa', 'diagnosis', 'diag', 'diagnosa ', 'primary diagnosis', 'dx'],
+    status: ['status', 'status ', 'status pasien', 'status antrian', 'state'],
+    ruangan: ['ruangan', 'ruang', 'room', 'ruangan hd', 'lokasi'],
+    jadwal: ['jadwal hd', 'jadwal', 'jadwal hd ', 'schedule', 'jadwal dialisis', 'jadwalhd'],
+    catatan: ['catatan', 'keterangan', 'notes', 'catatan ', 'note', 'ket']
+};
+
+// Cari key field dari nama kolom sheet
+function findFieldKey(colName) {
+    const lower = colName.toLowerCase().trim();
+    for (const [field, aliases] of Object.entries(COLUMN_MAP)) {
+        if (aliases.includes(lower)) return field;
+    }
+    return null;
+}
+
+// Normalisasi status agar konsisten
+function normalizeStatus(raw) {
+    if (!raw) return 'menunggu';
+    const s = raw.toLowerCase().trim();
+    if (s.includes('menunggu') || s.includes('antri') || s === 'waiting') return 'menunggu';
+    if (s.includes('terjadwal') || s.includes('jadwal') || s === 'scheduled') return 'terjadwal';
+    if (s.includes('hd lain') || s.includes('lain') || s.includes('dirujuk') || s.includes('pindah') || s === 'other') return 'hdlain';
+    if (s.includes('batal') || s.includes('cancel') || s === 'cancelled') return 'batal';
+    if (s.includes('meninggal') || s.includes('wafat') || s === 'death' || s === 'deceased') return 'meninggal';
+    // Default: jika tidak dikenali, anggap menunggu
+    return 'menunggu';
+}
+
+// Transformasi data mentah dari sheet ke format aplikasi
+function transformSheetData(rawRows) {
+    if (!rawRows || rawRows.length === 0) return [];
+
+    // Bangun mapping kolom berdasarkan header baris pertama
+    const headerRow = rawRows[0];
+    const colMapping = {}; // { fieldKey: actualColName }
+    for (const colName of Object.keys(headerRow)) {
+        const fk = findFieldKey(colName);
+        if (fk) colMapping[fk] = colName;
+    }
+
+    // Log mapping untuk debugging
+    console.log('[SIDARAJA] Kolom terdeteksi:', colMapping);
+    console.log('[SIDARAJA] Total baris data:', rawRows.length - 1);
+
+    const patients = [];
+    for (let i = 1; i < rawRows.length; i++) {
+        const row = rawRows[i];
+        // Skip baris kosong (semua field kosong)
+        const namaRaw = colMapping.nama ? (row[colMapping.nama] || '').trim() : '';
+        const rmRaw = colMapping.rm ? (row[colMapping.rm] || '').trim() : '';
+        if (!namaRaw && !rmRaw) continue;
+
+        patients.push({
+            no: i,
+            rm: rmRaw || '-',
+            nama: namaRaw || 'Tidak diketahui',
+            diagnosa: colMapping.diagnosa ? (row[colMapping.diagnosa] || '-').trim() : '-',
+            status: normalizeStatus(colMapping.status ? row[colMapping.status] : ''),
+            ruangan: colMapping.ruangan ? (row[colMapping.ruangan] || '-').trim() : '-',
+            jadwal: colMapping.jadwal ? (row[colMapping.jadwal] || '-').trim() : '-',
+            catatan: colMapping.catatan ? (row[colMapping.catatan] || '-').trim() : '-'
+        });
+    }
+    return patients;
+}
+
+/* ============================================================
+   FETCH DATA DARI GOOGLE SHEETS
+   ============================================================ */
+
+async function fetchSheetData() {
+    if (isLoading) return;
+    isLoading = true;
+    setConnectionStatus('loading');
+
+    try {
+        const response = await fetch(SHEET_CSV_URL);
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        const csvText = await response.text();
+
+        const rawRows = parseCSV(csvText);
+        allPatients = transformSheetData(rawRows);
+
+        console.log('[SIDARAJA] Data berhasil dimuat:', allPatients.length, 'pasien');
+        setConnectionStatus('ok');
+        showToast('Data berhasil dimuat: ' + allPatients.length + ' pasien', 'success');
+    } catch (err) {
+        console.error('[SIDARAJA] Gagal memuat data:', err);
+        setConnectionStatus('fail');
+        showToast('Gagal memuat data dari Google Sheet. Pastikan sheet dipublikasikan.', 'error');
+        allPatients = [];
+    }
+
+    isLoading = false;
+    updateUI();
+}
+
+function setConnectionStatus(status) {
+    const dot = document.getElementById('connDot');
+    const label = document.getElementById('connLabel');
+    const dotLogin = document.getElementById('connDotLogin');
+    const labelLogin = document.getElementById('connLabelLogin');
+
+    const classes = { ok: 'conn-ok', fail: 'conn-fail', loading: 'conn-load' };
+    const labels = { ok: 'ONLINE', fail: 'OFFLINE', loading: 'MEMUAT...' };
+
+    [dot, dotLogin].forEach(d => {
+        d.className = 'conn-dot ' + (classes[status] || 'conn-ok');
+    });
+    label.textContent = labels[status] || 'ONLINE';
+    labelLogin.textContent = labels[status] || 'Siap';
+}
+
+function manualReload() {
+    const btn = document.getElementById('reloadBtn');
+    btn.classList.add('spinning');
+    fetchSheetData().then(() => {
+        setTimeout(() => btn.classList.remove('spinning'), 600);
+    });
+}
+
+function startAutoRefresh() {
+    if (refreshTimer) clearInterval(refreshTimer);
+    refreshTimer = setInterval(() => {
+        if (currentMode) fetchSheetData();
+    }, REFRESH_INTERVAL);
+}
+
+/* ============================================================
+   UPDATE SEMUA UI SETELAH DATA BERUBAH
+   ============================================================ */
+function updateUI() {
+    updateStats();
+    updatePatientStats();
+    renderTable();
+    renderFullTable();
+    renderChart();
+    renderAmbilList();
+    updateLastUpdate();
+}
+
+/* ============================================================
+   SISTEM LOGIN
+   ============================================================ */
 function selectMode(mode) {
     currentMode = mode;
-
     const adminCard = document.getElementById('modeAdmin');
     const userCard = document.getElementById('modeUser');
     const adminSection = document.getElementById('adminSection');
     const userSection = document.getElementById('userSection');
     const errorDiv = document.getElementById('loginError');
 
-    // Reset tampilan
     adminCard.classList.remove('sel-admin');
     userCard.classList.remove('sel-user');
     adminSection.style.display = 'none';
@@ -436,17 +672,13 @@ function selectMode(mode) {
     if (mode === 'admin') {
         adminCard.classList.add('sel-admin');
         adminSection.style.display = 'block';
-        // Fokus ke input password
-        setTimeout(() => {
-            document.getElementById('adminPass').focus();
-        }, 100);
+        setTimeout(() => document.getElementById('adminPass').focus(), 100);
     } else if (mode === 'user') {
         userCard.classList.add('sel-user');
         userSection.style.display = 'block';
     }
 }
 
-// Login sebagai Admin
 function doAdminLogin() {
     const passInput = document.getElementById('adminPass');
     const pass = passInput.value;
@@ -454,7 +686,6 @@ function doAdminLogin() {
     const errorMsg = document.getElementById('loginErrorMsg');
     const loginBox = document.getElementById('loginBox');
 
-    // Validasi kosong
     if (!pass || pass.trim() === '') {
         errorDiv.classList.remove('hidden');
         errorMsg.textContent = 'Kata sandi tidak boleh kosong!';
@@ -464,7 +695,6 @@ function doAdminLogin() {
         return;
     }
 
-    // Validasi password
     if (pass !== ADMIN_PASSWORD) {
         errorDiv.classList.remove('hidden');
         errorMsg.textContent = 'Kata sandi salah! Silakan coba lagi.';
@@ -475,39 +705,30 @@ function doAdminLogin() {
         return;
     }
 
-    // Berhasil login — sembunyikan overlay, tampilkan admin view
     errorDiv.classList.add('hidden');
     document.getElementById('loginOverlay').style.display = 'none';
     showAdminView();
     showToast('Berhasil masuk sebagai Admin!', 'success');
 }
 
-// Login sebagai Pasien/Keluarga
 function doUserLogin() {
     document.getElementById('loginOverlay').style.display = 'none';
     showPatientView();
     showToast('Mode Pasien aktif. Silakan cek antrian Anda.', 'info');
 }
 
-// Tampilkan view Admin
 function showAdminView() {
     currentMode = 'admin';
-
-    // Reset body class
     document.body.classList.remove('patient-bg');
-
-    // Header style admin
     document.getElementById('mainHeader').className = 'hdr grad-admin';
     document.getElementById('mainStripe').className = 'stripe';
 
-    // Tampilkan admin content, sembunyikan patient
     document.getElementById('patientView').style.display = 'none';
     document.getElementById('slide1').style.display = 'block';
     document.getElementById('slide2').style.display = 'none';
     document.getElementById('slide3').style.display = 'none';
     document.getElementById('navTabsWrap').style.display = 'block';
 
-    // Tampilkan semua tab
     document.getElementById('tab1').classList.remove('hidden-tab');
     document.getElementById('tab2').classList.remove('hidden-tab');
     document.getElementById('tab3').classList.remove('hidden-tab');
@@ -515,62 +736,47 @@ function showAdminView() {
     document.getElementById('tab2').classList.remove('active');
     document.getElementById('tab3').classList.remove('active');
 
-    // Tombol logout
     document.getElementById('logoutBtn').style.display = 'inline-flex';
-
-    // Visitor badge
+    document.getElementById('reloadBtn').style.display = 'inline-flex';
     document.getElementById('visitorBadge').className = 'visitor-badge visitor-badge-admin';
-
-    // Neon reg
     document.getElementById('neonRegWrap').classList.add('show');
 
-    // Header text
     document.getElementById('headerTitle').innerHTML = 'Daftar Antri<br><span style="background:linear-gradient(135deg,#6ee7b7,#34d399,#10b981);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Pasien Instalasi Dialisis RSSA</span>';
     document.getElementById('headerDesc').textContent = 'Klik kartu status di bawah untuk memfilter tampilan pasien pada dashboard.';
 
     currentSlide = 1;
-    loadData();
+    fetchSheetData();
+    startAutoRefresh();
 }
 
-// Tampilkan view Pasien
 function showPatientView() {
     currentMode = 'user';
-
-    // Body class patient
     document.body.classList.add('patient-bg');
-
-    // Header style patient
     document.getElementById('mainHeader').className = 'hdr grad-patient';
     document.getElementById('mainStripe').className = 'stripe patient-stripe';
 
-    // Sembunyikan admin content, tampilkan patient
     document.getElementById('slide1').style.display = 'none';
     document.getElementById('slide2').style.display = 'none';
     document.getElementById('slide3').style.display = 'none';
     document.getElementById('navTabsWrap').style.display = 'none';
     document.getElementById('patientView').style.display = 'block';
 
-    // Tombol logout
     document.getElementById('logoutBtn').style.display = 'inline-flex';
-
-    // Visitor badge
+    document.getElementById('reloadBtn').style.display = 'inline-flex';
     document.getElementById('visitorBadge').className = 'visitor-badge visitor-badge-patient';
-
-    // Neon reg
     document.getElementById('neonRegWrap').classList.add('show');
 
-    // Header text
     document.getElementById('headerTitle').innerHTML = 'Cek Antrian<br><span style="background:linear-gradient(135deg,#6ee7b7,#fde68a,#f9a8d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Pasien Instalasi Dialisis RSSA</span>';
     document.getElementById('headerDesc').textContent = 'Masukkan nama Anda untuk melihat status antrian.';
 
-    loadData();
+    fetchSheetData();
+    startAutoRefresh();
 }
 
-// Logout — kembali ke layar login
 function doLogout() {
     currentMode = null;
+    if (refreshTimer) { clearInterval(refreshTimer); refreshTimer = null; }
 
-    // Reset login form
     document.getElementById('adminPass').value = '';
     document.getElementById('adminSection').style.display = 'none';
     document.getElementById('userSection').style.display = 'none';
@@ -578,27 +784,24 @@ function doLogout() {
     document.getElementById('modeUser').classList.remove('sel-user');
     document.getElementById('loginError').classList.add('hidden');
 
-    // Sembunyikan semua konten
     document.getElementById('patientView').style.display = 'none';
     document.getElementById('slide1').style.display = 'none';
     document.getElementById('slide2').style.display = 'none';
     document.getElementById('slide3').style.display = 'none';
     document.getElementById('navTabsWrap').style.display = 'none';
     document.getElementById('logoutBtn').style.display = 'none';
+    document.getElementById('reloadBtn').style.display = 'none';
     document.getElementById('neonRegWrap').classList.remove('show');
 
-    // Reset body
     document.body.classList.remove('patient-bg');
     document.getElementById('mainHeader').className = 'hdr grad-admin';
     document.getElementById('mainStripe').className = 'stripe';
-
-    // Tampilkan overlay login
     document.getElementById('loginOverlay').style.display = 'flex';
 
+    allPatients = [];
     showToast('Anda telah keluar dari sistem.', 'info');
 }
 
-// Toggle visibilitas password
 function togglePassVis(inputId, btn) {
     const input = document.getElementById(inputId);
     const icon = btn.querySelector('i');
@@ -616,42 +819,23 @@ function togglePassVis(inputId, btn) {
    ============================================================ */
 function switchSlide(num) {
     currentSlide = num;
-
-    // Sembunyikan semua slide
     document.getElementById('slide1').style.display = 'none';
     document.getElementById('slide2').style.display = 'none';
     document.getElementById('slide3').style.display = 'none';
-
-    // Tampilkan slide aktif
     document.getElementById('slide' + num).style.display = 'block';
 
-    // Update tab aktif
     document.getElementById('tab1').classList.remove('active');
     document.getElementById('tab2').classList.remove('active');
     document.getElementById('tab3').classList.remove('active');
     document.getElementById('tab' + num).classList.add('active');
 
-    // Render konten spesifik
     if (num === 2) renderFullTable();
     if (num === 3) renderAmbilList();
 }
 
 /* ============================================================
-   DATA & RENDERING
+   STATISTIK
    ============================================================ */
-function loadData() {
-    // Dalam implementasi real, ambil dari API/Google Sheets
-    allPatients = [...DEMO_PATIENTS];
-    updateStats();
-    renderTable();
-    renderChart();
-    updateLastUpdate();
-
-    if (currentMode === 'user') {
-        updatePatientStats();
-    }
-}
-
 function updateStats() {
     const counts = { menunggu: 0, terjadwal: 0, hdlain: 0, batal: 0, meninggal: 0 };
     allPatients.forEach(p => { if (counts[p.status] !== undefined) counts[p.status]++; });
@@ -676,6 +860,9 @@ function updateLastUpdate() {
     document.getElementById('lastUpdate').textContent = 'Terakhir diperbarui: ' + str;
 }
 
+/* ============================================================
+   FILTER & PENCARIAN
+   ============================================================ */
 function getFilteredPatients() {
     let data = allPatients;
     if (currentFilter !== 'all') {
@@ -692,6 +879,30 @@ function getFilteredPatients() {
     return data;
 }
 
+function clickStatusCard(key) {
+    currentFilter = key;
+    // Update visual kartu status
+    document.querySelectorAll('.stc').forEach(card => {
+        card.classList.remove('sel');
+        if (card.dataset.key === key) card.classList.add('sel');
+    });
+    renderTable();
+}
+
+function onSearchInput() {
+    searchQuery = document.getElementById('searchInput').value.trim();
+    renderTable();
+}
+
+function clearSearch() {
+    searchQuery = '';
+    document.getElementById('searchInput').value = '';
+    renderTable();
+}
+
+/* ============================================================
+   BADGE STATUS
+   ============================================================ */
 function statusBadge(status) {
     const map = {
         menunggu: { bg: '#eff6ff', color: '#1e40af', label: 'Menunggu' },
@@ -704,6 +915,20 @@ function statusBadge(status) {
     return '<span class="badge" style="background:' + s.bg + ';color:' + s.color + '">' + s.label + '</span>';
 }
 
+function statusIcon(status) {
+    const map = {
+        menunggu: '<i class="fa-solid fa-hourglass-half" style="color:#2563eb"></i>',
+        terjadwal: '<i class="fa-solid fa-calendar-check" style="color:#059669"></i>',
+        hdlain: '<i class="fa-solid fa-arrows-turn-right" style="color:#d97706"></i>',
+        batal: '<i class="fa-solid fa-circle-xmark" style="color:#dc2626"></i>',
+        meninggal: '<i class="fa-solid fa-heart-crack" style="color:#4b5563"></i>'
+    };
+    return map[status] || '<i class="fa-solid fa-circle-question" style="color:#94a3b8"></i>';
+}
+
+/* ============================================================
+   RENDER TABEL DASHBOARD (SLIDE 1)
+   ============================================================ */
 function renderTable() {
     const data = getFilteredPatients();
     const tbody = document.getElementById('tableBody');
@@ -716,188 +941,197 @@ function renderTable() {
     tbody.innerHTML = data.map((p, i) =>
         '<tr class="row-' + p.status + '">' +
         '<td>' + (i + 1) + '</td>' +
-        '<td style="font-weight:700;color:var(--b700)">' + p.rm + '</td>' +
-        '<td style="font-weight:700;color:var(--txt)">' + p.nama + '</td>' +
-        '<td>' + p.diagnosa + '</td>' +
+        '<td style="font-weight:700;color:var(--b700)">' + escHtml(p.rm) + '</td>' +
+        '<td style="font-weight:700;color:var(--txt)">' + escHtml(p.nama) + '</td>' +
+        '<td>' + escHtml(p.diagnosa) + '</td>' +
         '<td>' + statusBadge(p.status) + '</td>' +
-        '<td>' + p.ruangan + '</td>' +
-        '<td class="tc">' + p.jadwal + '</td>' +
+        '<td>' + escHtml(p.ruangan) + '</td>' +
+        '<td>' + escHtml(p.jadwal) + '</td>' +
         '</tr>'
     ).join('');
 }
 
+/* ============================================================
+   RENDER TABEL LENGKAP (SLIDE 2)
+   ============================================================ */
 function renderFullTable() {
     const tbody = document.getElementById('fullTableBody');
     if (allPatients.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="8" class="text-center py-8" style="color:var(--muted)">Tidak ada data.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="8" class="text-center py-8" style="color:var(--muted)"><i class="fa-solid fa-inbox mr-2"></i>Tidak ada data.</td></tr>';
         return;
     }
     tbody.innerHTML = allPatients.map((p, i) =>
         '<tr class="row-' + p.status + '">' +
         '<td>' + (i + 1) + '</td>' +
-        '<td style="font-weight:700;color:var(--b700)">' + p.rm + '</td>' +
-        '<td style="font-weight:700;color:var(--txt)">' + p.nama + '</td>' +
-        '<td>' + p.diagnosa + '</td>' +
+        '<td style="font-weight:700;color:var(--b700)">' + escHtml(p.rm) + '</td>' +
+        '<td style="font-weight:700;color:var(--txt)">' + escHtml(p.nama) + '</td>' +
+        '<td>' + escHtml(p.diagnosa) + '</td>' +
         '<td>' + statusBadge(p.status) + '</td>' +
-        '<td>' + p.ruangan + '</td>' +
-        '<td class="tc">' + p.jadwal + '</td>' +
-        '<td style="font-size:12px;color:var(--muted)">' + p.catatan + '</td>' +
+        '<td>' + escHtml(p.ruangan) + '</td>' +
+        '<td>' + escHtml(p.jadwal) + '</td>' +
+        '<td>' + escHtml(p.catatan) + '</td>' +
         '</tr>'
     ).join('');
 }
 
-function renderAmbilList() {
-    const container = document.getElementById('ambilList');
-    const menunggu = allPatients.filter(p => p.status === 'menunggu');
-
-    if (menunggu.length === 0) {
-        container.innerHTML = '<div class="text-center py-8" style="color:var(--muted)"><i class="fa-solid fa-check-circle text-2xl mb-2" style="display:block;opacity:.4"></i>Tidak ada pasien menunggu.</div>';
-        return;
-    }
-
-    container.innerHTML = menunggu.map((p, i) =>
-        '<div class="flex items-center gap-4 p-4 rounded-xl border-2 mb-3 transition-all hover:border-green-400 hover:bg-green-50" style="border-color:var(--bdr)">' +
-        '<div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe)"><span style="font-weight:900;color:#2563eb">' + (i + 1) + '</span></div>' +
-        '<div class="flex-1 min-w-0"><div style="font-weight:800;color:var(--txt)">' + p.nama + '</div><div style="font-size:12px;color:var(--muted)">' + p.rm + ' — ' + p.diagnosa + '</div></div>' +
-        '<button class="bg2" onclick="ambilPasien(' + p.no + ')" style="font-size:12px;padding:8px 14px"><i class="fa-solid fa-hand-pointer"></i> Ambil</button>' +
-        '</div>'
-    ).join('');
-}
-
-function filterAmbilList() {
-    const q = document.getElementById('ambilSearch').value.toLowerCase();
-    const menunggu = allPatients.filter(p => p.status === 'menunggu' && p.nama.toLowerCase().includes(q));
-    const container = document.getElementById('ambilList');
-
-    if (menunggu.length === 0) {
-        container.innerHTML = '<div class="text-center py-8" style="color:var(--muted)"><i class="fa-solid fa-search text-2xl mb-2" style="display:block;opacity:.4"></i>Tidak ditemukan.</div>';
-        return;
-    }
-
-    container.innerHTML = menunggu.map((p, i) =>
-        '<div class="flex items-center gap-4 p-4 rounded-xl border-2 mb-3 transition-all hover:border-green-400 hover:bg-green-50" style="border-color:var(--bdr)">' +
-        '<div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe)"><span style="font-weight:900;color:#2563eb">' + (i + 1) + '</span></div>' +
-        '<div class="flex-1 min-w-0"><div style="font-weight:800;color:var(--txt)">' + p.nama + '</div><div style="font-size:12px;color:var(--muted)">' + p.rm + ' — ' + p.diagnosa + '</div></div>' +
-        '<button class="bg2" onclick="ambilPasien(' + p.no + ')" style="font-size:12px;padding:8px 14px"><i class="fa-solid fa-hand-pointer"></i> Ambil</button>' +
-        '</div>'
-    ).join('');
-}
-
-function ambilPasien(no) {
-    const idx = allPatients.findIndex(p => p.no === no);
-    if (idx === -1) return;
-    allPatients[idx].status = 'terjadwal';
-    allPatients[idx].ruangan = 'Ruang A';
-    showToast('Pasien ' + allPatients[idx].nama + ' berhasil diambil!', 'success');
-    updateStats();
-    renderTable();
-    renderAmbilList();
-    renderChart();
-}
-
 /* ============================================================
-   STATUS CARD FILTER
-   ============================================================ */
-function clickStatusCard(key) {
-    currentFilter = key;
-
-    // Update card styles
-    document.querySelectorAll('.stc').forEach(card => {
-        card.classList.remove('sel');
-        if (card.dataset.key === key) card.classList.add('sel');
-    });
-
-    renderTable();
-}
-
-/* ============================================================
-   SEARCH
-   ============================================================ */
-function onSearchInput() {
-    searchQuery = document.getElementById('searchInput').value;
-    renderTable();
-}
-
-function clearSearch() {
-    document.getElementById('searchInput').value = '';
-    searchQuery = '';
-    currentFilter = 'all';
-    document.querySelectorAll('.stc').forEach(c => c.classList.remove('sel'));
-    document.querySelector('.stc[data-key="all"]').classList.add('sel');
-    renderTable();
-}
-
-/* ============================================================
-   CHART
+   RENDER CHART PIE (SLIDE 1)
    ============================================================ */
 function renderChart() {
     const counts = { menunggu: 0, terjadwal: 0, hdlain: 0, batal: 0, meninggal: 0 };
     allPatients.forEach(p => { if (counts[p.status] !== undefined) counts[p.status]++; });
 
-    const data = {
-        labels: ['Menunggu', 'Terjadwal', 'HD Lain', 'Batal', 'Meninggal'],
-        datasets: [{
-            data: [counts.menunggu, counts.terjadwal, counts.hdlain, counts.batal, counts.meninggal],
-            backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#6b7280'],
-            borderWidth: 0,
-            hoverOffset: 6
-        }]
-    };
+    const labels = ['Menunggu', 'Terjadwal', 'HD Lain', 'Batal', 'Meninggal'];
+    const values = [counts.menunggu, counts.terjadwal, counts.hdlain, counts.batal, counts.meninggal];
+    const colors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#6b7280'];
+    const borderColors = ['#2563eb', '#059669', '#d97706', '#dc2626', '#4b5563'];
 
     if (chart1Instance) {
-        chart1Instance.data = data;
+        chart1Instance.data.datasets[0].data = values;
         chart1Instance.update();
         return;
     }
 
     const ctx = document.getElementById('chart1');
     if (!ctx) return;
+
     chart1Instance = new Chart(ctx, {
         type: 'doughnut',
-        data: data,
+        data: {
+            labels: labels,
+            datasets: [{
+                data: values,
+                backgroundColor: colors,
+                borderColor: borderColors,
+                borderWidth: 2,
+                hoverOffset: 8
+            }]
+        },
         options: {
             responsive: true,
             maintainAspectRatio: true,
-            cutout: '60%',
+            cutout: '55%',
             plugins: {
-                legend: { display: true, position: 'bottom', labels: { padding: 12, font: { family: 'Plus Jakarta Sans', weight: '700', size: 11 } } }
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        padding: 12,
+                        usePointStyle: true,
+                        pointStyleWidth: 10,
+                        font: { family: 'Plus Jakarta Sans', size: 11, weight: '600' }
+                    }
+                },
+                tooltip: {
+                    backgroundColor: '#1e293b',
+                    titleFont: { family: 'Plus Jakarta Sans', weight: '700' },
+                    bodyFont: { family: 'Plus Jakarta Sans' },
+                    padding: 10,
+                    cornerRadius: 8,
+                    callbacks: {
+                        label: function(ctx) {
+                            const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+                            const pct = total > 0 ? ((ctx.parsed / total) * 100).toFixed(1) : 0;
+                            return ' ' + ctx.label + ': ' + ctx.parsed + ' (' + pct + '%)';
+                        }
+                    }
+                }
             }
         }
     });
 }
 
 /* ============================================================
-   PATIENT SEARCH (Mode Pasien)
+   RENDER DAFTAR AMBIL PASIEN (SLIDE 3)
+   ============================================================ */
+function renderAmbilList(filter) {
+    const container = document.getElementById('ambilList');
+    // Hanya tampilkan pasien berstatus "menunggu"
+    let data = allPatients.filter(p => p.status === 'menunggu');
+
+    if (filter) {
+        const q = filter.toLowerCase();
+        data = data.filter(p =>
+            p.nama.toLowerCase().includes(q) ||
+            p.rm.toLowerCase().includes(q)
+        );
+    }
+
+    if (data.length === 0) {
+        container.innerHTML = '<p class="text-center py-6" style="color:var(--muted)"><i class="fa-solid fa-inbox mr-2"></i>Tidak ada pasien menunggu' + (filter ? ' untuk filter "' + escHtml(filter) + '"' : '') + '.</p>';
+        return;
+    }
+
+    container.innerHTML = data.map((p, i) =>
+        '<div class="ambil-item">' +
+        '<div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#dbeafe,#bfdbfe);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:800;color:#1e40af;font-size:13px">' + (i + 1) + '</div>' +
+        '<div class="ai-rm">' + escHtml(p.rm) + '</div>' +
+        '<div class="ai-nama">' + escHtml(p.nama) + '</div>' +
+        '<div class="ai-diag">' + escHtml(p.diagnosa) + '</div>' +
+        '<button class="bp" style="padding:8px 18px;font-size:12px;flex-shrink:0" onclick="ambilPasien(' + (allPatients.indexOf(p)) + ')"><i class="fa-solid fa-check mr-1"></i>Ambil</button>' +
+        '</div>'
+    ).join('');
+}
+
+function filterAmbilList() {
+    const q = document.getElementById('ambilSearch').value.trim();
+    renderAmbilList(q || undefined);
+}
+
+// Aksi ambil pasien — ubah status menjadi "terjadwal"
+function ambilPasien(index) {
+    if (index < 0 || index >= allPatients.length) return;
+    const p = allPatients[index];
+    if (p.status !== 'menunggu') return;
+
+    p.status = 'terjadwal';
+    if (!p.ruangan || p.ruangan === '-') p.ruangan = 'Diproses';
+    if (!p.catatan || p.catatan === '-') p.catatan = 'Diambil pada ' + new Date().toLocaleString('id-ID');
+
+    updateUI();
+    showToast('Pasien ' + p.nama + ' berhasil diambil dari antrian.', 'success');
+}
+
+/* ============================================================
+   PENCARIAN PASIEN (MODE PASIEN)
    ============================================================ */
 function patientSearch() {
-    const nama = document.getElementById('pSearchNama').value.trim().toLowerCase();
-    const results = document.getElementById('patientResults');
-    const noRes = document.getElementById('pNoRes');
+    const q = document.getElementById('pSearchNama').value.trim();
+    const resultsDiv = document.getElementById('patientResults');
+    const noResDiv = document.getElementById('pNoRes');
 
-    if (!nama) {
-        showToast('Masukkan nama pasien terlebih dahulu.', 'warning');
+    if (!q) {
+        resultsDiv.innerHTML = '';
+        noResDiv.classList.add('hidden');
+        showToast('Silakan masukkan nama pasien terlebih dahulu.', 'warning');
         return;
     }
 
-    const found = allPatients.filter(p => p.nama.toLowerCase().includes(nama));
+    const lower = q.toLowerCase();
+    const found = allPatients.filter(p => p.nama.toLowerCase().includes(lower));
 
     if (found.length === 0) {
-        results.innerHTML = '';
-        noRes.classList.remove('hidden');
+        resultsDiv.innerHTML = '';
+        noResDiv.classList.remove('hidden');
         return;
     }
 
-    noRes.classList.add('hidden');
-    results.innerHTML = found.map(p =>
-        '<div class="card p-5 mb-4" style="border-radius:16px;border:2px solid ' + (p.status === 'menunggu' ? '#3b82f6' : p.status === 'terjadwal' ? '#10b981' : 'var(--bdr)') + '">' +
-        '<div class="flex items-center gap-3 mb-3">' +
-        '<div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe)"><i class="fa-solid fa-user" style="color:#2563eb"></i></div>' +
-        '<div><div style="font-weight:800;color:var(--txt)">' + p.nama + '</div><div style="font-size:12px;color:var(--muted)">' + p.rm + '</div></div>' +
-        '<div class="ml-auto">' + statusBadge(p.status) + '</div>' +
+    noResDiv.classList.add('hidden');
+    resultsDiv.innerHTML = found.map(p =>
+        '<div class="patient-result-card">' +
+        '<div class="patient-result-header">' +
+        '<div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#d1fae5,#a7f3d0);display:flex;align-items:center;justify-content:center;flex-shrink:0">' + statusIcon(p.status) + '</div>' +
+        '<div style="flex:1">' +
+        '<div style="font-weight:800;font-size:16px;color:var(--txt)">' + escHtml(p.nama) + '</div>' +
+        '<div style="font-size:12px;color:var(--muted);font-weight:600">' + escHtml(p.rm) + ' &bull; ' + escHtml(p.diagnosa) + '</div>' +
         '</div>' +
-        '<div style="font-size:13px;color:var(--txt2)"><strong>Diagnosa:</strong> ' + p.diagnosa + '</div>' +
-        '<div style="font-size:13px;color:var(--txt2)"><strong>Ruangan:</strong> ' + (p.ruangan || '-') + '</div>' +
-        '<div style="font-size:13px;color:var(--txt2)"><strong>Jadwal HD:</strong> ' + (p.jadwal || '-') + '</div>' +
+        statusBadge(p.status) +
+        '</div>' +
+        '<div class="patient-result-body">' +
+        '<div class="pr-row"><div class="pr-label">Status</div><div class="pr-value">' + statusBadge(p.status) + '</div></div>' +
+        '<div class="pr-row"><div class="pr-label">Ruangan</div><div class="pr-value">' + escHtml(p.ruangan) + '</div></div>' +
+        '<div class="pr-row"><div class="pr-label">Jadwal HD</div><div class="pr-value">' + escHtml(p.jadwal) + '</div></div>' +
+        '<div class="pr-row"><div class="pr-label">Catatan</div><div class="pr-value">' + escHtml(p.catatan) + '</div></div>' +
+        '</div>' +
         '</div>'
     ).join('');
 }
@@ -912,19 +1146,34 @@ function patientReset() {
    EXPORT CSV
    ============================================================ */
 function exportCSV() {
-    const data = getFilteredPatients();
-    if (data.length === 0) { showToast('Tidak ada data untuk diekspor.', 'warning'); return; }
+    if (allPatients.length === 0) {
+        showToast('Tidak ada data untuk di-export.', 'warning');
+        return;
+    }
+    const headers = ['No', 'No. RM', 'Nama Pasien', 'Diagnosa', 'Status', 'Ruangan', 'Jadwal HD', 'Catatan'];
+    const statusLabels = { menunggu: 'Menunggu', terjadwal: 'Terjadwal', hdlain: 'HD Lain', batal: 'Batal', meninggal: 'Meninggal' };
 
-    let csv = 'No,No.RM,Nama,Diagnosa,Status,Ruangan,Jadwal HD,Catatan\n';
-    data.forEach(p => {
-        csv += [p.no, p.rm, '"' + p.nama + '"', '"' + p.diagnosa + '"', p.status, p.ruangan, '"' + p.jadwal + '"', '"' + p.catatan + '"'].join(',') + '\n';
+    let csv = '\uFEFF'; // BOM untuk Excel
+    csv += headers.join(',') + '\n';
+    allPatients.forEach((p, i) => {
+        const row = [
+            i + 1,
+            '"' + p.rm.replace(/"/g, '""') + '"',
+            '"' + p.nama.replace(/"/g, '""') + '"',
+            '"' + p.diagnosa.replace(/"/g, '""') + '"',
+            '"' + (statusLabels[p.status] || p.status) + '"',
+            '"' + p.ruangan.replace(/"/g, '""') + '"',
+            '"' + p.jadwal.replace(/"/g, '""') + '"',
+            '"' + p.catatan.replace(/"/g, '""') + '"'
+        ];
+        csv += row.join(',') + '\n';
     });
 
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'data_pasien_dialisis_' + new Date().toISOString().slice(0, 10) + '.csv';
+    a.download = 'SIDARAJA_Pasien_' + new Date().toISOString().slice(0, 10) + '.csv';
     a.click();
     URL.revokeObjectURL(url);
     showToast('File CSV berhasil diunduh!', 'success');
@@ -933,42 +1182,53 @@ function exportCSV() {
 /* ============================================================
    TOAST NOTIFICATION
    ============================================================ */
-function showToast(msg, type) {
+function showToast(message, type) {
     const container = document.getElementById('toastC');
     const typeClass = { success: 'tt-s', error: 'tt-e', info: 'tt-i', warning: 'tt-w' };
-    const iconMap = { success: 'fa-check-circle', error: 'fa-circle-xmark', info: 'fa-circle-info', warning: 'fa-triangle-exclamation' };
+    const icons = { success: 'fa-circle-check', error: 'fa-circle-xmark', info: 'fa-circle-info', warning: 'fa-triangle-exclamation' };
 
-    const toast = document.createElement('div');
-    toast.className = 'tt ' + (typeClass[type] || 'tt-i');
-    toast.innerHTML = '<i class="fa-solid ' + (iconMap[type] || 'fa-circle-info') + '"></i> ' + msg;
-    container.appendChild(toast);
+    const el = document.createElement('div');
+    el.className = 'tt ' + (typeClass[type] || 'tt-i');
+    el.innerHTML = '<i class="fa-solid ' + (icons[type] || 'fa-circle-info') + '"></i><span>' + message + '</span>';
+    container.appendChild(el);
 
     setTimeout(() => {
-        toast.classList.add('tt-x');
-        setTimeout(() => toast.remove(), 300);
-    }, 3500);
+        el.classList.add('tt-x');
+        setTimeout(() => el.remove(), 300);
+    }, 4000);
+}
+
+/* ============================================================
+   PENGUNJUNG (simulasi)
+   ============================================================ */
+function updateVisitorCount() {
+    let count = parseInt(sessionStorage.getItem('sidaraja_visitors') || '0');
+    if (count === 0) {
+        count = Math.floor(Math.random() * 15) + 5;
+    } else {
+        count += Math.floor(Math.random() * 3) - 1;
+        if (count < 3) count = 3;
+        if (count > 30) count = 30;
+    }
+    sessionStorage.setItem('sidaraja_visitors', count);
+    document.getElementById('visitorCount').textContent = count;
+}
+
+/* ============================================================
+   UTILITAS
+   ============================================================ */
+function escHtml(str) {
+    if (!str) return '';
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
 }
 
 /* ============================================================
    INISIALISASI
    ============================================================ */
-document.addEventListener('DOMContentLoaded', function() {
-    // Pastikan halaman dimulai dari login overlay
-    document.getElementById('loginOverlay').style.display = 'flex';
-    document.getElementById('patientView').style.display = 'none';
-    document.getElementById('slide1').style.display = 'none';
-    document.getElementById('slide2').style.display = 'none';
-    document.getElementById('slide3').style.display = 'none';
-    document.getElementById('navTabsWrap').style.display = 'none';
-    document.getElementById('logoutBtn').style.display = 'none';
-
-    // Update koneksi status
-    document.getElementById('connDotLogin').className = 'conn-dot conn-ok';
-    document.getElementById('connLabelLogin').textContent = 'Siap';
-
-    // Visitor counter (demo)
-    document.getElementById('visitorCount').textContent = Math.floor(Math.random() * 20) + 5;
-});
+updateVisitorCount();
+setInterval(updateVisitorCount, 15000);
 </script>
 </body>
 </html>
