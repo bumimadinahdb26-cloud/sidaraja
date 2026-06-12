@@ -10,87 +10,109 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script>tailwind.config={theme:{extend:{fontFamily:{sans:['Plus Jakarta Sans','sans-serif']}}}}</script>
 <style>
-:root{--b900:#1e3a5f;--b800:#1e40af;--b700:#1d4ed8;--b600:#2563eb;--b500:#3b82f6;--b400:#60a5fa;--b300:#93c5fd;--b200:#bfdbfe;--b100:#dbeafe;--b50:#eff6ff;--g700:#047857;--g600:#059669;--g500:#10b981;--g400:#34d399;--g100:#d1fae5;--w:#ffffff;--g50:#f8fafc;--g100:#f1f5f9;--g200:#e2e8f0;--g300:#cbd5e1;--g400:#94a3b8;--g500:#64748b;--g600:#475569;--g800:#1e293b;--txt:#1e293b;--txt2:#475569;--muted:#94a3b8;--bdr:#e2e8f0;--pg:#059669;--pgl:#d1fae5;--pgbg:#ecfdf5;--pk:#d97706;--pkl:#fde68a;--pkbg:#fffbeb;--pp:#db2777;--ppl:#fbcfe8;--ppbg:#fce7f3}
+:root{--b900:#1e3a5f;--b700:#1d4ed8;--b600:#2563eb;--b500:#3b82f6;--b400:#60a5fa;--b300:#93c5fd;--b200:#bfdbfe;--b100:#dbeafe;--b50:#eff6ff;--g600:#059669;--g500:#10b981;--g400:#34d399;--w:#fff;--g50:#f8fafc;--g100s:#f1f5f9;--g200:#e2e8f0;--g400:#94a3b8;--g500:#64748b;--g600:#475569;--txt:#1e293b;--txt2:#475569;--muted:#94a3b8;--bdr:#e2e8f0;--pg:#059669;--pgl:#d1fae5;--pgbg:#ecfdf5;--pk:#d97706;--pkl:#fde68a;--pkbg:#fffbeb;--pp:#db2777;--ppl:#fbcfe8;--ppbg:#fce7f3}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--g50);color:var(--txt);min-height:100vh}
 body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3 70%,#ecfdf5 100%)}
 .hdr{position:relative;overflow:hidden;display:flex;flex-direction:column}
-.hdr-logo-area{flex-shrink:0;height:140px;background-image:url('logosidaraja.png');background-size:contain;background-position:center center;background-repeat:no-repeat;background-color:rgba(10,22,50,.92);position:relative;z-index:2}
-.hdr-logo-area::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(to bottom,transparent,rgba(10,22,50,.5));pointer-events:none}
+.hdr-logo-area{flex-shrink:0;height:120px;background-image:url('logosidaraja.png');background-size:contain;background-position:center;background-repeat:no-repeat;background-color:rgba(10,22,50,.92);position:relative;z-index:2}
 .hdr-body{flex:1;position:relative;overflow:hidden}
-.hdr-body::before{content:'';position:absolute;top:-40%;right:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(16,185,129,.12),transparent 70%);border-radius:50%;pointer-events:none;z-index:0}
-.hdr-body::after{content:'';position:absolute;bottom:-20%;left:-5%;width:350px;height:350px;background:radial-gradient(circle,rgba(59,130,246,.08),transparent 70%);border-radius:50%;pointer-events:none;z-index:0}
+.hdr-body::before{content:'';position:absolute;top:-40%;right:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(16,185,129,.12),transparent 70%);border-radius:50%;pointer-events:none}
 .hdr.grad-admin .hdr-body{background:linear-gradient(135deg,var(--b900),var(--b700) 40%,var(--b600))}
 .hdr.grad-patient .hdr-body{background:linear-gradient(135deg,#047857 0%,#059669 25%,#b45309 60%,#be185d 100%)}
 .patient-bg .hdr-logo-area{background-color:rgba(5,50,30,.92)}
 .ecg{position:absolute;bottom:0;left:0;width:100%;height:50px;overflow:hidden;opacity:.2;z-index:1}
 .ecg svg{position:absolute;bottom:0;left:0;width:200%;height:50px;animation:ecgS 6s linear infinite}
-@keyframes ecgS{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-.stripe{height:4px;background:repeating-linear-gradient(90deg,var(--b600) 0 20px,var(--g500) 20px 40px);position:relative;z-index:2}
+@keyframes ecgS{to{transform:translateX(-50%)}}
+.stripe{height:4px;background:repeating-linear-gradient(90deg,var(--b600) 0 20px,var(--g500) 20px 40px);z-index:2;position:relative}
 .stripe.patient-stripe{background:repeating-linear-gradient(90deg,var(--pg) 0 16px,var(--pk) 16px 32px,var(--pp) 32px 48px)}
-.login-box{background:var(--w);border-radius:24px;max-width:520px;width:100%;box-shadow:0 25px 60px rgba(0,0,0,.35);overflow:hidden;animation:fu2 .4s cubic-bezier(.16,1,.3,1)}
-.login-logo-area{height:150px;background-image:url('logosidaraja.png');background-size:contain;background-position:center center;background-repeat:no-repeat;background-color:rgba(10,22,50,.95);position:relative}
-.login-logo-area::after{content:'';position:absolute;bottom:0;left:0;right:0;height:36px;background:linear-gradient(to bottom,transparent,rgba(10,22,50,.6));pointer-events:none}
-.login-header-text{background:linear-gradient(135deg,var(--b900),var(--b700));padding:20px 32px 28px;text-align:center;position:relative;overflow:hidden}
-.login-header-text::before{content:'';position:absolute;top:-30%;right:-20%;width:200px;height:200px;background:radial-gradient(circle,rgba(16,185,129,.12),transparent 70%);border-radius:50%;pointer-events:none}
-.login-body{padding:28px 32px 32px}
+.login-overlay{position:fixed;inset:0;background:rgba(15,23,42,.85);backdrop-filter:blur(16px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:16px;overflow-y:auto}
+.login-box{background:var(--w);border-radius:24px;max-width:520px;width:100%;box-shadow:0 25px 60px rgba(0,0,0,.35);overflow:hidden;animation:fu2 .4s cubic-bezier(.16,1,.3,1);margin:auto}
+.login-logo-area{height:130px;background-image:url('logosidaraja.png');background-size:contain;background-position:center;background-repeat:no-repeat;background-color:rgba(10,22,50,.95);position:relative}
+.login-header-text{background:linear-gradient(135deg,var(--b900),var(--b700));padding:18px 28px 24px;text-align:center;position:relative;overflow:hidden}
+.login-body{padding:24px 28px 28px}
+.mode-card{border:2px solid var(--bdr);border-radius:16px;padding:18px;cursor:pointer;transition:all .25s;text-align:center;background:var(--w);position:relative;overflow:hidden}
+.mode-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;opacity:0;transition:opacity .25s}
+.mode-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.mode-card.sel-admin{border-color:var(--b500);background:#eff6ff}
+.mode-card.sel-admin::before{opacity:1;background:var(--b600)}
+.mode-card.sel-user{border-color:var(--pg);background:#ecfdf5}
+.mode-card.sel-user::before{opacity:1;background:linear-gradient(90deg,var(--pg),var(--pk),var(--pp))}
+.mode-card .mc-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;font-size:20px}
+.mode-card .mc-title{font-size:14px;font-weight:800;color:var(--txt);margin-bottom:2px}
+.mode-card .mc-desc{font-size:11px;color:var(--muted);line-height:1.3}
+.mode-card .mc-arrow{margin-top:8px;font-size:11px;color:var(--b500);font-weight:700}
+.mode-card.sel-user .mc-arrow{color:var(--pg)}
+.auth-tabs{display:flex;gap:0;margin-bottom:18px;border-bottom:2px solid var(--bdr)}
+.auth-tab{flex:1;padding:10px;text-align:center;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;border:none;border-bottom:3px solid transparent;color:var(--muted);background:none;font-family:inherit}
+.auth-tab.active{color:var(--b600);border-bottom-color:var(--b600)}
+.auth-tab:hover:not(.active){color:var(--txt2);background:var(--g50)}
+.si2{width:100%;padding:12px 14px 12px 44px;border:2px solid var(--bdr);border-radius:12px;font-size:14px;color:var(--txt);background:var(--w);transition:all .25s;outline:none;font-family:inherit}
+.si2::placeholder{color:var(--muted)}
+.si2:focus{border-color:var(--b500);box-shadow:0 0 0 3px rgba(59,130,246,.1)}
+.iic{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:15px;z-index:2}
+.bp{background:linear-gradient(135deg,var(--b600),var(--b700));color:#fff;font-weight:700;padding:12px 24px;border-radius:12px;border:none;cursor:pointer;transition:all .25s;font-size:14px;font-family:inherit;display:inline-flex;align-items:center;gap:8px}
+.bp:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(37,99,235,.3)}
+.bp:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+.bg2{background:linear-gradient(135deg,var(--g500),var(--g600));color:#fff;font-weight:700;padding:12px 24px;border-radius:12px;border:none;cursor:pointer;transition:all .25s;font-size:14px;font-family:inherit;display:inline-flex;align-items:center;gap:8px}
+.bg2:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(16,185,129,.3)}
+.bo{background:var(--w);color:var(--txt2);font-weight:600;padding:12px 24px;border-radius:12px;border:2px solid var(--bdr);cursor:pointer;transition:all .25s;font-size:14px;font-family:inherit;display:inline-flex;align-items:center;gap:8px}
+.bo:hover{border-color:var(--b300);color:var(--b600);background:var(--b50)}
+.card{background:var(--w);border-radius:16px;border:1px solid var(--bdr);box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.02)}
+.stc{background:var(--w);border-radius:14px;border:2px solid var(--bdr);padding:16px 18px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden}
+.stc::after{content:'';position:absolute;top:0;left:0;right:0;height:4px;opacity:0;transition:opacity .25s}
+.stc:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
+.stc.sel{box-shadow:0 4px 16px rgba(0,0,0,.08)}
+.stc.sel::after{opacity:1}
+.stc.stc-menunggu::after{background:#3b82f6}
+.stc.stc-menunggu.sel{border-color:#3b82f6;background:#eff6ff}
+.stc.stc-terjadwal::after{background:#10b981}
+.stc.stc-terjadwal.sel{border-color:#10b981;background:#ecfdf5}
+.stc.stc-hdlain::after{background:#f59e0b}
+.stc.stc-hdlain.sel{border-color:#f59e0b;background:#fffbeb}
+.stc.stc-batal::after{background:#ef4444}
+.stc.stc-batal.sel{border-color:#ef4444;background:#fef2f2}
+.stc.stc-meninggal::after{background:#6b7280}
+.stc.stc-meninggal.sel{border-color:#6b7280;background:#f3f4f6}
+.stc.stc-total::after{background:#7c3aed}
+.stc.stc-total.sel{border-color:#7c3aed;background:#f5f3ff}
+.stc .stc-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.stc .stc-num{font-size:1.6rem;font-weight:900;line-height:1.1}
+.stc .stc-label{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.stc .stc-check{position:absolute;top:8px;right:8px;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;opacity:0;transform:scale(0);transition:all .25s}
+.stc.sel .stc-check{opacity:1;transform:scale(1)}
 .nav-tab{padding:12px 24px;font-weight:700;font-size:14px;border-radius:12px 12px 0 0;cursor:pointer;transition:all .25s;border:2px solid transparent;border-bottom:none;font-family:inherit}
 .nav-tab.active{background:var(--w);color:var(--b700);border-color:var(--bdr);box-shadow:0 -2px 8px rgba(0,0,0,.04)}
 .nav-tab:not(.active){background:var(--g100);color:var(--g500)}
 .nav-tab:not(.active):hover{background:var(--g200);color:var(--g600)}
 .nav-tab.hidden-tab{display:none}
-.card{background:var(--w);border-radius:16px;border:1px solid var(--bdr);box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.02)}
-.stc{background:var(--w);border-radius:14px;border:2px solid var(--bdr);padding:18px 20px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden}
-.stc::after{content:'';position:absolute;top:0;left:0;right:0;height:4px;opacity:0;transition:opacity .25s}
-.stc:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
-.stc.sel{box-shadow:0 4px 16px rgba(0,0,0,.08)}.stc.sel::after{opacity:1}
-.stc.stc-menunggu::after{background:#3b82f6}.stc.stc-menunggu.sel{border-color:#3b82f6;background:#eff6ff}
-.stc.stc-terjadwal::after{background:#10b981}.stc.stc-terjadwal.sel{border-color:#10b981;background:#ecfdf5}
-.stc.stc-hdlain::after{background:#f59e0b}.stc.stc-hdlain.sel{border-color:#f59e0b;background:#fffbeb}
-.stc.stc-batal::after{background:#ef4444}.stc.stc-batal.sel{border-color:#ef4444;background:#fef2f2}
-.stc.stc-meninggal::after{background:#6b7280}.stc.stc-meninggal.sel{border-color:#6b7280;background:#f3f4f6}
-.stc.stc-total::after{background:#7c3aed}.stc.stc-total.sel{border-color:#7c3aed;background:#f5f3ff}
-.stc .stc-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.stc .stc-num{font-size:1.7rem;font-weight:900;line-height:1.1}
-.stc .stc-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
-.stc .stc-check{position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;opacity:0;transform:scale(0);transition:all .25s}
-.stc.sel .stc-check{opacity:1;transform:scale(1)}
-.si2{width:100%;padding:13px 16px 13px 48px;border:2px solid var(--bdr);border-radius:12px;font-size:15px;color:var(--txt);background:var(--w);transition:all .25s;outline:none;font-family:inherit}
-.si2::placeholder{color:var(--muted)}.si2:focus{border-color:var(--b500);box-shadow:0 0 0 4px rgba(59,130,246,.1)}
-.iic{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:16px;z-index:2}
-.bp{background:linear-gradient(135deg,var(--b600),var(--b700));color:#fff;font-weight:700;padding:13px 28px;border-radius:12px;border:none;cursor:pointer;transition:all .25s;font-size:14px;font-family:inherit;display:inline-flex;align-items:center;gap:8px}
-.bp:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(37,99,235,.3)}
-.bp:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
-.bg2{background:linear-gradient(135deg,var(--g500),var(--g600));color:#fff;font-weight:700;padding:13px 28px;border-radius:12px;border:none;cursor:pointer;transition:all .25s;font-size:14px;font-family:inherit;display:inline-flex;align-items:center;gap:8px}
-.bg2:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(16,185,129,.3)}
-.bo{background:var(--w);color:var(--txt2);font-weight:600;padding:13px 28px;border-radius:12px;border:2px solid var(--bdr);cursor:pointer;transition:all .25s;font-size:14px;font-family:inherit;display:inline-flex;align-items:center;gap:8px}
-.bo:hover{border-color:var(--b300);color:var(--b600);background:var(--b50)}
-.dd-wrap{position:relative;display:inline-block}
-.dd-menu{position:absolute;right:0;top:calc(100% + 6px);background:var(--w);border:1px solid var(--bdr);border-radius:12px;box-shadow:0 12px 36px rgba(0,0,0,.12);min-width:220px;z-index:100;opacity:0;transform:translateY(-8px);pointer-events:none;transition:all .2s}
-.dd-menu.open{opacity:1;transform:translateY(0);pointer-events:auto}
-.dd-item{display:flex;align-items:center;gap:10px;padding:12px 16px;font-size:13px;font-weight:600;color:var(--txt2);cursor:pointer;transition:background .15s;font-family:inherit;border:none;background:none;width:100%;text-align:left}
-.dd-item:hover{background:var(--b50);color:var(--b600)}.dd-item i{width:20px;text-align:center;font-size:14px}
 .tw{overflow-x:auto}
 .dt{width:100%;border-collapse:separate;border-spacing:0}
-.dt thead th{background:linear-gradient(135deg,var(--b900),var(--b700));padding:14px 16px;text-align:left;font-weight:700;font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.95);position:sticky;top:0;z-index:10;white-space:nowrap;border-bottom:3px solid var(--g500)}
-.dt thead th:first-child{border-radius:12px 0 0 0}.dt thead th:last-child{border-radius:0 12px 0 0}
+.dt thead th{background:linear-gradient(135deg,var(--b900),var(--b700));padding:12px 14px;text-align:left;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.95);position:sticky;top:0;z-index:10;white-space:nowrap;border-bottom:3px solid var(--g500)}
+.dt thead th:first-child{border-radius:12px 0 0 0}
+.dt thead th:last-child{border-radius:0 12px 0 0}
 .dt tbody tr{transition:background .15s}
-.dt tbody tr:nth-child(even){background:var(--g50)}.dt tbody tr:nth-child(odd){background:var(--w)}
+.dt tbody tr:nth-child(even){background:var(--g50)}
+.dt tbody tr:nth-child(odd){background:var(--w)}
 .dt tbody tr:hover{background:var(--b50)!important}
-.dt tbody tr.row-menunggu{background:#eff6ff!important}.dt tbody tr.row-menunggu:hover{background:#dbeafe!important}
-.dt tbody tr.row-terjadwal{background:#ecfdf5!important}.dt tbody tr.row-terjadwal:hover{background:#d1fae5!important}
-.dt tbody tr.row-hdlain{background:#fffbeb!important}.dt tbody tr.row-hdlain:hover{background:#fef3c7!important}
-.dt tbody tr.row-batal{background:#fef2f2!important}.dt tbody tr.row-batal:hover{background:#fee2e2!important}
-.dt tbody tr.row-meninggal{background:#f3f4f6!important}.dt tbody tr.row-meninggal:hover{background:#e5e7eb!important}
-.dt tbody td{padding:13px 16px;border-bottom:1px solid var(--bdr);font-size:13.5px;color:var(--txt2);max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dt tbody tr.row-menunggu{background:#eff6ff!important}
+.dt tbody tr.row-menunggu:hover{background:#dbeafe!important}
+.dt tbody tr.row-terjadwal{background:#ecfdf5!important}
+.dt tbody tr.row-terjadwal:hover{background:#d1fae5!important}
+.dt tbody tr.row-hdlain{background:#fffbeb!important}
+.dt tbody tr.row-hdlain:hover{background:#fef3c7!important}
+.dt tbody tr.row-batal{background:#fef2f2!important}
+.dt tbody tr.row-batal:hover{background:#fee2e2!important}
+.dt tbody tr.row-meninggal{background:#f3f4f6!important}
+.dt tbody tr.row-meninggal:hover{background:#e5e7eb!important}
+.dt tbody td{padding:12px 14px;border-bottom:1px solid var(--bdr);font-size:13px;color:var(--txt2);max-width:250px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .dt tbody tr:last-child td{border-bottom:none}
-.badge{display:inline-block;padding:3px 10px;border-radius:8px;font-size:12px;font-weight:700;white-space:nowrap}
-.badge-menunggu{background:#dbeafe;color:#1e40af}.badge-terjadwal{background:#d1fae5;color:#065f46}
-.badge-hdlain{background:#fef3c7;color:#92400e}.badge-batal{background:#fee2e2;color:#991b1b}
+.badge{display:inline-block;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:700;white-space:nowrap}
+.badge-menunggu{background:#dbeafe;color:#1e40af}
+.badge-terjadwal{background:#d1fae5;color:#065f46}
+.badge-hdlain{background:#fef3c7;color:#92400e}
+.badge-batal{background:#fee2e2;color:#991b1b}
 .badge-meninggal{background:#e5e7eb;color:#374151}
-.pb{width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;border:2px solid var(--bdr);background:var(--w);color:var(--txt2);font-family:inherit}
-.pb:hover{border-color:var(--b300);color:var(--b600);background:var(--b50)}
-.pb.act{background:linear-gradient(135deg,var(--b600),var(--b700));color:#fff;border-color:transparent;box-shadow:0 4px 12px rgba(37,99,235,.25)}
 .tc2{position:fixed;top:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:10px;pointer-events:none}
 .tt{padding:14px 20px;border-radius:12px;font-size:14px;font-weight:500;display:flex;align-items:center;gap:10px;animation:ti .4s cubic-bezier(.16,1,.3,1);box-shadow:0 8px 32px rgba(0,0,0,.12);max-width:440px;font-family:inherit;pointer-events:auto}
 .tt-s{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46}
@@ -102,57 +124,28 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .fu{opacity:0;transform:translateY(16px);animation:fu2 .5s cubic-bezier(.16,1,.3,1) forwards}
 @keyframes fu2{to{opacity:1;transform:translateY(0)}}
 .cc{position:relative;width:100%;max-width:240px;margin:0 auto}
-.login-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(15,23,42,.85);backdrop-filter:blur(16px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:16px}
-.mode-card{border:2px solid var(--bdr);border-radius:16px;padding:20px;cursor:pointer;transition:all .25s;text-align:center;position:relative;overflow:hidden;background:var(--w)}
-.mode-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;opacity:0;transition:opacity .25s}
-.mode-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
-.mode-card.sel-admin{border-color:var(--b500);background:#eff6ff}.mode-card.sel-admin::before{opacity:1;background:var(--b600)}
-.mode-card.sel-user{border-color:var(--pg);background:#ecfdf5}.mode-card.sel-user::before{opacity:1;background:linear-gradient(90deg,var(--pg),var(--pk),var(--pp))}
-.mode-card .mc-icon{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:22px}
-.mode-card .mc-title{font-size:15px;font-weight:800;color:var(--txt);margin-bottom:4px}
-.mode-card .mc-desc{font-size:11.5px;color:var(--muted);line-height:1.4}
 .conn-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
 .conn-ok{background:#10b981;box-shadow:0 0 6px rgba(16,185,129,.5)}
 .conn-fail{background:#ef4444;box-shadow:0 0 6px rgba(239,68,68,.5)}
 .conn-load{background:#f59e0b;animation:pulse2 1s infinite}
 @keyframes pulse2{0%,100%{opacity:1}50%{opacity:.3}}
+.offline-badge{display:none;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:800;background:#fef3c7;color:#92400e;border:1px solid #fde68a;animation:pulse2 2s infinite}
+.offline-badge.show{display:inline-flex}
+.visitor-badge{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.02em}
+.visitor-badge-admin{background:rgba(168,85,247,.15);border:1px solid rgba(168,85,247,.25);color:#c4b5fd}
+.visitor-badge-patient{background:rgba(251,191,36,.15);border:1px solid rgba(251,191,36,.25);color:#fde68a}
 .neon-reg-wrap{display:none;margin-top:20px;text-align:center;position:relative;z-index:10}
 .neon-reg-wrap.show{display:block}
-.neon-reg-btn{display:inline-flex;align-items:center;gap:12px;padding:16px 36px;border-radius:16px;font-weight:900;font-size:16px;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;text-decoration:none;border:2.5px solid #00ffaa;background:linear-gradient(135deg,rgba(0,255,170,.07),rgba(0,255,136,.14),rgba(0,230,255,.07));color:#00ffaa;text-shadow:0 0 12px rgba(0,255,170,.6),0 0 24px rgba(0,255,170,.25);box-shadow:0 0 12px rgba(0,255,170,.35),0 0 30px rgba(0,255,170,.15),0 0 60px rgba(0,255,170,.06),inset 0 0 18px rgba(0,255,170,.06);animation:neonGlow 2.8s ease-in-out infinite;transition:all .3s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;letter-spacing:.06em;text-transform:uppercase}
-.neon-reg-btn:hover{background:linear-gradient(135deg,rgba(0,255,170,.14),rgba(0,255,136,.24),rgba(0,230,255,.14));box-shadow:0 0 20px rgba(0,255,170,.5),0 0 50px rgba(0,255,170,.25),0 0 100px rgba(0,255,170,.1),inset 0 0 24px rgba(0,255,170,.1);transform:translateY(-3px) scale(1.03);color:#55ffcc;border-color:#55ffcc}
+.neon-reg-btn{display:inline-flex;align-items:center;gap:12px;padding:16px 36px;border-radius:16px;font-weight:900;font-size:16px;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;text-decoration:none;border:2.5px solid #00ffaa;background:linear-gradient(135deg,rgba(0,255,170,.07),rgba(0,255,136,.14),rgba(0,230,255,.07));color:#00ffaa;text-shadow:0 0 12px rgba(0,255,170,.6),0 0 24px rgba(0,255,170,.25);box-shadow:0 0 12px rgba(0,255,170,.35),0 0 30px rgba(0,255,170,.15),inset 0 0 18px rgba(0,255,170,.06);animation:neonGlow 2.8s ease-in-out infinite;transition:all .3s;position:relative;overflow:hidden;letter-spacing:.06em;text-transform:uppercase}
+.neon-reg-btn:hover{background:linear-gradient(135deg,rgba(0,255,170,.14),rgba(0,255,136,.24),rgba(0,230,255,.14));box-shadow:0 0 20px rgba(0,255,170,.5),0 0 50px rgba(0,255,170,.25);transform:translateY(-3px) scale(1.03);color:#55ffcc;border-color:#55ffcc}
 .neon-reg-btn::before{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);animation:neonShine 3.5s ease-in-out infinite;transform:skewX(-20deg)}
-@keyframes neonGlow{0%,100%{box-shadow:0 0 12px rgba(0,255,170,.35),0 0 30px rgba(0,255,170,.15),0 0 60px rgba(0,255,170,.06),inset 0 0 18px rgba(0,255,170,.06)}50%{box-shadow:0 0 20px rgba(0,255,170,.5),0 0 45px rgba(0,255,170,.22),0 0 90px rgba(0,255,170,.08),inset 0 0 24px rgba(0,255,170,.09)}}
+@keyframes neonGlow{0%,100%{box-shadow:0 0 12px rgba(0,255,170,.35),0 0 30px rgba(0,255,170,.15),inset 0 0 18px rgba(0,255,170,.06)}50%{box-shadow:0 0 20px rgba(0,255,170,.5),0 0 45px rgba(0,255,170,.22),inset 0 0 24px rgba(0,255,170,.09)}}
 @keyframes neonShine{0%{left:-100%}45%{left:150%}100%{left:150%}}
 .neon-reg-btn .neon-icon{font-size:20px;animation:neonBounce 2s ease-in-out infinite;filter:drop-shadow(0 0 6px rgba(0,255,170,.5))}
-@keyframes neonBounce{0%,100%{transform:scale(1) rotate(0)}25%{transform:scale(1.15) rotate(-3deg)}75%{transform:scale(1.1) rotate(3deg)}}
+@keyframes neonBounce{0%,100%{transform:scale(1)}25%{transform:scale(1.15) rotate(-3deg)}75%{transform:scale(1.1) rotate(3deg)}}
 .neon-reg-btn .neon-arrow{font-size:13px;opacity:.7;transition:all .25s}
 .neon-reg-btn:hover .neon-arrow{opacity:1;transform:translateX(4px)}
 .neon-reg-sub{display:block;margin-top:10px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,255,170,.45)}
-.inv{background:var(--w);border-radius:20px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.07);border:2px solid var(--bdr);transition:border-color .3s}
-.inv:hover{border-color:var(--pk)}
-.inv-hdr{padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:2px dashed var(--bdr)}
-.inv-body{padding:20px 24px}
-.inv-row{display:flex;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--g100);gap:12px}
-.inv-row:last-child{border-bottom:none}
-.inv-label{font-size:12px;font-weight:700;color:var(--muted);min-width:160px;flex-shrink:0;text-transform:uppercase;letter-spacing:.04em;padding-top:2px}
-.inv-val{font-size:15px;font-weight:600;color:var(--txt);flex:1;word-break:break-word}
-.inv-contacts{padding:16px 24px;background:linear-gradient(135deg,var(--pgbg),var(--pkbg));border-top:2px dashed var(--bdr)}
-.inv-contacts-title{font-size:12px;font-weight:800;color:var(--pg);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.contact-card{background:var(--w);border-radius:12px;padding:12px 16px;margin-bottom:8px;border:1px solid var(--bdr);transition:all .25s}
-.contact-card:last-child{margin-bottom:0}
-.contact-name{font-size:14px;font-weight:800;color:var(--txt)}
-.contact-person{font-size:12px;color:var(--txt2);margin-top:2px}
-.contact-phone{display:flex;align-items:center;gap:10px;margin-top:8px;flex-wrap:wrap}
-.contact-phone-num{font-size:14px;font-weight:700;color:var(--pg);letter-spacing:.02em}
-.contact-btn{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;border:none;font-family:inherit;text-decoration:none}
-.contact-btn-wa{background:#dcfce7;color:#166534}.contact-btn-wa:hover{background:#bbf7d0}
-.contact-btn-sms{background:#dbeafe;color:#1e40af}.contact-btn-sms:hover{background:#bfdbfe}
-.contact-btn-call{background:#fef3c7;color:#92400e}.contact-btn-call:hover{background:#fde68a}
-.inv-actions{padding:16px 24px;border-top:2px dashed var(--bdr);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.share-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 16px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;border:none;font-family:inherit;text-decoration:none}
-.share-btn:hover{transform:translateY(-1px)}
-.share-wa{background:#dcfce7;color:#166534}.share-sms{background:#fef3c7;color:#92400e}
-.share-pdf{background:#fce7f3;color:#9d174d}.share-pdf:hover{box-shadow:0 4px 12px rgba(157,23,77,.2)}
 .p-stat{border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:14px;transition:all .25s;border:2px solid transparent}
 .p-stat:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.08)}
 .p-stat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -160,30 +153,6 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .p-stat-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
 .patient-logout{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:#fce7f3;font-family:inherit}
 .patient-logout:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.4)}
-.visitor-badge{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.02em}
-.visitor-badge-admin{background:rgba(168,85,247,.15);border:1px solid rgba(168,85,247,.25);color:#c4b5fd}
-.visitor-badge-patient{background:rgba(251,191,36,.15);border:1px solid rgba(251,191,36,.25);color:#fde68a}
-.contact-list-section{margin-top:20px}
-.contact-list-card{background:var(--w);border-radius:16px;border:2px solid var(--bdr);overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.02)}
-.contact-list-header{padding:18px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:2px dashed var(--bdr)}
-.contact-list-body{padding:16px 24px;max-height:520px;overflow-y:auto}
-.contact-list-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;border:1px solid var(--bdr);margin-bottom:8px;transition:all .2s;background:var(--w)}
-.contact-list-item:last-child{margin-bottom:0}
-.contact-list-item:hover{border-color:var(--b300);box-shadow:0 2px 8px rgba(0,0,0,.04)}
-.contact-list-item .cli-idx{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;color:#fff;flex-shrink:0}
-.contact-list-item .cli-info{flex:1;min-width:0}
-.contact-list-item .cli-name{font-size:14px;font-weight:800;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.contact-list-item .cli-sub{font-size:11px;color:var(--muted);margin-top:1px}
-.contact-list-item .cli-phone{font-size:13px;font-weight:700;color:var(--pg);margin-top:2px}
-.contact-list-item .cli-actions{display:flex;flex-wrap:wrap;gap:4px;flex-shrink:0}
-.cli-btn{display:inline-flex;align-items:center;gap:3px;padding:5px 8px;border-radius:6px;font-size:10px;font-weight:700;cursor:pointer;transition:all .15s;border:none;font-family:inherit;text-decoration:none;white-space:nowrap}
-.cli-btn:hover{transform:translateY(-1px)}
-.cli-btn-call{background:#fef3c7;color:#92400e}.cli-btn-wa{background:#dcfce7;color:#166534}
-.cli-btn-sms{background:#dbeafe;color:#1e40af}
-.chart-actions{display:flex;gap:8px;margin-top:12px;justify-content:center;flex-wrap:wrap}
-.chart-act-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;border:1px solid var(--bdr);background:var(--w);color:var(--txt2);font-family:inherit}
-.chart-act-btn:hover{border-color:var(--b300);color:var(--b600);background:var(--b50);transform:translateY(-1px)}
-.hdr-content{position:relative;z-index:3}
 .hdr-user-profile{display:flex;align-items:center;gap:10px;cursor:pointer;padding:6px 12px 6px 6px;border-radius:14px;border:2px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);transition:all .25s;position:relative}
 .hdr-user-profile:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3)}
 .hdr-user-avatar{width:36px;height:36px;border-radius:10px;overflow:hidden;flex-shrink:0;border:2px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.15);color:#fff;font-weight:800;font-size:14px}
@@ -203,7 +172,8 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .profile-dd-item{display:flex;align-items:center;gap:10px;padding:11px 14px;font-size:13px;font-weight:600;color:var(--txt2);cursor:pointer;transition:all .15s;border-radius:10px;border:none;background:none;width:100%;text-align:left;font-family:inherit}
 .profile-dd-item:hover{background:var(--b50);color:var(--b600)}
 .profile-dd-item i{width:20px;text-align:center;font-size:14px}
-.profile-dd-item.dd-danger{color:#dc2626}.profile-dd-item.dd-danger:hover{background:#fef2f2;color:#991b1b}
+.profile-dd-item.dd-danger{color:#dc2626}
+.profile-dd-item.dd-danger:hover{background:#fef2f2;color:#991b1b}
 .profile-dd-divider{height:1px;background:var(--bdr);margin:4px 8px}
 .modal-overlay{position:fixed;inset:0;background:rgba(15,23,42,.7);backdrop-filter:blur(8px);z-index:2000;display:flex;align-items:center;justify-content:center;padding:16px}
 .modal-box{background:var(--w);border-radius:20px;max-width:480px;width:100%;box-shadow:0 25px 60px rgba(0,0,0,.3);animation:fu2 .3s cubic-bezier(.16,1,.3,1);overflow:hidden;max-height:90vh;overflow-y:auto}
@@ -224,25 +194,50 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .photo-upload-area .photo-overlay{position:absolute;inset:0;background:rgba(0,0,0,.5);display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;color:#fff}
 .photo-upload-area:hover .photo-overlay{opacity:1}
 .photo-upload-area .photo-overlay i{font-size:22px;margin-bottom:4px}
-.photo-upload-area .photo-overlay span{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.photo-upload-area .photo-overlay span{font-size:10px;font-weight:700;text-transform:uppercase}
 .photo-upload-area.has-photo{border-style:solid;border-color:var(--g500)}
-.auth-tabs{display:flex;gap:0;margin-bottom:20px;border-bottom:2px solid var(--bdr)}
-.auth-tab{flex:1;padding:10px;text-align:center;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;border:none;border-bottom:3px solid transparent;color:var(--muted);background:none;font-family:inherit}
-.auth-tab.active{color:var(--b600);border-bottom-color:var(--b600)}
-.auth-tab:hover:not(.active){color:var(--txt2)}
-.offline-badge{display:none;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:800;background:#fef3c7;color:#92400e;border:1px solid #fde68a;animation:pulse2 2s infinite}
-.offline-badge.show{display:inline-flex}
+.contact-btn{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;border:none;font-family:inherit;text-decoration:none}
+.contact-btn-wa{background:#dcfce7;color:#166534}
+.contact-btn-wa:hover{background:#bbf7d0}
+.contact-btn-sms{background:#dbeafe;color:#1e40af}
+.contact-btn-sms:hover{background:#bfdbfe}
+.contact-btn-call{background:#fef3c7;color:#92400e}
+.contact-btn-call:hover{background:#fde68a}
+.contact-btn-tg{background:#e0e7ff;color:#3730a3}
+.contact-btn-tg:hover{background:#c7d2fe}
+.contact-card{background:var(--w);border-radius:12px;padding:12px 16px;border:1px solid var(--bdr);transition:all .25s}
+.contact-card:last-child{margin-bottom:0}
+.contact-name{font-size:14px;font-weight:800;color:var(--txt)}
+.contact-phone{display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap}
+.contact-phone-num{font-size:13px;font-weight:700;color:var(--pg)}
+.share-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 16px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;border:none;font-family:inherit;text-decoration:none}
+.share-btn:hover{transform:translateY(-1px)}
+.share-pdf{background:#fce7f3;color:#9d174d}
+.share-pdf:hover{box-shadow:0 4px 12px rgba(157,23,77,.2)}
 .report-petugas-info{display:flex;align-items:center;gap:12px;padding:14px 20px;background:linear-gradient(135deg,#f8fafc,#f1f5f9);border:1px solid var(--bdr);border-radius:12px;margin-bottom:16px}
 .report-petugas-avatar{width:40px;height:40px;border-radius:10px;overflow:hidden;border:2px solid var(--bdr);flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--g100);color:var(--g500);font-weight:800;font-size:15px}
 .report-petugas-avatar img{width:100%;height:100%;object-fit:cover}
 .report-petugas-name{font-size:13px;font-weight:800;color:var(--txt)}
 .report-petugas-role{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
-.debug-box{background:#1e293b;color:#6ee7b7;padding:12px;border-radius:10px;font-size:11px;font-family:monospace;margin:10px 0;max-height:120px;overflow-y:auto;white-space:pre-wrap;word-break:break-all}
+.chart-actions{display:flex;gap:8px;margin-top:12px;justify-content:center;flex-wrap:wrap}
+.chart-act-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;border:1px solid var(--bdr);background:var(--w);color:var(--txt2);font-family:inherit}
+.chart-act-btn:hover{border-color:var(--b300);color:var(--b600);background:var(--b50);transform:translateY(-1px)}
+.err-box{padding:10px 14px;border-radius:10px;font-size:12px;font-weight:600;margin-bottom:14px;display:none}
+.err-box.show{display:flex;align-items:center;gap:8px}
+.err-box.err{background:#fef2f2;color:#991b1b;border:1px solid #fecaca}
+.ok-box{padding:10px 14px;border-radius:10px;font-size:12px;font-weight:600;margin-bottom:14px;display:none;background:#ecfdf5;color:#065f46;border:1px solid #a7f3d0}
+.ok-box.show{display:flex;align-items:center;gap:8px}
+.loading-bar{height:4px;background:var(--bdr);border-radius:4px;overflow:hidden;margin:12px 0;display:none}
+.loading-bar.show{display:block}
+.loading-bar-inner{height:100%;width:30%;background:linear-gradient(90deg,var(--b500),var(--g500));border-radius:4px;animation:loadSlide 1.5s ease-in-out infinite}
+@keyframes loadSlide{0%{transform:translateX(-100%)}100%{transform:translateX(400%)}}
 @media(max-width:768px){.hdr-logo-area{height:100px}.login-logo-area{height:110px}.profile-dd{min-width:240px;right:-60px}}
-@media(max-width:480px){.hdr-logo-area{height:80px}.login-logo-area{height:90px}.stg{grid-template-columns:1fr 1fr!important}.csg{grid-template-columns:1fr!important}.inv-row{flex-direction:column;gap:2px}.inv-label{min-width:auto}.neon-reg-btn{padding:14px 24px;font-size:14px;gap:10px}.contact-list-item{flex-direction:column;align-items:flex-start}.contact-list-item .cli-actions{width:100%;justify-content:flex-start}.nav-tab{padding:10px 14px;font-size:12px}.login-body{padding:20px}.hdr-user-name{max-width:80px}.profile-dd{right:-40px;min-width:220px}}
+@media(max-width:480px){.hdr-logo-area{height:80px}.login-logo-area{height:90px}.stg{grid-template-columns:1fr 1fr!important}.csg{grid-template-columns:1fr!important}.nav-tab{padding:10px 14px;font-size:12px}.login-body{padding:20px}.hdr-user-name{max-width:80px}.profile-dd{right:-40px;min-width:220px}}
 @media(max-width:480px){.stg{grid-template-columns:1fr!important}}
-@media print{body>*{display:none!important}#printArea{display:block!important}#printArea .inv{border:2px solid #333!important;box-shadow:none!important;page-break-inside:avoid;margin-bottom:20px}#printArea .share-btn,#printArea .inv-actions,#printArea .chart-actions,#printArea .cli-btn{display:none!important}#printArea .report-petugas-info{display:flex!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;border:1px solid #ccc!important}}
-::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-track{background:var(--g100)}::-webkit-scrollbar-thumb{background:var(--b200);border-radius:4px}
+@media print{body>*{display:none!important}#printArea{display:block!important}#printArea .share-btn{display:none!important}#printArea .report-petugas-info{display:flex!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:var(--g100)}
+::-webkit-scrollbar-thumb{background:var(--b200);border-radius:4px}
 </style>
 </head>
 <body>
@@ -264,20 +259,24 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 <div class="mc-icon" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe)"><i class="fa-solid fa-user-shield" style="color:#2563eb"></i></div>
 <div class="mc-title">Petugas</div>
 <div class="mc-desc">Login email, akses data & laporan</div>
+<div class="mc-arrow"><i class="fa-solid fa-arrow-right"></i></div>
 </div>
 <div class="mode-card" id="modeUser" onclick="selectMode('user')">
 <div class="mc-icon" style="background:linear-gradient(135deg,#d1fae5,#fde68a,#fce7f3)"><i class="fa-solid fa-users" style="color:#059669"></i></div>
 <div class="mc-title">Pasien / Keluarga</div>
 <div class="mc-desc">Cek antrian & hubungi petugas</div>
+<div class="mc-arrow"><i class="fa-solid fa-arrow-right"></i></div>
 </div>
 </div>
 
-<!-- SECTION PETUGAS -->
+<!-- SECTION PETUGAS: LOGIN & REGISTER -->
 <div id="adminSection" style="display:none">
 <div class="auth-tabs">
-<button class="auth-tab active" id="authTabLogin" onclick="switchAuthTab('login')">Masuk</button>
-<button class="auth-tab" id="authTabRegister" onclick="switchAuthTab('register')">Daftar Baru</button>
+<button class="auth-tab active" id="authTabLogin" onclick="switchAuthTab('login')"><i class="fa-solid fa-right-to-bracket mr-1"></i> Masuk</button>
+<button class="auth-tab" id="authTabRegister" onclick="switchAuthTab('register')"><i class="fa-solid fa-user-plus mr-1"></i> Daftar Akun</button>
 </div>
+
+<!-- FORM LOGIN -->
 <div id="authLoginForm">
 <div class="mb-4">
 <label class="block text-xs font-bold uppercase tracking-wider mb-2" style="color:var(--muted)">Email</label>
@@ -294,42 +293,48 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 <button type="button" onclick="togglePassVis('loginPass',this)" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--muted);font-size:14px"><i class="fa-solid fa-eye"></i></button>
 </div>
 </div>
-<div id="loginError" class="hidden mb-4 p-3 rounded-lg text-sm font-semibold" style="background:#fef2f2;color:#991b1b;border:1px solid #fecaca"><i class="fa-solid fa-circle-xmark mr-1"></i><span id="loginErrorMsg"></span></div>
+<div class="err-box err" id="loginError"><i class="fa-solid fa-circle-xmark"></i><span id="loginErrorMsg"></span></div>
 <button class="bp w-full justify-center text-base" onclick="doPetugasLogin()" id="btnLogin"><i class="fa-solid fa-right-to-bracket"></i> Masuk sebagai Petugas</button>
+<p class="text-center text-xs mt-3" style="color:var(--muted)">Belum punya akun? <a href="#" onclick="switchAuthTab('register');return false" style="color:var(--b600);font-weight:700">Daftar di sini</a></p>
 </div>
+
+<!-- FORM REGISTER -->
 <div id="authRegisterForm" style="display:none">
-<div class="mb-4">
+<div class="mb-3">
 <label class="block text-xs font-bold uppercase tracking-wider mb-2" style="color:var(--muted)">Nama Lengkap</label>
 <div class="relative">
 <i class="fa-solid fa-user iic"></i>
 <input type="text" id="regNama" class="si2" placeholder="Nama lengkap Anda">
 </div>
 </div>
-<div class="mb-4">
+<div class="mb-3">
 <label class="block text-xs font-bold uppercase tracking-wider mb-2" style="color:var(--muted)">Email Asli</label>
 <div class="relative">
 <i class="fa-solid fa-envelope iic"></i>
 <input type="email" id="regEmail" class="si2" placeholder="email@contoh.com" autocomplete="email">
 </div>
 </div>
-<div class="mb-4">
-<label class="block text-xs font-bold uppercase tracking-wider mb-2" style="color:var(--muted)">Kata Sandi</label>
+<div class="mb-3">
+<label class="block text-xs font-bold uppercase tracking-wider mb-2" style="color:var(--muted)">Kata Sandi (min. 6 karakter)</label>
 <div class="relative">
 <i class="fa-solid fa-lock iic"></i>
 <input type="password" id="regPass" class="si2" placeholder="Minimal 6 karakter" autocomplete="new-password">
 <button type="button" onclick="togglePassVis('regPass',this)" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--muted);font-size:14px"><i class="fa-solid fa-eye"></i></button>
 </div>
 </div>
-<div class="mb-4">
+<div class="mb-3">
 <label class="block text-xs font-bold uppercase tracking-wider mb-2" style="color:var(--muted)">Konfirmasi Kata Sandi</label>
 <div class="relative">
 <i class="fa-solid fa-lock iic"></i>
 <input type="password" id="regPassConfirm" class="si2" placeholder="Ulangi kata sandi" autocomplete="new-password">
 </div>
 </div>
-<div id="regError" class="hidden mb-4 p-3 rounded-lg text-sm font-semibold" style="background:#fef2f2;color:#991b1b;border:1px solid #fecaca"><i class="fa-solid fa-circle-xmark mr-1"></i><span id="regErrorMsg"></span></div>
-<button class="bp w-full justify-center text-base" onclick="doPetugasRegister()" id="btnRegister"><i class="fa-solid fa-user-plus"></i> Daftar & Kirim Data</button>
+<div class="err-box err" id="regError"><i class="fa-solid fa-circle-xmark"></i><span id="regErrorMsg"></span></div>
+<div class="ok-box" id="regOk"><i class="fa-solid fa-circle-check"></i><span id="regOkMsg"></span></div>
+<div class="loading-bar" id="regLoading"><div class="loading-bar-inner"></div></div>
+<button class="bp w-full justify-center text-base" onclick="doPetugasRegister()" id="btnRegister"><i class="fa-solid fa-user-plus"></i> Daftar Akun Baru</button>
 <p class="text-center text-xs mt-3" style="color:var(--muted)">Data pendaftaran otomatis tersimpan ke spreadsheet pusat</p>
+<p class="text-center text-xs mt-1" style="color:var(--muted)">Sudah punya akun? <a href="#" onclick="switchAuthTab('login');return false" style="color:var(--b600);font-weight:700">Masuk di sini</a></p>
 </div>
 </div>
 
@@ -394,7 +399,7 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 <div class="hdr-logo-area"></div>
 <div class="hdr-body">
 <div class="ecg"><svg viewBox="0 0 1200 50" fill="none"><polyline points="0,25 60,25 80,25 95,6 110,44 125,10 140,40 155,25 240,25 260,25 275,6 290,44 305,10 320,40 335,25 420,25 440,25 455,6 470,44 485,10 500,40 515,25 600,25 620,25 635,6 650,44 665,10 680,40 695,25 780,25 800,25 815,6 830,44 845,10 860,40 875,25 960,25 980,25 995,6 1010,44 1025,10 1040,40 1055,25 1140,25 1160,25 1175,6 1190,44 1200,25" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-<div class="hdr-content px-4 sm:px-8 pt-6 pb-8">
+<div class="px-4 sm:px-8 pt-6 pb-8" style="position:relative;z-index:3">
 <div class="max-w-7xl mx-auto">
 <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
 <div class="flex items-center gap-3">
@@ -411,6 +416,7 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 <span class="text-green-300 text-xs font-bold" id="connLabel">MEMUAT</span>
 </div>
 <button class="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#93c5fd;cursor:pointer" onclick="refreshData()" title="Refresh"><i class="fa-solid fa-arrows-rotate" id="refreshIcon"></i> Refresh</button>
+<!-- PROFIL PETUGAS DI HEADER DENGAN DROPDOWN LOGOUT -->
 <div class="hdr-user-profile" id="hdrUserProfile" style="display:none" onclick="toggleProfileDD()">
 <div class="hdr-user-avatar" id="hdrUserAvatar">?</div>
 <div><div class="hdr-user-name" id="hdrUserName">Petugas</div><div class="hdr-user-role">Petugas</div></div>
@@ -431,7 +437,7 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 <button id="patientLogoutBtn" class="patient-logout" style="display:none" onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i> Keluar</button>
 </div>
 </div>
-<h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-tight mb-2" id="headerTitle">Daftar Antri<br><span id="headerTitleAccent" style="background:linear-gradient(135deg,#6ee7b7,#34d399,#10b981);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Pasien Instalasi Dialisis RSSA</span></h1>
+<h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-tight mb-2">Daftar Antri<br><span style="background:linear-gradient(135deg,#6ee7b7,#34d399,#10b981);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Pasien Instalasi Dialisis RSSA</span></h1>
 <p class="text-blue-200 text-sm font-light max-w-xl" id="headerDesc">Klik kartu status di bawah untuk memfilter tampilan pasien.</p>
 <div class="mt-3 text-blue-300 text-xs font-medium" id="lastUpdate">Terakhir diperbarui: —</div>
 <div class="neon-reg-wrap" id="neonRegWrap">
@@ -458,7 +464,7 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 <!-- ===== PATIENT VIEW ===== -->
 <main id="patientView" style="display:none" class="px-4 sm:px-8 pb-16">
 <div class="max-w-3xl mx-auto">
-<section class="mt-6 fu" style="animation-delay:.1s">
+<section class="mt-6 fu">
 <div class="card p-6 sm:p-8" style="border:2px solid var(--pg);border-radius:20px;background:linear-gradient(135deg,#ecfdf5,#fff)">
 <div class="flex items-center gap-3 mb-6">
 <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,var(--pg),#0d9488)"><i class="fa-solid fa-magnifying-glass text-white text-lg"></i></div>
@@ -471,56 +477,47 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 </div>
 </div>
 </section>
-<section class="mt-5 fu" style="animation-delay:.15s">
+<section class="mt-5 fu">
 <div class="grid grid-cols-2 gap-4">
 <div class="p-stat" style="background:linear-gradient(135deg,#eff6ff,#dbeafe);border-color:#93c5fd"><div class="p-stat-icon" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe)"><i class="fa-solid fa-hourglass-half text-lg" style="color:#2563eb"></i></div><div><div class="p-stat-label">Menunggu</div><div class="p-stat-num" style="color:#1e40af" id="pMenunggu">0</div></div></div>
 <div class="p-stat" style="background:linear-gradient(135deg,#ecfdf5,#d1fae5);border-color:#6ee7b7"><div class="p-stat-icon" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0)"><i class="fa-solid fa-calendar-check text-lg" style="color:#059669"></i></div><div><div class="p-stat-label">Terjadwal</div><div class="p-stat-num" style="color:#065f46" id="pTerjadwal">0</div></div></div>
 </div>
 </section>
 <section class="mt-5" id="patientResults"></section>
-<div id="pNoRes" class="hidden mt-5">
+<div id="pNoRes" style="display:none" class="mt-5">
 <div class="card p-8 text-center" style="border:2px solid #fecaca;border-radius:20px">
 <div class="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4" style="background:#fef2f2"><i class="fa-solid fa-user-slash text-3xl" style="color:#ef4444"></i></div>
 <p class="text-lg font-extrabold mb-1" style="color:#991b1b">Pasien Tidak Ditemukan</p><p class="text-sm" style="color:var(--muted)">Pastikan nama yang Anda masukkan sudah benar.</p>
 </div>
 </div>
-<section class="mt-6 fu" style="animation-delay:.25s">
-<div class="card overflow-hidden" style="border:2px solid var(--pkl);border-radius:20px">
-<div class="p-5 flex items-center gap-3" style="background:linear-gradient(135deg,var(--pkbg),var(--ppbg));border-bottom:2px dashed var(--bdr)">
-<div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,var(--pk),#b45309)"><i class="fa-solid fa-phone-volume text-white text-sm"></i></div>
-<div><h3 class="text-sm font-extrabold" style="color:var(--pk)">Hubungi Petugas Ruangan</h3><p class="text-xs" style="color:var(--muted)">Klik untuk chat WA, SMS, atau telepon</p></div>
-</div>
-<div class="p-4 space-y-3" id="globalContacts"></div>
-</div>
-</section>
 </div>
 </main>
 
 <!-- ===== SLIDE 1: DASHBOARD ===== -->
 <main id="slide1" class="px-4 sm:px-8 pb-16" style="display:none">
 <div class="max-w-7xl mx-auto">
-<section class="mt-6 fu" style="animation-delay:.1s">
+<section class="mt-6 fu">
 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 stg" id="statusCards">
 <div class="stc stc-menunggu sel" onclick="clickStatusCard('menunggu')" data-key="menunggu"><div class="stc-check" style="background:#3b82f6"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe)"><i class="fa-solid fa-hourglass-half text-lg" style="color:#2563eb"></i></div><div><div class="stc-label">Menunggu</div><div class="stc-num" style="color:#1e40af" id="scMenunggu">0</div></div></div>
 <div class="stc stc-terjadwal" onclick="clickStatusCard('terjadwal')" data-key="terjadwal"><div class="stc-check" style="background:#10b981"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0)"><i class="fa-solid fa-calendar-check text-lg" style="color:#059669"></i></div><div><div class="stc-label">Terjadwal</div><div class="stc-num" style="color:#065f46" id="scTerjadwal">0</div></div></div>
 <div class="stc stc-hdlain" onclick="clickStatusCard('hdlain')" data-key="hdlain"><div class="stc-check" style="background:#f59e0b"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#fef3c7,#fde68a)"><i class="fa-solid fa-arrows-turn-right text-lg" style="color:#d97706"></i></div><div><div class="stc-label">HD Lain</div><div class="stc-num" style="color:#92400e" id="scHdlain">0</div></div></div>
 <div class="stc stc-batal" onclick="clickStatusCard('batal')" data-key="batal"><div class="stc-check" style="background:#ef4444"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#fee2e2,#fecaca)"><i class="fa-solid fa-circle-xmark text-lg" style="color:#dc2626"></i></div><div><div class="stc-label">Batal</div><div class="stc-num" style="color:#991b1b" id="scBatal">0</div></div></div>
-<div class="stc stc-meninggal" onclick="clickStatusCard('meninggal')" data-key="meninggal"><div class="stc-check" style="background:#6b7280"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#e5e7eb,#d1d5db)"><i class="fa-solid fa-heart-crack text-lg" style="color:#4b5563"></i></div><div><div class="stc-label">Meninggal</div><div class="stc-num" style="color:#374151" id="scMeninggal">0</div></div></div>
+<div class="stc stc-meninggal" onclick="clickStatusCard('meninggal')" data-key="meninggal"><div class="stc-check" style="background:#6b7280"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#e5e7eb,#d1d5db)"><i class="fa-solid fa-heart-crack text-lg" style="color:#4b5563"></i></div><div><div class="stc-label">Meninggal</div><div class="p-stat-num" style="color:#374151" id="scMeninggal">0</div></div></div>
 <div class="stc stc-total" onclick="clickStatusCard('all')" data-key="all"><div class="stc-check" style="background:#7c3aed"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe)"><i class="fa-solid fa-users text-lg" style="color:#7c3aed"></i></div><div><div class="stc-label">Semua Data</div><div class="stc-num" style="color:#5b21b6" id="scTotal">0</div></div></div>
 </div>
 </section>
-<section class="mt-6 fu" style="animation-delay:.2s">
+<section class="mt-6 fu">
 <div class="csg grid grid-cols-1 lg:grid-cols-3 gap-6">
 <div class="card p-6 flex flex-col items-center justify-center">
 <h3 class="text-sm font-bold mb-4" style="color:var(--b900)"><i class="fa-solid fa-chart-pie mr-2" style="color:var(--g500)"></i>Distribusi Status</h3>
 <div class="cc"><canvas id="chart1"></canvas></div>
 <div id="leg1" class="mt-4 flex flex-wrap justify-center gap-3 text-xs font-semibold"></div>
-<div class="chart-actions"><button class="chart-act-btn" onclick="saveChartAsImage('chart1','distribusi-status')"><i class="fa-solid fa-download"></i> Simpan Gambar</button></div>
+<div class="chart-actions"><button class="chart-act-btn" onclick="saveChartAsImage('chart1','distribusi')"><i class="fa-solid fa-download"></i> Simpan Gambar</button></div>
 </div>
 <div class="card p-6 lg:col-span-2">
 <h3 class="text-sm font-bold mb-4" style="color:var(--b900)"><i class="fa-solid fa-list-check mr-2" style="color:var(--b500)"></i>Daftar Pasien <span class="text-xs font-normal" style="color:var(--muted)" id="filterLabel">(Menunggu)</span></h3>
 <div class="tw" style="max-height:420px;overflow-y:auto;border-radius:12px;border:1px solid var(--bdr)">
-<table class="dt"><thead><tr><th>No</th><th>Nama Pasien</th><th>No RM</th><th>Diagnosa</th><th>Ruangan</th><th>Jadwal</th><th>Status</th></tr></thead><tbody id="dashBody"></tbody></table>
+<table class="dt"><thead><tr><th>No</th><th>Nama</th><th>No RM</th><th>Umur</th><th>Keterangan</th><th>Status</th></tr></thead><tbody id="dashBody"></tbody></table>
 </div>
 </div>
 </div>
@@ -540,7 +537,7 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 </div>
 </div>
 <div class="tw" style="max-height:65vh;overflow-y:auto">
-<table class="dt"><thead><tr><th>No</th><th>Nama</th><th>No RM</th><th>Diagnosa</th><th>Ruangan</th><th>Jadwal</th><th>Status</th></tr></thead><tbody id="fullBody"></tbody></table>
+<table class="dt"><thead><tr><th>No</th><th>Nama</th><th>No RM</th><th>Umur</th><th>Alamat</th><th>Akses HD</th><th>HbsAg</th><th>Isolasi</th><th>No HP</th><th>Status</th><th>Keterangan</th></tr></thead><tbody id="fullBody"></tbody></table>
 </div>
 </div>
 </div>
@@ -553,12 +550,12 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 <h3 class="text-sm font-bold mb-4" style="color:var(--b900)"><i class="fa-solid fa-hand-pointer mr-2" style="color:var(--pk)"></i>Aksi Pengambilan Pasien</h3>
 <div class="flex gap-3 mb-4 flex-wrap">
 <div class="relative flex-1" style="min-width:200px"><i class="fa-solid fa-search iic"></i><input type="text" id="actionSearch" class="si2" placeholder="Cari pasien..." oninput="renderActionTable()"></div>
-<select id="actionFilter" class="form-input" style="width:auto;min-width:150px;padding:13px 14px" onchange="renderActionTable()">
+<select id="actionFilter" class="form-input" style="width:auto;min-width:150px;padding:12px 14px" onchange="renderActionTable()">
 <option value="menunggu">Menunggu</option><option value="terjadwal">Terjadwal</option><option value="hdlain">HD Lain</option><option value="batal">Batal</option><option value="meninggal">Meninggal</option><option value="all">Semua</option>
 </select>
 </div>
 <div class="tw" style="max-height:60vh;overflow-y:auto;border-radius:12px;border:1px solid var(--bdr)">
-<table class="dt"><thead><tr><th>No</th><th>Nama</th><th>No RM</th><th>Ruangan</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="actionBody"></tbody></table>
+<table class="dt"><thead><tr><th>No</th><th>Nama</th><th>No RM</th><th>Keterangan</th><th>No HP</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="actionBody"></tbody></table>
 </div>
 </div>
 </div>
@@ -567,19 +564,47 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 <script>
 /*
 ============================================================
-KONFIGURASI — BAGIAN PENTING
+KONFIGURASI SPREADSHEET
 ============================================================
-Ganti GAS_URL di bawah dengan URL Web App Anda setelah
-men-deploy Code.gs (lihat petunjuk di bawah).
+Spreadsheet ID: 1UbMj1gbz-wDIUlT64-nnHPa2xvGxlS_fEgnaEzcU1cA
+Sheet: "Form Responses 1" (gid=1588121083)
 
-CARA DEPLOY:
-1. Buka spreadsheet → Extensions → Apps Script
-2. Paste kode Code.gs berikut lalu simpan:
+Pemetaan kolom (indeks 0-based di gviz response):
+  0  = Timestamp (A)
+  1  = NAMA (B)
+  2  = NOMOR REKAM MEDIK (C)
+  3  = (D)
+  4  = UMUR (E)
+  5  = ALAMAT (F)
+  6  = (G)
+  7  = (H)
+  8  = Akses Hemodialisis (I)
+  9  = Hasil lab HbsAg (J)
+  10 = (K)
+  11 = Ruang Isolasi (L) - Ya/Tidak
+  12 = (M)
+  13 = (N)
+  14 = NOMOR HP (O)
+  15 = (P)
+  16 = STATUS (Q) - MENUNGGU/TERJADWAL/HD LAIN/MENINGGAL/BATAL
+  17 = Keterangan (R) - nama ruang HD
+
+GAS_URL: Ganti setelah deploy Code.gs (lihat petunjuk di bawah)
+*/
+var SHEET_ID = '1UbMj1gbz-wDIUlT64-nnHPa2xvGxlS_fEgnaEzcU1cA';
+var GID = '1588121083';
+var DATA_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?gid=' + GID + '&tqx=out:json';
+
+/*
+CARA DEPLOY GOOGLE APPS SCRIPT:
+1. Buka spreadsheet -> Extensions -> Apps Script
+2. Paste kode berikut di Code.gs:
 
 function doPost(e) {
   try {
     var ss = SpreadsheetApp.getActiveSpreadsheet();
-    var sheet = ss.getSheets()[0];
+    var sheet = ss.getSheetByName("Form Responses 1");
+    if (!sheet) sheet = ss.getSheets()[0];
     var data = JSON.parse(e.postData.contents);
     sheet.appendRow([
       new Date().toLocaleString('id-ID'),
@@ -595,39 +620,14 @@ function doPost(e) {
   }
 }
 
-3. Deploy → New deployment → Web app
+3. Deploy -> New deployment -> Web app
    Execute as: Me | Who has access: Anyone
 4. Salin URL, tempel di bawah ini:
 */
-var GAS_URL = 'https://script.google.com/macros/s/AKfycbydT6koGZeMPZni9l6O_tZq34Ki1Y3tesld0NkHzdA4ZzI4nEzZN--NBPmjYudK1triFg/exec';
-
-var SHEET_ID = '1QDxO0u-FCakWOOD2eU3dOy0jDlffUvpBRcvfIhjjmQ4';
-var DATA_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:json';
+var GAS_URL = 'https://script.google.com/macros/s/GANTI_DENGAN_URL_DEPLOY_ANDA/exec';
 
 /* ============================================================
-   DATA CONTOH (digunakan saat offline atau spreadsheet kosong)
-   Sesuaikan kolom dengan struktur spreadsheet asli Anda.
-   ============================================================ */
-var DUMMY_DATA = [
-  {nama:"Ahmad Sudirman",nrm:"001234",diag:"CKD Stage 5",ruang:"HD 1",jadwal:"Senin Pagi",status:"Menunggu"},
-  {nama:"Siti Aminah",nrm:"001235",diag:"CKD Stage 5",ruang:"HD 1",jadwal:"Senin Pagi",status:"Menunggu"},
-  {nama:"Budi Santoso",nrm:"001236",diag:"CKD Stage 4",ruang:"HD 2",jadwal:"Senin Siang",status:"Terjadwal"},
-  {nama:"Dewi Lestari",nrm:"001237",diag:"AKI on CKD",ruang:"HD 2",jadwal:"Senin Siang",status:"Terjadwal"},
-  {nama:"Eko Prasetyo",nrm:"001238",diag:"CKD Stage 5",ruang:"HD 3",jadwal:"Selasa Pagi",status:"Menunggu"},
-  {nama:"Fatimah Zahra",nrm:"001239",diag:"DN on CKD",ruang:"HD 3",jadwal:"Selasa Pagi",status:"Terjadwal"},
-  {nama:"Gunawan Wibowo",nrm:"001240",diag:"CKD Stage 5",ruang:"HD 1",jadwal:"Selasa Siang",status:"HD Lain"},
-  {nama:"Haryati",nrm:"001241",diag:"CKD Stage 5",ruang:"HD 2",jadwal:"Rabu Pagi",status:"Batal"},
-  {nama:"Irfan Hakim",nrm:"001242",diag:"CKD Stage 4",ruang:"HD 3",jadwal:"Rabu Pagi",status:"Menunggu"},
-  {nama:"Joko Widodo",nrm:"001243",diag:"CKD Stage 5",ruang:"HD 1",jadwal:"Rabu Siang",status:"Terjadwal"},
-  {nama:"Kartini Sari",nrm:"001244",diag:"AKI",ruang:"HD 2",jadwal:"Kamis Pagi",status:"Menunggu"},
-  {nama:"Lukman Hakim",nrm:"001245",diag:"CKD Stage 5",ruang:"HD 3",jadwal:"Kamis Pagi",status:"Meninggal"},
-  {nama:"Mulyani",nrm:"001246",diag:"DN",ruang:"HD 1",jadwal:"Kamis Siang",status:"Terjadwal"},
-  {nama:"Nur Hidayah",nrm:"001247",diag:"CKD Stage 5",ruang:"HD 2",jadwal:"Jumat Pagi",status:"Menunggu"},
-  {nama:"Omar Faruk",nrm:"001248",diag:"CKD Stage 4",ruang:"HD 3",jadwal:"Jumat Pagi",status:"HD Lain"}
-];
-
-/* ============================================================
-   LOCAL STORAGE HELPER
+   LOCAL STORAGE
    ============================================================ */
 var LS = {
   get: function(k) { try { return JSON.parse(localStorage.getItem(k)); } catch(e) { return null; } },
@@ -650,15 +650,7 @@ var LS = {
 /* ============================================================
    STATE
    ============================================================ */
-var S = {
-  mode: null,
-  online: true,
-  patients: [],
-  colMap: {},   // mapping kolom spreadsheet
-  filter: 'menunggu',
-  slide: 1,
-  chart: null
-};
+var S = { mode: null, online: true, patients: [], filter: 'menunggu', slide: 1, chart: null };
 
 /* ============================================================
    UTILITAS
@@ -668,10 +660,10 @@ function toast(msg, type) {
   var c = document.getElementById('toastC');
   var t = document.createElement('div');
   t.className = 'tt tt-' + type;
-  var ic = {s:'fa-circle-check',e:'fa-circle-xmark',i:'fa-circle-info'};
-  t.innerHTML = '<i class="fa-solid ' + (ic[type]||ic.i) + '"></i>' + msg;
+  var ic = { s: 'fa-circle-check', e: 'fa-circle-xmark', i: 'fa-circle-info' };
+  t.innerHTML = '<i class="fa-solid ' + (ic[type] || ic.i) + '"></i>' + msg;
   c.appendChild(t);
-  setTimeout(function(){ t.classList.add('tt-x'); setTimeout(function(){ t.remove(); }, 300); }, 3500);
+  setTimeout(function() { t.classList.add('tt-x'); setTimeout(function() { t.remove(); }, 300); }, 3500);
 }
 
 function togglePassVis(id, btn) {
@@ -685,149 +677,154 @@ function validEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
 function initials(n) {
   if (!n) return '?';
   var p = n.trim().split(/\s+/);
-  return p.length >= 2 ? (p[0][0] + p[p.length-1][0]).toUpperCase() : n.substring(0,2).toUpperCase();
+  return p.length >= 2 ? (p[0][0] + p[p.length - 1][0]).toUpperCase() : n.substring(0, 2).toUpperCase();
 }
 function nowStr() { return new Date().toLocaleString('id-ID'); }
+function esc(s) { return String(s || '').replace(/'/g, "\\'").replace(/"/g, '&quot;'); }
 
 /* ============================================================
    KONEKSI
    ============================================================ */
 function checkConn() {
-  var d1 = document.getElementById('connDotLogin');
-  var l1 = document.getElementById('connLabelLogin');
-  var ob1 = document.getElementById('offlineBadgeLogin');
-
-  fetch(DATA_URL + '&t=' + Date.now(), {cache:'no-store',mode:'cors'})
-    .then(function(r){ return r.text(); })
-    .then(function(txt){
-      if (txt && txt.indexOf('google') > -1) {
-        S.online = true;
-        setConnUI(true);
-      } else { throw 'bad'; }
+  fetch(DATA_URL + '&t=' + Date.now(), { cache: 'no-store' })
+    .then(function(r) { return r.text(); })
+    .then(function(txt) {
+      if (txt && txt.indexOf('google') > -1) { S.online = true; setConnUI(true); }
+      else { throw 'bad'; }
     })
-    .catch(function(){
-      // Coba sekali lagi dengan no-cors
-      fetch(DATA_URL, {mode:'no-cors',cache:'no-store'})
-        .then(function(){
-          S.online = true;
-          setConnUI(true);
-        })
-        .catch(function(){
-          S.online = false;
-          setConnUI(false);
-        });
+    .catch(function() {
+      fetch(DATA_URL, { mode: 'no-cors', cache: 'no-store' })
+        .then(function() { S.online = true; setConnUI(true); })
+        .catch(function() { S.online = false; setConnUI(false); });
     });
 }
 
 function setConnUI(on) {
   S.online = on;
-  var ids = ['connDot','connDotLogin'];
-  var lbs = ['connLabel','connLabelLogin'];
-  ids.forEach(function(id){ var el=document.getElementById(id); if(el) el.className='conn-dot '+(on?'conn-ok':'conn-fail'); });
-  lbs.forEach(function(id){ var el=document.getElementById(id); if(el) { el.textContent=on?'ONLINE':'OFFLINE'; el.style.color=on?'#6ee7b7':'#fca5a5'; }});
-  var obh=document.getElementById('offlineBadgeHeader');
-  var obl=document.getElementById('offlineBadgeLogin');
-  if(obh) obh.classList.toggle('show',!on);
-  if(obl) obl.classList.toggle('show',!on);
-  var cw=document.getElementById('connWrap');
-  if(cw) cw.style.display=on?'flex':'none';
+  ['connDot', 'connDotLogin'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.className = 'conn-dot ' + (on ? 'conn-ok' : 'conn-fail');
+  });
+  ['connLabel', 'connLabelLogin'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) { el.textContent = on ? 'ONLINE' : 'OFFLINE'; el.style.color = on ? '#6ee7b7' : '#fca5a5'; }
+  });
+  var obh = document.getElementById('offlineBadgeHeader');
+  var obl = document.getElementById('offlineBadgeLogin');
+  if (obh) obh.classList.toggle('show', !on);
+  if (obl) obl.classList.toggle('show', !on);
+  var cw = document.getElementById('connWrap');
+  if (cw) cw.style.display = on ? 'flex' : 'none';
 }
 
 /* ============================================================
    LOGIN / REGISTER PETUGAS
    ============================================================ */
 function selectMode(m) {
-  var ma = document.getElementById('modeAdmin');
-  var mu = document.getElementById('modeUser');
-  var as = document.getElementById('adminSection');
-  var us = document.getElementById('userSection');
-  ma.className = 'mode-card' + (m==='admin' ? ' sel-admin' : '');
-  mu.className = 'mode-card' + (m==='user' ? ' sel-user' : '');
-  as.style.display = m==='admin' ? 'block' : 'none';
-  us.style.display = m==='user' ? 'block' : 'none';
+  document.getElementById('modeAdmin').className = 'mode-card' + (m === 'admin' ? ' sel-admin' : '');
+  document.getElementById('modeUser').className = 'mode-card' + (m === 'user' ? ' sel-user' : '');
+  document.getElementById('adminSection').style.display = m === 'admin' ? 'block' : 'none';
+  document.getElementById('userSection').style.display = m === 'user' ? 'block' : 'none';
   S.mode = m;
 }
 
 function switchAuthTab(tab) {
-  document.getElementById('authTabLogin').classList.toggle('active', tab==='login');
-  document.getElementById('authTabRegister').classList.toggle('active', tab==='register');
-  document.getElementById('authLoginForm').style.display = tab==='login' ? 'block' : 'none';
-  document.getElementById('authRegisterForm').style.display = tab==='register' ? 'block' : 'none';
-  document.getElementById('loginError').classList.add('hidden');
-  document.getElementById('regError').classList.add('hidden');
-}
-
-function showErr(id, msg) {
-  document.getElementById(id).classList.remove('hidden');
-  document.getElementById(id).querySelector('span').textContent = msg;
+  document.getElementById('authTabLogin').classList.toggle('active', tab === 'login');
+  document.getElementById('authTabRegister').classList.toggle('active', tab === 'register');
+  document.getElementById('authLoginForm').style.display = tab === 'login' ? 'block' : 'none';
+  document.getElementById('authRegisterForm').style.display = tab === 'register' ? 'block' : 'none';
+  document.getElementById('loginError').classList.remove('show');
+  document.getElementById('regError').classList.remove('show');
+  document.getElementById('regOk').classList.remove('show');
+  document.getElementById('regLoading').classList.remove('show');
 }
 
 function doPetugasRegister() {
-  document.getElementById('regError').classList.add('hidden');
+  document.getElementById('regError').classList.remove('show');
+  document.getElementById('regOk').classList.remove('show');
   var nama = document.getElementById('regNama').value.trim();
   var email = document.getElementById('regEmail').value.trim().toLowerCase();
   var pass = document.getElementById('regPass').value;
   var passC = document.getElementById('regPassConfirm').value;
   var btn = document.getElementById('btnRegister');
 
-  if (!nama) { showErr('regError','Nama wajib diisi.'); return; }
-  if (!validEmail(email)) { showErr('regError','Format email tidak valid.'); return; }
-  if (pass.length < 6) { showErr('regError','Kata sandi minimal 6 karakter.'); return; }
-  if (pass !== passC) { showErr('regError','Konfirmasi kata sandi tidak cocok.'); return; }
-  if (LS.findUser(email)) { showErr('regError','Email sudah terdaftar. Silakan login.'); return; }
+  if (!nama) { showRegErr('Nama lengkap wajib diisi.'); return; }
+  if (!validEmail(email)) { showRegErr('Format email tidak valid. Gunakan email asli.'); return; }
+  if (pass.length < 6) { showRegErr('Kata sandi minimal 6 karakter.'); return; }
+  if (pass !== passC) { showRegErr('Konfirmasi kata sandi tidak cocok.'); return; }
+  if (LS.findUser(email)) { showRegErr('Email sudah terdaftar. Silakan login.'); return; }
 
   btn.disabled = true;
-  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mendaftar...';
+  document.getElementById('regLoading').classList.add('show');
 
   var waktu = nowStr();
-  var userData = {nama:nama, email:email, password:pass, waktuDaftar:waktu};
+  var userData = { nama: nama, email: email, password: pass, waktuDaftar: waktu };
 
-  // Kirim ke spreadsheet (jika online & GAS_URL sudah di-set)
-  var gasOk = false;
+  // Kirim ke spreadsheet jika online dan GAS_URL sudah di-set
+  var gasPromise;
   if (S.online && GAS_URL.indexOf('GANTI') === -1) {
-    fetch(GAS_URL, {
-      method:'POST', mode:'no-cors',
-      headers:{'Content-Type':'application/json'},
+    gasPromise = fetch(GAS_URL, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(userData)
-    }).then(function(){ gasOk=true; })
-    .catch(function(e){ console.warn('Gagal kirim ke spreadsheet:', e); });
+    }).catch(function(e) { console.warn('Gagal kirim ke spreadsheet:', e); });
+  } else {
+    gasPromise = Promise.resolve();
   }
 
-  // Simpan ke localStorage (selalu)
-  LS.addUser(userData);
-  LS.setProfile(email, {nama:nama, photo:null});
+  gasPromise.then(function() {
+    // Selalu simpan ke localStorage
+    LS.addUser(userData);
+    LS.setProfile(email, { nama: nama, photo: null });
 
-  btn.disabled = false;
-  btn.innerHTML = '<i class="fa-solid fa-user-plus"></i> Daftar & Kirim Data';
+    btn.disabled = false;
+    document.getElementById('regLoading').classList.remove('show');
 
-  toast('Registrasi berhasil! Silakan login.', 's');
-  if (!S.online) toast('Mode offline — data tersimpan lokal saja.', 'i');
-  switchAuthTab('login');
-  document.getElementById('loginEmail').value = email;
-  document.getElementById('loginPass').value = '';
-  document.getElementById('loginPass').focus();
+    document.getElementById('regOkMsg').textContent = 'Registrasi berhasil! Silakan login dengan email ' + email;
+    document.getElementById('regOk').classList.add('show');
+    toast('Registrasi berhasil!', 's');
+    if (!S.online) toast('Mode offline — data tersimpan lokal saja.', 'i');
+
+    setTimeout(function() {
+      switchAuthTab('login');
+      document.getElementById('loginEmail').value = email;
+      document.getElementById('loginPass').value = '';
+      document.getElementById('loginPass').focus();
+    }, 1200);
+  });
+}
+
+function showRegErr(msg) {
+  document.getElementById('regErrorMsg').textContent = msg;
+  document.getElementById('regError').classList.add('show');
+  document.getElementById('regOk').classList.remove('show');
 }
 
 function doPetugasLogin() {
-  document.getElementById('loginError').classList.add('hidden');
+  document.getElementById('loginError').classList.remove('show');
   var email = document.getElementById('loginEmail').value.trim().toLowerCase();
   var pass = document.getElementById('loginPass').value;
 
-  if (!validEmail(email)) { showErr('loginError','Format email tidak valid.'); return; }
-  if (!pass) { showErr('loginError','Kata sandi wajib diisi.'); return; }
+  if (!validEmail(email)) { showLoginErr('Format email tidak valid.'); return; }
+  if (!pass) { showLoginErr('Kata sandi wajib diisi.'); return; }
 
   var user = LS.findUser(email);
-  if (!user) { showErr('loginError','Email belum terdaftar. Silakan daftar dulu.'); return; }
-  if (user.password !== pass) { showErr('loginError','Kata sandi salah.'); return; }
+  if (!user) { showLoginErr('Email belum terdaftar. Klik "Daftar Akun" untuk membuat akun baru.'); return; }
+  if (user.password !== pass) { showLoginErr('Kata sandi salah.'); return; }
 
-  LS.setSession({email:user.email, nama:user.nama, waktuDaftar:user.waktuDaftar});
+  LS.setSession({ email: user.email, nama: user.nama, waktuDaftar: user.waktuDaftar });
   LS.setMode('admin');
   enterApp('admin');
 }
 
+function showLoginErr(msg) {
+  document.getElementById('loginErrorMsg').textContent = msg;
+  document.getElementById('loginError').classList.add('show');
+}
+
 function doUserLogin() {
   LS.setMode('user');
-  LS.setSession({mode:'user'});
+  LS.setSession({ mode: 'user' });
   enterApp('user');
 }
 
@@ -849,7 +846,7 @@ function doLogout() {
   document.getElementById('loginPass').value = '';
   selectMode(null);
   switchAuthTab('login');
-  toast('Berhasil keluar.','i');
+  toast('Berhasil keluar.', 'i');
 }
 
 /* ============================================================
@@ -903,12 +900,9 @@ function updateHeaderProfile() {
   var photo = pf.photo || null;
   var ini = initials(nama);
 
-  var av = document.getElementById('hdrUserAvatar');
-  av.innerHTML = photo ? '<img src="'+photo+'" alt="">' : ini;
+  document.getElementById('hdrUserAvatar').innerHTML = photo ? '<img src="' + photo + '" alt="">' : ini;
   document.getElementById('hdrUserName').textContent = nama;
-
-  var dda = document.getElementById('profileDDAvatar');
-  dda.innerHTML = photo ? '<img src="'+photo+'" alt="">' : ini;
+  document.getElementById('profileDDAvatar').innerHTML = photo ? '<img src="' + photo + '" alt="">' : ini;
   document.getElementById('profileDDName').textContent = nama;
   document.getElementById('profileDDEmail').textContent = sess.email;
 }
@@ -964,17 +958,18 @@ function closeProfileModal() { document.getElementById('profileModal').style.dis
 function handlePhotoUpload(e) {
   var file = e.target.files[0];
   if (!file) return;
-  if (file.size > 2*1024*1024) { toast('Maks 2MB.','e'); return; }
+  if (file.size > 2 * 1024 * 1024) { toast('Maks 2MB.', 'e'); return; }
   var reader = new FileReader();
   reader.onload = function(ev) {
     var img = new Image();
     img.onload = function() {
       var c = document.createElement('canvas');
-      var mx = 200; var w=img.width, h=img.height;
-      if(w>h){if(w>mx){h=h*mx/w;w=mx;}}else{if(h>mx){w=w*mx/h;h=mx;}}
-      c.width=w; c.height=h;
-      c.getContext('2d').drawImage(img,0,0,w,h);
-      var du = c.toDataURL('image/jpeg',0.8);
+      var mx = 200; var w = img.width, h = img.height;
+      if (w > h) { if (w > mx) { h = h * mx / w; w = mx; } }
+      else { if (h > mx) { w = w * mx / h; h = mx; } }
+      c.width = w; c.height = h;
+      c.getContext('2d').drawImage(img, 0, 0, w, h);
+      var du = c.toDataURL('image/jpeg', 0.8);
       document.getElementById('photoPreview').src = du;
       document.getElementById('photoPreview').style.display = 'block';
       document.getElementById('photoPlaceholderIcon').style.display = 'none';
@@ -991,21 +986,21 @@ function saveProfile() {
   var sess = LS.getSession();
   if (!sess) return;
   var nama = document.getElementById('profileNama').value.trim();
-  if (!nama) { toast('Nama tidak boleh kosong.','e'); return; }
+  if (!nama) { toast('Nama tidak boleh kosong.', 'e'); return; }
   var photo = document.getElementById('photoUploadArea').dataset.photo || null;
-  LS.setProfile(sess.email, {nama:nama, photo:photo});
+  LS.setProfile(sess.email, { nama: nama, photo: photo });
   sess.nama = nama;
   LS.setSession(sess);
   updateHeaderProfile();
   closeProfileModal();
-  toast('Profil berhasil diperbarui.','s');
+  toast('Profil berhasil diperbarui.', 's');
 }
 
 /* ============================================================
-   DATA PASIEN — FETCH + PARSE
+   DATA PASIEN — FETCH DARI SPREADSHEET ASLI
    ============================================================ */
 function loadPatientData() {
-  // Tampilkan data lokal dulu
+  // Tampilkan data lokal dulu jika ada
   var cached = LS.getPatients();
   if (cached.length > 0) {
     S.patients = cached;
@@ -1013,78 +1008,80 @@ function loadPatientData() {
   }
 
   if (S.online) {
-    fetch(DATA_URL + '&t=' + Date.now(), {cache:'no-store'})
-      .then(function(r){ return r.text(); })
-      .then(function(txt){ parseSheetData(txt); })
-      .catch(function(err){
+    fetch(DATA_URL + '&t=' + Date.now(), { cache: 'no-store' })
+      .then(function(r) { return r.text(); })
+      .then(function(txt) { parseSheetData(txt); })
+      .catch(function(err) {
         console.warn('Fetch gagal:', err);
-        useFallback();
+        if (S.patients.length > 0) {
+          toast('Gagal akses server, menggunakan data tersimpan (' + S.patients.length + ' pasien).', 'i');
+        } else {
+          toast('Gagal memuat data. Pastikan spreadsheet publik dan ada koneksi internet.', 'e');
+        }
       });
   } else {
-    useFallback();
+    if (S.patients.length > 0) {
+      toast('Mode offline — menggunakan data tersimpan (' + S.patients.length + ' pasien).', 'i');
+    } else {
+      toast('Tidak ada data tersimpan dan tidak ada koneksi internet.', 'e');
+    }
   }
 }
 
 function parseSheetData(txt) {
   try {
     var m = txt.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);?\s*$/);
-    if (!m || !m[1]) { useFallback(); return; }
+    if (!m || !m[1]) {
+      console.error('Tidak bisa parse respons spreadsheet');
+      return;
+    }
     var data = JSON.parse(m[1]);
     var cols = data.table.cols;
     var rows = data.table.rows;
 
-    if (!rows || rows.length === 0) { useFallback(); return; }
+    if (!rows || rows.length === 0) {
+      toast('Spreadsheet kosong — belum ada data pasien.', 'i');
+      return;
+    }
 
-    // Bangun mapping kolom: cari kolom "Nama Pasien", "No RM", dll
-    var colMap = {};
-    var colLabels = [];
-    cols.forEach(function(c, i) {
-      var label = (c.label || c.id || '').toString().trim().toLowerCase();
-      colLabels.push(label);
-      colMap[i] = label;
-    });
-    S.colMap = colMap;
-
-    // Deteksi indeks kolom berdasarkan keyword
-    var idxNama = findColIdx(colLabels, ['nama pasien','nama','name','pasien']);
-    var idxNRM = findColIdx(colLabels, ['no rm','nrm','no rm','norm','rekam medis','medical record']);
-    var idxDiag = findColIdx(colLabels, ['diagnosa','diagnosis','diag']);
-    var idxRuang = findColIdx(colLabels, ['ruangan','ruang','room','hd']);
-    var idxJadwal = findColIdx(colLabels, ['jadwal','schedule','hari','day']);
-    var idxStatus = findColIdx(colLabels, ['status','state','keterangan']);
-
-    console.log('Kolom terdeteksi:', {nama:idxNama,nrm:idxNRM,diag:idxDiag,ruang:idxRuang,jadwal:idxJadwal,status:idxStatus});
-    console.log('Label kolom:', colLabels);
-
+    /*
+      Pemetaan kolom berdasarkan indeks (0-based):
+      1  = NAMA (B)
+      2  = NOMOR REKAM MEDIK (C)
+      4  = UMUR (E)
+      5  = ALAMAT (F)
+      8  = Akses Hemodialisis (I)
+      9  = Hasil lab HbsAg (J)
+      11 = Ruang Isolasi (L)
+      14 = NOMOR HP (O)
+      16 = STATUS (Q)
+      17 = Keterangan (R)
+    */
     var patients = [];
-    rows.forEach(function(row, ri) {
-      var cells = row.c;
-      if (!cells || cells.length === 0) return;
+    rows.forEach(function(row) {
+      var c = row.c;
+      if (!c) return;
 
-      // Ambil nilai sel (handle null)
       function cv(idx) {
-        if (idx < 0 || idx >= cells.length || !cells[idx]) return '';
-        var v = cells[idx].v;
-        return v !== null && v !== undefined ? String(v) : '';
+        if (idx < 0 || idx >= c.length || !c[idx]) return '';
+        var v = c[idx].v;
+        return (v !== null && v !== undefined) ? String(v) : '';
       }
 
-      var nama = cv(idxNama);
-      // Fallback: jika kolom nama tidak ketemu, ambil kolom pertama yang ada isinya
-      if (!nama) {
-        for (var fi = 0; fi < cells.length; fi++) {
-          var fv = cv(fi);
-          if (fv && fv.length > 2) { nama = fv; idxNama = fi; break; }
-        }
-      }
-      if (!nama) return; // Skip baris kosong
+      var nama = cv(1);
+      if (!nama || nama.trim() === '') return; // Skip baris tanpa nama
 
       patients.push({
-        nama: nama,
-        nrm: cv(idxNRM) || '—',
-        diag: cv(idxDiag) || '—',
-        ruang: cv(idxRuang) || '—',
-        jadwal: cv(idxJadwal) || '—',
-        status: cv(idxStatus) || 'Menunggu'
+        nama: nama.trim(),
+        nrm: cv(2).trim(),
+        umur: cv(4).trim(),
+        alamat: cv(5).trim(),
+        aksesHD: cv(8).trim(),
+        hbsAg: cv(9).trim(),
+        isolasi: cv(11).trim(),
+        noHP: cv(14).trim(),
+        status: cv(16).trim(),
+        keterangan: cv(17).trim()
       });
     });
 
@@ -1092,46 +1089,23 @@ function parseSheetData(txt) {
       S.patients = patients;
       LS.setPatients(patients);
       renderAll();
-      toast('Data berhasil dimuat dari spreadsheet (' + patients.length + ' pasien).', 's');
+      toast('Data berhasil dimuat: ' + patients.length + ' pasien dari spreadsheet.', 's');
     } else {
-      useFallback();
+      toast('Tidak ada data pasien yang bisa dibaca dari spreadsheet.', 'i');
     }
-  } catch(e) {
+  } catch (e) {
     console.error('Parse error:', e);
-    useFallback();
+    toast('Gagal memproses data spreadsheet.', 'e');
   }
-}
-
-function findColIdx(labels, keywords) {
-  for (var ki = 0; ki < keywords.length; ki++) {
-    for (var li = 0; li < labels.length; li++) {
-      if (labels[li].indexOf(keywords[ki]) > -1) return li;
-    }
-  }
-  return -1;
-}
-
-function useFallback() {
-  // Jika data lokal sudah ada, gunakan itu
-  if (S.patients.length > 0) {
-    renderAll();
-    toast('Menggunakan data tersimpan (' + S.patients.length + ' pasien).', 'i');
-    return;
-  }
-  // Kalau tidak ada sama sekali, pakai data dummy
-  S.patients = DUMMY_DATA.map(function(d) { return Object.assign({}, d); });
-  LS.setPatients(S.patients);
-  renderAll();
-  toast('Menggunakan data contoh (' + S.patients.length + ' pasien). Hubungkan spreadsheet untuk data asli.', 'i');
 }
 
 function refreshData() {
   var icon = document.getElementById('refreshIcon');
   icon.classList.add('fa-spin');
-  // Force refresh dari server
-  LS.setPatients([]); // Kosongkan cache supaya fetch ulang
+  LS.setPatients([]); // Kosongkan cache
+  S.patients = [];
   loadPatientData();
-  setTimeout(function(){ icon.classList.remove('fa-spin'); }, 2000);
+  setTimeout(function() { icon.classList.remove('fa-spin'); }, 2500);
   toast('Memuat ulang data...', 'i');
 }
 
@@ -1150,14 +1124,14 @@ function renderAll() {
 }
 
 function getCounts(pts) {
-  var c = {menunggu:0,terjadwal:0,hdlain:0,batal:0,meninggal:0,total:pts.length};
-  pts.forEach(function(p){
-    var s = (p.status||'').toLowerCase();
-    if (s.indexOf('menunggu')>-1) c.menunggu++;
-    else if (s.indexOf('terjadwal')>-1||s.indexOf('jadwal')>-1) c.terjadwal++;
-    else if (s.indexOf('lain')>-1||s.indexOf('hd lain')>-1) c.hdlain++;
-    else if (s.indexOf('batal')>-1) c.batal++;
-    else if (s.indexOf('meninggal')>-1) c.meninggal++;
+  var c = { menunggu: 0, terjadwal: 0, hdlain: 0, batal: 0, meninggal: 0, total: pts.length };
+  pts.forEach(function(p) {
+    var s = (p.status || '').toUpperCase();
+    if (s.indexOf('MENUNGGU') > -1) c.menunggu++;
+    else if (s.indexOf('TERJADWAL') > -1) c.terjadwal++;
+    else if (s.indexOf('HD LAIN') > -1) c.hdlain++;
+    else if (s.indexOf('BATAL') > -1) c.batal++;
+    else if (s.indexOf('MENINGGAL') > -1) c.meninggal++;
   });
   return c;
 }
@@ -1173,93 +1147,127 @@ function updateStatusCards(c) {
 
 function getFiltered(filter) {
   if (filter === 'all') return S.patients.slice();
-  return S.patients.filter(function(p){
-    var s = (p.status||'').toLowerCase();
-    if (filter==='menunggu') return s.indexOf('menunggu')>-1;
-    if (filter==='terjadwal') return s.indexOf('terjadwal')>-1||s.indexOf('jadwal')>-1;
-    if (filter==='hdlain') return s.indexOf('lain')>-1;
-    if (filter==='batal') return s.indexOf('batal')>-1;
-    if (filter==='meninggal') return s.indexOf('meninggal')>-1;
+  return S.patients.filter(function(p) {
+    var s = (p.status || '').toUpperCase();
+    if (filter === 'menunggu') return s.indexOf('MENUNGGU') > -1;
+    if (filter === 'terjadwal') return s.indexOf('TERJADWAL') > -1;
+    if (filter === 'hdlain') return s.indexOf('HD LAIN') > -1;
+    if (filter === 'batal') return s.indexOf('BATAL') > -1;
+    if (filter === 'meninggal') return s.indexOf('MENINGGAL') > -1;
     return true;
   });
 }
 
 function statusBadge(s) {
-  var sl = (s||'').toLowerCase();
+  var sl = (s || '').toUpperCase();
   var cls = 'badge-';
-  if (sl.indexOf('menunggu')>-1) cls+='menunggu';
-  else if (sl.indexOf('terjadwal')>-1||sl.indexOf('jadwal')>-1) cls+='terjadwal';
-  else if (sl.indexOf('lain')>-1) cls+='hdlain';
-  else if (sl.indexOf('batal')>-1) cls+='batal';
-  else if (sl.indexOf('meninggal')>-1) cls+='meninggal';
-  else cls+='menunggu';
-  return '<span class="badge '+cls+'">'+s+'</span>';
+  if (sl.indexOf('MENUNGGU') > -1) cls += 'menunggu';
+  else if (sl.indexOf('TERJADWAL') > -1) cls += 'terjadwal';
+  else if (sl.indexOf('HD LAIN') > -1) cls += 'hdlain';
+  else if (sl.indexOf('BATAL') > -1) cls += 'batal';
+  else if (sl.indexOf('MENINGGAL') > -1) cls += 'meninggal';
+  else cls += 'menunggu';
+  return '<span class="badge ' + cls + '">' + (s || '—') + '</span>';
 }
 
 function rowClass(s) {
-  var sl = (s||'').toLowerCase();
-  if (sl.indexOf('menunggu')>-1) return 'row-menunggu';
-  if (sl.indexOf('terjadwal')>-1||sl.indexOf('jadwal')>-1) return 'row-terjadwal';
-  if (sl.indexOf('lain')>-1) return 'row-hdlain';
-  if (sl.indexOf('batal')>-1) return 'row-batal';
-  if (sl.indexOf('meninggal')>-1) return 'row-meninggal';
+  var sl = (s || '').toUpperCase();
+  if (sl.indexOf('MENUNGGU') > -1) return 'row-menunggu';
+  if (sl.indexOf('TERJADWAL') > -1) return 'row-terjadwal';
+  if (sl.indexOf('HD LAIN') > -1) return 'row-hdlain';
+  if (sl.indexOf('BATAL') > -1) return 'row-batal';
+  if (sl.indexOf('MENINGGAL') > -1) return 'row-meninggal';
   return '';
 }
 
 function statusColor(s) {
-  var sl = (s||'').toLowerCase();
-  if (sl.indexOf('menunggu')>-1) return '#3b82f6';
-  if (sl.indexOf('terjadwal')>-1||sl.indexOf('jadwal')>-1) return '#10b981';
-  if (sl.indexOf('lain')>-1) return '#f59e0b';
-  if (sl.indexOf('batal')>-1) return '#ef4444';
-  if (sl.indexOf('meninggal')>-1) return '#6b7280';
+  var sl = (s || '').toUpperCase();
+  if (sl.indexOf('MENUNGGU') > -1) return '#3b82f6';
+  if (sl.indexOf('TERJADWAL') > -1) return '#10b981';
+  if (sl.indexOf('HD LAIN') > -1) return '#f59e0b';
+  if (sl.indexOf('BATAL') > -1) return '#ef4444';
+  if (sl.indexOf('MENINGGAL') > -1) return '#6b7280';
   return '#94a3b8';
+}
+
+function phoneButtons(phone) {
+  if (!phone) return '<span style="color:var(--muted);font-size:12px">—</span>';
+  var clean = phone.replace(/[^0-9+]/g, '');
+  if (clean.startsWith('0')) clean = '62' + clean.substring(1);
+  if (!clean.startsWith('+')) clean = '+' + clean;
+  var wa = 'https://wa.me/' + clean.replace('+', '') + '?text=Halo, saya ingin menanyakan antrian hemodialisis.';
+  var tg = 'https://t.me/+62' + clean.replace('+62', '');
+  return '<div style="display:flex;gap:4px;flex-wrap:wrap">' +
+    '<a href="' + wa + '" target="_blank" class="contact-btn contact-btn-wa" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i> WA</a>' +
+    '<a href="sms:' + clean + '" class="contact-btn contact-btn-sms" title="SMS"><i class="fa-solid fa-comment-sms"></i> SMS</a>' +
+    '<a href="tel:' + clean + '" class="contact-btn contact-btn-call" title="Telepon"><i class="fa-solid fa-phone"></i> Call</a>' +
+    '<a href="' + tg + '" target="_blank" class="contact-btn contact-btn-tg" title="Telegram"><i class="fa-brands fa-telegram"></i> TG</a>' +
+    '</div>';
 }
 
 function renderDashTable() {
   var pts = getFiltered(S.filter);
-  var labels = {menunggu:'Menunggu',terjadwal:'Terjadwal',hdlain:'HD Lain',batal:'Batal',meninggal:'Meninggal',all:'Semua'};
-  document.getElementById('filterLabel').textContent = '(' + (labels[S.filter]||'') + ')';
+  var labels = { menunggu: 'Menunggu', terjadwal: 'Terjadwal', hdlain: 'HD Lain', batal: 'Batal', meninggal: 'Meninggal', all: 'Semua' };
+  document.getElementById('filterLabel').textContent = '(' + (labels[S.filter] || '') + ')';
   var body = document.getElementById('dashBody');
-  if (!pts.length) { body.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--muted)"><i class="fa-solid fa-inbox" style="font-size:28px;display:block;margin-bottom:8px;opacity:.4"></i>Tidak ada data</td></tr>'; return; }
-  body.innerHTML = pts.map(function(p,i){
-    return '<tr class="'+rowClass(p.status)+'"><td class="tc">'+(i+1)+'</td><td style="font-weight:700;color:var(--txt)">'+p.nama+'</td><td>'+p.nrm+'</td><td>'+p.diag+'</td><td>'+p.ruang+'</td><td>'+p.jadwal+'</td><td>'+statusBadge(p.status)+'</td></tr>';
+  if (!pts.length) { body.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--muted)"><i class="fa-solid fa-inbox" style="font-size:28px;display:block;margin-bottom:8px;opacity:.4"></i>Tidak ada data</td></tr>'; return; }
+  body.innerHTML = pts.map(function(p, i) {
+    return '<tr class="' + rowClass(p.status) + '"><td class="tc">' + (i + 1) + '</td><td style="font-weight:700;color:var(--txt)">' + p.nama + '</td><td>' + (p.nrm || '—') + '</td><td>' + (p.umur || '—') + '</td><td>' + (p.keterangan || '—') + '</td><td>' + statusBadge(p.status) + '</td></tr>';
   }).join('');
 }
 
 function renderFullTable() {
-  var q = (document.getElementById('globalSearch')?document.getElementById('globalSearch').value:'').toLowerCase();
+  var q = (document.getElementById('globalSearch') ? document.getElementById('globalSearch').value : '').toLowerCase();
   var pts = S.patients;
-  if (q) pts = pts.filter(function(p){ return (p.nama||'').toLowerCase().indexOf(q)>-1 || (p.nrm||'').toLowerCase().indexOf(q)>-1; });
+  if (q) pts = pts.filter(function(p) { return (p.nama || '').toLowerCase().indexOf(q) > -1 || (p.nrm || '').toLowerCase().indexOf(q) > -1; });
   var body = document.getElementById('fullBody');
-  if (!pts.length) { body.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--muted)">Tidak ada data</td></tr>'; return; }
-  body.innerHTML = pts.map(function(p,i){
-    return '<tr class="'+rowClass(p.status)+'"><td class="tc">'+(i+1)+'</td><td style="font-weight:700;color:var(--txt)">'+p.nama+'</td><td>'+p.nrm+'</td><td>'+p.diag+'</td><td>'+p.ruang+'</td><td>'+p.jadwal+'</td><td>'+statusBadge(p.status)+'</td></tr>';
+  if (!pts.length) { body.innerHTML = '<tr><td colspan="11" style="text-align:center;padding:40px;color:var(--muted)">Tidak ada data</td></tr>'; return; }
+  body.innerHTML = pts.map(function(p, i) {
+    return '<tr class="' + rowClass(p.status) + '">' +
+      '<td class="tc">' + (i + 1) + '</td>' +
+      '<td style="font-weight:700;color:var(--txt)">' + p.nama + '</td>' +
+      '<td>' + (p.nrm || '—') + '</td>' +
+      '<td>' + (p.umur || '—') + '</td>' +
+      '<td style="max-width:150px">' + (p.alamat || '—') + '</td>' +
+      '<td>' + (p.aksesHD || '—') + '</td>' +
+      '<td>' + (p.hbsAg || '—') + '</td>' +
+      '<td>' + (p.isolasi || '—') + '</td>' +
+      '<td style="min-width:180px">' + phoneButtons(p.noHP) + '</td>' +
+      '<td>' + statusBadge(p.status) + '</td>' +
+      '<td>' + (p.keterangan || '—') + '</td>' +
+      '</tr>';
   }).join('');
 }
 
 function renderActionTable() {
-  var q = (document.getElementById('actionSearch')?document.getElementById('actionSearch').value:'').toLowerCase();
-  var f = document.getElementById('actionFilter')?document.getElementById('actionFilter').value:'menunggu';
+  var q = (document.getElementById('actionSearch') ? document.getElementById('actionSearch').value : '').toLowerCase();
+  var f = document.getElementById('actionFilter') ? document.getElementById('actionFilter').value : 'menunggu';
   var pts = getFiltered(f);
-  if (q) pts = pts.filter(function(p){ return (p.nama||'').toLowerCase().indexOf(q)>-1 || (p.nrm||'').toLowerCase().indexOf(q)>-1; });
+  if (q) pts = pts.filter(function(p) { return (p.nama || '').toLowerCase().indexOf(q) > -1 || (p.nrm || '').toLowerCase().indexOf(q) > -1; });
   var body = document.getElementById('actionBody');
-  if (!pts.length) { body.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--muted)">Tidak ada data</td></tr>'; return; }
+  if (!pts.length) { body.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--muted)">Tidak ada data</td></tr>'; return; }
   var sess = LS.getSession();
-  var pNama = sess ? (sess.nama||'Petugas') : 'Petugas';
-  body.innerHTML = pts.map(function(p,i){
-    var safeNama = (p.nama||'').replace(/'/g,"\\'");
-    return '<tr class="'+rowClass(p.status)+'"><td class="tc">'+(i+1)+'</td><td style="font-weight:700;color:var(--txt)">'+p.nama+'</td><td>'+p.nrm+'</td><td>'+p.ruang+'</td><td>'+statusBadge(p.status)+'</td><td><button class="bp" style="padding:6px 12px;font-size:11px" onclick="doPick(this,\''+safeNama+'\')"><i class="fa-solid fa-hand-pointer"></i> Ambil</button></td></tr>';
+  var pNama = sess ? (sess.nama || 'Petugas') : 'Petugas';
+  body.innerHTML = pts.map(function(p, i) {
+    return '<tr class="' + rowClass(p.status) + '">' +
+      '<td class="tc">' + (i + 1) + '</td>' +
+      '<td style="font-weight:700;color:var(--txt)">' + p.nama + '</td>' +
+      '<td>' + (p.nrm || '—') + '</td>' +
+      '<td>' + (p.keterangan || '—') + '</td>' +
+      '<td style="min-width:160px">' + phoneButtons(p.noHP) + '</td>' +
+      '<td>' + statusBadge(p.status) + '</td>' +
+      '<td><button class="bp" style="padding:6px 12px;font-size:11px" onclick="doPick(this,\'' + esc(p.nama) + '\')"><i class="fa-solid fa-hand-pointer"></i> Ambil</button></td>' +
+      '</tr>';
   }).join('');
 }
 
 function doPick(btn, nama) {
   var sess = LS.getSession();
-  var pNama = sess ? (sess.nama||'Petugas') : 'Petugas';
+  var pNama = sess ? (sess.nama || 'Petugas') : 'Petugas';
   btn.disabled = true;
   btn.innerHTML = '<i class="fa-solid fa-check"></i> ' + pNama;
   btn.style.background = 'linear-gradient(135deg,var(--g500),var(--g600))';
-  toast('Pasien "'+nama+'" diambil oleh '+pNama, 's');
+  toast('Pasien "' + nama + '" diambil oleh ' + pNama, 's');
 }
 
 function renderPatientStats(c) {
@@ -1274,25 +1282,25 @@ function renderChart(counts) {
   var ctx = document.getElementById('chart1');
   if (!ctx) return;
   if (S.chart) S.chart.destroy();
-  var labels = ['Menunggu','Terjadwal','HD Lain','Batal','Meninggal'];
-  var vals = [counts.menunggu,counts.terjadwal,counts.hdlain,counts.batal,counts.meninggal];
-  var colors = ['#3b82f6','#10b981','#f59e0b','#ef4444','#6b7280'];
+  var labels = ['Menunggu', 'Terjadwal', 'HD Lain', 'Batal', 'Meninggal'];
+  var vals = [counts.menunggu, counts.terjadwal, counts.hdlain, counts.batal, counts.meninggal];
+  var colors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#6b7280'];
   S.chart = new Chart(ctx, {
-    type:'doughnut',
-    data:{labels:labels,datasets:[{data:vals,backgroundColor:colors,borderWidth:3,borderColor:'#fff'}]},
-    options:{responsive:true,maintainAspectRatio:true,cutout:'60%',plugins:{legend:{display:false},tooltip:{backgroundColor:'#1e293b',padding:12,cornerRadius:10}}}
+    type: 'doughnut',
+    data: { labels: labels, datasets: [{ data: vals, backgroundColor: colors, borderWidth: 3, borderColor: '#fff' }] },
+    options: { responsive: true, maintainAspectRatio: true, cutout: '60%', plugins: { legend: { display: false }, tooltip: { backgroundColor: '#1e293b', padding: 12, cornerRadius: 10 } } }
   });
-  document.getElementById('leg1').innerHTML = labels.map(function(l,i){return '<span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:3px;background:'+colors[i]+';display:inline-block"></span>'+l+': '+vals[i]+'</span>';}).join('');
+  document.getElementById('leg1').innerHTML = labels.map(function(l, i) { return '<span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:3px;background:' + colors[i] + ';display:inline-block"></span>' + l + ': ' + vals[i] + '</span>'; }).join('');
 }
 
 function saveChartAsImage(id, name) {
   var c = document.getElementById(id);
   if (!c) return;
   var link = document.createElement('a');
-  link.download = 'sidaraja-'+name+'.png';
+  link.download = 'sidaraja-' + name + '.png';
   link.href = c.toDataURL('image/png');
   link.click();
-  toast('Gambar disimpan.','s');
+  toast('Gambar disimpan.', 's');
 }
 
 /* ============================================================
@@ -1300,117 +1308,135 @@ function saveChartAsImage(id, name) {
    ============================================================ */
 function switchSlide(n) {
   S.slide = n;
-  for (var i=1;i<=3;i++){
-    var tab = document.getElementById('tab'+i);
-    var sl = document.getElementById('slide'+i);
-    if(i===n){tab.classList.add('active');sl.style.display='block';}
-    else{tab.classList.remove('active');sl.style.display='none';}
+  for (var i = 1; i <= 3; i++) {
+    var tab = document.getElementById('tab' + i);
+    var sl = document.getElementById('slide' + i);
+    if (i === n) { tab.classList.add('active'); sl.style.display = 'block'; }
+    else { tab.classList.remove('active'); sl.style.display = 'none'; }
   }
-  if(n===2) renderFullTable();
-  if(n===3) renderActionTable();
+  if (n === 2) renderFullTable();
+  if (n === 3) renderActionTable();
 }
 
 function clickStatusCard(key) {
   S.filter = key;
-  document.querySelectorAll('.stc').forEach(function(c){c.classList.remove('sel');});
-  var el = document.querySelector('.stc[data-key="'+key+'"]');
-  if(el) el.classList.add('sel');
+  document.querySelectorAll('.stc').forEach(function(c) { c.classList.remove('sel'); });
+  var el = document.querySelector('.stc[data-key="' + key + '"]');
+  if (el) el.classList.add('sel');
   renderDashTable();
 }
 
 /* ============================================================
-   PENCARIAN PASIEN
+   PENCARIAN PASIEN (MODE PASIEN)
    ============================================================ */
 function patientSearch() {
   var q = document.getElementById('pSearchNama').value.trim().toLowerCase();
-  if (!q) { toast('Masukkan nama pasien.','e'); return; }
-  var results = S.patients.filter(function(p){ return (p.nama||'').toLowerCase().indexOf(q)>-1; });
+  if (!q) { toast('Masukkan nama pasien.', 'e'); return; }
+  var results = S.patients.filter(function(p) { return (p.nama || '').toLowerCase().indexOf(q) > -1; });
   var container = document.getElementById('patientResults');
   var noRes = document.getElementById('pNoRes');
 
-  if (!results.length) { container.innerHTML=''; noRes.classList.remove('hidden'); return; }
-  noRes.classList.add('hidden');
+  if (!results.length) { container.innerHTML = ''; noRes.style.display = 'block'; return; }
+  noRes.style.display = 'none';
 
-  container.innerHTML = results.map(function(p){
-    var safeN = (p.nama||'').replace(/'/g,"\\'");
-    var safeNr = (p.nrm||'').replace(/'/g,"\\'");
-    var safeD = (p.diag||'').replace(/'/g,"\\'");
-    var safeR = (p.ruang||'').replace(/'/g,"\\'");
-    var safeJ = (p.jadwal||'').replace(/'/g,"\\'");
-    var safeS = (p.status||'').replace(/'/g,"\\'");
-    return '<div class="card p-5 mb-4 fu" style="border-left:4px solid '+statusColor(p.status)+';border-radius:16px"><div class="flex items-start justify-between gap-4"><div><h4 class="font-extrabold text-lg" style="color:var(--txt)">'+p.nama+'</h4><p class="text-xs mt-1" style="color:var(--muted)">No RM: '+p.nrm+'</p></div>'+statusBadge(p.status)+'</div><div class="grid grid-cols-2 gap-3 mt-4"><div><span class="text-xs font-bold" style="color:var(--muted)">DIAGNOSA</span><p class="text-sm font-semibold mt-1">'+p.diag+'</p></div><div><span class="text-xs font-bold" style="color:var(--muted)">RUANGAN</span><p class="text-sm font-semibold mt-1">'+p.ruang+'</p></div><div><span class="text-xs font-bold" style="color:var(--muted)">JADWAL</span><p class="text-sm font-semibold mt-1">'+p.jadwal+'</p></div></div><div class="mt-4"><button class="share-btn share-pdf" onclick="printInvoice(\''+safeN+'\',\''+safeNr+'\',\''+safeD+'\',\''+safeR+'\',\''+safeJ+'\',\''+safeS+'\')"><i class="fa-solid fa-file-pdf"></i> Cetak</button></div></div>';
+  container.innerHTML = results.map(function(p) {
+    var isoLabel = (p.isolasi || '').toUpperCase() === 'YA' ?
+      '<span style="background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700;margin-left:6px"><i class="fa-solid fa-triangle-exclamation"></i> Isolasi</span>' : '';
+
+    return '<div class="card p-5 mb-4 fu" style="border-left:4px solid ' + statusColor(p.status) + ';border-radius:16px">' +
+      '<div class="flex items-start justify-between gap-4 flex-wrap">' +
+      '<div><h4 class="font-extrabold text-lg" style="color:var(--txt)">' + p.nama + isoLabel + '</h4>' +
+      '<p class="text-xs mt-1" style="color:var(--muted)">No RM: ' + (p.nrm || '—') + ' | Umur: ' + (p.umur || '—') + '</p></div>' +
+      statusBadge(p.status) + '</div>' +
+      '<div class="grid grid-cols-2 gap-3 mt-4" style="font-size:13px">' +
+      '<div><span class="text-xs font-bold" style="color:var(--muted)">ALAMAT</span><p class="font-semibold mt-1">' + (p.alamat || '—') + '</p></div>' +
+      '<div><span class="text-xs font-bold" style="color:var(--muted)">AKSES HD</span><p class="font-semibold mt-1">' + (p.aksesHD || '—') + '</p></div>' +
+      '<div><span class="text-xs font-bold" style="color:var(--muted)">HBSAG</span><p class="font-semibold mt-1">' + (p.hbsAg || '—') + '</p></div>' +
+      '<div><span class="text-xs font-bold" style="color:var(--muted)">KETERANGAN</span><p class="font-semibold mt-1">' + (p.keterangan || '—') + '</p></div>' +
+      '</div>' +
+      '<div class="mt-4 flex items-center gap-3 flex-wrap">' +
+      '<span class="text-xs font-bold" style="color:var(--muted)">NO HP:</span>' +
+      (p.noHP ? '<span class="font-bold" style="color:var(--pg)">' + p.noHP + '</span>' : '<span style="color:var(--muted)">—</span>') +
+      phoneButtons(p.noHP) +
+      '</div>' +
+      '<div class="mt-4"><button class="share-btn share-pdf" onclick="printInvoice(\'' + esc(p.nama) + '\',\'' + esc(p.nrm) + '\',\'' + esc(p.umur) + '\',\'' + esc(p.alamat) + '\',\'' + esc(p.aksesHD) + '\',\'' + esc(p.hbsAg) + '\',\'' + esc(p.isolasi) + '\',\'' + esc(p.noHP) + '\',\'' + esc(p.status) + '\',\'' + esc(p.keterangan) + '\')"><i class="fa-solid fa-file-pdf"></i> Cetak Laporan</button></div>' +
+      '</div>';
   }).join('');
 }
 
 function patientReset() {
   document.getElementById('pSearchNama').value = '';
   document.getElementById('patientResults').innerHTML = '';
-  document.getElementById('pNoRes').classList.add('hidden');
+  document.getElementById('pNoRes').style.display = 'none';
 }
 
 /* ============================================================
-   CETAK LAPORAN (dengan nama petugas)
+   CETAK LAPORAN PDF
    ============================================================ */
-function printInvoice(nama, nrm, diag, ruang, jadwal, status) {
+function printInvoice(nama, nrm, umur, alamat, aksesHD, hbsAg, isolasi, noHP, status, keterangan) {
   var sess = LS.getSession();
-  var isPetugas = sess && sess.email;
   var petugasHTML = '';
-  if (isPetugas) {
+  if (sess && sess.email) {
     var pf = LS.getProfile(sess.email) || {};
     var pN = pf.nama || sess.nama || 'Petugas';
     var pP = pf.photo || null;
     var pI = initials(pN);
-    petugasHTML = '<div class="report-petugas-info"><div class="report-petugas-avatar">'+(pP?'<img src="'+pP+'" alt="">':pI)+'</div><div><div class="report-petugas-name">Dikeluarkan oleh: '+pN+'</div><div class="report-petugas-role">Petugas Instalasi Dialisis RSSA</div></div></div>';
+    petugasHTML = '<div class="report-petugas-info"><div class="report-petugas-avatar">' + (pP ? '<img src="' + pP + '" alt="">' : pI) + '</div><div><div class="report-petugas-name">Dikeluarkan oleh: ' + pN + '</div><div class="report-petugas-role">Petugas Instalasi Dialisis RSSA</div></div></div>';
   }
-  var html = '<div style="font-family:Plus Jakarta Sans,sans-serif;max-width:600px;margin:0 auto;padding:20px"><div style="text-align:center;margin-bottom:20px;padding-bottom:16px;border-bottom:3px solid #059669"><h1 style="font-size:22px;font-weight:900;color:#1e3a5f;margin:0">SIDARAJA</h1><p style="font-size:12px;color:#64748b;margin:4px 0 0">Sistem Informasi Antrian Pasien — Instalasi Dialisis RSSA</p></div>'+petugasHTML+'<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:20px;margin-top:12px"><h2 style="font-size:16px;font-weight:800;color:#1e293b;margin:0 0 16px">Informasi Pasien</h2><table style="width:100%;border-collapse:collapse"><tr><td style="padding:8px 0;font-size:12px;font-weight:700;color:#94a3b8;width:140px;vertical-align:top">NAMA</td><td style="padding:8px 0;font-size:14px;font-weight:700;color:#1e293b">'+nama+'</td></tr><tr><td style="padding:8px 0;font-size:12px;font-weight:700;color:#94a3b8;vertical-align:top">NO RM</td><td style="padding:8px 0;font-size:14px;color:#475569">'+nrm+'</td></tr><tr><td style="padding:8px 0;font-size:12px;font-weight:700;color:#94a3b8;vertical-align:top">DIAGNOSA</td><td style="padding:8px 0;font-size:14px;color:#475569">'+diag+'</td></tr><tr><td style="padding:8px 0;font-size:12px;font-weight:700;color:#94a3b8;vertical-align:top">RUANGAN</td><td style="padding:8px 0;font-size:14px;color:#475569">'+ruang+'</td></tr><tr><td style="padding:8px 0;font-size:12px;font-weight:700;color:#94a3b8;vertical-align:top">JADWAL</td><td style="padding:8px 0;font-size:14px;color:#475569">'+jadwal+'</td></tr><tr><td style="padding:8px 0;font-size:12px;font-weight:700;color:#94a3b8;vertical-align:top">STATUS</td><td style="padding:8px 0;font-size:14px;font-weight:700;color:'+statusColor(status)+'">'+status+'</td></tr></table></div><div style="margin-top:20px;text-align:center;font-size:10px;color:#94a3b8">Dicetak: '+nowStr()+'</div></div>';
+  var isoNote = (isolasi || '').toUpperCase() === 'YA' ? '<tr><td style="padding:8px 0;font-size:12px;font-weight:700;color:#dc2626;width:140px;vertical-align:top">RUANG ISOLASI</td><td style="padding:8px 0;font-size:14px;font-weight:700;color:#dc2626">YA — Perlu ruang isolasi khusus</td></tr>' : '';
+
+  var html = '<div style="font-family:Plus Jakarta Sans,sans-serif;max-width:600px;margin:0 auto;padding:20px">' +
+    '<div style="text-align:center;margin-bottom:20px;padding-bottom:16px;border-bottom:3px solid #059669">' +
+    '<h1 style="font-size:22px;font-weight:900;color:#1e3a5f;margin:0">SIDARAJA</h1>' +
+    '<p style="font-size:12px;color:#64748b;margin:4px 0 0">Sistem Informasi Antrian Pasien — Instalasi Dialisis RSSA</p></div>' +
+    petugasHTML +
+    '<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:20px;margin-top:12px">' +
+    '<h2 style="font-size:16px;font-weight:800;color:#1e293b;margin:0 0 16px">Informasi Pasien</h2>' +
+    '<table style="width:100%;border-collapse:collapse">' +
+    '<tr><td style="padding:8px 0;font-size:12px;font-weight:700;color:#94a3b8;width:140px;vertical-align:top">NAMA</td><td style="padding:8px 0;font-size:14px;font-weight:700;color:#1e293b">' + nama + '</td></tr>' +
+    '<tr><td style="padding:8px 0;font-size:12px;font-weight:700;color:#94a3b8;vertical-align:top">NO RM</td><td style="padding:8px 0;font-size:14px;color:#475569">' + nrm + '</td></tr>' +
+    '<tr><td style="padding:8px 0;font-size:12px;font-weight:700;color:#94a3b8;vertical-align:top">UMUR</td><td style="padding:8px 0;font-size:14px;color:#475569">' + umur + '</td></tr>' +
+    '<tr><td style="padding:8px 0;font-size:12px;font-weight:700;color:#94a3b8;vertical-align:top">ALAMAT</td><td style="padding:8px 0;font-size:14px;color:#475569">' + alamat + '</td></tr>' +
+    '<tr><td style="padding:8px 0;font-size:12px;font-weight:700;color:#94a3b8;vertical-align:top">AKSES HD</td><td style="padding:8px 0;font-size:14px;color:#475569">' + aksesHD + '</td></tr>' +
+    '<tr><td style="padding:8px 0;font-size:12px;font-weight:700;color:#94a3b8;vertical-align:top">HBSAG</td><td style="padding:8px 0;font-size:14px;color:#475569">' + hbsAg + '</td></tr>' +
+    isoNote +
+    '<tr><td style="padding:8px 0;font-size:12px;font-weight:700;color:#94a3b8;vertical-align:top">NO HP</td><td style="padding:8px 0;font-size:14px;color:#475569">' + noHP + '</td></tr>' +
+    '<tr><td style="padding:8px 0;font-size:12px;font-weight:700;color:#94a3b8;vertical-align:top">STATUS</td><td style="padding:8px 0;font-size:14px;font-weight:700;color:' + statusColor(status) + '">' + status + '</td></tr>' +
+    '<tr><td style="padding:8px 0;font-size:12px;font-weight:700;color:#94a3b8;vertical-align:top">KETERANGAN</td><td style="padding:8px 0;font-size:14px;color:#475569">' + keterangan + '</td></tr>' +
+    '</table></div>' +
+    '<div style="margin-top:20px;text-align:center;font-size:10px;color:#94a3b8">Dicetak: ' + nowStr() + '</div></div>';
+
   var pa = document.getElementById('printArea');
   pa.innerHTML = html;
   pa.style.display = 'block';
-  setTimeout(function(){ window.print(); setTimeout(function(){ pa.style.display='none'; },500); },200);
+  setTimeout(function() { window.print(); setTimeout(function() { pa.style.display = 'none'; }, 500); }, 200);
 }
 
 /* ============================================================
    EXPORT CSV
    ============================================================ */
 function exportCSV() {
-  if (!S.patients.length) { toast('Tidak ada data.','e'); return; }
-  var csv = 'No,Nama,No RM,Diagnosa,Ruangan,Jadwal,Status\n';
-  S.patients.forEach(function(p,i){
-    csv += (i+1)+',"'+(p.nama||'')+'","'+(p.nrm||'')+'","'+(p.diag||'')+'","'+(p.ruang||'')+'","'+(p.jadwal||'')+'","'+(p.status||'')+'"\n';
+  if (!S.patients.length) { toast('Tidak ada data.', 'e'); return; }
+  var csv = 'No,Nama,No RM,Umur,Alamat,Akses HD,HbsAg,Isolasi,No HP,Status,Keterangan\n';
+  S.patients.forEach(function(p, i) {
+    csv += (i + 1) + ',"' + (p.nama || '') + '","' + (p.nrm || '') + '","' + (p.umur || '') + '","' + (p.alamat || '') + '","' + (p.aksesHD || '') + '","' + (p.hbsAg || '') + '","' + (p.isolasi || '') + '","' + (p.noHP || '') + '","' + (p.status || '') + '","' + (p.keterangan || '') + '"\n';
   });
-  var blob = new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
+  var blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
   var link = document.createElement('a');
   link.href = URL.createObjectURL(blob);
-  link.download = 'sidaraja-data-'+new Date().toISOString().slice(0,10)+'.csv';
+  link.download = 'sidaraja-data-' + new Date().toISOString().slice(0, 10) + '.csv';
   link.click();
-  toast('CSV diunduh.','s');
-}
-
-/* ============================================================
-   KONTAK PETUGAS RUANGAN
-   ============================================================ */
-function renderContacts() {
-  var contacts = [
-    {nama:'Ruangan HD 1',person:'Petugas Jaga',phone:'6281234567890'},
-    {nama:'Ruangan HD 2',person:'Petugas Jaga',phone:'6281234567891'},
-    {nama:'Ruangan HD 3',person:'Petugas Jaga',phone:'6281234567892'}
-  ];
-  var el = document.getElementById('globalContacts');
-  if (!el) return;
-  el.innerHTML = contacts.map(function(c){
-    var wa = 'https://wa.me/'+c.phone+'?text=Halo, saya ingin menanyakan antrian di '+c.nama;
-    return '<div class="contact-card"><div class="contact-name">'+c.nama+'</div><div class="contact-person">'+c.person+'</div><div class="contact-phone"><span class="contact-phone-num">'+c.phone.replace(/^62/,'0')+'</span><a href="'+wa+'" target="_blank" class="contact-btn contact-btn-wa"><i class="fa-brands fa-whatsapp"></i> WA</a><a href="sms:'+c.phone+'" class="contact-btn contact-btn-sms"><i class="fa-solid fa-comment-sms"></i> SMS</a><a href="tel:'+c.phone+'" class="contact-btn contact-btn-call"><i class="fa-solid fa-phone"></i> Call</a></div></div>';
-  }).join('');
+  toast('CSV diunduh.', 's');
 }
 
 /* ============================================================
    PENGUNJUNG
    ============================================================ */
 function updateVisitor() {
-  var c = parseInt(localStorage.getItem('sdrj_vis')||'0');
+  var c = parseInt(localStorage.getItem('sdrj_vis') || '0');
   var last = localStorage.getItem('sdrj_vis_d');
   var today = new Date().toDateString();
-  if (last !== today) { c++; localStorage.setItem('sdrj_vis',c); localStorage.setItem('sdrj_vis_d',today); }
+  if (last !== today) { c++; localStorage.setItem('sdrj_vis', c); localStorage.setItem('sdrj_vis_d', today); }
   document.getElementById('visitorCount').textContent = c;
 }
 
@@ -1420,10 +1446,10 @@ function updateVisitor() {
 document.addEventListener('keydown', function(e) {
   if (e.key !== 'Enter') return;
   if (document.getElementById('loginOverlay').style.display === 'none') return;
-  if (document.getElementById('adminSection').style.display !== 'none') {
+  if (document.getElementById('adminSection').style.display === 'block') {
     if (document.getElementById('authLoginForm').style.display !== 'none') doPetugasLogin();
     else doPetugasRegister();
-  } else if (document.getElementById('userSection').style.display !== 'none') {
+  } else if (document.getElementById('userSection').style.display === 'block') {
     doUserLogin();
   }
 });
@@ -1434,9 +1460,8 @@ document.addEventListener('keydown', function(e) {
 function init() {
   checkConn();
   updateVisitor();
-  renderContacts();
 
-  // Cek auto-login
+  // Cek auto-login dari session sebelumnya
   var sess = LS.getSession();
   var mode = LS.getMode();
   if (sess && mode) {
@@ -1448,7 +1473,7 @@ function init() {
     }
   }
 
-  // Tampilkan login
+  // Tampilkan halaman login
   document.getElementById('mainHeader').style.display = 'none';
   document.getElementById('navTabsWrap').style.display = 'none';
   document.getElementById('loginOverlay').style.display = 'flex';
