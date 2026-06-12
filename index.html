@@ -12,10 +12,9 @@
 <style>
 :root{--b900:#1e3a5f;--b800:#1e40af;--b700:#1d4ed8;--b600:#2563eb;--b500:#3b82f6;--b400:#60a5fa;--b300:#93c5fd;--b200:#bfdbfe;--b100:#dbeafe;--b50:#eff6ff;--g700:#047857;--g600:#059669;--g500:#10b981;--g400:#34d399;--g100:#d1fae5;--w:#ffffff;--g50:#f8fafc;--g100:#f1f5f9;--g200:#e2e8f0;--g300:#cbd5e1;--g400:#94a3b8;--g500:#64748b;--g600:#475569;--g800:#1e293b;--txt:#1e293b;--txt2:#475569;--muted:#94a3b8;--bdr:#e2e8f0;--pg:#059669;--pgl:#d1fae5;--pgbg:#ecfdf5;--pk:#d97706;--pkl:#fde68a;--pkbg:#fffbeb;--pp:#db2777;--ppl:#fbcfe8;--ppbg:#fce7f3}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--g50);color:var(--txt);min-height:100vh;transition:background .5s}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--g50);color:var(--txt);min-height:100vh}
 body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3 70%,#ecfdf5 100%)}
-
-.hdr{position:relative;overflow:hidden;transition:background .5s;display:flex;flex-direction:column}
+.hdr{position:relative;overflow:hidden;display:flex;flex-direction:column}
 .hdr-logo-area{flex-shrink:0;height:140px;background-image:url('logosidaraja.png');background-size:contain;background-position:center center;background-repeat:no-repeat;background-color:rgba(10,22,50,.92);position:relative;z-index:2}
 .hdr-logo-area::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(to bottom,transparent,rgba(10,22,50,.5));pointer-events:none}
 .hdr-body{flex:1;position:relative;overflow:hidden}
@@ -27,23 +26,20 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .ecg{position:absolute;bottom:0;left:0;width:100%;height:50px;overflow:hidden;opacity:.2;z-index:1}
 .ecg svg{position:absolute;bottom:0;left:0;width:200%;height:50px;animation:ecgS 6s linear infinite}
 @keyframes ecgS{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-.stripe{height:4px;background:repeating-linear-gradient(90deg,var(--b600) 0 20px,var(--g500) 20px 40px);transition:background .5s;position:relative;z-index:2}
+.stripe{height:4px;background:repeating-linear-gradient(90deg,var(--b600) 0 20px,var(--g500) 20px 40px);position:relative;z-index:2}
 .stripe.patient-stripe{background:repeating-linear-gradient(90deg,var(--pg) 0 16px,var(--pk) 16px 32px,var(--pp) 32px 48px)}
-
 .login-box{background:var(--w);border-radius:24px;max-width:520px;width:100%;box-shadow:0 25px 60px rgba(0,0,0,.35);overflow:hidden;animation:fu2 .4s cubic-bezier(.16,1,.3,1)}
 .login-logo-area{height:150px;background-image:url('logosidaraja.png');background-size:contain;background-position:center center;background-repeat:no-repeat;background-color:rgba(10,22,50,.95);position:relative}
 .login-logo-area::after{content:'';position:absolute;bottom:0;left:0;right:0;height:36px;background:linear-gradient(to bottom,transparent,rgba(10,22,50,.6));pointer-events:none}
 .login-header-text{background:linear-gradient(135deg,var(--b900),var(--b700));padding:20px 32px 28px;text-align:center;position:relative;overflow:hidden}
 .login-header-text::before{content:'';position:absolute;top:-30%;right:-20%;width:200px;height:200px;background:radial-gradient(circle,rgba(16,185,129,.12),transparent 70%);border-radius:50%;pointer-events:none}
 .login-body{padding:28px 32px 32px}
-
 .nav-tab{padding:12px 24px;font-weight:700;font-size:14px;border-radius:12px 12px 0 0;cursor:pointer;transition:all .25s;border:2px solid transparent;border-bottom:none;font-family:inherit}
 .nav-tab.active{background:var(--w);color:var(--b700);border-color:var(--bdr);box-shadow:0 -2px 8px rgba(0,0,0,.04)}
 .nav-tab:not(.active){background:var(--g100);color:var(--g500)}
 .nav-tab:not(.active):hover{background:var(--g200);color:var(--g600)}
 .nav-tab.hidden-tab{display:none}
 .card{background:var(--w);border-radius:16px;border:1px solid var(--bdr);box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.02)}
-
 .stc{background:var(--w);border-radius:14px;border:2px solid var(--bdr);padding:18px 20px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden}
 .stc::after{content:'';position:absolute;top:0;left:0;right:0;height:4px;opacity:0;transition:opacity .25s}
 .stc:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
@@ -59,12 +55,9 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .stc .stc-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
 .stc .stc-check{position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;opacity:0;transform:scale(0);transition:all .25s}
 .stc.sel .stc-check{opacity:1;transform:scale(1)}
-
 .si2{width:100%;padding:13px 16px 13px 48px;border:2px solid var(--bdr);border-radius:12px;font-size:15px;color:var(--txt);background:var(--w);transition:all .25s;outline:none;font-family:inherit}
 .si2::placeholder{color:var(--muted)}.si2:focus{border-color:var(--b500);box-shadow:0 0 0 4px rgba(59,130,246,.1)}
-.patient-bg .si2:focus{border-color:var(--pg);box-shadow:0 0 0 4px rgba(5,150,105,.12)}
 .iic{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:16px;z-index:2}
-
 .bp{background:linear-gradient(135deg,var(--b600),var(--b700));color:#fff;font-weight:700;padding:13px 28px;border-radius:12px;border:none;cursor:pointer;transition:all .25s;font-size:14px;font-family:inherit;display:inline-flex;align-items:center;gap:8px}
 .bp:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(37,99,235,.3)}
 .bp:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
@@ -72,17 +65,11 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .bg2:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(16,185,129,.3)}
 .bo{background:var(--w);color:var(--txt2);font-weight:600;padding:13px 28px;border-radius:12px;border:2px solid var(--bdr);cursor:pointer;transition:all .25s;font-size:14px;font-family:inherit;display:inline-flex;align-items:center;gap:8px}
 .bo:hover{border-color:var(--b300);color:var(--b600);background:var(--b50)}
-.br{background:#ef4444;color:#fff;font-weight:700;padding:13px 28px;border-radius:12px;border:none;cursor:pointer;transition:all .25s;font-size:14px;font-family:inherit;display:inline-flex;align-items:center;gap:8px}
-.br:hover{background:#dc2626;transform:translateY(-1px)}
-
 .dd-wrap{position:relative;display:inline-block}
-.dd-menu{position:absolute;right:0;top:calc(100% + 6px);background:var(--w);border:1px solid var(--bdr);border-radius:12px;box-shadow:0 12px 36px rgba(0,0,0,.12);min-width:240px;z-index:100;opacity:0;transform:translateY(-8px);pointer-events:none;transition:all .2s;overflow:hidden}
+.dd-menu{position:absolute;right:0;top:calc(100% + 6px);background:var(--w);border:1px solid var(--bdr);border-radius:12px;box-shadow:0 12px 36px rgba(0,0,0,.12);min-width:220px;z-index:100;opacity:0;transform:translateY(-8px);pointer-events:none;transition:all .2s}
 .dd-menu.open{opacity:1;transform:translateY(0);pointer-events:auto}
 .dd-item{display:flex;align-items:center;gap:10px;padding:12px 16px;font-size:13px;font-weight:600;color:var(--txt2);cursor:pointer;transition:background .15s;font-family:inherit;border:none;background:none;width:100%;text-align:left}
 .dd-item:hover{background:var(--b50);color:var(--b600)}.dd-item i{width:20px;text-align:center;font-size:14px}
-.dd-item.dd-danger{color:#dc2626}.dd-item.dd-danger:hover{background:#fef2f2;color:#991b1b}
-.dd-divider{height:1px;background:var(--bdr);margin:4px 0}
-
 .tw{overflow-x:auto}
 .dt{width:100%;border-collapse:separate;border-spacing:0}
 .dt thead th{background:linear-gradient(135deg,var(--b900),var(--b700));padding:14px 16px;text-align:left;font-weight:700;font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.95);position:sticky;top:0;z-index:10;white-space:nowrap;border-bottom:3px solid var(--g500)}
@@ -97,22 +84,13 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .dt tbody tr.row-meninggal{background:#f3f4f6!important}.dt tbody tr.row-meninggal:hover{background:#e5e7eb!important}
 .dt tbody td{padding:13px 16px;border-bottom:1px solid var(--bdr);font-size:13.5px;color:var(--txt2);max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .dt tbody tr:last-child td{border-bottom:none}
-
 .badge{display:inline-block;padding:3px 10px;border-radius:8px;font-size:12px;font-weight:700;white-space:nowrap}
-.badge-menunggu{background:#dbeafe;color:#1e40af}
-.badge-terjadwal{background:#d1fae5;color:#065f46}
-.badge-hdlain{background:#fef3c7;color:#92400e}
-.badge-batal{background:#fee2e2;color:#991b1b}
+.badge-menunggu{background:#dbeafe;color:#1e40af}.badge-terjadwal{background:#d1fae5;color:#065f46}
+.badge-hdlain{background:#fef3c7;color:#92400e}.badge-batal{background:#fee2e2;color:#991b1b}
 .badge-meninggal{background:#e5e7eb;color:#374151}
-
 .pb{width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;border:2px solid var(--bdr);background:var(--w);color:var(--txt2);font-family:inherit}
 .pb:hover{border-color:var(--b300);color:var(--b600);background:var(--b50)}
 .pb.act{background:linear-gradient(135deg,var(--b600),var(--b700));color:#fff;border-color:transparent;box-shadow:0 4px 12px rgba(37,99,235,.25)}
-.pb:disabled{opacity:.35;cursor:not-allowed}
-
-.spin{width:48px;height:48px;border:4px solid var(--b100);border-top-color:var(--b600);border-radius:50%;animation:sp .8s linear infinite}
-@keyframes sp{to{transform:rotate(360deg)}}
-
 .tc2{position:fixed;top:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:10px;pointer-events:none}
 .tt{padding:14px 20px;border-radius:12px;font-size:14px;font-weight:500;display:flex;align-items:center;gap:10px;animation:ti .4s cubic-bezier(.16,1,.3,1);box-shadow:0 8px 32px rgba(0,0,0,.12);max-width:440px;font-family:inherit;pointer-events:auto}
 .tt-s{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46}
@@ -123,10 +101,8 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 @keyframes to{to{opacity:0;transform:translateX(40px)}}
 .fu{opacity:0;transform:translateY(16px);animation:fu2 .5s cubic-bezier(.16,1,.3,1) forwards}
 @keyframes fu2{to{opacity:1;transform:translateY(0)}}
-
 .cc{position:relative;width:100%;max-width:240px;margin:0 auto}
 .login-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(15,23,42,.85);backdrop-filter:blur(16px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:16px}
-
 .mode-card{border:2px solid var(--bdr);border-radius:16px;padding:20px;cursor:pointer;transition:all .25s;text-align:center;position:relative;overflow:hidden;background:var(--w)}
 .mode-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;opacity:0;transition:opacity .25s}
 .mode-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
@@ -135,17 +111,15 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .mode-card .mc-icon{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:22px}
 .mode-card .mc-title{font-size:15px;font-weight:800;color:var(--txt);margin-bottom:4px}
 .mode-card .mc-desc{font-size:11.5px;color:var(--muted);line-height:1.4}
-
 .conn-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
 .conn-ok{background:#10b981;box-shadow:0 0 6px rgba(16,185,129,.5)}
 .conn-fail{background:#ef4444;box-shadow:0 0 6px rgba(239,68,68,.5)}
 .conn-load{background:#f59e0b;animation:pulse2 1s infinite}
 @keyframes pulse2{0%,100%{opacity:1}50%{opacity:.3}}
-
 .neon-reg-wrap{display:none;margin-top:20px;text-align:center;position:relative;z-index:10}
 .neon-reg-wrap.show{display:block}
 .neon-reg-btn{display:inline-flex;align-items:center;gap:12px;padding:16px 36px;border-radius:16px;font-weight:900;font-size:16px;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;text-decoration:none;border:2.5px solid #00ffaa;background:linear-gradient(135deg,rgba(0,255,170,.07),rgba(0,255,136,.14),rgba(0,230,255,.07));color:#00ffaa;text-shadow:0 0 12px rgba(0,255,170,.6),0 0 24px rgba(0,255,170,.25);box-shadow:0 0 12px rgba(0,255,170,.35),0 0 30px rgba(0,255,170,.15),0 0 60px rgba(0,255,170,.06),inset 0 0 18px rgba(0,255,170,.06);animation:neonGlow 2.8s ease-in-out infinite;transition:all .3s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;letter-spacing:.06em;text-transform:uppercase}
-.neon-reg-btn:hover{background:linear-gradient(135deg,rgba(0,255,170,.14),rgba(0,255,136,.24),rgba(0,230,255,.14));box-shadow:0 0 20px rgba(0,255,170,.5),0 0 50px rgba(0,255,170,.25),0 0 100px rgba(0,255,170,.1),inset 0 0 24px rgba(0,255,170,.1);transform:translateY(-3px) scale(1.03);color:#55ffcc;text-shadow:0 0 18px rgba(0,255,170,.8),0 0 36px rgba(0,255,170,.35);border-color:#55ffcc}
+.neon-reg-btn:hover{background:linear-gradient(135deg,rgba(0,255,170,.14),rgba(0,255,136,.24),rgba(0,230,255,.14));box-shadow:0 0 20px rgba(0,255,170,.5),0 0 50px rgba(0,255,170,.25),0 0 100px rgba(0,255,170,.1),inset 0 0 24px rgba(0,255,170,.1);transform:translateY(-3px) scale(1.03);color:#55ffcc;border-color:#55ffcc}
 .neon-reg-btn::before{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);animation:neonShine 3.5s ease-in-out infinite;transform:skewX(-20deg)}
 @keyframes neonGlow{0%,100%{box-shadow:0 0 12px rgba(0,255,170,.35),0 0 30px rgba(0,255,170,.15),0 0 60px rgba(0,255,170,.06),inset 0 0 18px rgba(0,255,170,.06)}50%{box-shadow:0 0 20px rgba(0,255,170,.5),0 0 45px rgba(0,255,170,.22),0 0 90px rgba(0,255,170,.08),inset 0 0 24px rgba(0,255,170,.09)}}
 @keyframes neonShine{0%{left:-100%}45%{left:150%}100%{left:150%}}
@@ -153,8 +127,7 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 @keyframes neonBounce{0%,100%{transform:scale(1) rotate(0)}25%{transform:scale(1.15) rotate(-3deg)}75%{transform:scale(1.1) rotate(3deg)}}
 .neon-reg-btn .neon-arrow{font-size:13px;opacity:.7;transition:all .25s}
 .neon-reg-btn:hover .neon-arrow{opacity:1;transform:translateX(4px)}
-.neon-reg-sub{display:block;margin-top:10px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,255,170,.45);text-shadow:0 0 8px rgba(0,255,170,.2)}
-
+.neon-reg-sub{display:block;margin-top:10px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,255,170,.45)}
 .inv{background:var(--w);border-radius:20px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.07);border:2px solid var(--bdr);transition:border-color .3s}
 .inv:hover{border-color:var(--pk)}
 .inv-hdr{padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:2px dashed var(--bdr)}
@@ -167,7 +140,6 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .inv-contacts-title{font-size:12px;font-weight:800;color:var(--pg);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .contact-card{background:var(--w);border-radius:12px;padding:12px 16px;margin-bottom:8px;border:1px solid var(--bdr);transition:all .25s}
 .contact-card:last-child{margin-bottom:0}
-.contact-card.active-room{border-color:var(--pg);box-shadow:0 0 0 3px rgba(5,150,105,.12);background:#ecfdf5}
 .contact-name{font-size:14px;font-weight:800;color:var(--txt)}
 .contact-person{font-size:12px;color:var(--txt2);margin-top:2px}
 .contact-phone{display:flex;align-items:center;gap:10px;margin-top:8px;flex-wrap:wrap}
@@ -177,26 +149,20 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .contact-btn-sms{background:#dbeafe;color:#1e40af}.contact-btn-sms:hover{background:#bfdbfe}
 .contact-btn-call{background:#fef3c7;color:#92400e}.contact-btn-call:hover{background:#fde68a}
 .inv-actions{padding:16px 24px;border-top:2px dashed var(--bdr);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.inv-actions-title{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;width:100%;margin-bottom:4px}
 .share-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 16px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;border:none;font-family:inherit;text-decoration:none}
 .share-btn:hover{transform:translateY(-1px)}
-.share-wa{background:#dcfce7;color:#166534}.share-wa:hover{box-shadow:0 4px 12px rgba(22,101,52,.2)}
-.share-sms{background:#fef3c7;color:#92400e}.share-sms:hover{box-shadow:0 4px 12px rgba(146,64,14,.2)}
+.share-wa{background:#dcfce7;color:#166534}.share-sms{background:#fef3c7;color:#92400e}
 .share-pdf{background:#fce7f3;color:#9d174d}.share-pdf:hover{box-shadow:0 4px 12px rgba(157,23,77,.2)}
-
 .p-stat{border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:14px;transition:all .25s;border:2px solid transparent}
 .p-stat:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.08)}
 .p-stat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .p-stat-num{font-size:1.5rem;font-weight:900;line-height:1.1}
 .p-stat-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
-
 .patient-logout{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:#fce7f3;font-family:inherit}
 .patient-logout:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.4)}
-
-.visitor-badge{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.02em;transition:all .5s}
+.visitor-badge{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.02em}
 .visitor-badge-admin{background:rgba(168,85,247,.15);border:1px solid rgba(168,85,247,.25);color:#c4b5fd}
 .visitor-badge-patient{background:rgba(251,191,36,.15);border:1px solid rgba(251,191,36,.25);color:#fde68a}
-
 .contact-list-section{margin-top:20px}
 .contact-list-card{background:var(--w);border-radius:16px;border:2px solid var(--bdr);overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.02)}
 .contact-list-header{padding:18px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:2px dashed var(--bdr)}
@@ -207,22 +173,17 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .contact-list-item .cli-idx{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;color:#fff;flex-shrink:0}
 .contact-list-item .cli-info{flex:1;min-width:0}
 .contact-list-item .cli-name{font-size:14px;font-weight:800;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.contact-list-item .cli-sub{font-size:11px;color:var(--muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.contact-list-item .cli-sub{font-size:11px;color:var(--muted);margin-top:1px}
 .contact-list-item .cli-phone{font-size:13px;font-weight:700;color:var(--pg);margin-top:2px}
 .contact-list-item .cli-actions{display:flex;flex-wrap:wrap;gap:4px;flex-shrink:0}
 .cli-btn{display:inline-flex;align-items:center;gap:3px;padding:5px 8px;border-radius:6px;font-size:10px;font-weight:700;cursor:pointer;transition:all .15s;border:none;font-family:inherit;text-decoration:none;white-space:nowrap}
 .cli-btn:hover{transform:translateY(-1px)}
-.cli-btn-call{background:#fef3c7;color:#92400e}.cli-btn-call:hover{background:#fde68a}
-.cli-btn-wa{background:#dcfce7;color:#166534}.cli-btn-wa:hover{background:#bbf7d0}
-.cli-btn-sms{background:#dbeafe;color:#1e40af}.cli-btn-sms:hover{background:#bfdbfe}
-
+.cli-btn-call{background:#fef3c7;color:#92400e}.cli-btn-wa{background:#dcfce7;color:#166534}
+.cli-btn-sms{background:#dbeafe;color:#1e40af}
 .chart-actions{display:flex;gap:8px;margin-top:12px;justify-content:center;flex-wrap:wrap}
 .chart-act-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;border:1px solid var(--bdr);background:var(--w);color:var(--txt2);font-family:inherit}
 .chart-act-btn:hover{border-color:var(--b300);color:var(--b600);background:var(--b50);transform:translateY(-1px)}
-
 .hdr-content{position:relative;z-index:3}
-
-/* ===== PROFIL HEADER PETUGAS ===== */
 .hdr-user-profile{display:flex;align-items:center;gap:10px;cursor:pointer;padding:6px 12px 6px 6px;border-radius:14px;border:2px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);transition:all .25s;position:relative}
 .hdr-user-profile:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3)}
 .hdr-user-avatar{width:36px;height:36px;border-radius:10px;overflow:hidden;flex-shrink:0;border:2px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.15);color:#fff;font-weight:800;font-size:14px}
@@ -231,8 +192,6 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .hdr-user-role{font-size:10px;font-weight:600;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.05em}
 .hdr-user-chevron{color:rgba(255,255,255,.5);font-size:11px;margin-left:4px;transition:transform .2s}
 .hdr-user-profile.dd-open .hdr-user-chevron{transform:rotate(180deg)}
-
-/* ===== PROFIL DROPDOWN ===== */
 .profile-dd{position:absolute;right:0;top:calc(100% + 8px);background:var(--w);border:1px solid var(--bdr);border-radius:16px;box-shadow:0 16px 48px rgba(0,0,0,.18);min-width:280px;z-index:200;opacity:0;transform:translateY(-10px) scale(.96);pointer-events:none;transition:all .25s cubic-bezier(.16,1,.3,1);overflow:hidden}
 .profile-dd.open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
 .profile-dd-header{padding:20px;background:linear-gradient(135deg,var(--b900),var(--b700));display:flex;align-items:center;gap:14px}
@@ -246,8 +205,6 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .profile-dd-item i{width:20px;text-align:center;font-size:14px}
 .profile-dd-item.dd-danger{color:#dc2626}.profile-dd-item.dd-danger:hover{background:#fef2f2;color:#991b1b}
 .profile-dd-divider{height:1px;background:var(--bdr);margin:4px 8px}
-
-/* ===== MODAL PROFIL ===== */
 .modal-overlay{position:fixed;inset:0;background:rgba(15,23,42,.7);backdrop-filter:blur(8px);z-index:2000;display:flex;align-items:center;justify-content:center;padding:16px}
 .modal-box{background:var(--w);border-radius:20px;max-width:480px;width:100%;box-shadow:0 25px 60px rgba(0,0,0,.3);animation:fu2 .3s cubic-bezier(.16,1,.3,1);overflow:hidden;max-height:90vh;overflow-y:auto}
 .modal-hdr{padding:20px 24px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between}
@@ -261,8 +218,6 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .form-input{width:100%;padding:11px 14px;border:2px solid var(--bdr);border-radius:10px;font-size:14px;color:var(--txt);background:var(--w);transition:all .2s;outline:none;font-family:inherit}
 .form-input:focus{border-color:var(--b500);box-shadow:0 0 0 3px rgba(59,130,246,.1)}
 .form-input[readonly]{background:var(--g50);color:var(--muted)}
-
-/* ===== FOTO PROFIL UPLOAD ===== */
 .photo-upload-area{width:120px;height:120px;border-radius:20px;border:3px dashed var(--bdr);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .25s;margin:0 auto;position:relative;overflow:hidden;background:var(--g50)}
 .photo-upload-area:hover{border-color:var(--b500);background:var(--b50)}
 .photo-upload-area img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
@@ -271,45 +226,22 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .photo-upload-area .photo-overlay i{font-size:22px;margin-bottom:4px}
 .photo-upload-area .photo-overlay span{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
 .photo-upload-area.has-photo{border-style:solid;border-color:var(--g500)}
-
-/* ===== TAB LOGIN PETUGAS ===== */
 .auth-tabs{display:flex;gap:0;margin-bottom:20px;border-bottom:2px solid var(--bdr)}
-.auth-tab{flex:1;padding:10px;text-align:center;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;border-bottom:3px solid transparent;color:var(--muted);background:none;border-top:none;border-left:none;border-right:none;font-family:inherit}
+.auth-tab{flex:1;padding:10px;text-align:center;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;border:none;border-bottom:3px solid transparent;color:var(--muted);background:none;font-family:inherit}
 .auth-tab.active{color:var(--b600);border-bottom-color:var(--b600)}
 .auth-tab:hover:not(.active){color:var(--txt2)}
-
-/* ===== OFFLINE BADGE ===== */
 .offline-badge{display:none;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:800;background:#fef3c7;color:#92400e;border:1px solid #fde68a;animation:pulse2 2s infinite}
 .offline-badge.show{display:inline-flex}
-
-/* ===== LAPORAN PETUGAS INFO ===== */
 .report-petugas-info{display:flex;align-items:center;gap:12px;padding:14px 20px;background:linear-gradient(135deg,#f8fafc,#f1f5f9);border:1px solid var(--bdr);border-radius:12px;margin-bottom:16px}
 .report-petugas-avatar{width:40px;height:40px;border-radius:10px;overflow:hidden;border:2px solid var(--bdr);flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--g100);color:var(--g500);font-weight:800;font-size:15px}
 .report-petugas-avatar img{width:100%;height:100%;object-fit:cover}
 .report-petugas-name{font-size:13px;font-weight:800;color:var(--txt)}
 .report-petugas-role{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
-
-@media(max-width:768px){
-.hdr-logo-area{height:100px}.login-logo-area{height:110px}
-.profile-dd{min-width:240px;right:-60px}
-}
-@media(max-width:480px){
-.hdr-logo-area{height:80px}.login-logo-area{height:90px}
-.stg{grid-template-columns:1fr 1fr!important}.csg{grid-template-columns:1fr!important}
-.inv-row{flex-direction:column;gap:2px}.inv-label{min-width:auto}
-.neon-reg-btn{padding:14px 24px;font-size:14px;gap:10px}
-.contact-list-item{flex-direction:column;align-items:flex-start}.contact-list-item .cli-actions{width:100%;justify-content:flex-start}
-.nav-tab{padding:10px 14px;font-size:12px}.login-body{padding:20px}
-.hdr-user-name{max-width:80px}.profile-dd{right:-40px;min-width:220px}
-}
+.debug-box{background:#1e293b;color:#6ee7b7;padding:12px;border-radius:10px;font-size:11px;font-family:monospace;margin:10px 0;max-height:120px;overflow-y:auto;white-space:pre-wrap;word-break:break-all}
+@media(max-width:768px){.hdr-logo-area{height:100px}.login-logo-area{height:110px}.profile-dd{min-width:240px;right:-60px}}
+@media(max-width:480px){.hdr-logo-area{height:80px}.login-logo-area{height:90px}.stg{grid-template-columns:1fr 1fr!important}.csg{grid-template-columns:1fr!important}.inv-row{flex-direction:column;gap:2px}.inv-label{min-width:auto}.neon-reg-btn{padding:14px 24px;font-size:14px;gap:10px}.contact-list-item{flex-direction:column;align-items:flex-start}.contact-list-item .cli-actions{width:100%;justify-content:flex-start}.nav-tab{padding:10px 14px;font-size:12px}.login-body{padding:20px}.hdr-user-name{max-width:80px}.profile-dd{right:-40px;min-width:220px}}
 @media(max-width:480px){.stg{grid-template-columns:1fr!important}}
-@media print{
-body>*{display:none!important}#printArea{display:block!important}
-#printArea .inv{border:2px solid #333!important;box-shadow:none!important;page-break-inside:avoid;margin-bottom:20px}
-#printArea .share-btn,#printArea .inv-actions,#printArea .chart-actions,#printArea .cli-btn{display:none!important}
-#printArea .report-petugas-info{display:flex!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;border:1px solid #ccc!important}
-#printArea .report-petugas-avatar{border:1px solid #999!important}
-}
+@media print{body>*{display:none!important}#printArea{display:block!important}#printArea .inv{border:2px solid #333!important;box-shadow:none!important;page-break-inside:avoid;margin-bottom:20px}#printArea .share-btn,#printArea .inv-actions,#printArea .chart-actions,#printArea .cli-btn{display:none!important}#printArea .report-petugas-info{display:flex!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;border:1px solid #ccc!important}}
 ::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-track{background:var(--g100)}::-webkit-scrollbar-thumb{background:var(--b200);border-radius:4px}
 </style>
 </head>
@@ -331,23 +263,21 @@ body>*{display:none!important}#printArea{display:block!important}
 <div class="mode-card" id="modeAdmin" onclick="selectMode('admin')">
 <div class="mc-icon" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe)"><i class="fa-solid fa-user-shield" style="color:#2563eb"></i></div>
 <div class="mc-title">Petugas</div>
-<div class="mc-desc">Login email, akses data, laporan & aksi pengambilan pasien</div>
+<div class="mc-desc">Login email, akses data & laporan</div>
 </div>
 <div class="mode-card" id="modeUser" onclick="selectMode('user')">
 <div class="mc-icon" style="background:linear-gradient(135deg,#d1fae5,#fde68a,#fce7f3)"><i class="fa-solid fa-users" style="color:#059669"></i></div>
 <div class="mc-title">Pasien / Keluarga</div>
-<div class="mc-desc">Cek antrian dan hubungi petugas ruangan</div>
+<div class="mc-desc">Cek antrian & hubungi petugas</div>
 </div>
 </div>
 
-<!-- ===== SECTION PETUGAS (Login/Register Email) ===== -->
+<!-- SECTION PETUGAS -->
 <div id="adminSection" style="display:none">
 <div class="auth-tabs">
 <button class="auth-tab active" id="authTabLogin" onclick="switchAuthTab('login')">Masuk</button>
 <button class="auth-tab" id="authTabRegister" onclick="switchAuthTab('register')">Daftar Baru</button>
 </div>
-
-<!-- Form Login -->
 <div id="authLoginForm">
 <div class="mb-4">
 <label class="block text-xs font-bold uppercase tracking-wider mb-2" style="color:var(--muted)">Email</label>
@@ -364,11 +294,9 @@ body>*{display:none!important}#printArea{display:block!important}
 <button type="button" onclick="togglePassVis('loginPass',this)" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--muted);font-size:14px"><i class="fa-solid fa-eye"></i></button>
 </div>
 </div>
-<div id="loginError" class="hidden mb-4 p-3 rounded-lg text-sm font-semibold" style="background:#fef2f2;color:#991b1b;border:1px solid #fecaca"><i class="fa-solid fa-circle-xmark mr-1"></i> <span id="loginErrorMsg"></span></div>
+<div id="loginError" class="hidden mb-4 p-3 rounded-lg text-sm font-semibold" style="background:#fef2f2;color:#991b1b;border:1px solid #fecaca"><i class="fa-solid fa-circle-xmark mr-1"></i><span id="loginErrorMsg"></span></div>
 <button class="bp w-full justify-center text-base" onclick="doPetugasLogin()" id="btnLogin"><i class="fa-solid fa-right-to-bracket"></i> Masuk sebagai Petugas</button>
 </div>
-
-<!-- Form Register -->
 <div id="authRegisterForm" style="display:none">
 <div class="mb-4">
 <label class="block text-xs font-bold uppercase tracking-wider mb-2" style="color:var(--muted)">Nama Lengkap</label>
@@ -399,25 +327,25 @@ body>*{display:none!important}#printArea{display:block!important}
 <input type="password" id="regPassConfirm" class="si2" placeholder="Ulangi kata sandi" autocomplete="new-password">
 </div>
 </div>
-<div id="regError" class="hidden mb-4 p-3 rounded-lg text-sm font-semibold" style="background:#fef2f2;color:#991b1b;border:1px solid #fecaca"><i class="fa-solid fa-circle-xmark mr-1"></i> <span id="regErrorMsg"></span></div>
+<div id="regError" class="hidden mb-4 p-3 rounded-lg text-sm font-semibold" style="background:#fef2f2;color:#991b1b;border:1px solid #fecaca"><i class="fa-solid fa-circle-xmark mr-1"></i><span id="regErrorMsg"></span></div>
 <button class="bp w-full justify-center text-base" onclick="doPetugasRegister()" id="btnRegister"><i class="fa-solid fa-user-plus"></i> Daftar & Kirim Data</button>
-<p class="text-center text-xs mt-3" style="color:var(--muted)">Data pendaftaran akan tersimpan ke spreadsheet pusat</p>
+<p class="text-center text-xs mt-3" style="color:var(--muted)">Data pendaftaran otomatis tersimpan ke spreadsheet pusat</p>
 </div>
 </div>
 
-<!-- ===== SECTION PASIEN ===== -->
+<!-- SECTION PASIEN -->
 <div id="userSection" style="display:none">
 <div class="p-4 rounded-xl mb-4" style="background:linear-gradient(135deg,#ecfdf5,#fffbeb,#fce7f3);border:1px solid #a7f3d0">
 <div class="flex items-center gap-3 mb-2"><i class="fa-solid fa-heart-pulse" style="color:var(--pp)"></i><span class="font-bold text-sm" style="color:var(--pg)">Mode Pasien / Keluarga</span></div>
-<p class="text-xs" style="color:var(--txt2)">Cek antrian Anda, lihat status, dan hubungi petugas ruangan langsung.</p>
+<p class="text-xs" style="color:var(--txt2)">Cek antrian Anda, lihat status, dan hubungi petugas ruangan.</p>
 </div>
 <button class="bg2 w-full justify-center text-base" onclick="doUserLogin()" style="background:linear-gradient(135deg,var(--pg),#0d9488)"><i class="fa-solid fa-arrow-right"></i> Lanjutkan Cek Antrian</button>
 </div>
 
 <div class="mt-4 flex items-center justify-center gap-2">
 <span class="conn-dot conn-load" id="connDotLogin"></span>
-<span class="text-xs font-semibold" style="color:var(--muted)" id="connLabelLogin">Menghubungkan ke server...</span>
-<span class="offline-badge" id="offlineBadgeLogin"><i class="fa-solid fa-wifi-slash"></i> Offline</span>
+<span class="text-xs font-semibold" style="color:var(--muted)" id="connLabelLogin">Menghubungkan...</span>
+<span class="offline-badge" id="offlineBadgeLogin"><i class="fa-solid fa-wifi" style="text-decoration:line-through"></i> Offline</span>
 </div>
 </div>
 </div>
@@ -433,16 +361,13 @@ body>*{display:none!important}#printArea{display:block!important}
 <div class="modal-body">
 <div class="form-group" style="text-align:center">
 <div class="photo-upload-area" id="photoUploadArea" onclick="document.getElementById('photoInput').click()">
-<img id="photoPreview" src="" style="display:none" alt="Foto Profil">
-<div class="photo-overlay">
-<i class="fa-solid fa-camera"></i>
-<span>Ganti Foto</span>
-</div>
+<img id="photoPreview" src="" style="display:none" alt="Foto">
+<div class="photo-overlay"><i class="fa-solid fa-camera"></i><span>Ganti Foto</span></div>
 <i class="fa-solid fa-camera" style="font-size:28px;color:var(--muted);margin-bottom:6px" id="photoPlaceholderIcon"></i>
-<span style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em" id="photoPlaceholderText">Upload Foto</span>
+<span style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase" id="photoPlaceholderText">Upload Foto</span>
 </div>
 <input type="file" id="photoInput" accept="image/*" style="display:none" onchange="handlePhotoUpload(event)">
-<p class="text-xs mt-2" style="color:var(--muted)">JPG/PNG, maks 2MB. Foto disimpan di perangkat ini.</p>
+<p class="text-xs mt-2" style="color:var(--muted)">JPG/PNG, maks 2MB</p>
 </div>
 <div class="form-group">
 <label class="form-label">Nama Lengkap</label>
@@ -459,13 +384,13 @@ body>*{display:none!important}#printArea{display:block!important}
 </div>
 <div class="modal-footer">
 <button class="bo" onclick="closeProfileModal()"><i class="fa-solid fa-xmark"></i> Batal</button>
-<button class="bp" onclick="saveProfile()"><i class="fa-solid fa-check"></i> Simpan Perubahan</button>
+<button class="bp" onclick="saveProfile()"><i class="fa-solid fa-check"></i> Simpan</button>
 </div>
 </div>
 </div>
 
 <!-- ===== HEADER UTAMA ===== -->
-<header class="hdr grad-admin" id="mainHeader">
+<header class="hdr grad-admin" id="mainHeader" style="display:none">
 <div class="hdr-logo-area"></div>
 <div class="hdr-body">
 <div class="ecg"><svg viewBox="0 0 1200 50" fill="none"><polyline points="0,25 60,25 80,25 95,6 110,44 125,10 140,40 155,25 240,25 260,25 275,6 290,44 305,10 320,40 335,25 420,25 440,25 455,6 470,44 485,10 500,40 515,25 600,25 620,25 635,6 650,44 665,10 680,40 695,25 780,25 800,25 815,6 830,44 845,10 860,40 875,25 960,25 980,25 995,6 1010,44 1025,10 1040,40 1055,25 1140,25 1160,25 1175,6 1190,44 1200,25" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -476,33 +401,24 @@ body>*{display:none!important}#printArea{display:block!important}
 <div style="width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15)">
 <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="9" y="2" width="6" height="20" rx="2" fill="#34d399"/><rect x="2" y="9" width="20" height="6" rx="2" fill="#34d399"/></svg>
 </div>
-<div><div class="text-white font-extrabold text-lg leading-tight">SIDARAJA</div><div class="text-blue-200 text-xs font-medium tracking-wide" id="headerSubtitle">INSTALASI DIALISIS RSSA</div></div>
+<div><div class="text-white font-extrabold text-lg leading-tight">SIDARAJA</div><div class="text-blue-200 text-xs font-medium tracking-wide">INSTALASI DIALISIS RSSA</div></div>
 </div>
 <div class="flex items-center gap-3 flex-wrap">
-<div class="visitor-badge visitor-badge-admin" id="visitorBadge" title="Pengunjung"><i class="fa-solid fa-eye"></i><span id="visitorCount">0</span> pengunjung</div>
-<span class="offline-badge" id="offlineBadgeHeader"><i class="fa-solid fa-wifi-slash"></i> Offline</span>
+<div class="visitor-badge visitor-badge-admin" id="visitorBadge"><i class="fa-solid fa-eye"></i><span id="visitorCount">0</span> pengunjung</div>
+<span class="offline-badge" id="offlineBadgeHeader"><i class="fa-solid fa-wifi" style="text-decoration:line-through"></i> Offline</span>
 <div class="flex items-center gap-2 px-3 py-1.5 rounded-full" style="background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.25)" id="connWrap">
 <span class="conn-dot conn-load" id="connDot"></span>
 <span class="text-green-300 text-xs font-bold" id="connLabel">MEMUAT</span>
 </div>
-<button class="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#93c5fd;cursor:pointer" onclick="refreshData()" title="Muat ulang data"><i class="fa-solid fa-arrows-rotate" id="refreshIcon"></i> Refresh</button>
-
-<!-- ===== PROFIL PETUGAS DI HEADER (dengan dropdown logout) ===== -->
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#93c5fd;cursor:pointer" onclick="refreshData()" title="Refresh"><i class="fa-solid fa-arrows-rotate" id="refreshIcon"></i> Refresh</button>
 <div class="hdr-user-profile" id="hdrUserProfile" style="display:none" onclick="toggleProfileDD()">
 <div class="hdr-user-avatar" id="hdrUserAvatar">?</div>
-<div>
-<div class="hdr-user-name" id="hdrUserName">Petugas</div>
-<div class="hdr-user-role">Petugas</div>
-</div>
+<div><div class="hdr-user-name" id="hdrUserName">Petugas</div><div class="hdr-user-role">Petugas</div></div>
 <i class="fa-solid fa-chevron-down hdr-user-chevron"></i>
-<!-- Dropdown -->
 <div class="profile-dd" id="profileDD">
 <div class="profile-dd-header">
 <div class="profile-dd-avatar" id="profileDDAvatar">?</div>
-<div>
-<div class="profile-dd-name" id="profileDDName">Petugas</div>
-<div class="profile-dd-email" id="profileDDEmail">email@contoh.com</div>
-</div>
+<div><div class="profile-dd-name" id="profileDDName">Petugas</div><div class="profile-dd-email" id="profileDDEmail">-</div></div>
 </div>
 <div class="profile-dd-body">
 <button class="profile-dd-item" onclick="event.stopPropagation();openProfileModal()"><i class="fa-solid fa-user-pen"></i> Edit Profil</button>
@@ -512,13 +428,11 @@ body>*{display:none!important}#printArea{display:block!important}
 </div>
 </div>
 </div>
-
-<!-- Logout Pasien (hanya mode pasien) -->
-<button id="patientLogoutBtn" class="patient-logout hidden" onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i> Keluar</button>
+<button id="patientLogoutBtn" class="patient-logout" style="display:none" onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i> Keluar</button>
 </div>
 </div>
 <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-tight mb-2" id="headerTitle">Daftar Antri<br><span id="headerTitleAccent" style="background:linear-gradient(135deg,#6ee7b7,#34d399,#10b981);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Pasien Instalasi Dialisis RSSA</span></h1>
-<p class="text-blue-200 text-sm font-light max-w-xl" id="headerDesc">Klik kartu status di bawah untuk memfilter tampilan pasien pada dashboard.</p>
+<p class="text-blue-200 text-sm font-light max-w-xl" id="headerDesc">Klik kartu status di bawah untuk memfilter tampilan pasien.</p>
 <div class="mt-3 text-blue-300 text-xs font-medium" id="lastUpdate">Terakhir diperbarui: —</div>
 <div class="neon-reg-wrap" id="neonRegWrap">
 <a href="https://docs.google.com/forms/d/e/1FAIpQLScKG2eU4ToALTu8-qsK4l6JBrYG6IET76OjaaEn-ZlP34pyng/viewform" target="_blank" rel="noopener noreferrer" class="neon-reg-btn">
@@ -533,7 +447,7 @@ body>*{display:none!important}#printArea{display:block!important}
 </header>
 
 <!-- ===== NAV TABS ===== -->
-<div class="max-w-7xl mx-auto px-4 sm:px-8 mt-6" id="navTabsWrap">
+<div class="max-w-7xl mx-auto px-4 sm:px-8 mt-6" id="navTabsWrap" style="display:none">
 <div class="flex gap-1 flex-wrap">
 <button class="nav-tab active" id="tab1" onclick="switchSlide(1)"><i class="fa-solid fa-clipboard-list mr-2"></i>Dashboard</button>
 <button class="nav-tab hidden-tab" id="tab2" onclick="switchSlide(2)"><i class="fa-solid fa-database mr-2"></i>Data Lengkap</button>
@@ -551,20 +465,23 @@ body>*{display:none!important}#printArea{display:block!important}
 <div><h2 class="text-xl font-black" style="color:var(--pg)">Cek Antrian Anda</h2><p class="text-xs" style="color:var(--muted)">Masukkan nama pasien untuk melihat status antrian</p></div>
 </div>
 <div class="relative mb-4"><i class="fa-solid fa-user-injured iic" style="color:var(--pg)"></i><input type="text" id="pSearchNama" class="si2" placeholder="Ketik Nama Pasien..." autocomplete="off" style="border-color:var(--pgl)"></div>
-<div class="flex gap-3"><button class="bg2 flex-1 justify-center" onclick="patientSearch()" style="background:linear-gradient(135deg,var(--pg),#0d9488)"><i class="fa-solid fa-search"></i> Cari Antrian</button><button class="bo" onclick="patientReset()"><i class="fa-solid fa-rotate-left"></i> Reset</button></div>
+<div class="flex gap-3">
+<button class="bg2 flex-1 justify-center" onclick="patientSearch()" style="background:linear-gradient(135deg,var(--pg),#0d9488)"><i class="fa-solid fa-search"></i> Cari Antrian</button>
+<button class="bo" onclick="patientReset()"><i class="fa-solid fa-rotate-left"></i> Reset</button>
+</div>
 </div>
 </section>
 <section class="mt-5 fu" style="animation-delay:.15s">
 <div class="grid grid-cols-2 gap-4">
-<div class="p-stat" style="background:linear-gradient(135deg,#eff6ff,#dbeafe);border-color:#93c5fd"><div class="p-stat-icon" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe)"><i class="fa-solid fa-hourglass-half text-lg" style="color:#2563eb"></i></div><div><div class="p-stat-label">Menunggu</div><div class="p-stat-num" style="color:#1e40af" id="pMenunggu">—</div></div></div>
-<div class="p-stat" style="background:linear-gradient(135deg,#ecfdf5,#d1fae5);border-color:#6ee7b7"><div class="p-stat-icon" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0)"><i class="fa-solid fa-calendar-check text-lg" style="color:#059669"></i></div><div><div class="p-stat-label">Terjadwal</div><div class="p-stat-num" style="color:#065f46" id="pTerjadwal">—</div></div></div>
+<div class="p-stat" style="background:linear-gradient(135deg,#eff6ff,#dbeafe);border-color:#93c5fd"><div class="p-stat-icon" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe)"><i class="fa-solid fa-hourglass-half text-lg" style="color:#2563eb"></i></div><div><div class="p-stat-label">Menunggu</div><div class="p-stat-num" style="color:#1e40af" id="pMenunggu">0</div></div></div>
+<div class="p-stat" style="background:linear-gradient(135deg,#ecfdf5,#d1fae5);border-color:#6ee7b7"><div class="p-stat-icon" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0)"><i class="fa-solid fa-calendar-check text-lg" style="color:#059669"></i></div><div><div class="p-stat-label">Terjadwal</div><div class="p-stat-num" style="color:#065f46" id="pTerjadwal">0</div></div></div>
 </div>
 </section>
 <section class="mt-5" id="patientResults"></section>
 <div id="pNoRes" class="hidden mt-5">
 <div class="card p-8 text-center" style="border:2px solid #fecaca;border-radius:20px">
 <div class="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4" style="background:#fef2f2"><i class="fa-solid fa-user-slash text-3xl" style="color:#ef4444"></i></div>
-<p class="text-lg font-extrabold mb-1" style="color:#991b1b">Pasien Tidak Ditemukan</p><p class="text-sm" style="color:var(--muted)">Pastikan nama yang Anda masukkan sudah benar, atau hubungi petugas ruangan.</p>
+<p class="text-lg font-extrabold mb-1" style="color:#991b1b">Pasien Tidak Ditemukan</p><p class="text-sm" style="color:var(--muted)">Pastikan nama yang Anda masukkan sudah benar.</p>
 </div>
 </div>
 <section class="mt-6 fu" style="animation-delay:.25s">
@@ -579,17 +496,17 @@ body>*{display:none!important}#printArea{display:block!important}
 </div>
 </main>
 
-<!-- ===== SLIDE 1: DASHBOARD ADMIN ===== -->
-<main id="slide1" class="px-4 sm:px-8 pb-16">
+<!-- ===== SLIDE 1: DASHBOARD ===== -->
+<main id="slide1" class="px-4 sm:px-8 pb-16" style="display:none">
 <div class="max-w-7xl mx-auto">
 <section class="mt-6 fu" style="animation-delay:.1s">
 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 stg" id="statusCards">
-<div class="stc stc-menunggu sel" onclick="clickStatusCard('menunggu')" data-key="menunggu"><div class="stc-check" style="background:#3b82f6"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe)"><i class="fa-solid fa-hourglass-half text-lg" style="color:#2563eb"></i></div><div><div class="stc-label">Menunggu</div><div class="stc-num" style="color:#1e40af" id="scMenunggu">—</div></div></div>
-<div class="stc stc-terjadwal" onclick="clickStatusCard('terjadwal')" data-key="terjadwal"><div class="stc-check" style="background:#10b981"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0)"><i class="fa-solid fa-calendar-check text-lg" style="color:#059669"></i></div><div><div class="stc-label">Terjadwal</div><div class="stc-num" style="color:#065f46" id="scTerjadwal">—</div></div></div>
-<div class="stc stc-hdlain" onclick="clickStatusCard('hdlain')" data-key="hdlain"><div class="stc-check" style="background:#f59e0b"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#fef3c7,#fde68a)"><i class="fa-solid fa-arrows-turn-right text-lg" style="color:#d97706"></i></div><div><div class="stc-label">HD Lain</div><div class="stc-num" style="color:#92400e" id="scHdlain">—</div></div></div>
-<div class="stc stc-batal" onclick="clickStatusCard('batal')" data-key="batal"><div class="stc-check" style="background:#ef4444"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#fee2e2,#fecaca)"><i class="fa-solid fa-circle-xmark text-lg" style="color:#dc2626"></i></div><div><div class="stc-label">Batal</div><div class="stc-num" style="color:#991b1b" id="scBatal">—</div></div></div>
-<div class="stc stc-meninggal" onclick="clickStatusCard('meninggal')" data-key="meninggal"><div class="stc-check" style="background:#6b7280"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#e5e7eb,#d1d5db)"><i class="fa-solid fa-heart-crack text-lg" style="color:#4b5563"></i></div><div><div class="stc-label">Meninggal</div><div class="stc-num" style="color:#374151" id="scMeninggal">—</div></div></div>
-<div class="stc stc-total" onclick="clickStatusCard('all')" data-key="all"><div class="stc-check" style="background:#7c3aed"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe)"><i class="fa-solid fa-users text-lg" style="color:#7c3aed"></i></div><div><div class="stc-label">Semua Data</div><div class="stc-num" style="color:#5b21b6" id="scTotal">—</div></div></div>
+<div class="stc stc-menunggu sel" onclick="clickStatusCard('menunggu')" data-key="menunggu"><div class="stc-check" style="background:#3b82f6"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe)"><i class="fa-solid fa-hourglass-half text-lg" style="color:#2563eb"></i></div><div><div class="stc-label">Menunggu</div><div class="stc-num" style="color:#1e40af" id="scMenunggu">0</div></div></div>
+<div class="stc stc-terjadwal" onclick="clickStatusCard('terjadwal')" data-key="terjadwal"><div class="stc-check" style="background:#10b981"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0)"><i class="fa-solid fa-calendar-check text-lg" style="color:#059669"></i></div><div><div class="stc-label">Terjadwal</div><div class="stc-num" style="color:#065f46" id="scTerjadwal">0</div></div></div>
+<div class="stc stc-hdlain" onclick="clickStatusCard('hdlain')" data-key="hdlain"><div class="stc-check" style="background:#f59e0b"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#fef3c7,#fde68a)"><i class="fa-solid fa-arrows-turn-right text-lg" style="color:#d97706"></i></div><div><div class="stc-label">HD Lain</div><div class="stc-num" style="color:#92400e" id="scHdlain">0</div></div></div>
+<div class="stc stc-batal" onclick="clickStatusCard('batal')" data-key="batal"><div class="stc-check" style="background:#ef4444"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#fee2e2,#fecaca)"><i class="fa-solid fa-circle-xmark text-lg" style="color:#dc2626"></i></div><div><div class="stc-label">Batal</div><div class="stc-num" style="color:#991b1b" id="scBatal">0</div></div></div>
+<div class="stc stc-meninggal" onclick="clickStatusCard('meninggal')" data-key="meninggal"><div class="stc-check" style="background:#6b7280"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#e5e7eb,#d1d5db)"><i class="fa-solid fa-heart-crack text-lg" style="color:#4b5563"></i></div><div><div class="stc-label">Meninggal</div><div class="stc-num" style="color:#374151" id="scMeninggal">0</div></div></div>
+<div class="stc stc-total" onclick="clickStatusCard('all')" data-key="all"><div class="stc-check" style="background:#7c3aed"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe)"><i class="fa-solid fa-users text-lg" style="color:#7c3aed"></i></div><div><div class="stc-label">Semua Data</div><div class="stc-num" style="color:#5b21b6" id="scTotal">0</div></div></div>
 </div>
 </section>
 <section class="mt-6 fu" style="animation-delay:.2s">
@@ -598,14 +515,12 @@ body>*{display:none!important}#printArea{display:block!important}
 <h3 class="text-sm font-bold mb-4" style="color:var(--b900)"><i class="fa-solid fa-chart-pie mr-2" style="color:var(--g500)"></i>Distribusi Status</h3>
 <div class="cc"><canvas id="chart1"></canvas></div>
 <div id="leg1" class="mt-4 flex flex-wrap justify-center gap-3 text-xs font-semibold"></div>
-<div class="chart-actions">
-<button class="chart-act-btn" onclick="saveChartAsImage('chart1','distribusi-status')"><i class="fa-solid fa-download"></i> Simpan Gambar</button>
-</div>
+<div class="chart-actions"><button class="chart-act-btn" onclick="saveChartAsImage('chart1','distribusi-status')"><i class="fa-solid fa-download"></i> Simpan Gambar</button></div>
 </div>
 <div class="card p-6 lg:col-span-2">
-<h3 class="text-sm font-bold mb-4" style="color:var(--b900)"><i class="fa-solid fa-list-check mr-2" style="color:var(--b500)"></i>Daftar Pasien Terfilter <span class="text-xs font-normal" style="color:var(--muted)" id="filterLabel">(Menunggu)</span></h3>
+<h3 class="text-sm font-bold mb-4" style="color:var(--b900)"><i class="fa-solid fa-list-check mr-2" style="color:var(--b500)"></i>Daftar Pasien <span class="text-xs font-normal" style="color:var(--muted)" id="filterLabel">(Menunggu)</span></h3>
 <div class="tw" style="max-height:420px;overflow-y:auto;border-radius:12px;border:1px solid var(--bdr)">
-<table class="dt" id="dashTable"><thead><tr><th>No</th><th>Nama Pasien</th><th>No RM</th><th>Diagnosa</th><th>Ruangan</th><th>Jadwal</th><th>Status</th></tr></thead><tbody id="dashBody"></tbody></table>
+<table class="dt"><thead><tr><th>No</th><th>Nama Pasien</th><th>No RM</th><th>Diagnosa</th><th>Ruangan</th><th>Jadwal</th><th>Status</th></tr></thead><tbody id="dashBody"></tbody></table>
 </div>
 </div>
 </div>
@@ -621,11 +536,11 @@ body>*{display:none!important}#printArea{display:block!important}
 <h3 class="text-white font-bold text-sm"><i class="fa-solid fa-database mr-2"></i>Data Lengkap Seluruh Pasien</h3>
 <div class="flex gap-2">
 <input type="text" id="globalSearch" placeholder="Cari nama/No RM..." class="text-xs font-semibold px-3 py-2 rounded-lg border-none outline-none" style="width:200px" oninput="renderFullTable()">
-<button class="text-xs font-bold px-3 py-2 rounded-lg" style="background:rgba(255,255,255,.15);color:#fff;border:none;cursor:pointer" onclick="exportCSV()"><i class="fa-solid fa-file-csv mr-1"></i>Export CSV</button>
+<button class="text-xs font-bold px-3 py-2 rounded-lg" style="background:rgba(255,255,255,.15);color:#fff;border:none;cursor:pointer" onclick="exportCSV()"><i class="fa-solid fa-file-csv mr-1"></i>CSV</button>
 </div>
 </div>
 <div class="tw" style="max-height:65vh;overflow-y:auto">
-<table class="dt" id="fullTable"><thead><tr><th>No</th><th>Nama</th><th>No RM</th><th>Diagnosa</th><th>Ruangan</th><th>Jadwal</th><th>Status</th><th>Jam Ambil</th><th>Petugas</th></tr></thead><tbody id="fullBody"></tbody></table>
+<table class="dt"><thead><tr><th>No</th><th>Nama</th><th>No RM</th><th>Diagnosa</th><th>Ruangan</th><th>Jadwal</th><th>Status</th></tr></thead><tbody id="fullBody"></tbody></table>
 </div>
 </div>
 </div>
@@ -636,340 +551,286 @@ body>*{display:none!important}#printArea{display:block!important}
 <div class="max-w-7xl mx-auto mt-6">
 <div class="card p-6">
 <h3 class="text-sm font-bold mb-4" style="color:var(--b900)"><i class="fa-solid fa-hand-pointer mr-2" style="color:var(--pk)"></i>Aksi Pengambilan Pasien</h3>
-<p class="text-xs mb-4" style="color:var(--muted)">Cari pasien berdasarkan nama, lalu lakukan aksi pengambilan atau perubahan status.</p>
 <div class="flex gap-3 mb-4 flex-wrap">
 <div class="relative flex-1" style="min-width:200px"><i class="fa-solid fa-search iic"></i><input type="text" id="actionSearch" class="si2" placeholder="Cari pasien..." oninput="renderActionTable()"></div>
-<select id="actionFilter" class="form-input" style="width:auto;min-width:150px;padding:13px 14px 13px 14px" onchange="renderActionTable()">
+<select id="actionFilter" class="form-input" style="width:auto;min-width:150px;padding:13px 14px" onchange="renderActionTable()">
 <option value="menunggu">Menunggu</option><option value="terjadwal">Terjadwal</option><option value="hdlain">HD Lain</option><option value="batal">Batal</option><option value="meninggal">Meninggal</option><option value="all">Semua</option>
 </select>
 </div>
 <div class="tw" style="max-height:60vh;overflow-y:auto;border-radius:12px;border:1px solid var(--bdr)">
-<table class="dt" id="actionTable"><thead><tr><th>No</th><th>Nama</th><th>No RM</th><th>Ruangan</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="actionBody"></tbody></table>
+<table class="dt"><thead><tr><th>No</th><th>Nama</th><th>No RM</th><th>Ruangan</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="actionBody"></tbody></table>
 </div>
 </div>
 </div>
 </main>
 
 <script>
-/* ================================================================
-   KONFIGURASI
-   ================================================================
-   GAS_URL: Ganti dengan URL Google Apps Script Web App Anda.
-   
-   CARA SETUP GOOGLE APPS SCRIPT:
-   1. Buka spreadsheet: https://docs.google.com/spreadsheets/d/1QDxO0u-FCakWOOD2eU3dOy0jDlffUvpBRcvfIhjjmQ4/edit
-   2. Klik menu Extensions > Apps Script
-   3. Hapus kode default, lalu paste kode berikut:
+/*
+============================================================
+KONFIGURASI — BAGIAN PENTING
+============================================================
+Ganti GAS_URL di bawah dengan URL Web App Anda setelah
+men-deploy Code.gs (lihat petunjuk di bawah).
 
-   function doPost(e) {
-     try {
-       var ss = SpreadsheetApp.getActiveSpreadsheet();
-       var sheet = ss.getSheets()[0];
-       var data = JSON.parse(e.postData.contents);
-       sheet.appendRow([
-         new Date().toLocaleString('id-ID'),
-         data.nama,
-         data.email,
-         data.password,
-         data.waktuDaftar
-       ]);
-       return ContentService.createTextOutput(
-         JSON.stringify({status:'success',message:'Registrasi berhasil'})
-       ).setMimeType(ContentService.MimeType.JSON);
-     } catch(err) {
-       return ContentService.createTextOutput(
-         JSON.stringify({status:'error',message:err.toString()})
-       ).setMimeType(ContentService.MimeType.JSON);
-     }
-   }
+CARA DEPLOY:
+1. Buka spreadsheet → Extensions → Apps Script
+2. Paste kode Code.gs berikut lalu simpan:
 
-   function doGet(e) {
-     return ContentService.createTextOutput(
-       JSON.stringify({status:'ok'})
-     ).setMimeType(ContentService.MimeType.JSON);
-   }
+function doPost(e) {
+  try {
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = ss.getSheets()[0];
+    var data = JSON.parse(e.postData.contents);
+    sheet.appendRow([
+      new Date().toLocaleString('id-ID'),
+      data.nama, data.email, data.password, data.waktuDaftar
+    ]);
+    return ContentService.createTextOutput(
+      JSON.stringify({status:'success'})
+    ).setMimeType(ContentService.MimeType.JSON);
+  } catch(err) {
+    return ContentService.createTextOutput(
+      JSON.stringify({status:'error',message:err.toString()})
+    ).setMimeType(ContentService.MimeType.JSON);
+  }
+}
 
-   4. Klik Deploy > New deployment
-   5. Pilih type: Web app
-   6. Execute as: Me
-   7. Who has access: Anyone
-   8. Klik Deploy, salin URL-nya
-   9. Tempelkan URL tersebut di bawah ini (ganti nilai GAS_URL)
-   ================================================================ */
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbydT6koGZeMPZni9l6O_tZq34Ki1Y3tesld0NkHzdA4ZzI4nEzZN--NBPmjYudK1triFg/exec';
+3. Deploy → New deployment → Web app
+   Execute as: Me | Who has access: Anyone
+4. Salin URL, tempel di bawah ini:
+*/
+var GAS_URL = 'https://script.google.com/macros/s/GANTI_INI_DENGAN_URL_ANDA/exec';
 
-// URL untuk membaca data pasien dari spreadsheet (publik)
-const SHEET_ID = '1QDxO0u-FCakWOOD2eU3dOy0jDlffUvpBRcvfIhjjmQ4';
-const DATA_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:json';
+var SHEET_ID = '1QDxO0u-FCakWOOD2eU3dOy0jDlffUvpBRcvfIhjjmQ4';
+var DATA_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:json';
 
-/* ================================================================
-   PENYIMPANAN OFFLINE (localStorage)
-   ================================================================ */
-const LS = {
-  // Pasien data
-  getPatients() {
-    try { return JSON.parse(localStorage.getItem('sidaraja_patients')) || []; }
-    catch(e) { return []; }
-  },
-  setPatients(data) {
-    localStorage.setItem('sidaraja_patients', JSON.stringify(data));
-    localStorage.setItem('sidaraja_patients_ts', Date.now().toString());
-  },
-  getPatientsTS() {
-    return parseInt(localStorage.getItem('sidaraja_patients_ts') || '0');
-  },
+/* ============================================================
+   DATA CONTOH (digunakan saat offline atau spreadsheet kosong)
+   Sesuaikan kolom dengan struktur spreadsheet asli Anda.
+   ============================================================ */
+var DUMMY_DATA = [
+  {nama:"Ahmad Sudirman",nrm:"001234",diag:"CKD Stage 5",ruang:"HD 1",jadwal:"Senin Pagi",status:"Menunggu"},
+  {nama:"Siti Aminah",nrm:"001235",diag:"CKD Stage 5",ruang:"HD 1",jadwal:"Senin Pagi",status:"Menunggu"},
+  {nama:"Budi Santoso",nrm:"001236",diag:"CKD Stage 4",ruang:"HD 2",jadwal:"Senin Siang",status:"Terjadwal"},
+  {nama:"Dewi Lestari",nrm:"001237",diag:"AKI on CKD",ruang:"HD 2",jadwal:"Senin Siang",status:"Terjadwal"},
+  {nama:"Eko Prasetyo",nrm:"001238",diag:"CKD Stage 5",ruang:"HD 3",jadwal:"Selasa Pagi",status:"Menunggu"},
+  {nama:"Fatimah Zahra",nrm:"001239",diag:"DN on CKD",ruang:"HD 3",jadwal:"Selasa Pagi",status:"Terjadwal"},
+  {nama:"Gunawan Wibowo",nrm:"001240",diag:"CKD Stage 5",ruang:"HD 1",jadwal:"Selasa Siang",status:"HD Lain"},
+  {nama:"Haryati",nrm:"001241",diag:"CKD Stage 5",ruang:"HD 2",jadwal:"Rabu Pagi",status:"Batal"},
+  {nama:"Irfan Hakim",nrm:"001242",diag:"CKD Stage 4",ruang:"HD 3",jadwal:"Rabu Pagi",status:"Menunggu"},
+  {nama:"Joko Widodo",nrm:"001243",diag:"CKD Stage 5",ruang:"HD 1",jadwal:"Rabu Siang",status:"Terjadwal"},
+  {nama:"Kartini Sari",nrm:"001244",diag:"AKI",ruang:"HD 2",jadwal:"Kamis Pagi",status:"Menunggu"},
+  {nama:"Lukman Hakim",nrm:"001245",diag:"CKD Stage 5",ruang:"HD 3",jadwal:"Kamis Pagi",status:"Meninggal"},
+  {nama:"Mulyani",nrm:"001246",diag:"DN",ruang:"HD 1",jadwal:"Kamis Siang",status:"Terjadwal"},
+  {nama:"Nur Hidayah",nrm:"001247",diag:"CKD Stage 5",ruang:"HD 2",jadwal:"Jumat Pagi",status:"Menunggu"},
+  {nama:"Omar Faruk",nrm:"001248",diag:"CKD Stage 4",ruang:"HD 3",jadwal:"Jumat Pagi",status:"HD Lain"}
+];
 
-  // User terdaftar (array of {nama, email, password, waktuDaftar})
-  getUsers() {
-    try { return JSON.parse(localStorage.getItem('sidaraja_users')) || []; }
-    catch(e) { return []; }
-  },
-  addUser(u) {
-    const users = this.getUsers();
-    users.push(u);
-    localStorage.setItem('sidaraja_users', JSON.stringify(users));
-  },
-  findUser(email) {
-    return this.getUsers().find(u => u.email.toLowerCase() === email.toLowerCase());
-  },
-
-  // Session login
-  getSession() {
-    try { return JSON.parse(localStorage.getItem('sidaraja_session')); }
-    catch(e) { return null; }
-  },
-  setSession(s) {
-    localStorage.setItem('sidaraja_session', JSON.stringify(s));
-  },
-  clearSession() {
-    localStorage.removeItem('sidaraja_session');
-  },
-
-  // Profil (nama, foto)
-  getProfile(email) {
-    try { return JSON.parse(localStorage.getItem('sidaraja_profile_' + email)); }
-    catch(e) { return null; }
-  },
-  setProfile(email, p) {
-    localStorage.setItem('sidaraja_profile_' + email, JSON.stringify(p));
-  },
-
-  // Mode akses
-  getMode() { return localStorage.getItem('sidaraja_mode') || null; },
-  setMode(m) { localStorage.setItem('sidaraja_mode', m); },
-  clearMode() { localStorage.removeItem('sidaraja_mode'); }
+/* ============================================================
+   LOCAL STORAGE HELPER
+   ============================================================ */
+var LS = {
+  get: function(k) { try { return JSON.parse(localStorage.getItem(k)); } catch(e) { return null; } },
+  set: function(k, v) { localStorage.setItem(k, JSON.stringify(v)); },
+  getPatients: function() { return this.get('sdrj_pts') || []; },
+  setPatients: function(d) { this.set('sdrj_pts', d); this.set('sdrj_pts_ts', Date.now()); },
+  getUsers: function() { return this.get('sdrj_users') || []; },
+  addUser: function(u) { var a = this.getUsers(); a.push(u); this.set('sdrj_users', a); },
+  findUser: function(email) { return this.getUsers().find(function(u) { return u.email.toLowerCase() === email.toLowerCase(); }); },
+  getSession: function() { return this.get('sdrj_sess'); },
+  setSession: function(s) { this.set('sdrj_sess', s); },
+  clearSession: function() { localStorage.removeItem('sdrj_sess'); },
+  getProfile: function(email) { return this.get('sdrj_pf_' + email); },
+  setProfile: function(email, p) { this.set('sdrj_pf_' + email, p); },
+  getMode: function() { return localStorage.getItem('sdrj_mode'); },
+  setMode: function(m) { localStorage.setItem('sdrj_mode', m); },
+  clearMode: function() { localStorage.removeItem('sdrj_mode'); }
 };
 
-/* ================================================================
-   STATE APLIKASI
-   ================================================================ */
-let appState = {
-  mode: null,         // 'admin' | 'user'
-  isOnline: true,
+/* ============================================================
+   STATE
+   ============================================================ */
+var S = {
+  mode: null,
+  online: true,
   patients: [],
-  activeFilter: 'menunggu',
-  currentSlide: 1,
-  chartInstance: null
+  colMap: {},   // mapping kolom spreadsheet
+  filter: 'menunggu',
+  slide: 1,
+  chart: null
 };
 
-/* ================================================================
+/* ============================================================
    UTILITAS
-   ================================================================ */
-function toast(msg, type = 'i') {
-  const c = document.getElementById('toastC');
-  const t = document.createElement('div');
+   ============================================================ */
+function toast(msg, type) {
+  type = type || 'i';
+  var c = document.getElementById('toastC');
+  var t = document.createElement('div');
   t.className = 'tt tt-' + type;
-  const icons = { s: 'fa-circle-check', e: 'fa-circle-xmark', i: 'fa-circle-info' };
-  t.innerHTML = '<i class="fa-solid ' + (icons[type] || icons.i) + '"></i>' + msg;
+  var ic = {s:'fa-circle-check',e:'fa-circle-xmark',i:'fa-circle-info'};
+  t.innerHTML = '<i class="fa-solid ' + (ic[type]||ic.i) + '"></i>' + msg;
   c.appendChild(t);
-  setTimeout(() => { t.classList.add('tt-x'); setTimeout(() => t.remove(), 300); }, 3500);
+  setTimeout(function(){ t.classList.add('tt-x'); setTimeout(function(){ t.remove(); }, 300); }, 3500);
 }
 
 function togglePassVis(id, btn) {
-  const inp = document.getElementById(id);
-  const ico = btn.querySelector('i');
+  var inp = document.getElementById(id);
+  var ico = btn.querySelector('i');
   if (inp.type === 'password') { inp.type = 'text'; ico.className = 'fa-solid fa-eye-slash'; }
   else { inp.type = 'password'; ico.className = 'fa-solid fa-eye'; }
 }
 
-function validateEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
-
-function getInitials(name) {
-  if (!name) return '?';
-  const parts = name.trim().split(/\s+/);
-  if (parts.length >= 2) return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
-  return name.substring(0, 2).toUpperCase();
+function validEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+function initials(n) {
+  if (!n) return '?';
+  var p = n.trim().split(/\s+/);
+  return p.length >= 2 ? (p[0][0] + p[p.length-1][0]).toUpperCase() : n.substring(0,2).toUpperCase();
 }
-
-function formatDate(d) {
-  if (!d) return '—';
-  try { return new Date(d).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }); }
-  catch(e) { return d; }
-}
-
 function nowStr() { return new Date().toLocaleString('id-ID'); }
 
-/* ================================================================
-   KONEKSI & OFFLINE
-   ================================================================ */
-async function checkConnection() {
-  // Coba akses spreadsheet
-  try {
-    const r = await fetch(DATA_URL + '&t=' + Date.now(), { method: 'HEAD', mode: 'no-cors', cache: 'no-store' });
-    setOnline(true);
-  } catch(e) {
-    // no-cors selalu ok, jadi coba fetch biasa
-    try {
-      const r = await fetch(DATA_URL + '&t=' + Date.now(), { cache: 'no-store' });
-      if (r.ok) setOnline(true); else setOnline(false);
-    } catch(e2) {
-      setOnline(false);
-    }
-  }
+/* ============================================================
+   KONEKSI
+   ============================================================ */
+function checkConn() {
+  var d1 = document.getElementById('connDotLogin');
+  var l1 = document.getElementById('connLabelLogin');
+  var ob1 = document.getElementById('offlineBadgeLogin');
+
+  fetch(DATA_URL + '&t=' + Date.now(), {cache:'no-store',mode:'cors'})
+    .then(function(r){ return r.text(); })
+    .then(function(txt){
+      if (txt && txt.indexOf('google') > -1) {
+        S.online = true;
+        setConnUI(true);
+      } else { throw 'bad'; }
+    })
+    .catch(function(){
+      // Coba sekali lagi dengan no-cors
+      fetch(DATA_URL, {mode:'no-cors',cache:'no-store'})
+        .then(function(){
+          S.online = true;
+          setConnUI(true);
+        })
+        .catch(function(){
+          S.online = false;
+          setConnUI(false);
+        });
+    });
 }
 
-function setOnline(status) {
-  appState.isOnline = status;
-  const dots = ['connDot', 'connDotLogin'];
-  const labels = ['connLabel', 'connLabelLogin'];
-  const offBadges = ['offlineBadgeHeader', 'offlineBadgeLogin'];
-  const connWrap = document.getElementById('connWrap');
-
-  dots.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) { el.className = 'conn-dot ' + (status ? 'conn-ok' : 'conn-fail'); }
-  });
-  labels.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) { el.textContent = status ? 'ONLINE' : 'OFFLINE'; el.style.color = status ? '#6ee7b7' : '#fca5a5'; }
-  });
-  offBadges.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) { el.classList.toggle('show', !status); }
-  });
-  if (connWrap) connWrap.style.display = status ? 'flex' : 'none';
+function setConnUI(on) {
+  S.online = on;
+  var ids = ['connDot','connDotLogin'];
+  var lbs = ['connLabel','connLabelLogin'];
+  ids.forEach(function(id){ var el=document.getElementById(id); if(el) el.className='conn-dot '+(on?'conn-ok':'conn-fail'); });
+  lbs.forEach(function(id){ var el=document.getElementById(id); if(el) { el.textContent=on?'ONLINE':'OFFLINE'; el.style.color=on?'#6ee7b7':'#fca5a5'; }});
+  var obh=document.getElementById('offlineBadgeHeader');
+  var obl=document.getElementById('offlineBadgeLogin');
+  if(obh) obh.classList.toggle('show',!on);
+  if(obl) obl.classList.toggle('show',!on);
+  var cw=document.getElementById('connWrap');
+  if(cw) cw.style.display=on?'flex':'none';
 }
 
-/* ================================================================
-   AUTENTIKASI PETUGAS
-   ================================================================ */
+/* ============================================================
+   LOGIN / REGISTER PETUGAS
+   ============================================================ */
 function selectMode(m) {
-  document.getElementById('modeAdmin').className = 'mode-card' + (m === 'admin' ? ' sel-admin' : '');
-  document.getElementById('modeUser').className = 'mode-card' + (m === 'user' ? ' sel-user' : '');
-  document.getElementById('adminSection').style.display = m === 'admin' ? 'block' : 'none';
-  document.getElementById('userSection').style.display = m === 'user' ? 'block' : 'none';
-  appState.mode = m;
+  var ma = document.getElementById('modeAdmin');
+  var mu = document.getElementById('modeUser');
+  var as = document.getElementById('adminSection');
+  var us = document.getElementById('userSection');
+  ma.className = 'mode-card' + (m==='admin' ? ' sel-admin' : '');
+  mu.className = 'mode-card' + (m==='user' ? ' sel-user' : '');
+  as.style.display = m==='admin' ? 'block' : 'none';
+  us.style.display = m==='user' ? 'block' : 'none';
+  S.mode = m;
 }
 
 function switchAuthTab(tab) {
-  document.getElementById('authTabLogin').classList.toggle('active', tab === 'login');
-  document.getElementById('authTabRegister').classList.toggle('active', tab === 'register');
-  document.getElementById('authLoginForm').style.display = tab === 'login' ? 'block' : 'none';
-  document.getElementById('authRegisterForm').style.display = tab === 'register' ? 'block' : 'none';
-  hideErrors();
-}
-
-function hideErrors() {
+  document.getElementById('authTabLogin').classList.toggle('active', tab==='login');
+  document.getElementById('authTabRegister').classList.toggle('active', tab==='register');
+  document.getElementById('authLoginForm').style.display = tab==='login' ? 'block' : 'none';
+  document.getElementById('authRegisterForm').style.display = tab==='register' ? 'block' : 'none';
   document.getElementById('loginError').classList.add('hidden');
   document.getElementById('regError').classList.add('hidden');
 }
 
-function showLoginError(msg) {
-  document.getElementById('loginErrorMsg').textContent = msg;
-  document.getElementById('loginError').classList.remove('hidden');
+function showErr(id, msg) {
+  document.getElementById(id).classList.remove('hidden');
+  document.getElementById(id).querySelector('span').textContent = msg;
 }
 
-function showRegError(msg) {
-  document.getElementById('regErrorMsg').textContent = msg;
-  document.getElementById('regError').classList.remove('hidden');
-}
+function doPetugasRegister() {
+  document.getElementById('regError').classList.add('hidden');
+  var nama = document.getElementById('regNama').value.trim();
+  var email = document.getElementById('regEmail').value.trim().toLowerCase();
+  var pass = document.getElementById('regPass').value;
+  var passC = document.getElementById('regPassConfirm').value;
+  var btn = document.getElementById('btnRegister');
 
-// Daftar petugas baru
-async function doPetugasRegister() {
-  hideErrors();
-  const nama = document.getElementById('regNama').value.trim();
-  const email = document.getElementById('regEmail').value.trim().toLowerCase();
-  const pass = document.getElementById('regPass').value;
-  const passC = document.getElementById('regPassConfirm').value;
-  const btn = document.getElementById('btnRegister');
-
-  if (!nama) { showRegError('Nama lengkap wajib diisi.'); return; }
-  if (!validateEmail(email)) { showRegError('Format email tidak valid. Gunakan email asli.'); return; }
-  if (pass.length < 6) { showRegError('Kata sandi minimal 6 karakter.'); return; }
-  if (pass !== passC) { showRegError('Konfirmasi kata sandi tidak cocok.'); return; }
-  if (LS.findUser(email)) { showRegError('Email sudah terdaftar. Silakan login.'); return; }
+  if (!nama) { showErr('regError','Nama wajib diisi.'); return; }
+  if (!validEmail(email)) { showErr('regError','Format email tidak valid.'); return; }
+  if (pass.length < 6) { showErr('regError','Kata sandi minimal 6 karakter.'); return; }
+  if (pass !== passC) { showErr('regError','Konfirmasi kata sandi tidak cocok.'); return; }
+  if (LS.findUser(email)) { showErr('regError','Email sudah terdaftar. Silakan login.'); return; }
 
   btn.disabled = true;
   btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mendaftar...';
 
-  const waktuDaftar = nowStr();
-  const userData = { nama, email, password: pass, waktuDaftar };
+  var waktu = nowStr();
+  var userData = {nama:nama, email:email, password:pass, waktuDaftar:waktu};
 
-  // Kirim ke Google Spreadsheet (jika online)
-  let sheetOk = false;
-  if (appState.isOnline) {
-    try {
-      const r = await fetch(GAS_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(userData)
-      });
-      sheetOk = true; // no-cors tidak bisa baca response, asumsi ok
-    } catch(e) {
-      console.warn('Gagal kirim ke spreadsheet:', e);
-    }
+  // Kirim ke spreadsheet (jika online & GAS_URL sudah di-set)
+  var gasOk = false;
+  if (S.online && GAS_URL.indexOf('GANTI') === -1) {
+    fetch(GAS_URL, {
+      method:'POST', mode:'no-cors',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(userData)
+    }).then(function(){ gasOk=true; })
+    .catch(function(e){ console.warn('Gagal kirim ke spreadsheet:', e); });
   }
 
-  // Simpan ke localStorage (selalu, sebagai cadangan offline)
+  // Simpan ke localStorage (selalu)
   LS.addUser(userData);
-  LS.setProfile(email, { nama, photo: null });
+  LS.setProfile(email, {nama:nama, photo:null});
 
   btn.disabled = false;
   btn.innerHTML = '<i class="fa-solid fa-user-plus"></i> Daftar & Kirim Data';
 
-  if (sheetOk || !appState.isOnline) {
-    toast('Registrasi berhasil! Silakan login.', 's');
-    if (!appState.isOnline) toast('Data tersimpan lokal. Akan sync saat online.', 'i');
-    switchAuthTab('login');
-    document.getElementById('loginEmail').value = email;
-    document.getElementById('loginPass').value = '';
-    document.getElementById('loginPass').focus();
-  } else {
-    toast('Data tersimpan lokal, gagal kirim ke server.', 'i');
-    switchAuthTab('login');
-    document.getElementById('loginEmail').value = email;
-  }
+  toast('Registrasi berhasil! Silakan login.', 's');
+  if (!S.online) toast('Mode offline — data tersimpan lokal saja.', 'i');
+  switchAuthTab('login');
+  document.getElementById('loginEmail').value = email;
+  document.getElementById('loginPass').value = '';
+  document.getElementById('loginPass').focus();
 }
 
-// Login petugas
 function doPetugasLogin() {
-  hideErrors();
-  const email = document.getElementById('loginEmail').value.trim().toLowerCase();
-  const pass = document.getElementById('loginPass').value;
-  const btn = document.getElementById('btnLogin');
+  document.getElementById('loginError').classList.add('hidden');
+  var email = document.getElementById('loginEmail').value.trim().toLowerCase();
+  var pass = document.getElementById('loginPass').value;
 
-  if (!validateEmail(email)) { showLoginError('Format email tidak valid.'); return; }
-  if (!pass) { showLoginError('Kata sandi wajib diisi.'); return; }
+  if (!validEmail(email)) { showErr('loginError','Format email tidak valid.'); return; }
+  if (!pass) { showErr('loginError','Kata sandi wajib diisi.'); return; }
 
-  const user = LS.findUser(email);
-  if (!user) { showLoginError('Email belum terdaftar. Silakan daftar terlebih dahulu.'); return; }
-  if (user.password !== pass) { showLoginError('Kata sandi salah.'); return; }
+  var user = LS.findUser(email);
+  if (!user) { showErr('loginError','Email belum terdaftar. Silakan daftar dulu.'); return; }
+  if (user.password !== pass) { showErr('loginError','Kata sandi salah.'); return; }
 
-  // Login berhasil
-  LS.setSession({ email: user.email, nama: user.nama, waktuDaftar: user.waktuDaftar });
+  LS.setSession({email:user.email, nama:user.nama, waktuDaftar:user.waktuDaftar});
   LS.setMode('admin');
   enterApp('admin');
 }
 
-// Login pasien
 function doUserLogin() {
   LS.setMode('user');
-  LS.setSession({ mode: 'user' });
+  LS.setSession({mode:'user'});
   enterApp('user');
 }
 
-// Logout
 function doLogout() {
   LS.clearSession();
   LS.clearMode();
@@ -982,28 +843,26 @@ function doLogout() {
   document.getElementById('slide3').style.display = 'none';
   document.getElementById('patientView').style.display = 'none';
   document.getElementById('hdrUserProfile').style.display = 'none';
-  document.getElementById('patientLogoutBtn').classList.add('hidden');
+  document.getElementById('patientLogoutBtn').style.display = 'none';
   document.body.classList.remove('patient-bg');
-  // Reset form
   document.getElementById('loginEmail').value = '';
   document.getElementById('loginPass').value = '';
   selectMode(null);
   switchAuthTab('login');
-  toast('Berhasil keluar.', 'i');
+  toast('Berhasil keluar.','i');
 }
 
-/* ================================================================
+/* ============================================================
    MASUK APLIKASI
-   ================================================================ */
+   ============================================================ */
 function enterApp(mode) {
   document.getElementById('loginOverlay').style.display = 'none';
   document.getElementById('mainHeader').style.display = 'flex';
 
   if (mode === 'admin') {
-    // Tampilkan header petugas dengan profil
     updateHeaderProfile();
     document.getElementById('hdrUserProfile').style.display = 'flex';
-    document.getElementById('patientLogoutBtn').classList.add('hidden');
+    document.getElementById('patientLogoutBtn').style.display = 'none';
     document.getElementById('navTabsWrap').style.display = 'block';
     document.getElementById('tab1').classList.remove('hidden-tab');
     document.getElementById('tab2').classList.remove('hidden-tab');
@@ -1011,14 +870,13 @@ function enterApp(mode) {
     document.getElementById('neonRegWrap').classList.add('show');
     document.getElementById('mainHeader').className = 'hdr grad-admin';
     document.getElementById('mainStripe').className = 'stripe';
-    document.getElementById('headerDesc').textContent = 'Klik kartu status di bawah untuk memfilter tampilan pasien pada dashboard.';
+    document.getElementById('headerDesc').textContent = 'Klik kartu status di bawah untuk memfilter tampilan pasien.';
     document.getElementById('visitorBadge').className = 'visitor-badge visitor-badge-admin';
     document.body.classList.remove('patient-bg');
     switchSlide(1);
   } else {
-    // Mode pasien
     document.getElementById('hdrUserProfile').style.display = 'none';
-    document.getElementById('patientLogoutBtn').classList.remove('hidden');
+    document.getElementById('patientLogoutBtn').style.display = 'inline-flex';
     document.getElementById('navTabsWrap').style.display = 'none';
     document.getElementById('neonRegWrap').classList.remove('show');
     document.getElementById('mainHeader').className = 'hdr grad-patient';
@@ -1031,119 +889,98 @@ function enterApp(mode) {
     document.getElementById('slide3').style.display = 'none';
     document.getElementById('patientView').style.display = 'block';
   }
-
-  // Muat data pasien
   loadPatientData();
 }
 
-/* ================================================================
-   PROFIL HEADER & DROPDOWN
-   ================================================================ */
+/* ============================================================
+   PROFIL HEADER
+   ============================================================ */
 function updateHeaderProfile() {
-  const session = LS.getSession();
-  if (!session || !session.email) return;
+  var sess = LS.getSession();
+  if (!sess || !sess.email) return;
+  var pf = LS.getProfile(sess.email) || {};
+  var nama = pf.nama || sess.nama || 'Petugas';
+  var photo = pf.photo || null;
+  var ini = initials(nama);
 
-  const profile = LS.getProfile(session.email) || {};
-  const nama = profile.nama || session.nama || 'Petugas';
-  const photo = profile.photo || null;
-  const initials = getInitials(nama);
-
-  // Header avatar & nama
-  const avatar = document.getElementById('hdrUserAvatar');
-  if (photo) { avatar.innerHTML = '<img src="' + photo + '" alt="Foto">'; }
-  else { avatar.innerHTML = initials; }
+  var av = document.getElementById('hdrUserAvatar');
+  av.innerHTML = photo ? '<img src="'+photo+'" alt="">' : ini;
   document.getElementById('hdrUserName').textContent = nama;
 
-  // Dropdown
-  const ddAvatar = document.getElementById('profileDDAvatar');
-  if (photo) { ddAvatar.innerHTML = '<img src="' + photo + '" alt="Foto">'; }
-  else { ddAvatar.innerHTML = initials; }
+  var dda = document.getElementById('profileDDAvatar');
+  dda.innerHTML = photo ? '<img src="'+photo+'" alt="">' : ini;
   document.getElementById('profileDDName').textContent = nama;
-  document.getElementById('profileDDEmail').textContent = session.email;
+  document.getElementById('profileDDEmail').textContent = sess.email;
 }
 
 function toggleProfileDD() {
-  const wrap = document.getElementById('hdrUserProfile');
-  const dd = document.getElementById('profileDD');
-  const isOpen = dd.classList.contains('open');
-  if (isOpen) { closeProfileDD(); }
-  else { dd.classList.add('open'); wrap.classList.add('dd-open'); }
+  var dd = document.getElementById('profileDD');
+  var w = document.getElementById('hdrUserProfile');
+  if (dd.classList.contains('open')) { closeProfileDD(); }
+  else { dd.classList.add('open'); w.classList.add('dd-open'); }
 }
-
 function closeProfileDD() {
   document.getElementById('profileDD').classList.remove('open');
   document.getElementById('hdrUserProfile').classList.remove('dd-open');
 }
-
-// Tutup dropdown saat klik di luar
 document.addEventListener('click', function(e) {
   if (!e.target.closest('#hdrUserProfile')) closeProfileDD();
 });
 
-/* ================================================================
+/* ============================================================
    MODAL PROFIL
-   ================================================================ */
+   ============================================================ */
 function openProfileModal() {
   closeProfileDD();
-  const session = LS.getSession();
-  if (!session) return;
-  const profile = LS.getProfile(session.email) || {};
-  const nama = profile.nama || session.nama || '';
-  const photo = profile.photo || null;
+  var sess = LS.getSession();
+  if (!sess) return;
+  var pf = LS.getProfile(sess.email) || {};
+  var nama = pf.nama || sess.nama || '';
+  var photo = pf.photo || null;
 
   document.getElementById('profileNama').value = nama;
-  document.getElementById('profileEmail').value = session.email;
-  document.getElementById('profileDate').value = session.waktuDaftar || nowStr();
+  document.getElementById('profileEmail').value = sess.email;
+  document.getElementById('profileDate').value = sess.waktuDaftar || nowStr();
 
-  const preview = document.getElementById('photoPreview');
-  const placeholderIcon = document.getElementById('photoPlaceholderIcon');
-  const placeholderText = document.getElementById('photoPlaceholderText');
-  const area = document.getElementById('photoUploadArea');
+  var prev = document.getElementById('photoPreview');
+  var pi = document.getElementById('photoPlaceholderIcon');
+  var pt = document.getElementById('photoPlaceholderText');
+  var area = document.getElementById('photoUploadArea');
+  area.dataset.photo = photo || '';
 
   if (photo) {
-    preview.src = photo; preview.style.display = 'block';
-    placeholderIcon.style.display = 'none'; placeholderText.style.display = 'none';
+    prev.src = photo; prev.style.display = 'block';
+    pi.style.display = 'none'; pt.style.display = 'none';
     area.classList.add('has-photo');
   } else {
-    preview.style.display = 'none';
-    placeholderIcon.style.display = 'block'; placeholderText.style.display = 'block';
+    prev.style.display = 'none';
+    pi.style.display = 'block'; pt.style.display = 'block';
     area.classList.remove('has-photo');
   }
-
   document.getElementById('profileModal').style.display = 'flex';
 }
-
-function closeProfileModal() {
-  document.getElementById('profileModal').style.display = 'none';
-}
+function closeProfileModal() { document.getElementById('profileModal').style.display = 'none'; }
 
 function handlePhotoUpload(e) {
-  const file = e.target.files[0];
+  var file = e.target.files[0];
   if (!file) return;
-  if (file.size > 2 * 1024 * 1024) { toast('Ukuran foto maksimal 2MB.', 'e'); return; }
-  if (!file.type.startsWith('image/')) { toast('File harus berupa gambar.', 'e'); return; }
-
-  const reader = new FileReader();
+  if (file.size > 2*1024*1024) { toast('Maks 2MB.','e'); return; }
+  var reader = new FileReader();
   reader.onload = function(ev) {
-    // Resize foto agar tidak terlalu besar di localStorage
-    const img = new Image();
+    var img = new Image();
     img.onload = function() {
-      const canvas = document.createElement('canvas');
-      const max = 200;
-      let w = img.width, h = img.height;
-      if (w > h) { if (w > max) { h = h * max / w; w = max; } }
-      else { if (h > max) { w = w * max / h; h = max; } }
-      canvas.width = w; canvas.height = h;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(img, 0, 0, w, h);
-      const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
-
-      document.getElementById('photoPreview').src = dataUrl;
+      var c = document.createElement('canvas');
+      var mx = 200; var w=img.width, h=img.height;
+      if(w>h){if(w>mx){h=h*mx/w;w=mx;}}else{if(h>mx){w=w*mx/h;h=mx;}}
+      c.width=w; c.height=h;
+      c.getContext('2d').drawImage(img,0,0,w,h);
+      var du = c.toDataURL('image/jpeg',0.8);
+      document.getElementById('photoPreview').src = du;
       document.getElementById('photoPreview').style.display = 'block';
       document.getElementById('photoPlaceholderIcon').style.display = 'none';
       document.getElementById('photoPlaceholderText').style.display = 'none';
       document.getElementById('photoUploadArea').classList.add('has-photo');
-      document.getElementById('photoUploadArea').dataset.photo = dataUrl;
+      document.getElementById('photoUploadArea').dataset.photo = du;
     };
     img.src = ev.target.result;
   };
@@ -1151,135 +988,178 @@ function handlePhotoUpload(e) {
 }
 
 function saveProfile() {
-  const session = LS.getSession();
-  if (!session) return;
-
-  const nama = document.getElementById('profileNama').value.trim();
-  if (!nama) { toast('Nama tidak boleh kosong.', 'e'); return; }
-
-  const photo = document.getElementById('photoUploadArea').dataset.photo || null;
-
-  // Simpan ke localStorage
-  LS.setProfile(session.email, { nama, photo });
-
-  // Update session nama
-  session.nama = nama;
-  LS.setSession(session);
-
-  // Update tampilan header
+  var sess = LS.getSession();
+  if (!sess) return;
+  var nama = document.getElementById('profileNama').value.trim();
+  if (!nama) { toast('Nama tidak boleh kosong.','e'); return; }
+  var photo = document.getElementById('photoUploadArea').dataset.photo || null;
+  LS.setProfile(sess.email, {nama:nama, photo:photo});
+  sess.nama = nama;
+  LS.setSession(sess);
   updateHeaderProfile();
-
   closeProfileModal();
-  toast('Profil berhasil diperbarui.', 's');
+  toast('Profil berhasil diperbarui.','s');
 }
 
-/* ================================================================
-   DATA PASIEN (ONLINE/OFFLINE)
-   ================================================================ */
-async function loadPatientData() {
-  // Tampilkan data offline dulu
-  const cached = LS.getPatients();
+/* ============================================================
+   DATA PASIEN — FETCH + PARSE
+   ============================================================ */
+function loadPatientData() {
+  // Tampilkan data lokal dulu
+  var cached = LS.getPatients();
   if (cached.length > 0) {
-    appState.patients = cached;
+    S.patients = cached;
     renderAll();
   }
 
-  // Jika online, coba ambil data baru
-  if (appState.isOnline) {
-    try {
-      const r = await fetch(DATA_URL + '&t=' + Date.now(), { cache: 'no-store' });
-      const txt = await r.text();
-      // Parse respons Google Visualization API
-      const jsonStr = txt.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);?$/);
-      if (jsonStr && jsonStr[1]) {
-        const data = JSON.parse(jsonStr[1]);
-        const rows = data.table ? data.table.rows : [];
-        const cols = data.table ? data.table.cols : [];
-        const patients = rows.map((row, i) => {
-          const p = { _no: i + 1 };
-          row.c.forEach((cell, ci) => {
-            if (cols[ci]) {
-              const key = cols[ci].label || cols[ci].id || 'col_' + ci;
-              p[key] = cell ? (cell.v !== null ? cell.v : '') : '';
-            }
-          });
-          return p;
-        });
-        appState.patients = patients;
-        LS.setPatients(patients);
-        renderAll();
-      }
-    } catch(e) {
-      console.warn('Gagal fetch data online, gunakan data offline:', e);
-      if (cached.length === 0) {
-        toast('Tidak ada data. Pastikan koneksi internet aktif untuk pertama kali.', 'e');
-      } else {
-        toast('Menggunakan data tersimpan (offline).', 'i');
-      }
-    }
+  if (S.online) {
+    fetch(DATA_URL + '&t=' + Date.now(), {cache:'no-store'})
+      .then(function(r){ return r.text(); })
+      .then(function(txt){ parseSheetData(txt); })
+      .catch(function(err){
+        console.warn('Fetch gagal:', err);
+        useFallback();
+      });
   } else {
-    if (cached.length > 0) {
-      toast('Mode offline — menggunakan data tersimpan.', 'i');
+    useFallback();
+  }
+}
+
+function parseSheetData(txt) {
+  try {
+    var m = txt.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);?\s*$/);
+    if (!m || !m[1]) { useFallback(); return; }
+    var data = JSON.parse(m[1]);
+    var cols = data.table.cols;
+    var rows = data.table.rows;
+
+    if (!rows || rows.length === 0) { useFallback(); return; }
+
+    // Bangun mapping kolom: cari kolom "Nama Pasien", "No RM", dll
+    var colMap = {};
+    var colLabels = [];
+    cols.forEach(function(c, i) {
+      var label = (c.label || c.id || '').toString().trim().toLowerCase();
+      colLabels.push(label);
+      colMap[i] = label;
+    });
+    S.colMap = colMap;
+
+    // Deteksi indeks kolom berdasarkan keyword
+    var idxNama = findColIdx(colLabels, ['nama pasien','nama','name','pasien']);
+    var idxNRM = findColIdx(colLabels, ['no rm','nrm','no rm','norm','rekam medis','medical record']);
+    var idxDiag = findColIdx(colLabels, ['diagnosa','diagnosis','diag']);
+    var idxRuang = findColIdx(colLabels, ['ruangan','ruang','room','hd']);
+    var idxJadwal = findColIdx(colLabels, ['jadwal','schedule','hari','day']);
+    var idxStatus = findColIdx(colLabels, ['status','state','keterangan']);
+
+    console.log('Kolom terdeteksi:', {nama:idxNama,nrm:idxNRM,diag:idxDiag,ruang:idxRuang,jadwal:idxJadwal,status:idxStatus});
+    console.log('Label kolom:', colLabels);
+
+    var patients = [];
+    rows.forEach(function(row, ri) {
+      var cells = row.c;
+      if (!cells || cells.length === 0) return;
+
+      // Ambil nilai sel (handle null)
+      function cv(idx) {
+        if (idx < 0 || idx >= cells.length || !cells[idx]) return '';
+        var v = cells[idx].v;
+        return v !== null && v !== undefined ? String(v) : '';
+      }
+
+      var nama = cv(idxNama);
+      // Fallback: jika kolom nama tidak ketemu, ambil kolom pertama yang ada isinya
+      if (!nama) {
+        for (var fi = 0; fi < cells.length; fi++) {
+          var fv = cv(fi);
+          if (fv && fv.length > 2) { nama = fv; idxNama = fi; break; }
+        }
+      }
+      if (!nama) return; // Skip baris kosong
+
+      patients.push({
+        nama: nama,
+        nrm: cv(idxNRM) || '—',
+        diag: cv(idxDiag) || '—',
+        ruang: cv(idxRuang) || '—',
+        jadwal: cv(idxJadwal) || '—',
+        status: cv(idxStatus) || 'Menunggu'
+      });
+    });
+
+    if (patients.length > 0) {
+      S.patients = patients;
+      LS.setPatients(patients);
+      renderAll();
+      toast('Data berhasil dimuat dari spreadsheet (' + patients.length + ' pasien).', 's');
     } else {
-      toast('Tidak ada data tersimpan dan tidak ada koneksi internet.', 'e');
+      useFallback();
+    }
+  } catch(e) {
+    console.error('Parse error:', e);
+    useFallback();
+  }
+}
+
+function findColIdx(labels, keywords) {
+  for (var ki = 0; ki < keywords.length; ki++) {
+    for (var li = 0; li < labels.length; li++) {
+      if (labels[li].indexOf(keywords[ki]) > -1) return li;
     }
   }
+  return -1;
+}
 
-  document.getElementById('lastUpdate').textContent = 'Terakhir diperbarui: ' + nowStr();
+function useFallback() {
+  // Jika data lokal sudah ada, gunakan itu
+  if (S.patients.length > 0) {
+    renderAll();
+    toast('Menggunakan data tersimpan (' + S.patients.length + ' pasien).', 'i');
+    return;
+  }
+  // Kalau tidak ada sama sekali, pakai data dummy
+  S.patients = DUMMY_DATA.map(function(d) { return Object.assign({}, d); });
+  LS.setPatients(S.patients);
+  renderAll();
+  toast('Menggunakan data contoh (' + S.patients.length + ' pasien). Hubungkan spreadsheet untuk data asli.', 'i');
 }
 
 function refreshData() {
-  const icon = document.getElementById('refreshIcon');
+  var icon = document.getElementById('refreshIcon');
   icon.classList.add('fa-spin');
-  loadPatientData().then(() => { icon.classList.remove('fa-spin'); toast('Data diperbarui.', 's'); });
+  // Force refresh dari server
+  LS.setPatients([]); // Kosongkan cache supaya fetch ulang
+  loadPatientData();
+  setTimeout(function(){ icon.classList.remove('fa-spin'); }, 2000);
+  toast('Memuat ulang data...', 'i');
 }
 
-/* ================================================================
+/* ============================================================
    RENDERING
-   ================================================================ */
+   ============================================================ */
 function renderAll() {
-  const pts = appState.patients;
-  const counts = getCounts(pts);
-  updateStatusCards(counts);
+  var c = getCounts(S.patients);
+  updateStatusCards(c);
   renderDashTable();
   renderFullTable();
   renderActionTable();
-  renderChart(counts);
-  renderPatientStats(counts);
+  renderChart(c);
+  renderPatientStats(c);
+  document.getElementById('lastUpdate').textContent = 'Terakhir diperbarui: ' + nowStr();
 }
 
 function getCounts(pts) {
-  const c = { menunggu: 0, terjadwal: 0, hdlain: 0, batal: 0, meninggal: 0, total: pts.length };
-  pts.forEach(p => {
-    const s = (getStatus(p) || '').toLowerCase();
-    if (s.includes('menunggu')) c.menunggu++;
-    else if (s.includes('terjadwal') || s.includes('jadwal')) c.terjadwal++;
-    else if (s.includes('hd lain') || s.includes('lain')) c.hdlain++;
-    else if (s.includes('batal')) c.batal++;
-    else if (s.includes('meninggal')) c.meninggal++;
+  var c = {menunggu:0,terjadwal:0,hdlain:0,batal:0,meninggal:0,total:pts.length};
+  pts.forEach(function(p){
+    var s = (p.status||'').toLowerCase();
+    if (s.indexOf('menunggu')>-1) c.menunggu++;
+    else if (s.indexOf('terjadwal')>-1||s.indexOf('jadwal')>-1) c.terjadwal++;
+    else if (s.indexOf('lain')>-1||s.indexOf('hd lain')>-1) c.hdlain++;
+    else if (s.indexOf('batal')>-1) c.batal++;
+    else if (s.indexOf('meninggal')>-1) c.meninggal++;
   });
   return c;
-}
-
-function getStatus(p) {
-  // Cari kolom yang mengandung 'status'
-  for (const k of Object.keys(p)) {
-    if (k.toLowerCase().includes('status')) return String(p[k]);
-  }
-  return '';
-}
-
-function getVal(p, ...keys) {
-  for (const k of keys) {
-    if (p[k] !== undefined && p[k] !== null && String(p[k]).trim() !== '') return String(p[k]);
-  }
-  // Fallback: cari kolom yang mengandung keyword
-  for (const k of Object.keys(p)) {
-    for (const kw of keys) {
-      if (k.toLowerCase().includes(kw.toLowerCase()) && String(p[k]).trim() !== '') return String(p[k]);
-    }
-  }
-  return '—';
 }
 
 function updateStatusCards(c) {
@@ -1292,109 +1172,94 @@ function updateStatusCards(c) {
 }
 
 function getFiltered(filter) {
-  return appState.patients.filter(p => {
-    if (filter === 'all') return true;
-    const s = getStatus(p).toLowerCase();
-    if (filter === 'menunggu') return s.includes('menunggu');
-    if (filter === 'terjadwal') return s.includes('terjadwal') || s.includes('jadwal');
-    if (filter === 'hdlain') return s.includes('hd lain') || s.includes('lain');
-    if (filter === 'batal') return s.includes('batal');
-    if (filter === 'meninggal') return s.includes('meninggal');
+  if (filter === 'all') return S.patients.slice();
+  return S.patients.filter(function(p){
+    var s = (p.status||'').toLowerCase();
+    if (filter==='menunggu') return s.indexOf('menunggu')>-1;
+    if (filter==='terjadwal') return s.indexOf('terjadwal')>-1||s.indexOf('jadwal')>-1;
+    if (filter==='hdlain') return s.indexOf('lain')>-1;
+    if (filter==='batal') return s.indexOf('batal')>-1;
+    if (filter==='meninggal') return s.indexOf('meninggal')>-1;
     return true;
   });
 }
 
-function getStatusBadge(s) {
-  const sl = s.toLowerCase();
-  let cls = 'badge-';
-  if (sl.includes('menunggu')) cls += 'menunggu';
-  else if (sl.includes('terjadwal') || sl.includes('jadwal')) cls += 'terjadwal';
-  else if (sl.includes('hd lain') || sl.includes('lain')) cls += 'hdlain';
-  else if (sl.includes('batal')) cls += 'batal';
-  else if (sl.includes('meninggal')) cls += 'meninggal';
-  else cls += 'menunggu';
-  return '<span class="badge ' + cls + '">' + s + '</span>';
+function statusBadge(s) {
+  var sl = (s||'').toLowerCase();
+  var cls = 'badge-';
+  if (sl.indexOf('menunggu')>-1) cls+='menunggu';
+  else if (sl.indexOf('terjadwal')>-1||sl.indexOf('jadwal')>-1) cls+='terjadwal';
+  else if (sl.indexOf('lain')>-1) cls+='hdlain';
+  else if (sl.indexOf('batal')>-1) cls+='batal';
+  else if (sl.indexOf('meninggal')>-1) cls+='meninggal';
+  else cls+='menunggu';
+  return '<span class="badge '+cls+'">'+s+'</span>';
 }
 
-function getRowClass(s) {
-  const sl = s.toLowerCase();
-  if (sl.includes('menunggu')) return 'row-menunggu';
-  if (sl.includes('terjadwal') || sl.includes('jadwal')) return 'row-terjadwal';
-  if (sl.includes('hd lain') || sl.includes('lain')) return 'row-hdlain';
-  if (sl.includes('batal')) return 'row-batal';
-  if (sl.includes('meninggal')) return 'row-meninggal';
+function rowClass(s) {
+  var sl = (s||'').toLowerCase();
+  if (sl.indexOf('menunggu')>-1) return 'row-menunggu';
+  if (sl.indexOf('terjadwal')>-1||sl.indexOf('jadwal')>-1) return 'row-terjadwal';
+  if (sl.indexOf('lain')>-1) return 'row-hdlain';
+  if (sl.indexOf('batal')>-1) return 'row-batal';
+  if (sl.indexOf('meninggal')>-1) return 'row-meninggal';
   return '';
 }
 
+function statusColor(s) {
+  var sl = (s||'').toLowerCase();
+  if (sl.indexOf('menunggu')>-1) return '#3b82f6';
+  if (sl.indexOf('terjadwal')>-1||sl.indexOf('jadwal')>-1) return '#10b981';
+  if (sl.indexOf('lain')>-1) return '#f59e0b';
+  if (sl.indexOf('batal')>-1) return '#ef4444';
+  if (sl.indexOf('meninggal')>-1) return '#6b7280';
+  return '#94a3b8';
+}
+
 function renderDashTable() {
-  const pts = getFiltered(appState.activeFilter);
-  const labels = { menunggu: 'Menunggu', terjadwal: 'Terjadwal', hdlain: 'HD Lain', batal: 'Batal', meninggal: 'Meninggal', all: 'Semua' };
-  document.getElementById('filterLabel').textContent = '(' + (labels[appState.activeFilter] || '') + ')';
-  const body = document.getElementById('dashBody');
-  if (pts.length === 0) { body.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--muted)"><i class="fa-solid fa-inbox" style="font-size:28px;display:block;margin-bottom:8px;opacity:.4"></i>Tidak ada data</td></tr>'; return; }
-  body.innerHTML = pts.map((p, i) => {
-    const nama = getVal(p, 'Nama Pasien', 'Nama', 'nama');
-    const nrm = getVal(p, 'No RM', 'NRM', 'no rm');
-    const diag = getVal(p, 'Diagnosa', 'diagnosa');
-    const ruang = getVal(p, 'Ruangan', 'ruangan');
-    const jadwal = getVal(p, 'Jadwal', 'jadwal', 'Hari', 'hari');
-    const status = getStatus(p);
-    return '<tr class="' + getRowClass(status) + '"><td class="tc">' + (i + 1) + '</td><td style="font-weight:700;color:var(--txt)">' + nama + '</td><td>' + nrm + '</td><td>' + diag + '</td><td>' + ruang + '</td><td>' + jadwal + '</td><td>' + getStatusBadge(status) + '</td></tr>';
+  var pts = getFiltered(S.filter);
+  var labels = {menunggu:'Menunggu',terjadwal:'Terjadwal',hdlain:'HD Lain',batal:'Batal',meninggal:'Meninggal',all:'Semua'};
+  document.getElementById('filterLabel').textContent = '(' + (labels[S.filter]||'') + ')';
+  var body = document.getElementById('dashBody');
+  if (!pts.length) { body.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--muted)"><i class="fa-solid fa-inbox" style="font-size:28px;display:block;margin-bottom:8px;opacity:.4"></i>Tidak ada data</td></tr>'; return; }
+  body.innerHTML = pts.map(function(p,i){
+    return '<tr class="'+rowClass(p.status)+'"><td class="tc">'+(i+1)+'</td><td style="font-weight:700;color:var(--txt)">'+p.nama+'</td><td>'+p.nrm+'</td><td>'+p.diag+'</td><td>'+p.ruang+'</td><td>'+p.jadwal+'</td><td>'+statusBadge(p.status)+'</td></tr>';
   }).join('');
 }
 
 function renderFullTable() {
-  const search = (document.getElementById('globalSearch')?.value || '').toLowerCase();
-  let pts = appState.patients;
-  if (search) pts = pts.filter(p => {
-    const nama = getVal(p, 'Nama Pasien', 'Nama', 'nama').toLowerCase();
-    const nrm = getVal(p, 'No RM', 'NRM', 'no rm').toLowerCase();
-    return nama.includes(search) || nrm.includes(search);
-  });
-  const body = document.getElementById('fullBody');
-  if (pts.length === 0) { body.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:40px;color:var(--muted)">Tidak ada data</td></tr>'; return; }
-  body.innerHTML = pts.map((p, i) => {
-    const nama = getVal(p, 'Nama Pasien', 'Nama', 'nama');
-    const nrm = getVal(p, 'No RM', 'NRM', 'no rm');
-    const diag = getVal(p, 'Diagnosa', 'diagnosa');
-    const ruang = getVal(p, 'Ruangan', 'ruangan');
-    const jadwal = getVal(p, 'Jadwal', 'jadwal', 'Hari', 'hari');
-    const status = getStatus(p);
-    const jamAmbil = getVal(p, 'Jam Ambil', 'jam ambil', 'Jam', 'jam');
-    const petugas = getVal(p, 'Petugas', 'petugas');
-    return '<tr class="' + getRowClass(status) + '"><td class="tc">' + (i + 1) + '</td><td style="font-weight:700;color:var(--txt)">' + nama + '</td><td>' + nrm + '</td><td>' + diag + '</td><td>' + ruang + '</td><td>' + jadwal + '</td><td>' + getStatusBadge(status) + '</td><td>' + jamAmbil + '</td><td>' + petugas + '</td></tr>';
+  var q = (document.getElementById('globalSearch')?document.getElementById('globalSearch').value:'').toLowerCase();
+  var pts = S.patients;
+  if (q) pts = pts.filter(function(p){ return (p.nama||'').toLowerCase().indexOf(q)>-1 || (p.nrm||'').toLowerCase().indexOf(q)>-1; });
+  var body = document.getElementById('fullBody');
+  if (!pts.length) { body.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--muted)">Tidak ada data</td></tr>'; return; }
+  body.innerHTML = pts.map(function(p,i){
+    return '<tr class="'+rowClass(p.status)+'"><td class="tc">'+(i+1)+'</td><td style="font-weight:700;color:var(--txt)">'+p.nama+'</td><td>'+p.nrm+'</td><td>'+p.diag+'</td><td>'+p.ruang+'</td><td>'+p.jadwal+'</td><td>'+statusBadge(p.status)+'</td></tr>';
   }).join('');
 }
 
 function renderActionTable() {
-  const search = (document.getElementById('actionSearch')?.value || '').toLowerCase();
-  const filter = document.getElementById('actionFilter')?.value || 'menunggu';
-  let pts = getFiltered(filter);
-  if (search) pts = pts.filter(p => {
-    const nama = getVal(p, 'Nama Pasien', 'Nama', 'nama').toLowerCase();
-    const nrm = getVal(p, 'No RM', 'NRM', 'no rm').toLowerCase();
-    return nama.includes(search) || nrm.includes(search);
-  });
-  const body = document.getElementById('actionBody');
-  if (pts.length === 0) { body.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--muted)">Tidak ada data</td></tr>'; return; }
-  const session = LS.getSession();
-  const petugasNama = session ? (session.nama || 'Petugas') : 'Petugas';
-  body.innerHTML = pts.map((p, i) => {
-    const nama = getVal(p, 'Nama Pasien', 'Nama', 'nama');
-    const nrm = getVal(p, 'No RM', 'NRM', 'no rm');
-    const ruang = getVal(p, 'Ruangan', 'ruangan');
-    const status = getStatus(p);
-    return '<tr class="' + getRowClass(status) + '"><td class="tc">' + (i + 1) + '</td><td style="font-weight:700;color:var(--txt)">' + nama + '</td><td>' + nrm + '</td><td>' + ruang + '</td><td>' + getStatusBadge(status) + '</td><td><div class="flex gap-1 flex-wrap"><button class="bp" style="padding:6px 12px;font-size:11px" onclick="doActionPick(this,\'' + nama.replace(/'/g, "\\'") + '\')"><i class="fa-solid fa-hand-pointer"></i> Ambil</button></div></td></tr>';
+  var q = (document.getElementById('actionSearch')?document.getElementById('actionSearch').value:'').toLowerCase();
+  var f = document.getElementById('actionFilter')?document.getElementById('actionFilter').value:'menunggu';
+  var pts = getFiltered(f);
+  if (q) pts = pts.filter(function(p){ return (p.nama||'').toLowerCase().indexOf(q)>-1 || (p.nrm||'').toLowerCase().indexOf(q)>-1; });
+  var body = document.getElementById('actionBody');
+  if (!pts.length) { body.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--muted)">Tidak ada data</td></tr>'; return; }
+  var sess = LS.getSession();
+  var pNama = sess ? (sess.nama||'Petugas') : 'Petugas';
+  body.innerHTML = pts.map(function(p,i){
+    var safeNama = (p.nama||'').replace(/'/g,"\\'");
+    return '<tr class="'+rowClass(p.status)+'"><td class="tc">'+(i+1)+'</td><td style="font-weight:700;color:var(--txt)">'+p.nama+'</td><td>'+p.nrm+'</td><td>'+p.ruang+'</td><td>'+statusBadge(p.status)+'</td><td><button class="bp" style="padding:6px 12px;font-size:11px" onclick="doPick(this,\''+safeNama+'\')"><i class="fa-solid fa-hand-pointer"></i> Ambil</button></td></tr>';
   }).join('');
 }
 
-function doActionPick(btn, nama) {
-  const session = LS.getSession();
-  const petugasNama = session ? (session.nama || 'Petugas') : 'Petugas';
+function doPick(btn, nama) {
+  var sess = LS.getSession();
+  var pNama = sess ? (sess.nama||'Petugas') : 'Petugas';
   btn.disabled = true;
-  btn.innerHTML = '<i class="fa-solid fa-check"></i> ' + petugasNama;
+  btn.innerHTML = '<i class="fa-solid fa-check"></i> ' + pNama;
   btn.style.background = 'linear-gradient(135deg,var(--g500),var(--g600))';
-  toast('Pasien "' + nama + '" diambil oleh ' + petugasNama, 's');
+  toast('Pasien "'+nama+'" diambil oleh '+pNama, 's');
 }
 
 function renderPatientStats(c) {
@@ -1402,106 +1267,79 @@ function renderPatientStats(c) {
   document.getElementById('pTerjadwal').textContent = c.terjadwal;
 }
 
-/* ================================================================
+/* ============================================================
    CHART
-   ================================================================ */
+   ============================================================ */
 function renderChart(counts) {
-  const ctx = document.getElementById('chart1');
+  var ctx = document.getElementById('chart1');
   if (!ctx) return;
-  if (appState.chartInstance) appState.chartInstance.destroy();
-
-  const labels = ['Menunggu', 'Terjadwal', 'HD Lain', 'Batal', 'Meninggal'];
-  const values = [counts.menunggu, counts.terjadwal, counts.hdlain, counts.batal, counts.meninggal];
-  const colors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#6b7280'];
-
-  appState.chartInstance = new Chart(ctx, {
-    type: 'doughnut',
-    data: { labels, datasets: [{ data: values, backgroundColor: colors, borderWidth: 3, borderColor: '#fff' }] },
-    options: {
-      responsive: true, maintainAspectRatio: true,
-      cutout: '60%',
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          backgroundColor: '#1e293b', titleFont: { family: 'Plus Jakarta Sans', weight: '700' },
-          bodyFont: { family: 'Plus Jakarta Sans' }, padding: 12, cornerRadius: 10
-        }
-      }
-    }
+  if (S.chart) S.chart.destroy();
+  var labels = ['Menunggu','Terjadwal','HD Lain','Batal','Meninggal'];
+  var vals = [counts.menunggu,counts.terjadwal,counts.hdlain,counts.batal,counts.meninggal];
+  var colors = ['#3b82f6','#10b981','#f59e0b','#ef4444','#6b7280'];
+  S.chart = new Chart(ctx, {
+    type:'doughnut',
+    data:{labels:labels,datasets:[{data:vals,backgroundColor:colors,borderWidth:3,borderColor:'#fff'}]},
+    options:{responsive:true,maintainAspectRatio:true,cutout:'60%',plugins:{legend:{display:false},tooltip:{backgroundColor:'#1e293b',padding:12,cornerRadius:10}}}
   });
-
-  // Legenda manual
-  const leg = document.getElementById('leg1');
-  leg.innerHTML = labels.map((l, i) => '<span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:3px;background:' + colors[i] + ';display:inline-block"></span>' + l + ': ' + values[i] + '</span>').join('');
+  document.getElementById('leg1').innerHTML = labels.map(function(l,i){return '<span style="display:flex;align-items:center;gap:5px"><span style="width:10px;height:10px;border-radius:3px;background:'+colors[i]+';display:inline-block"></span>'+l+': '+vals[i]+'</span>';}).join('');
 }
 
-function saveChartAsImage(canvasId, name) {
-  const c = document.getElementById(canvasId);
+function saveChartAsImage(id, name) {
+  var c = document.getElementById(id);
   if (!c) return;
-  const link = document.createElement('a');
-  link.download = 'sidaraja-' + name + '.png';
+  var link = document.createElement('a');
+  link.download = 'sidaraja-'+name+'.png';
   link.href = c.toDataURL('image/png');
   link.click();
-  toast('Gambar chart berhasil disimpan.', 's');
+  toast('Gambar disimpan.','s');
 }
 
-/* ================================================================
-   NAVIGASI TABS
-   ================================================================ */
+/* ============================================================
+   NAVIGASI
+   ============================================================ */
 function switchSlide(n) {
-  appState.currentSlide = n;
-  for (let i = 1; i <= 3; i++) {
-    const tab = document.getElementById('tab' + i);
-    const slide = document.getElementById('slide' + i);
-    if (i === n) { tab.classList.add('active'); slide.style.display = 'block'; }
-    else { tab.classList.remove('active'); slide.style.display = 'none'; }
+  S.slide = n;
+  for (var i=1;i<=3;i++){
+    var tab = document.getElementById('tab'+i);
+    var sl = document.getElementById('slide'+i);
+    if(i===n){tab.classList.add('active');sl.style.display='block';}
+    else{tab.classList.remove('active');sl.style.display='none';}
   }
-  if (n === 2) renderFullTable();
-  if (n === 3) renderActionTable();
+  if(n===2) renderFullTable();
+  if(n===3) renderActionTable();
 }
 
 function clickStatusCard(key) {
-  appState.activeFilter = key;
-  document.querySelectorAll('.stc').forEach(c => c.classList.remove('sel'));
-  document.querySelector('.stc[data-key="' + key + '"]')?.classList.add('sel');
+  S.filter = key;
+  document.querySelectorAll('.stc').forEach(function(c){c.classList.remove('sel');});
+  var el = document.querySelector('.stc[data-key="'+key+'"]');
+  if(el) el.classList.add('sel');
   renderDashTable();
 }
 
-/* ================================================================
-   PENCARIAN PASIEN (MODE PASIEN)
-   ================================================================ */
+/* ============================================================
+   PENCARIAN PASIEN
+   ============================================================ */
 function patientSearch() {
-  const q = document.getElementById('pSearchNama').value.trim().toLowerCase();
-  if (!q) { toast('Masukkan nama pasien.', 'e'); return; }
-  const results = appState.patients.filter(p => {
-    const nama = getVal(p, 'Nama Pasien', 'Nama', 'nama').toLowerCase();
-    return nama.includes(q);
-  });
-  const container = document.getElementById('patientResults');
-  const noRes = document.getElementById('pNoRes');
+  var q = document.getElementById('pSearchNama').value.trim().toLowerCase();
+  if (!q) { toast('Masukkan nama pasien.','e'); return; }
+  var results = S.patients.filter(function(p){ return (p.nama||'').toLowerCase().indexOf(q)>-1; });
+  var container = document.getElementById('patientResults');
+  var noRes = document.getElementById('pNoRes');
 
-  if (results.length === 0) { container.innerHTML = ''; noRes.classList.remove('hidden'); return; }
+  if (!results.length) { container.innerHTML=''; noRes.classList.remove('hidden'); return; }
   noRes.classList.add('hidden');
 
-  container.innerHTML = results.map(p => {
-    const nama = getVal(p, 'Nama Pasien', 'Nama', 'nama');
-    const nrm = getVal(p, 'No RM', 'NRM', 'no rm');
-    const diag = getVal(p, 'Diagnosa', 'diagnosa');
-    const ruang = getVal(p, 'Ruangan', 'ruangan');
-    const jadwal = getVal(p, 'Jadwal', 'jadwal', 'Hari', 'hari');
-    const status = getStatus(p);
-    return '<div class="card p-5 mb-4 fu" style="border-left:4px solid ' + getStatusColor(status) + ';border-radius:16px"><div class="flex items-start justify-between gap-4"><div><h4 class="font-extrabold text-lg" style="color:var(--txt)">' + nama + '</h4><p class="text-xs mt-1" style="color:var(--muted)">No RM: ' + nrm + '</p></div>' + getStatusBadge(status) + '</div><div class="grid grid-cols-2 gap-3 mt-4"><div><span class="text-xs font-bold" style="color:var(--muted)">DIAGNOSA</span><p class="text-sm font-semibold mt-1">' + diag + '</p></div><div><span class="text-xs font-bold" style="color:var(--muted)">RUANGAN</span><p class="text-sm font-semibold mt-1">' + ruang + '</p></div><div><span class="text-xs font-bold" style="color:var(--muted)">JADWAL</span><p class="text-sm font-semibold mt-1">' + jadwal + '</p></div></div><div class="mt-4 flex gap-2"><button class="share-btn share-pdf" onclick="printPatientInvoice(\'' + nama.replace(/'/g, "\\'") + '\',\'' + nrm.replace(/'/g, "\\'") + '\',\'' + diag.replace(/'/g, "\\'") + '\',\'' + ruang.replace(/'/g, "\\'") + '\',\'' + jadwal.replace(/'/g, "\\'") + '\',\'' + status.replace(/'/g, "\\'") + '\')"><i class="fa-solid fa-file-pdf"></i> Cetak</button></div></div>';
+  container.innerHTML = results.map(function(p){
+    var safeN = (p.nama||'').replace(/'/g,"\\'");
+    var safeNr = (p.nrm||'').replace(/'/g,"\\'");
+    var safeD = (p.diag||'').replace(/'/g,"\\'");
+    var safeR = (p.ruang||'').replace(/'/g,"\\'");
+    var safeJ = (p.jadwal||'').replace(/'/g,"\\'");
+    var safeS = (p.status||'').replace(/'/g,"\\'");
+    return '<div class="card p-5 mb-4 fu" style="border-left:4px solid '+statusColor(p.status)+';border-radius:16px"><div class="flex items-start justify-between gap-4"><div><h4 class="font-extrabold text-lg" style="color:var(--txt)">'+p.nama+'</h4><p class="text-xs mt-1" style="color:var(--muted)">No RM: '+p.nrm+'</p></div>'+statusBadge(p.status)+'</div><div class="grid grid-cols-2 gap-3 mt-4"><div><span class="text-xs font-bold" style="color:var(--muted)">DIAGNOSA</span><p class="text-sm font-semibold mt-1">'+p.diag+'</p></div><div><span class="text-xs font-bold" style="color:var(--muted)">RUANGAN</span><p class="text-sm font-semibold mt-1">'+p.ruang+'</p></div><div><span class="text-xs font-bold" style="color:var(--muted)">JADWAL</span><p class="text-sm font-semibold mt-1">'+p.jadwal+'</p></div></div><div class="mt-4"><button class="share-btn share-pdf" onclick="printInvoice(\''+safeN+'\',\''+safeNr+'\',\''+safeD+'\',\''+safeR+'\',\''+safeJ+'\',\''+safeS+'\')"><i class="fa-solid fa-file-pdf"></i> Cetak</button></div></div>';
   }).join('');
-}
-
-function getStatusColor(s) {
-  const sl = s.toLowerCase();
-  if (sl.includes('menunggu')) return '#3b82f6';
-  if (sl.includes('terjadwal') || sl.includes('jadwal')) return '#10b981';
-  if (sl.includes('hd lain') || sl.includes('lain')) return '#f59e0b';
-  if (sl.includes('batal')) return '#ef4444';
-  if (sl.includes('meninggal')) return '#6b7280';
-  return '#94a3b8';
 }
 
 function patientReset() {
@@ -1510,128 +1348,103 @@ function patientReset() {
   document.getElementById('pNoRes').classList.add('hidden');
 }
 
-/* ================================================================
-   CETAK LAPORAN PDF (dengan info petugas)
-   ================================================================ */
-function printPatientInvoice(nama, nrm, diag, ruang, jadwal, status) {
-  const session = LS.getSession();
-  const isPetugas = session && session.email;
-  let petugasHTML = '';
+/* ============================================================
+   CETAK LAPORAN (dengan nama petugas)
+   ============================================================ */
+function printInvoice(nama, nrm, diag, ruang, jadwal, status) {
+  var sess = LS.getSession();
+  var isPetugas = sess && sess.email;
+  var petugasHTML = '';
   if (isPetugas) {
-    const profile = LS.getProfile(session.email) || {};
-    const pNama = profile.nama || session.nama || 'Petugas';
-    const pPhoto = profile.photo || null;
-    const pInitials = getInitials(pNama);
-    petugasHTML = '<div class="report-petugas-info">' +
-      '<div class="report-petugas-avatar">' + (pPhoto ? '<img src="' + pPhoto + '" alt="Foto">' : pInitials) + '</div>' +
-      '<div><div class="report-petugas-name">Dikeluarkan oleh: ' + pNama + '</div>' +
-      '<div class="report-petugas-role">Petugas Instalasi Dialisis RSSA</div></div></div>';
+    var pf = LS.getProfile(sess.email) || {};
+    var pN = pf.nama || sess.nama || 'Petugas';
+    var pP = pf.photo || null;
+    var pI = initials(pN);
+    petugasHTML = '<div class="report-petugas-info"><div class="report-petugas-avatar">'+(pP?'<img src="'+pP+'" alt="">':pI)+'</div><div><div class="report-petugas-name">Dikeluarkan oleh: '+pN+'</div><div class="report-petugas-role">Petugas Instalasi Dialisis RSSA</div></div></div>';
   }
-  const html = '<div style="font-family:Plus Jakarta Sans,sans-serif;max-width:600px;margin:0 auto;padding:20px">' +
-    '<div style="text-align:center;margin-bottom:20px;padding-bottom:16px;border-bottom:3px solid #059669">' +
-    '<h1 style="font-size:22px;font-weight:900;color:#1e3a5f;margin:0">SIDARAJA</h1>' +
-    '<p style="font-size:12px;color:#64748b;margin:4px 0 0">Sistem Informasi Antrian Pasien — Instalasi Dialisis RSSA</p></div>' +
-    petugasHTML +
-    '<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:20px;margin-top:12px">' +
-    '<h2 style="font-size:16px;font-weight:800;color:#1e293b;margin:0 0 16px">Informasi Pasien</h2>' +
-    '<table style="width:100%;border-collapse:collapse">' +
-    '<tr><td style="padding:8px 0;font-size:12px;font-weight:700;color:#94a3b8;width:140px;vertical-align:top">NAMA PASIEN</td><td style="padding:8px 0;font-size:14px;font-weight:700;color:#1e293b">' + nama + '</td></tr>' +
-    '<tr><td style="padding:8px 0;font-size:12px;font-weight:700;color:#94a3b8;vertical-align:top">NO RM</td><td style="padding:8px 0;font-size:14px;color:#475569">' + nrm + '</td></tr>' +
-    '<tr><td style="padding:8px 0;font-size:12px;font-weight:700;color:#94a3b8;vertical-align:top">DIAGNOSA</td><td style="padding:8px 0;font-size:14px;color:#475569">' + diag + '</td></tr>' +
-    '<tr><td style="padding:8px 0;font-size:12px;font-weight:700;color:#94a3b8;vertical-align:top">RUANGAN</td><td style="padding:8px 0;font-size:14px;color:#475569">' + ruang + '</td></tr>' +
-    '<tr><td style="padding:8px 0;font-size:12px;font-weight:700;color:#94a3b8;vertical-align:top">JADWAL</td><td style="padding:8px 0;font-size:14px;color:#475569">' + jadwal + '</td></tr>' +
-    '<tr><td style="padding:8px 0;font-size:12px;font-weight:700;color:#94a3b8;vertical-align:top">STATUS</td><td style="padding:8px 0;font-size:14px;font-weight:700;color:' + getStatusColor(status) + '">' + status + '</td></tr>' +
-    '</table></div>' +
-    '<div style="margin-top:20px;text-align:center;font-size:10px;color:#94a3b8">Dicetak pada: ' + nowStr() + '</div>' +
-    '</div>';
-  const pa = document.getElementById('printArea');
+  var html = '<div style="font-family:Plus Jakarta Sans,sans-serif;max-width:600px;margin:0 auto;padding:20px"><div style="text-align:center;margin-bottom:20px;padding-bottom:16px;border-bottom:3px solid #059669"><h1 style="font-size:22px;font-weight:900;color:#1e3a5f;margin:0">SIDARAJA</h1><p style="font-size:12px;color:#64748b;margin:4px 0 0">Sistem Informasi Antrian Pasien — Instalasi Dialisis RSSA</p></div>'+petugasHTML+'<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:20px;margin-top:12px"><h2 style="font-size:16px;font-weight:800;color:#1e293b;margin:0 0 16px">Informasi Pasien</h2><table style="width:100%;border-collapse:collapse"><tr><td style="padding:8px 0;font-size:12px;font-weight:700;color:#94a3b8;width:140px;vertical-align:top">NAMA</td><td style="padding:8px 0;font-size:14px;font-weight:700;color:#1e293b">'+nama+'</td></tr><tr><td style="padding:8px 0;font-size:12px;font-weight:700;color:#94a3b8;vertical-align:top">NO RM</td><td style="padding:8px 0;font-size:14px;color:#475569">'+nrm+'</td></tr><tr><td style="padding:8px 0;font-size:12px;font-weight:700;color:#94a3b8;vertical-align:top">DIAGNOSA</td><td style="padding:8px 0;font-size:14px;color:#475569">'+diag+'</td></tr><tr><td style="padding:8px 0;font-size:12px;font-weight:700;color:#94a3b8;vertical-align:top">RUANGAN</td><td style="padding:8px 0;font-size:14px;color:#475569">'+ruang+'</td></tr><tr><td style="padding:8px 0;font-size:12px;font-weight:700;color:#94a3b8;vertical-align:top">JADWAL</td><td style="padding:8px 0;font-size:14px;color:#475569">'+jadwal+'</td></tr><tr><td style="padding:8px 0;font-size:12px;font-weight:700;color:#94a3b8;vertical-align:top">STATUS</td><td style="padding:8px 0;font-size:14px;font-weight:700;color:'+statusColor(status)+'">'+status+'</td></tr></table></div><div style="margin-top:20px;text-align:center;font-size:10px;color:#94a3b8">Dicetak: '+nowStr()+'</div></div>';
+  var pa = document.getElementById('printArea');
   pa.innerHTML = html;
   pa.style.display = 'block';
-  setTimeout(() => { window.print(); setTimeout(() => { pa.style.display = 'none'; }, 500); }, 200);
+  setTimeout(function(){ window.print(); setTimeout(function(){ pa.style.display='none'; },500); },200);
 }
 
-/* ================================================================
+/* ============================================================
    EXPORT CSV
-   ================================================================ */
+   ============================================================ */
 function exportCSV() {
-  if (appState.patients.length === 0) { toast('Tidak ada data untuk diexport.', 'e'); return; }
-  const pts = appState.patients;
-  const allKeys = new Set();
-  pts.forEach(p => Object.keys(p).forEach(k => { if (!k.startsWith('_')) allKeys.add(k); }));
-  const keys = Array.from(allKeys);
-  let csv = keys.join(',') + '\n';
-  pts.forEach(p => {
-    csv += keys.map(k => {
-      let v = String(p[k] || '').replace(/"/g, '""');
-      return '"' + v + '"';
-    }).join(',') + '\n';
+  if (!S.patients.length) { toast('Tidak ada data.','e'); return; }
+  var csv = 'No,Nama,No RM,Diagnosa,Ruangan,Jadwal,Status\n';
+  S.patients.forEach(function(p,i){
+    csv += (i+1)+',"'+(p.nama||'')+'","'+(p.nrm||'')+'","'+(p.diag||'')+'","'+(p.ruang||'')+'","'+(p.jadwal||'')+'","'+(p.status||'')+'"\n';
   });
-  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
-  const link = document.createElement('a');
+  var blob = new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
+  var link = document.createElement('a');
   link.href = URL.createObjectURL(blob);
-  link.download = 'sidaraja-data-' + new Date().toISOString().slice(0, 10) + '.csv';
+  link.download = 'sidaraja-data-'+new Date().toISOString().slice(0,10)+'.csv';
   link.click();
-  toast('File CSV berhasil diunduh.', 's');
+  toast('CSV diunduh.','s');
 }
 
-/* ================================================================
-   KONTAK PETUGAS (placeholder - sesuaikan dengan data asli)
-   ================================================================ */
+/* ============================================================
+   KONTAK PETUGAS RUANGAN
+   ============================================================ */
 function renderContacts() {
-  const contacts = [
-    { nama: 'Ruangan HD 1', person: 'Petugas Jaga', phone: '6281234567890' },
-    { nama: 'Ruangan HD 2', person: 'Petugas Jaga', phone: '6281234567891' },
-    { nama: 'Ruangan HD 3', person: 'Petugas Jaga', phone: '6281234567892' }
+  var contacts = [
+    {nama:'Ruangan HD 1',person:'Petugas Jaga',phone:'6281234567890'},
+    {nama:'Ruangan HD 2',person:'Petugas Jaga',phone:'6281234567891'},
+    {nama:'Ruangan HD 3',person:'Petugas Jaga',phone:'6281234567892'}
   ];
-  const container = document.getElementById('globalContacts');
-  if (!container) return;
-  container.innerHTML = contacts.map(c => {
-    const wa = 'https://wa.me/' + c.phone + '?text=Halo, saya ingin menanyakan antrian pasien di ' + c.nama;
-    const sms = 'sms:' + c.phone;
-    const tel = 'tel:' + c.phone;
-    return '<div class="contact-card"><div class="contact-name">' + c.nama + '</div><div class="contact-person">' + c.person + '</div><div class="contact-phone"><span class="contact-phone-num">' + c.phone.replace(/^62/, '0') + '</span><a href="' + wa + '" target="_blank" class="contact-btn contact-btn-wa"><i class="fa-brands fa-whatsapp"></i> WA</a><a href="' + sms + '" class="contact-btn contact-btn-sms"><i class="fa-solid fa-comment-sms"></i> SMS</a><a href="' + tel + '" class="contact-btn contact-btn-call"><i class="fa-solid fa-phone"></i> Call</a></div></div>';
+  var el = document.getElementById('globalContacts');
+  if (!el) return;
+  el.innerHTML = contacts.map(function(c){
+    var wa = 'https://wa.me/'+c.phone+'?text=Halo, saya ingin menanyakan antrian di '+c.nama;
+    return '<div class="contact-card"><div class="contact-name">'+c.nama+'</div><div class="contact-person">'+c.person+'</div><div class="contact-phone"><span class="contact-phone-num">'+c.phone.replace(/^62/,'0')+'</span><a href="'+wa+'" target="_blank" class="contact-btn contact-btn-wa"><i class="fa-brands fa-whatsapp"></i> WA</a><a href="sms:'+c.phone+'" class="contact-btn contact-btn-sms"><i class="fa-solid fa-comment-sms"></i> SMS</a><a href="tel:'+c.phone+'" class="contact-btn contact-btn-call"><i class="fa-solid fa-phone"></i> Call</a></div></div>';
   }).join('');
 }
 
-/* ================================================================
-   PENGUNJUNG (simulasi dari localStorage)
-   ================================================================ */
-function updateVisitorCount() {
-  let count = parseInt(localStorage.getItem('sidaraja_visitors') || '0');
-  const lastVisit = localStorage.getItem('sidaraja_last_visit');
-  const today = new Date().toDateString();
-  if (lastVisit !== today) {
-    count++;
-    localStorage.setItem('sidaraja_visitors', count.toString());
-    localStorage.setItem('sidaraja_last_visit', today);
-  }
-  document.getElementById('visitorCount').textContent = count;
+/* ============================================================
+   PENGUNJUNG
+   ============================================================ */
+function updateVisitor() {
+  var c = parseInt(localStorage.getItem('sdrj_vis')||'0');
+  var last = localStorage.getItem('sdrj_vis_d');
+  var today = new Date().toDateString();
+  if (last !== today) { c++; localStorage.setItem('sdrj_vis',c); localStorage.setItem('sdrj_vis_d',today); }
+  document.getElementById('visitorCount').textContent = c;
 }
 
-/* ================================================================
-   INISIALISASI
-   ================================================================ */
-async function init() {
-  // Cek koneksi
-  await checkConnection();
-  updateVisitorCount();
+/* ============================================================
+   ENTER KEY
+   ============================================================ */
+document.addEventListener('keydown', function(e) {
+  if (e.key !== 'Enter') return;
+  if (document.getElementById('loginOverlay').style.display === 'none') return;
+  if (document.getElementById('adminSection').style.display !== 'none') {
+    if (document.getElementById('authLoginForm').style.display !== 'none') doPetugasLogin();
+    else doPetugasRegister();
+  } else if (document.getElementById('userSection').style.display !== 'none') {
+    doUserLogin();
+  }
+});
+
+/* ============================================================
+   INIT
+   ============================================================ */
+function init() {
+  checkConn();
+  updateVisitor();
   renderContacts();
 
-  // Cek session tersimpan (auto-login)
-  const session = LS.getSession();
-  const mode = LS.getMode();
-
-  if (session && mode) {
-    if (mode === 'admin' && session.email) {
-      // Validasi user masih ada di localStorage
-      const user = LS.findUser(session.email);
-      if (user) {
-        enterApp('admin');
-        return;
-      }
+  // Cek auto-login
+  var sess = LS.getSession();
+  var mode = LS.getMode();
+  if (sess && mode) {
+    if (mode === 'admin' && sess.email) {
+      var user = LS.findUser(sess.email);
+      if (user) { enterApp('admin'); return; }
     } else if (mode === 'user') {
-      enterApp('user');
-      return;
+      enterApp('user'); return;
     }
   }
 
@@ -1639,32 +1452,8 @@ async function init() {
   document.getElementById('mainHeader').style.display = 'none';
   document.getElementById('navTabsWrap').style.display = 'none';
   document.getElementById('loginOverlay').style.display = 'flex';
-
-  // Update koneksi di login
-  const loginDot = document.getElementById('connDotLogin');
-  const loginLabel = document.getElementById('connLabelLogin');
-  if (appState.isOnline) {
-    loginDot.className = 'conn-dot conn-ok';
-    loginLabel.textContent = 'Terhubung';
-  } else {
-    loginDot.className = 'conn-dot conn-fail';
-    loginLabel.textContent = 'Offline — mode terbatas';
-  }
 }
 
-// Handle Enter key pada form login
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Enter') {
-    if (document.getElementById('adminSection').style.display !== 'none') {
-      if (document.getElementById('authLoginForm').style.display !== 'none') doPetugasLogin();
-      else doPetugasRegister();
-    } else if (document.getElementById('userSection').style.display !== 'none') {
-      doUserLogin();
-    }
-  }
-});
-
-// Mulai aplikasi
 init();
 </script>
 </body>
