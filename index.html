@@ -10,10 +10,12 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script>tailwind.config={theme:{extend:{fontFamily:{sans:['Plus Jakarta Sans','sans-serif']}}}}</script>
 <style>
-:root{--b900:#1e3a5f;--b800:#1e40af;--b700:#1d4ed8;--b600:#2563eb;--b500:#3b82f6;--b400:#60a5fa;--b300:#93c5fd;--b200:#bfdbfe;--b100:#dbeafe;--b50:#eff6ff;--g700:#047857;--g600:#059669;--g500:#10b981;--g400:#34d399;--g100:#d1fae5;--w:#ffffff;--g50:#f8fafc;--g100f:#f1f5f9;--g200:#e2e8f0;--g300:#cbd5e1;--g400:#94a3b8;--g500:#64748b;--g600:#475569;--g800:#1e293b;--txt:#1e293b;--txt2:#475569;--muted:#94a3b8;--bdr:#e2e8f0;--pg:#059669;--pgl:#d1fae5;--pgbg:#ecfdf5;--pk:#d97706;--pkl:#fde68a;--pkbg:#fffbeb;--pp:#db2777;--ppl:#fbcfe8;--ppbg:#fce7f3}
+:root{--b900:#1e3a5f;--b800:#1e40af;--b700:#1d4ed8;--b600:#2563eb;--b500:#3b82f6;--b400:#60a5fa;--b300:#93c5fd;--b200:#bfdbfe;--b100:#dbeafe;--b50:#eff6ff;--g700:#047857;--g600:#059669;--g500:#10b981;--g400:#34d399;--g100:#d1fae5;--w:#ffffff;--g50:#f8fafc;--g100:#f1f5f9;--g200:#e2e8f0;--g300:#cbd5e1;--g400:#94a3b8;--g500:#64748b;--g600:#475569;--g800:#1e293b;--txt:#1e293b;--txt2:#475569;--muted:#94a3b8;--bdr:#e2e8f0;--pg:#059669;--pgl:#d1fae5;--pgbg:#ecfdf5;--pk:#d97706;--pkl:#fde68a;--pkbg:#fffbeb;--pp:#db2777;--ppl:#fbcfe8;--ppbg:#fce7f3}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--g50);color:var(--txt);min-height:100vh;transition:background .5s}
 body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3 70%,#ecfdf5 100%)}
+
+/* ===== HEADER UTAMA ===== */
 .hdr{position:relative;overflow:hidden;transition:background .5s;display:flex;flex-direction:column}
 .hdr-logo-area{flex-shrink:0;height:140px;background-image:url('logosidaraja.png');background-size:contain;background-position:center center;background-repeat:no-repeat;background-color:rgba(10,22,50,.92);position:relative;z-index:2}
 .hdr-logo-area::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(to bottom,transparent,rgba(10,22,50,.5));pointer-events:none}
@@ -23,20 +25,24 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .hdr.grad-admin .hdr-body{background:linear-gradient(135deg,var(--b900),var(--b700) 40%,var(--b600))}
 .hdr.grad-patient .hdr-body{background:linear-gradient(135deg,#047857 0%,#059669 25%,#b45309 60%,#be185d 100%)}
 .patient-bg .hdr-logo-area{background-color:rgba(5,50,30,.92)}
+
 .ecg{position:absolute;bottom:0;left:0;width:100%;height:50px;overflow:hidden;opacity:.2;z-index:1}
 .ecg svg{position:absolute;bottom:0;left:0;width:200%;height:50px;animation:ecgS 6s linear infinite}
 @keyframes ecgS{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 .stripe{height:4px;background:repeating-linear-gradient(90deg,var(--b600) 0 20px,var(--g500) 20px 40px);transition:background .5s;position:relative;z-index:2}
 .stripe.patient-stripe{background:repeating-linear-gradient(90deg,var(--pg) 0 16px,var(--pk) 16px 32px,var(--pp) 32px 48px)}
+
+/* ===== LOGIN HEADER ===== */
 .login-box{background:var(--w);border-radius:24px;max-width:520px;width:100%;box-shadow:0 25px 60px rgba(0,0,0,.35);overflow:hidden;animation:fu2 .4s cubic-bezier(.16,1,.3,1)}
 .login-logo-area{height:150px;background-image:url('logosidaraja.png');background-size:contain;background-position:center center;background-repeat:no-repeat;background-color:rgba(10,22,50,.95);position:relative}
 .login-logo-area::after{content:'';position:absolute;bottom:0;left:0;right:0;height:36px;background:linear-gradient(to bottom,transparent,rgba(10,22,50,.6));pointer-events:none}
 .login-header-text{background:linear-gradient(135deg,var(--b900),var(--b700));padding:20px 32px 28px;text-align:center;position:relative;overflow:hidden}
 .login-header-text::before{content:'';position:absolute;top:-30%;right:-20%;width:200px;height:200px;background:radial-gradient(circle,rgba(16,185,129,.12),transparent 70%);border-radius:50%;pointer-events:none}
 .login-body{padding:28px 32px 32px}
+
 .nav-tab{padding:12px 24px;font-weight:700;font-size:14px;border-radius:12px 12px 0 0;cursor:pointer;transition:all .25s;border:2px solid transparent;border-bottom:none;font-family:inherit}
 .nav-tab.active{background:var(--w);color:var(--b700);border-color:var(--bdr);box-shadow:0 -2px 8px rgba(0,0,0,.04)}
-.nav-tab:not(.active){background:var(--g100f);color:var(--g500)}
+.nav-tab:not(.active){background:var(--g100);color:var(--g500)}
 .nav-tab:not(.active):hover{background:var(--g200);color:var(--g600)}
 .nav-tab.hidden-tab{display:none}
 .card{background:var(--w);border-radius:16px;border:1px solid var(--bdr);box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.02)}
@@ -68,6 +74,12 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .bo:hover{border-color:var(--b300);color:var(--b600);background:var(--b50)}
 .br{background:#ef4444;color:#fff;font-weight:700;padding:13px 28px;border-radius:12px;border:none;cursor:pointer;transition:all .25s;font-size:14px;font-family:inherit;display:inline-flex;align-items:center;gap:8px}
 .br:hover{background:#dc2626;transform:translateY(-1px)}
+.dd-wrap{position:relative;display:inline-block}
+.dd-menu{position:absolute;right:0;top:calc(100% + 6px);background:var(--w);border:1px solid var(--bdr);border-radius:12px;box-shadow:0 12px 36px rgba(0,0,0,.12);min-width:220px;z-index:100;opacity:0;transform:translateY(-8px);pointer-events:none;transition:all .2s}
+.dd-menu.open{opacity:1;transform:translateY(0);pointer-events:auto}
+.dd-item{display:flex;align-items:center;gap:10px;padding:12px 16px;font-size:13px;font-weight:600;color:var(--txt2);cursor:pointer;transition:background .15s;font-family:inherit;border:none;background:none;width:100%;text-align:left}
+.dd-item:first-child{border-radius:12px 12px 0 0}.dd-item:last-child{border-radius:0 0 12px 12px}
+.dd-item:hover{background:var(--b50);color:var(--b600)}.dd-item i{width:20px;text-align:center;font-size:14px}
 .tw{overflow-x:auto}
 .dt{width:100%;border-collapse:separate;border-spacing:0}
 .dt thead th{background:linear-gradient(135deg,var(--b900),var(--b700));padding:14px 16px;text-align:left;font-weight:700;font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.95);position:sticky;top:0;z-index:10;white-space:nowrap;border-bottom:3px solid var(--g500)}
@@ -82,7 +94,14 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .dt tbody tr.row-meninggal{background:#f3f4f6!important}.dt tbody tr.row-meninggal:hover{background:#e5e7eb!important}
 .dt tbody td{padding:13px 16px;border-bottom:1px solid var(--bdr);font-size:13.5px;color:var(--txt2);max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .dt tbody tr:last-child td{border-bottom:none}
+.ac{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;font-weight:800;font-size:14px;color:#fff}
+.hm{background:rgba(16,185,129,.18);color:var(--g700);padding:2px 6px;border-radius:4px;font-weight:700}
+.tc{font-size:12px!important;color:var(--muted)!important;font-weight:600;white-space:nowrap!important}
 .badge{display:inline-block;padding:3px 10px;border-radius:8px;font-size:12px;font-weight:700;white-space:nowrap}
+.pb{width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;border:2px solid var(--bdr);background:var(--w);color:var(--txt2);font-family:inherit}
+.pb:hover{border-color:var(--b300);color:var(--b600);background:var(--b50)}
+.pb.act{background:linear-gradient(135deg,var(--b600),var(--b700));color:#fff;border-color:transparent;box-shadow:0 4px 12px rgba(37,99,235,.25)}
+.pb:disabled{opacity:.35;cursor:not-allowed}
 .spin{width:48px;height:48px;border:4px solid var(--b100);border-top-color:var(--b600);border-radius:50%;animation:sp .8s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
 .tc2{position:fixed;top:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:10px;pointer-events:none}
@@ -90,7 +109,6 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .tt-s{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46}
 .tt-e{background:#fef2f2;border:1px solid #fecaca;color:#991b1b}
 .tt-i{background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af}
-.tt-w{background:#fffbeb;border:1px solid #fde68a;color:#92400e}
 @keyframes ti{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
 .tt-x{animation:to .3s ease forwards}
 @keyframes to{to{opacity:0;transform:translateX(40px)}}
@@ -111,6 +129,7 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .conn-fail{background:#ef4444;box-shadow:0 0 6px rgba(239,68,68,.5)}
 .conn-load{background:#f59e0b;animation:pulse2 1s infinite}
 @keyframes pulse2{0%,100%{opacity:1}50%{opacity:.3}}
+.user-avatar{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff;flex-shrink:0}
 .neon-reg-wrap{display:none;margin-top:20px;text-align:center;position:relative;z-index:10}
 .neon-reg-wrap.show{display:block}
 .neon-reg-btn{display:inline-flex;align-items:center;gap:12px;padding:16px 36px;border-radius:16px;font-weight:900;font-size:16px;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;text-decoration:none;border:2.5px solid #00ffaa;background:linear-gradient(135deg,rgba(0,255,170,.07),rgba(0,255,136,.14),rgba(0,230,255,.07));color:#00ffaa;text-shadow:0 0 12px rgba(0,255,170,.6),0 0 24px rgba(0,255,170,.25);box-shadow:0 0 12px rgba(0,255,170,.35),0 0 30px rgba(0,255,170,.15),0 0 60px rgba(0,255,170,.06),inset 0 0 18px rgba(0,255,170,.06);animation:neonGlow 2.8s ease-in-out infinite;transition:all .3s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;letter-spacing:.06em;text-transform:uppercase}
@@ -123,6 +142,38 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .neon-reg-btn .neon-arrow{font-size:13px;opacity:.7;transition:all .25s}
 .neon-reg-btn:hover .neon-arrow{opacity:1;transform:translateX(4px)}
 .neon-reg-sub{display:block;margin-top:10px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,255,170,.45);text-shadow:0 0 8px rgba(0,255,170,.2)}
+.inv{background:var(--w);border-radius:20px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.07);border:2px solid var(--bdr);transition:border-color .3s}
+.inv:hover{border-color:var(--pk)}
+.inv-hdr{padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:2px dashed var(--bdr)}
+.inv-hdr-left{display:flex;align-items:center;gap:12px}
+.inv-hdr-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.inv-body{padding:20px 24px}
+.inv-row{display:flex;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--g100);gap:12px}
+.inv-row:last-child{border-bottom:none}
+.inv-label{font-size:12px;font-weight:700;color:var(--muted);min-width:160px;flex-shrink:0;text-transform:uppercase;letter-spacing:.04em;padding-top:2px}
+.inv-val{font-size:15px;font-weight:600;color:var(--txt);flex:1;word-break:break-word}
+.inv-contacts{padding:16px 24px;background:linear-gradient(135deg,var(--pgbg),var(--pkbg));border-top:2px dashed var(--bdr)}
+.inv-contacts-title{font-size:12px;font-weight:800;color:var(--pg);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.contact-card{background:var(--w);border-radius:12px;padding:12px 16px;margin-bottom:8px;border:1px solid var(--bdr);transition:all .25s}
+.contact-card:last-child{margin-bottom:0}
+.contact-card.active-room{border-color:var(--pg);box-shadow:0 0 0 3px rgba(5,150,105,.12);background:#ecfdf5}
+.contact-name{font-size:14px;font-weight:800;color:var(--txt)}
+.contact-person{font-size:12px;color:var(--txt2);margin-top:2px}
+.contact-phone{display:flex;align-items:center;gap:10px;margin-top:8px;flex-wrap:wrap}
+.contact-phone-num{font-size:14px;font-weight:700;color:var(--pg);letter-spacing:.02em}
+.contact-btn{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;border:none;font-family:inherit;text-decoration:none}
+.contact-btn-wa{background:#dcfce7;color:#166534}.contact-btn-wa:hover{background:#bbf7d0}
+.contact-btn-sms{background:#dbeafe;color:#1e40af}.contact-btn-sms:hover{background:#bfdbfe}
+.contact-btn-tg{background:#e0e7ff;color:#3730a3}.contact-btn-tg:hover{background:#c7d2fe}
+.contact-btn-call{background:#fef3c7;color:#92400e}.contact-btn-call:hover{background:#fde68a}
+.inv-actions{padding:16px 24px;border-top:2px dashed var(--bdr);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.inv-actions-title{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;width:100%;margin-bottom:4px}
+.share-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 16px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;border:none;font-family:inherit;text-decoration:none}
+.share-btn:hover{transform:translateY(-1px)}
+.share-wa{background:#dcfce7;color:#166534}.share-wa:hover{box-shadow:0 4px 12px rgba(22,101,52,.2)}
+.share-tg{background:#dbeafe;color:#1e40af}.share-tg:hover{box-shadow:0 4px 12px rgba(30,64,175,.2)}
+.share-sms{background:#fef3c7;color:#92400e}.share-sms:hover{box-shadow:0 4px 12px rgba(146,64,14,.2)}
+.share-pdf{background:#fce7f3;color:#9d174d}.share-pdf:hover{box-shadow:0 4px 12px rgba(157,23,77,.2)}
 .p-stat{border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:14px;transition:all .25s;border:2px solid transparent}
 .p-stat:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.08)}
 .p-stat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -134,37 +185,136 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .visitor-badge-admin{background:rgba(168,85,247,.15);border:1px solid rgba(168,85,247,.25);color:#c4b5fd}
 .visitor-badge-patient{background:rgba(251,191,36,.15);border:1px solid rgba(251,191,36,.25);color:#fde68a}
 .visitor-badge i{font-size:10px}
+.contact-list-section{margin-top:20px}
+.contact-list-card{background:var(--w);border-radius:16px;border:2px solid var(--bdr);overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.02)}
+.contact-list-header{padding:18px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:2px dashed var(--bdr)}
+.contact-list-body{padding:16px 24px;max-height:520px;overflow-y:auto}
+.contact-list-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;border:1px solid var(--bdr);margin-bottom:8px;transition:all .2s;background:var(--w)}
+.contact-list-item:last-child{margin-bottom:0}
+.contact-list-item:hover{border-color:var(--b300);box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.contact-list-item .cli-idx{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;color:#fff;flex-shrink:0}
+.contact-list-item .cli-info{flex:1;min-width:0}
+.contact-list-item .cli-name{font-size:14px;font-weight:800;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.contact-list-item .cli-sub{font-size:11px;color:var(--muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.contact-list-item .cli-phone{font-size:13px;font-weight:700;color:var(--pg);margin-top:2px}
+.contact-list-item .cli-actions{display:flex;flex-wrap:wrap;gap:4px;flex-shrink:0}
+.cli-btn{display:inline-flex;align-items:center;gap:3px;padding:5px 8px;border-radius:6px;font-size:10px;font-weight:700;cursor:pointer;transition:all .15s;border:none;font-family:inherit;text-decoration:none;white-space:nowrap}
+.cli-btn:hover{transform:translateY(-1px)}
+.cli-btn-call{background:#fef3c7;color:#92400e}.cli-btn-call:hover{background:#fde68a}
+.cli-btn-wa{background:#dcfce7;color:#166534}.cli-btn-wa:hover{background:#bbf7d0}
+.cli-btn-sms{background:#dbeafe;color:#1e40af}.cli-btn-sms:hover{background:#bfdbfe}
+.cli-btn-tg{background:#e0e7ff;color:#3730a3}.cli-btn-tg:hover{background:#c7d2fe}
+.chart-actions{display:flex;gap:8px;margin-top:12px;justify-content:center;flex-wrap:wrap}
+.chart-act-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;border:1px solid var(--bdr);background:var(--w);color:var(--txt2);font-family:inherit}
+.chart-act-btn:hover{border-color:var(--b300);color:var(--b600);background:var(--b50);transform:translateY(-1px)}
+
+.room-card{background:var(--w);border-radius:20px;border:2px solid var(--bdr);overflow:hidden;transition:all .3s;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.room-card:hover{box-shadow:0 8px 30px rgba(0,0,0,.08);transform:translateY(-2px)}
+.room-card.has-active{border-color:var(--pg);box-shadow:0 0 0 3px rgba(5,150,105,.12),0 8px 30px rgba(0,0,0,.06)}
+.room-hdr{padding:20px 24px;display:flex;align-items:center;gap:14px;position:relative}
+.room-hdr-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px}
+.room-hdr-info{flex:1}
+.room-hdr-name{font-size:17px;font-weight:900;color:var(--txt);line-height:1.2}
+.room-hdr-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.room-active-badge{display:none;padding:4px 10px;border-radius:20px;font-size:10px;font-weight:800;background:#dcfce7;color:#166534;animation:pulse2 2s infinite;white-space:nowrap}
+.room-card.has-active .room-active-badge{display:inline-flex;align-items:center;gap:4px}
+.room-body{padding:16px 24px}
+.staff-card{display:flex;align-items:center;gap:14px;padding:14px;border-radius:14px;border:2px solid var(--bdr);margin-bottom:10px;transition:all .25s;background:var(--w);position:relative}
+.staff-card:last-child{margin-bottom:0}
+.staff-card.is-active{border-color:var(--pg);background:linear-gradient(135deg,#ecfdf5,#f0fdf4);box-shadow:0 0 0 3px rgba(5,150,105,.08)}
+.staff-photo{width:56px;height:56px;border-radius:14px;flex-shrink:0;overflow:hidden;cursor:pointer;position:relative;border:2px solid var(--bdr);transition:border-color .2s;display:flex;align-items:center;justify-content:center;background:var(--g100)}
+.staff-photo:hover{border-color:var(--g500)}
+.staff-photo img{width:100%;height:100%;object-fit:cover}
+.staff-photo .photo-overlay{position:absolute;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;border-radius:12px}
+.staff-photo:hover .photo-overlay{opacity:1}
+.staff-photo .photo-overlay i{color:#fff;font-size:16px}
+.staff-info{flex:1;min-width:0}
+.staff-name{font-size:15px;font-weight:800;color:var(--txt)}
+.staff-role{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:1px}
+.staff-phone{font-size:13px;font-weight:700;color:var(--pg);margin-top:2px}
+.staff-actions-col{display:flex;flex-direction:column;gap:6px;align-items:flex-end;flex-shrink:0}
+.btn-activate{padding:8px 14px;border-radius:10px;font-size:11px;font-weight:800;cursor:pointer;transition:all .25s;border:2px solid var(--bdr);background:var(--w);color:var(--muted);font-family:inherit;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.btn-activate:hover{border-color:var(--g500);color:var(--g600);background:var(--pgbg)}
+.btn-activate.active{background:linear-gradient(135deg,var(--pg),var(--g600));color:#fff;border-color:transparent;box-shadow:0 4px 12px rgba(5,150,105,.3)}
+.btn-activate.active:hover{box-shadow:0 6px 18px rgba(5,150,105,.4);transform:translateY(-1px)}
+.btn-sm{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;cursor:pointer;transition:all .2s;border:1px solid var(--bdr);background:var(--w);color:var(--muted);font-family:inherit}
+.btn-sm:hover{border-color:var(--b300);color:var(--b600);background:var(--b50)}
+.btn-sm.btn-del:hover{border-color:#fca5a5;color:#dc2626;background:#fef2f2}
+.room-footer{padding:12px 24px;border-top:1px dashed var(--bdr);display:flex;justify-content:center}
+.btn-add-staff{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;transition:all .25s;border:2px dashed var(--bdr);background:var(--w);color:var(--g500);font-family:inherit}
+.btn-add-staff:hover{border-color:var(--g500);background:var(--pgbg);color:var(--g600);transform:translateY(-1px)}
+.staff-empty{text-align:center;padding:24px;color:var(--muted);font-size:13px}
+.staff-empty i{font-size:28px;display:block;margin-bottom:8px;opacity:.4}
+.modal-overlay{position:fixed;inset:0;background:rgba(15,23,42,.7);backdrop-filter:blur(8px);z-index:2000;display:flex;align-items:center;justify-content:center;padding:16px}
+.modal-box{background:var(--w);border-radius:20px;max-width:440px;width:100%;box-shadow:0 25px 60px rgba(0,0,0,.3);animation:fu2 .3s cubic-bezier(.16,1,.3,1);overflow:hidden}
+.modal-hdr{padding:20px 24px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between}
+.modal-hdr h3{font-size:16px;font-weight:900;color:var(--b900)}
+.modal-close{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;background:var(--g100);color:var(--g500);font-size:14px;transition:all .2s}
+.modal-close:hover{background:#fee2e2;color:#dc2626}
+.modal-body{padding:24px}
+.modal-footer{padding:16px 24px;border-top:1px solid var(--bdr);display:flex;gap:10px;justify-content:flex-end}
+.form-group{margin-bottom:16px}
+.form-label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em}
+.form-input{width:100%;padding:11px 14px;border:2px solid var(--bdr);border-radius:10px;font-size:14px;color:var(--txt);background:var(--w);transition:all .2s;outline:none;font-family:inherit}
+.form-input:focus{border-color:var(--b500);box-shadow:0 0 0 3px rgba(59,130,246,.1)}
+.form-select{width:100%;padding:11px 14px;border:2px solid var(--bdr);border-radius:10px;font-size:14px;color:var(--txt);background:var(--w);transition:all .2s;outline:none;font-family:inherit;cursor:pointer}
+.form-select:focus{border-color:var(--b500);box-shadow:0 0 0 3px rgba(59,130,246,.1)}
+.btn-ambil{display:inline-flex;align-items:center;gap:5px;padding:7px 12px;border-radius:8px;font-size:11px;font-weight:800;cursor:pointer;transition:all .25s;border:2px solid var(--bdr);background:var(--g100);color:var(--g400);font-family:inherit;white-space:nowrap}
+.btn-ambil:hover{transform:translateY(-1px)}
+.btn-ambil.disabled{cursor:not-allowed;opacity:.5;transform:none!important}
+.btn-ambil.enabled{background:linear-gradient(135deg,var(--pg),var(--g600));color:#fff;border-color:transparent;box-shadow:0 4px 12px rgba(5,150,105,.25)}
+.btn-ambil.enabled:hover{box-shadow:0 6px 18px rgba(5,150,105,.35)}
+.active-pickers{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px}
+.active-picker-chip{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:10px;font-weight:800;background:#dcfce7;color:#166534;border:1px solid #a7f3d0;animation:pulse2 2s infinite}
+.active-picker-chip .apc-dot{width:6px;height:6px;border-radius:50%;background:#10b981}
+.pick-popup{position:fixed;z-index:1500;background:var(--w);border:2px solid var(--bdr);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.2);min-width:260px;animation:fu2 .2s cubic-bezier(.16,1,.3,1);overflow:hidden}
+.pick-popup-hdr{padding:12px 16px;background:linear-gradient(135deg,var(--b900),var(--b700));color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;gap:8px}
+.pick-popup-item{display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer;transition:background .15s;border:none;background:none;width:100%;text-align:left;font-family:inherit}
+.pick-popup-item:hover{background:var(--b50)}
+.pick-popup-item .ppi-photo{width:36px;height:36px;border-radius:10px;overflow:hidden;flex-shrink:0;background:var(--g100);display:flex;align-items:center;justify-content:center;border:1px solid var(--bdr)}
+.pick-popup-item .ppi-photo img{width:100%;height:100%;object-fit:cover}
+.pick-popup-item .ppi-name{font-size:13px;font-weight:800;color:var(--txt)}
+.pick-popup-item .ppi-room{font-size:11px;color:var(--muted)}
+.gas-config{margin-top:24px;padding:20px;border-radius:16px;background:var(--g50);border:2px dashed var(--bdr)}
+.gas-config h4{font-size:14px;font-weight:800;color:var(--b900);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.gas-input{width:100%;padding:10px 14px;border:2px solid var(--bdr);border-radius:10px;font-size:12px;font-family:monospace;color:var(--txt);background:var(--w);outline:none;transition:border-color .2s}
+.gas-input:focus{border-color:var(--g500);box-shadow:0 0 0 3px rgba(16,185,129,.1)}
+.gas-status{margin-top:8px;font-size:11px;font-weight:700;display:flex;align-items:center;gap:6px}
+
+/* ===== HEADER CONTENT AREA (text below logo) ===== */
 .hdr-content{position:relative;z-index:3}
-.login-shake{animation:shake .5s ease}
-@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-10px)}40%{transform:translateX(10px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
-.ambil-item{display:flex;align-items:center;gap:14px;padding:14px 16px;border:2px solid var(--bdr);border-radius:14px;margin-bottom:10px;transition:all .25s;background:var(--w);cursor:default}
-.ambil-item:hover{border-color:var(--g400);background:var(--g50)}
-.ambil-item .ai-rm{font-weight:800;color:var(--b700);font-size:13px;min-width:80px}
-.ambil-item .ai-nama{font-weight:700;color:var(--txt);font-size:14px;flex:1}
-.ambil-item .ai-diag{font-size:12px;color:var(--muted);min-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.patient-result-card{background:var(--w);border-radius:18px;border:2px solid var(--pg);overflow:hidden;margin-bottom:14px;animation:fu2 .4s cubic-bezier(.16,1,.3,1)}
-.patient-result-header{padding:18px 22px;background:linear-gradient(135deg,#ecfdf5,#d1fae5);display:flex;align-items:center;gap:14px}
-.patient-result-body{padding:18px 22px}
-.patient-result-body .pr-row{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--bdr);font-size:14px}
-.patient-result-body .pr-row:last-child{border-bottom:none}
-.patient-result-body .pr-label{font-weight:700;color:var(--muted);min-width:100px;font-size:12px;text-transform:uppercase;letter-spacing:.05em;padding-top:2px}
-.patient-result-body .pr-value{color:var(--txt);font-weight:600}
-.reload-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;transition:all .25s;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);font-family:inherit}
-.reload-btn:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.4);color:#fff}
-.reload-btn.spinning i{animation:sp .6s linear infinite}
-@media(max-width:768px){.hdr-logo-area{height:100px}.login-logo-area{height:110px}}
-@media(max-width:480px){.hdr-logo-area{height:80px}.login-logo-area{height:90px}.stg{grid-template-columns:1fr 1fr!important}.nav-tab{padding:10px 14px;font-size:12px}.login-body{padding:20px}}
-@media print{body>*{display:none!important}#printArea{display:block!important}}
-::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-track{background:var(--g100f)}::-webkit-scrollbar-thumb{background:var(--b200);border-radius:4px}
+
+/* ===== RESPONSIVE HEADER LOGO ===== */
+@media(max-width:768px){
+.hdr-logo-area{height:100px}
+.login-logo-area{height:110px}
+}
+@media(max-width:480px){
+.hdr-logo-area{height:80px}
+.login-logo-area{height:90px}
+.sg{grid-template-columns:1fr!important}.stg{grid-template-columns:1fr 1fr!important}.csg{grid-template-columns:1fr!important}.room-grid{grid-template-columns:1fr!important}
+.inv-row{flex-direction:column;gap:2px}.inv-label{min-width:auto}
+.neon-reg-btn{padding:14px 24px;font-size:14px;gap:10px}
+.contact-list-item{flex-direction:column;align-items:flex-start}.contact-list-item .cli-actions{width:100%;justify-content:flex-start}
+.staff-card{flex-direction:column;align-items:flex-start}.staff-actions-col{flex-direction:row;width:100%;justify-content:flex-end}
+.nav-tab{padding:10px 14px;font-size:12px}.login-body{padding:20px}
+}
+@media(max-width:480px){.stg{grid-template-columns:1fr!important}}
+
+@media print{body>*{display:none!important}#printArea{display:block!important}#printArea .inv{border:2px solid #333!important;box-shadow:none!important;page-break-inside:avoid;margin-bottom:20px}#printArea .inv-contacts{background:#f0f0f0!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}#printArea .contact-card{border:1px solid #ccc!important}#printArea .contact-card.active-room{border:2px solid #059669!important;background:#e6f7ef!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}#printArea .share-btn,#printArea .inv-actions,#printArea .chart-actions,#printArea .cli-btn{display:none!important}#printArea .print-datetime{text-align:center;font-size:10px;color:#94a3b8;margin-bottom:12px}#printArea .contact-list-item{border:1px solid #ccc!important;break-inside:avoid}}
+::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-track{background:var(--g100)}::-webkit-scrollbar-thumb{background:var(--b200);border-radius:4px}
 </style>
 </head>
 <body>
 <div class="tc2" id="toastC"></div>
+<div id="printArea" style="display:none"></div>
 
 <!-- ===== LOGIN OVERLAY ===== -->
 <div class="login-overlay" id="loginOverlay">
-<div class="login-box" id="loginBox">
+<div class="login-box">
+<!-- Logo area: setengah atas -->
 <div class="login-logo-area"></div>
+<!-- Teks area: setengah bawah -->
 <div class="login-header-text">
 <h2 class="text-xl font-black text-white relative z-10">SIDARAJA</h2>
 <p class="text-blue-200 text-xs mt-1 font-medium relative z-10">Sistem Informasi Antrian Pasien<br>Instalasi Dialisis RSSA</p>
@@ -188,13 +338,12 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 <label class="block text-xs font-bold uppercase tracking-wider mb-2" style="color:var(--muted)">Kata Sandi Admin</label>
 <div class="relative">
 <i class="fa-solid fa-lock iic"></i>
-<input type="password" id="adminPass" class="si2" placeholder="Masukkan kata sandi admin" autocomplete="current-password" onkeydown="if(event.key==='Enter')doAdminLogin()">
-<button type="button" onclick="togglePassVis('adminPass',this)" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--muted);font-size:14px;z-index:2"><i class="fa-solid fa-eye"></i></button>
+<input type="password" id="adminPass" class="si2" placeholder="Masukkan kata sandi admin" autocomplete="current-password">
+<button type="button" onclick="togglePassVis('adminPass',this)" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--muted);font-size:14px"><i class="fa-solid fa-eye"></i></button>
 </div>
 </div>
 <div id="loginError" class="hidden mb-4 p-3 rounded-lg text-sm font-semibold" style="background:#fef2f2;color:#991b1b;border:1px solid #fecaca"><i class="fa-solid fa-circle-xmark mr-1"></i> <span id="loginErrorMsg"></span></div>
-<button class="bp w-full justify-center text-base" id="adminLoginBtn" onclick="doAdminLogin()"><i class="fa-solid fa-right-to-bracket"></i> Masuk sebagai Admin</button>
-<p class="text-center mt-3 text-xs" style="color:var(--muted)">Hint: kata sandi default = <strong>admin123</strong></p>
+<button class="bp w-full justify-center text-base" onclick="doAdminLogin()"><i class="fa-solid fa-right-to-bracket"></i> Masuk sebagai Admin</button>
 </div>
 <div id="userSection" style="display:none">
 <div class="p-4 rounded-xl mb-4" style="background:linear-gradient(135deg,#ecfdf5,#fffbeb,#fce7f3);border:1px solid #a7f3d0">
@@ -204,8 +353,8 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 <button class="bg2 w-full justify-center text-base" onclick="doUserLogin()" style="background:linear-gradient(135deg,var(--pg),#0d9488)"><i class="fa-solid fa-arrow-right"></i> Lanjutkan Cek Antrian</button>
 </div>
 <div class="mt-4 flex items-center justify-center gap-2">
-<span class="conn-dot conn-ok" id="connDotLogin"></span>
-<span class="text-xs font-semibold" style="color:var(--muted)" id="connLabelLogin">Siap</span>
+<span class="conn-dot conn-load" id="connDotLogin"></span>
+<span class="text-xs font-semibold" style="color:var(--muted)" id="connLabelLogin">Menghubungkan ke server...</span>
 </div>
 </div>
 </div>
@@ -213,7 +362,9 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 
 <!-- ===== HEADER UTAMA ===== -->
 <header class="hdr grad-admin" id="mainHeader">
+<!-- Seperempat atas: background logo -->
 <div class="hdr-logo-area"></div>
+<!-- Tiga perempat bawah: gradient + konten -->
 <div class="hdr-body">
 <div class="ecg"><svg viewBox="0 0 1200 50" fill="none"><polyline points="0,25 60,25 80,25 95,6 110,44 125,10 140,40 155,25 240,25 260,25 275,6 290,44 305,10 320,40 335,25 420,25 440,25 455,6 470,44 485,10 500,40 515,25 600,25 620,25 635,6 650,44 665,10 680,40 695,25 780,25 800,25 815,6 830,44 845,10 860,40 875,25 960,25 980,25 995,6 1010,44 1025,10 1040,40 1055,25 1140,25 1160,25 1175,6 1190,44 1200,25" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
 <div class="hdr-content px-4 sm:px-8 pt-6 pb-8">
@@ -228,16 +379,21 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 <div class="flex items-center gap-3 flex-wrap">
 <div class="visitor-badge visitor-badge-admin" id="visitorBadge" title="Pengunjung"><i class="fa-solid fa-eye"></i><span id="visitorCount">0</span> pengunjung</div>
 <div class="flex items-center gap-2 px-3 py-1.5 rounded-full" style="background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.25)">
-<span class="conn-dot conn-ok" id="connDot"></span>
-<span class="text-green-300 text-xs font-bold" id="connLabel">ONLINE</span>
+<span class="conn-dot conn-load" id="connDot"></span>
+<span class="text-green-300 text-xs font-bold" id="connLabel">MEMUAT</span>
 </div>
-<button class="reload-btn" id="reloadBtn" onclick="manualReload()" style="display:none" title="Muat ulang data"><i class="fa-solid fa-rotate"></i> Refresh</button>
-<button class="patient-logout" id="logoutBtn" onclick="doLogout()" style="display:none"><i class="fa-solid fa-right-from-bracket"></i> Keluar</button>
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#93c5fd;cursor:pointer" onclick="refreshData()" title="Muat ulang data"><i class="fa-solid fa-arrows-rotate" id="refreshIcon"></i> Refresh</button>
+<button id="patientLogoutBtn" class="patient-logout hidden" onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i> Keluar</button>
 </div>
 </div>
 <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-white leading-tight mb-2" id="headerTitle">Daftar Antri<br><span id="headerTitleAccent" style="background:linear-gradient(135deg,#6ee7b7,#34d399,#10b981);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Pasien Instalasi Dialisis RSSA</span></h1>
 <p class="text-blue-200 text-sm font-light max-w-xl" id="headerDesc">Klik kartu status di bawah untuk memfilter tampilan pasien pada dashboard.</p>
 <div class="mt-3 text-blue-300 text-xs font-medium" id="lastUpdate">Terakhir diperbarui: —</div>
+<div class="active-pickers" id="activePickersIndicator" style="display:none">
+<i class="fa-solid fa-bolt" style="color:#fde68a;font-size:11px"></i>
+<span style="font-size:11px;font-weight:700;color:#fde68a">Pengambilan aktif:</span>
+<span id="activePickersList"></span>
+</div>
 <div class="neon-reg-wrap" id="neonRegWrap">
 <a href="https://docs.google.com/forms/d/e/1FAIpQLScKG2eU4ToALTu8-qsK4l6JBrYG6IET76OjaaEn-ZlP34pyng/viewform" target="_blank" rel="noopener noreferrer" class="neon-reg-btn">
 <i class="fa-solid fa-user-plus neon-icon"></i><span>Pendaftaran Pasien Baru</span><i class="fa-solid fa-arrow-up-right-from-square neon-arrow"></i>
@@ -254,8 +410,8 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 <div class="max-w-7xl mx-auto px-4 sm:px-8 mt-6" id="navTabsWrap">
 <div class="flex gap-1 flex-wrap">
 <button class="nav-tab active" id="tab1" onclick="switchSlide(1)"><i class="fa-solid fa-clipboard-list mr-2"></i>Dashboard</button>
-<button class="nav-tab" id="tab2" onclick="switchSlide(2)"><i class="fa-solid fa-database mr-2"></i>Data Lengkap</button>
-<button class="nav-tab" id="tab3" onclick="switchSlide(3)"><i class="fa-solid fa-hand-pointer mr-2"></i>Aksi</button>
+<button class="nav-tab hidden-tab" id="tab2" onclick="switchSlide(2)"><i class="fa-solid fa-database mr-2"></i>Data Lengkap</button>
+<button class="nav-tab hidden-tab" id="tab3" onclick="switchSlide(3)"><i class="fa-solid fa-hand-pointer mr-2"></i>Aksi</button>
 </div>
 </div>
 
@@ -268,7 +424,7 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,var(--pg),#0d9488)"><i class="fa-solid fa-magnifying-glass text-white text-lg"></i></div>
 <div><h2 class="text-xl font-black" style="color:var(--pg)">Cek Antrian Anda</h2><p class="text-xs" style="color:var(--muted)">Masukkan nama pasien untuk melihat status antrian</p></div>
 </div>
-<div class="relative mb-4"><i class="fa-solid fa-user-injured iic" style="color:var(--pg)"></i><input type="text" id="pSearchNama" class="si2" placeholder="Ketik Nama Pasien..." autocomplete="off" style="border-color:var(--pgl)" onkeydown="if(event.key==='Enter')patientSearch()"></div>
+<div class="relative mb-4"><i class="fa-solid fa-user-injured iic" style="color:var(--pg)"></i><input type="text" id="pSearchNama" class="si2" placeholder="Ketik Nama Pasien..." autocomplete="off" style="border-color:var(--pgl)"></div>
 <div class="flex gap-3"><button class="bg2 flex-1 justify-center" onclick="patientSearch()" style="background:linear-gradient(135deg,var(--pg),#0d9488)"><i class="fa-solid fa-search"></i> Cari Antrian</button><button class="bo" onclick="patientReset()"><i class="fa-solid fa-rotate-left"></i> Reset</button></div>
 </div>
 </section>
@@ -285,6 +441,15 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 <p class="text-lg font-extrabold mb-1" style="color:#991b1b">Pasien Tidak Ditemukan</p><p class="text-sm" style="color:var(--muted)">Pastikan nama yang Anda masukkan sudah benar, atau hubungi petugas ruangan.</p>
 </div>
 </div>
+<section class="mt-6 fu" style="animation-delay:.25s">
+<div class="card overflow-hidden" style="border:2px solid var(--pkl);border-radius:20px">
+<div class="p-5 flex items-center gap-3" style="background:linear-gradient(135deg,var(--pkbg),var(--ppbg));border-bottom:2px dashed var(--bdr)">
+<div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,var(--pk),#b45309)"><i class="fa-solid fa-phone-volume text-white text-sm"></i></div>
+<div><h3 class="text-sm font-extrabold" style="color:var(--pk)">Hubungi Petugas Ruangan</h3><p class="text-xs" style="color:var(--muted)">Klik untuk chat WA, SMS, atau Telegram</p></div>
+</div>
+<div class="p-4 space-y-3" id="globalContacts"></div>
+</div>
+</section>
 </div>
 </main>
 
@@ -302,933 +467,824 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 </div>
 </section>
 <section class="mt-6 fu" style="animation-delay:.2s">
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<div class="csg grid grid-cols-1 lg:grid-cols-3 gap-6">
 <div class="card p-6 flex flex-col items-center justify-center">
 <h3 class="text-sm font-bold mb-4" style="color:var(--b900)"><i class="fa-solid fa-chart-pie mr-2" style="color:var(--g500)"></i>Distribusi Status</h3>
 <div class="cc"><canvas id="chart1"></canvas></div>
+<div id="leg1" class="mt-4 flex flex-wrap justify-center gap-3 text-xs font-semibold"></div>
+<div class="chart-actions"><button class="chart-act-btn" onclick="saveChartImage()"><i class="fa-solid fa-image"></i> Simpan Gambar</button><button class="chart-act-btn" onclick="printChart()"><i class="fa-solid fa-file-pdf"></i> Cetak PDF</button></div>
 </div>
 <div class="lg:col-span-2 card p-6 sm:p-8">
-<div class="flex items-center gap-3 mb-5">
-<div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,var(--b500),var(--b600))"><i class="fa-solid fa-filter text-white text-sm"></i></div>
-<div><h3 class="text-base font-extrabold" style="color:var(--b900)">Filter Pencarian</h3><p class="text-xs" style="color:var(--muted)">Cari berdasarkan nama, no. RM, atau diagnosa</p></div>
+<div class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,var(--b500),var(--b600))"><i class="fa-solid fa-magnifying-glass text-white text-sm"></i></div>
+<div><h2 class="text-lg font-extrabold" style="color:var(--b900)">Filter Pencarian</h2><p class="text-xs" style="color:var(--muted)" id="searchHint">Cari berdasarkan nama atau No MR</p></div>
 </div>
-<div class="relative mb-4"><i class="fa-solid fa-magnifying-glass iic"></i><input type="text" id="searchInput" class="si2" placeholder="Ketik nama, no. RM, diagnosa..." oninput="onSearchInput()" autocomplete="off"></div>
-<div class="flex flex-wrap gap-3">
-<button class="bo" onclick="clearSearch()"><i class="fa-solid fa-rotate-left"></i> Reset Filter</button>
-<button class="bo" onclick="exportCSV()"><i class="fa-solid fa-file-csv"></i> Export CSV</button>
+<div class="sg grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
+<div class="relative"><i class="fa-solid fa-user-injured iic"></i><input type="text" id="s1Nama" class="si2" placeholder="Ketik Nama Pasien..." autocomplete="off"></div>
+<div class="relative" id="s1RMWrap"><i class="fa-solid fa-id-card-clip iic"></i><input type="text" id="s1RM" class="si2" placeholder="Ketik No MR / Urutan..." autocomplete="off"></div>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<button class="bp" onclick="s1Search()"><i class="fa-solid fa-search"></i> Cari</button>
+<button class="bo" onclick="s1Reset()"><i class="fa-solid fa-rotate-left"></i> Reset</button>
+<div class="ml-auto dd-wrap" id="s1PrintWrap">
+<button class="bg2" style="padding:13px 20px" onclick="toggleDD('ddS1')"><i class="fa-solid fa-print"></i> Cetak / Simpan <i class="fa-solid fa-chevron-down text-xs ml-1"></i></button>
+<div class="dd-menu" id="ddS1">
+<button class="dd-item" onclick="printView('pdf')"><i class="fa-solid fa-file-pdf" style="color:#ef4444"></i> Cetak / Simpan PDF</button>
+<button class="dd-item" onclick="printView('word')"><i class="fa-solid fa-file-word" style="color:#2563eb"></i> Simpan sebagai Word</button>
+<button class="dd-item" onclick="printView('text')"><i class="fa-solid fa-file-lines" style="color:#6b7280"></i> Simpan sebagai Text</button>
+</div>
+</div>
 </div>
 </div>
 </div>
 </section>
 <section class="mt-6 fu" style="animation-delay:.3s">
 <div class="card overflow-hidden">
-<div class="tw" style="max-height:520px;overflow-y:auto">
-<table class="dt" id="mainTable">
-<thead>
-<tr>
-<th>No</th>
-<th>No. RM</th>
-<th>Nama Pasien</th>
-<th>Diagnosa</th>
-<th>Status</th>
-<th>Ruangan</th>
-<th>Jadwal HD</th>
-</tr>
-</thead>
-<tbody id="tableBody">
-<tr><td colspan="7" class="text-center py-8" style="color:var(--muted)"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Memuat data...</td></tr>
-</tbody>
-</table>
+<div class="flex flex-wrap items-center justify-between gap-4 p-5 border-b" style="border-color:var(--bdr)">
+<div class="flex items-center gap-3"><div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:var(--b50)"><i class="fa-solid fa-clipboard-list" style="color:var(--b600)"></i></div><div><span class="font-extrabold text-sm" style="color:var(--b900)" id="s1TableTitle">Daftar Pasien: Menunggu</span><span class="text-xs block" style="color:var(--muted)" id="s1TableSub">Klik kartu status di atas untuk memfilter</span></div></div>
+<div class="flex items-center gap-3"><label class="text-xs font-semibold" style="color:var(--muted)">Per halaman:</label><select id="s1PS" onchange="s1CPS()" class="text-sm rounded-lg px-3 py-2 font-semibold outline-none" style="background:var(--w);color:var(--txt);border:2px solid var(--bdr);font-family:inherit"><option value="10">10</option><option value="25" selected>25</option><option value="50">50</option><option value="100">100</option></select></div>
 </div>
+<div id="s1Load" class="flex flex-col items-center justify-center py-20"><div class="spin mb-4"></div><p class="text-sm font-semibold" style="color:var(--muted)">Mengambil data dari spreadsheet...</p></div>
+<div id="s1Empty" class="hidden flex-col items-center justify-center py-20"><div class="w-20 h-20 rounded-2xl flex items-center justify-center mb-4" style="background:#fee2e2"><i class="fa-solid fa-triangle-exclamation text-3xl" style="color:#dc2626"></i></div><p class="text-lg font-extrabold mb-1">Gagal Memuat Data</p><p class="text-sm mb-4" style="color:var(--muted)">Pastikan spreadsheet sudah dipublikasikan ke web.</p><button class="bp" onclick="refreshData()"><i class="fa-solid fa-arrows-rotate"></i> Coba Lagi</button></div>
+<div id="s1NoRes" class="hidden flex-col items-center justify-center py-20"><div class="w-20 h-20 rounded-2xl flex items-center justify-center mb-4" style="background:#fef3c7"><i class="fa-solid fa-search text-3xl" style="color:#f59e0b"></i></div><p class="text-lg font-extrabold mb-1">Pencarian Tidak Ditemukan</p><p class="text-sm" style="color:var(--muted)">Coba ubah kata kunci pencarian.</p></div>
+<div id="s1TC" class="hidden"><div class="tw"><table class="dt"><thead id="s1TH"></thead><tbody id="s1TB"></tbody></table></div><div class="flex flex-wrap items-center justify-between gap-4 p-5 border-t" style="border-color:var(--bdr);background:var(--g50)"><p class="text-sm font-medium" style="color:var(--muted)" id="s1PI">—</p><div class="flex items-center gap-2" id="s1PB"></div></div></div>
+</div>
+</section>
+<section class="contact-list-section" id="contactListSection" style="display:none">
+<div class="contact-list-card">
+<div class="contact-list-header">
+<div style="display:flex;align-items:center;gap:12px"><div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,var(--pg),#0d9488)"><i class="fa-solid fa-address-book text-white text-sm"></i></div><div><h3 class="font-extrabold text-sm" style="color:var(--b900)" id="contactListTitle">Daftar Kontak Pasien</h3><p class="text-xs" style="color:var(--muted)" id="contactListSub">Hubungi pasien via Telepon, WA, SMS, atau Telegram</p></div></div>
+<button class="share-btn share-pdf" onclick="printContactList()"><i class="fa-solid fa-file-pdf"></i> Cetak PDF</button>
+</div>
+<div class="contact-list-body" id="contactListBody"></div>
+<div class="p-4 border-t text-center" style="border-color:var(--bdr);background:var(--g50)"><p class="text-xs font-semibold" style="color:var(--muted)" id="contactListCount">0 kontak</p></div>
 </div>
 </section>
 </div>
 </main>
 
-<!-- ===== SLIDE 2: DATA LENGKAP ===== -->
+<!-- ===== SLIDE 2: DATA LENGKAP ADMIN ===== -->
 <main id="slide2" style="display:none" class="px-4 sm:px-8 pb-16">
-<div class="max-w-7xl mx-auto mt-6">
-<div class="card p-6">
-<h2 class="text-lg font-extrabold mb-4" style="color:var(--b900)"><i class="fa-solid fa-database mr-2" style="color:var(--b600)"></i>Data Lengkap Pasien</h2>
-<div class="tw" style="max-height:600px;overflow-y:auto">
-<table class="dt" id="fullTable">
-<thead>
-<tr>
-<th>No</th>
-<th>No. RM</th>
-<th>Nama Pasien</th>
-<th>Diagnosa</th>
-<th>Status</th>
-<th>Ruangan</th>
-<th>Jadwal HD</th>
-<th>Catatan</th>
-</tr>
-</thead>
-<tbody id="fullTableBody">
-<tr><td colspan="8" class="text-center py-8" style="color:var(--muted)"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Memuat data...</td></tr>
-</tbody>
-</table>
+<div class="max-w-7xl mx-auto">
+<div class="mt-6 flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl" style="background:linear-gradient(135deg,var(--b900),var(--b700));border:1px solid rgba(255,255,255,.1)">
+<div class="flex items-center gap-3"><div class="user-avatar" style="background:linear-gradient(135deg,var(--g500),var(--g600))"><i class="fa-solid fa-user-shield"></i></div><div><span class="text-white font-extrabold text-sm" id="userGreeting">Mode Admin</span><span class="text-blue-200 text-xs block" id="userEmailDisplay">Akses penuh data pendaftaran</span></div></div>
+<button class="br" onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
 </div>
+<section class="mt-6">
+<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 stg">
+<div class="stc stc-menunggu" onclick="clickS2Card('menunggu')" data-s2key="menunggu"><div class="stc-icon" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe)"><i class="fa-solid fa-hourglass-half text-lg" style="color:#2563eb"></i></div><div><div class="stc-label">Menunggu</div><div class="stc-num" style="color:#1e40af" id="s2cMenunggu">—</div></div></div>
+<div class="stc stc-terjadwal" onclick="clickS2Card('terjadwal')" data-s2key="terjadwal"><div class="stc-icon" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0)"><i class="fa-solid fa-calendar-check text-lg" style="color:#059669"></i></div><div><div class="stc-label">Terjadwal</div><div class="stc-num" style="color:#065f46" id="s2cTerjadwal">—</div></div></div>
+<div class="stc stc-hdlain" onclick="clickS2Card('hdlain')" data-s2key="hdlain"><div class="stc-icon" style="background:linear-gradient(135deg,#fef3c7,#fde68a)"><i class="fa-solid fa-arrows-turn-right text-lg" style="color:#d97706"></i></div><div><div class="stc-label">HD Lain</div><div class="stc-num" style="color:#92400e" id="s2cHdlain">—</div></div></div>
+<div class="stc stc-batal" onclick="clickS2Card('batal')" data-s2key="batal"><div class="stc-icon" style="background:linear-gradient(135deg,#fee2e2,#fecaca)"><i class="fa-solid fa-circle-xmark text-lg" style="color:#dc2626"></i></div><div><div class="stc-label">Batal</div><div class="stc-num" style="color:#991b1b" id="s2cBatal">—</div></div></div>
+<div class="stc stc-meninggal" onclick="clickS2Card('meninggal')" data-s2key="meninggal"><div class="stc-icon" style="background:linear-gradient(135deg,#e5e7eb,#d1d5db)"><i class="fa-solid fa-heart-crack text-lg" style="color:#4b5563"></i></div><div><div class="stc-label">Meninggal</div><div class="stc-num" style="color:#374151" id="s2cMeninggal">—</div></div></div>
+<div class="stc stc-total sel" onclick="clickS2Card('all')" data-s2key="all"><div class="stc-icon" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe)"><i class="fa-solid fa-users text-lg" style="color:#7c3aed"></i></div><div><div class="stc-label">Semua</div><div class="stc-num" style="color:#5b21b6" id="s2cTotal">—</div></div></div>
 </div>
+</section>
+<section class="mt-6"><div class="card p-6 sm:p-8"><div class="sg grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5"><div class="relative"><i class="fa-solid fa-user-injured iic"></i><input type="text" id="s2Nama" class="si2" placeholder="Ketik Nama Pasien..." autocomplete="off"></div><div class="relative"><i class="fa-solid fa-id-card-clip iic"></i><input type="text" id="s2RM" class="si2" placeholder="Ketik No MR / Urutan..." autocomplete="off"></div></div><div class="flex flex-wrap items-center gap-3"><button class="bp" onclick="s2Search()"><i class="fa-solid fa-search"></i> Cari</button><button class="bo" onclick="s2Reset()"><i class="fa-solid fa-rotate-left"></i> Reset</button><div class="ml-auto dd-wrap"><button class="bg2" style="padding:13px 20px" onclick="toggleDD('ddS2')"><i class="fa-solid fa-print"></i> Cetak / Simpan <i class="fa-solid fa-chevron-down text-xs ml-1"></i></button><div class="dd-menu" id="ddS2"><button class="dd-item" onclick="printViewS2('pdf')"><i class="fa-solid fa-file-pdf" style="color:#ef4444"></i> Cetak / Simpan PDF</button><button class="dd-item" onclick="printViewS2('word')"><i class="fa-solid fa-file-word" style="color:#2563eb"></i> Simpan sebagai Word</button><button class="dd-item" onclick="printViewS2('text')"><i class="fa-solid fa-file-lines" style="color:#6b7280"></i> Simpan sebagai Text</button></div></div></div></div></section>
+<section class="mt-6"><div class="card overflow-hidden"><div class="flex flex-wrap items-center justify-between gap-4 p-5 border-b" style="border-color:var(--bdr)"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background:#fef3c7"><i class="fa-solid fa-table-list" style="color:#b45309"></i></div><div><span class="font-extrabold text-sm" style="color:var(--b900)">Semua Data Pendaftaran</span><span class="text-xs block" style="color:var(--muted)" id="s2TableSub">Baris berwarna sesuai status</span></div></div><select id="s2PS" onchange="s2CPS()" class="text-sm rounded-lg px-3 py-2 font-semibold outline-none" style="background:var(--w);color:var(--txt);border:2px solid var(--bdr);font-family:inherit"><option value="10">10</option><option value="25" selected>25</option><option value="50">50</option><option value="100">100</option></select></div><div id="s2TC"><div class="tw"><table class="dt"><thead id="s2TH"></thead><tbody id="s2TB"></tbody></table></div><div class="flex flex-wrap items-center justify-between gap-4 p-5 border-t" style="border-color:var(--bdr);background:var(--g50)"><p class="text-sm font-medium" style="color:var(--muted)" id="s2PI">—</p><div class="flex items-center gap-2" id="s2PB"></div></div></div></div></section>
 </div>
 </main>
 
 <!-- ===== SLIDE 3: AKSI ===== -->
 <main id="slide3" style="display:none" class="px-4 sm:px-8 pb-16">
-<div class="max-w-3xl mx-auto mt-6">
-<div class="card p-6" style="border:2px solid var(--pg);border-radius:20px">
-<div class="flex items-center gap-3 mb-6">
-<div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,var(--pg),#0d9488)"><i class="fa-solid fa-hand-pointer text-white text-lg"></i></div>
-<div><h2 class="text-xl font-black" style="color:var(--pg)">Ambil Pasien</h2><p class="text-xs" style="color:var(--muted)">Pilih pasien dari antrian untuk diproses</p></div>
+<div class="max-w-7xl mx-auto">
+<div class="mt-6 flex flex-wrap items-center justify-between gap-4 p-4 rounded-xl" style="background:linear-gradient(135deg,#065f46,#047857);border:1px solid rgba(52,211,153,.3)">
+<div class="flex items-center gap-3"><div class="user-avatar" style="background:linear-gradient(135deg,#34d399,#10b981)"><i class="fa-solid fa-hand-pointer"></i></div><div><span class="text-white font-extrabold text-sm">Pengambilan Pasien per Ruangan</span><span class="text-green-200 text-xs block">Aktifkan petugas untuk mulai mengambil pasien dari daftar tunggu</span></div></div>
+<button class="br" onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
 </div>
-<div class="relative mb-4"><i class="fa-solid fa-magnifying-glass iic"></i><input type="text" id="ambilSearch" class="si2" placeholder="Cari nama pasien..." oninput="filterAmbilList()" autocomplete="off"></div>
-<div id="ambilList" style="max-height:400px;overflow-y:auto">
-<p class="text-center py-6" style="color:var(--muted)">Memuat daftar pasien...</p>
+<section class="mt-6 fu" style="animation-delay:.1s"><div class="grid grid-cols-1 lg:grid-cols-3 gap-6 room-grid" id="roomCardsGrid"></div></section>
+<section class="mt-6 fu" style="animation-delay:.2s">
+<div class="gas-config">
+<h4><i class="fa-solid fa-gear" style="color:var(--g500)"></i> Konfigurasi Google Apps Script (Write-Back)</h4>
+<p style="font-size:12px;color:var(--txt2);margin-bottom:12px">Masukkan URL deploy Google Apps Script untuk menulis data ke spreadsheet secara otomatis saat mengambil pasien.</p>
+<div class="relative"><input type="text" id="gasUrlInput" class="gas-input" placeholder="https://script.google.com/macros/s/XXXXXX/exec" autocomplete="off"></div>
+<div class="flex items-center gap-3 mt-3">
+<button class="bg2" style="padding:10px 18px;font-size:12px" onclick="saveGasConfig()"><i class="fa-solid fa-save"></i> Simpan URL</button>
+<button class="bo" style="padding:10px 18px;font-size:12px" onclick="testGasConnection()"><i class="fa-solid fa-plug"></i> Test Koneksi</button>
 </div>
+<div class="gas-status" id="gasStatus"></div>
 </div>
+</section>
 </div>
 </main>
 
+<!-- ===== STAFF FORM MODAL ===== -->
+<div class="modal-overlay" id="staffModal" style="display:none">
+<div class="modal-box">
+<div class="modal-hdr"><h3 id="staffModalTitle">Tambah Petugas</h3><button class="modal-close" onclick="closeStaffModal()"><i class="fa-solid fa-xmark"></i></button></div>
+<div class="modal-body">
+<input type="hidden" id="sfId"><input type="hidden" id="sfRoom">
+<div class="form-group"><label class="form-label">Nama Lengkap</label><input type="text" id="sfName" class="form-input" placeholder="Masukkan nama petugas"></div>
+<div class="form-group"><label class="form-label">Jabatan / Peran</label><select id="sfRole" class="form-select"><option value="Perawat">Perawat</option><option value="Dokter">Dokter</option><option value="Bidan">Bidan</option><option value="Tenaga Kesehatan Lain">Tenaga Kesehatan Lain</option></select></div>
+<div class="form-group"><label class="form-label">Nomor Telepon / HP</label><input type="text" id="sfPhone" class="form-input" placeholder="08xxxxxxxxxx"></div>
+<div class="form-group"><label class="form-label">Foto Petugas (opsional)</label>
+<div class="flex items-center gap-4">
+<div class="staff-photo" style="width:80px;height:80px;border-radius:16px;cursor:pointer" onclick="document.getElementById('sfPhotoInput').click()">
+<img id="sfPhotoPreview" src="" style="display:none">
+<div id="sfPhotoPlaceholder" style="text-align:center"><i class="fa-solid fa-camera" style="font-size:20px;color:var(--muted)"></i><div style="font-size:9px;color:var(--muted);margin-top:2px">Upload</div></div>
+</div>
+<div><input type="file" id="sfPhotoInput" accept="image/*" capture="user" style="display:none" onchange="previewStaffPhoto(this)"><button type="button" class="bo" style="padding:8px 14px;font-size:11px" onclick="document.getElementById('sfPhotoInput').click()"><i class="fa-solid fa-camera"></i> Ambil Foto / Upload</button><p style="font-size:10px;color:var(--muted);margin-top:4px">Gunakan kamera HP untuk swafoto, atau pilih dari galeri</p></div>
+</div>
+</div>
+</div>
+<div class="modal-footer"><button class="bo" onclick="closeStaffModal()"><i class="fa-solid fa-xmark"></i> Batal</button><button class="bg2" onclick="saveStaff()" style="background:linear-gradient(135deg,var(--pg),var(--g600))"><i class="fa-solid fa-check"></i> Simpan</button></div>
+</div>
+</div>
+
+<footer style="background:var(--w);border-top:1px solid var(--bdr)" id="mainFooter">
+<div class="stripe" id="footerStripe"></div>
+<div class="max-w-7xl mx-auto px-4 sm:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+<span class="text-xs font-semibold" style="color:var(--muted)"><i class="fa-solid fa-shield-halved mr-1" style="color:var(--b500)"></i>Sistem Daftaran Antrian Pasien Rawat Jalan HD RSSA— Instalasi Dialisis RSSA</span>
+<span class="text-xs" style="color:var(--g400)">SIDARAJA &copy; <span id="fYr"></span></span>
+</div>
+</footer>
+
 <script>
-/* ============================================================
-   KONFIGURASI & STATE
-   ============================================================ */
-const ADMIN_PASSWORD = 'admin123';
-const SHEET_ID = '1UbMj1gbz-wDIUlT64-nnHPa2xvGxlS_fEgnaEzcU1cA';
-const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:csv';
-const REFRESH_INTERVAL = 60000; // auto-refresh setiap 60 detik
+/* ================================================================
+   KONFIGURASI
+   ================================================================ */
+var CSV_URLS=[
+'https://docs.google.com/spreadsheets/d/e/2PACX-1vQZVO38b4R1ptmVVoMCRwRDsgTCN_KfTgpzus4VtTLRlXvfhZ6IHaXl25tubcrpzRgrgIFztik4_-Li/pub?gid=1588121083&single=true&output=csv',
+'https://docs.google.com/spreadsheets/d/1UbMj1gbz-wDIUlT64-nnHPa2xvGxlS_fEgnaEzcU1cA/export?format=csv&gid=1588121083',
+'https://docs.google.com/spreadsheets/d/1UbMj1gbz-wDIUlT64-nnHPa2xvGxlS_fEgnaEzcU1cA/gviz/tq?tqx=out:csv&gid=1588121083'
+];
+var PROXY='https://api.allorigins.win/raw?url=';
+var ADMIN_PASS='Sidarajahdrssa2024';
+var LS_SESSION='dialisis_session_v6',LS_STAFF='dialisis_staff_v2',LS_GAS='dialisis_gas_url';
+var SHEET_STATUS_COL=17,SHEET_RUANGAN_COL=18;
+var ROOM_CONTACTS=[
+{name:'R. HD MALAHAYATI',person:'Iman Waluyo',phone:'087812203039',keyword:/malahayati/i},
+{name:'R. HD TEUKU UMAR',person:'Gigih S',phone:'085814296441',keyword:/teuku\s*umar/i},
+{name:'R. HD CUT NYAK DIEN',person:'Ani S',phone:'085233327277',keyword:/cut\s*nyak\s*dien/i}
+];
+var ROOMS=[
+{id:'ruang_malahayati',name:'R. HD MALAHAYATI',color:'#059669',icon:'fa-hospital',gradient:'linear-gradient(135deg,#ecfdf5,#d1fae5)'},
+{id:'ruang_teuku_umar',name:'R. HD TEUKU UMAR',color:'#2563eb',icon:'fa-hospital',gradient:'linear-gradient(135deg,#eff6ff,#dbeafe)'},
+{id:'ruang_cut_nyak_dien',name:'R. HD CUT NYAK DIEN',color:'#d97706',icon:'fa-hospital',gradient:'linear-gradient(135deg,#fffbeb,#fef3c7)'}
+];
 
-let currentMode = null;
-let currentSlide = 1;
-let currentFilter = 'menunggu';
-let searchQuery = '';
-let allPatients = [];
-let chart1Instance = null;
-let refreshTimer = null;
-let isLoading = false;
-
-/* ============================================================
-   PARSING CSV dari Google Sheets
-   ============================================================ */
-
-// Parse CSV mentah menjadi array of objects
-// Menangani field yang di-quote dan berisi koma/newline
-function parseCSV(csvText) {
-    const rows = [];
-    let current = '';
-    let inQuote = false;
-    const lines = [];
-
-    // Split baris dengan memperhatikan quote
-    for (let i = 0; i < csvText.length; i++) {
-        const ch = csvText[i];
-        const next = csvText[i + 1];
-        if (inQuote) {
-            if (ch === '"' && next === '"') {
-                current += '"';
-                i++;
-            } else if (ch === '"') {
-                inQuote = false;
-            } else {
-                current += ch;
-            }
-        } else {
-            if (ch === '"') {
-                inQuote = true;
-            } else if (ch === '\n' || (ch === '\r' && next === '\n')) {
-                lines.push(current);
-                current = '';
-                if (ch === '\r') i++;
-            } else if (ch === '\r') {
-                lines.push(current);
-                current = '';
-            } else {
-                current += ch;
-            }
-        }
-    }
-    if (current.trim()) lines.push(current);
-
-    if (lines.length < 2) return rows;
-
-    // Parse header
-    const headers = splitCSVRow(lines[0]);
-    const cleanedHeaders = headers.map(h => h.trim().toLowerCase());
-
-    // Parse data rows
-    for (let i = 1; i < lines.length; i++) {
-        const line = lines[i].trim();
-        if (!line) continue;
-        const values = splitCSVRow(line);
-        const obj = {};
-        cleanedHeaders.forEach((h, idx) => {
-            obj[h] = (values[idx] !== undefined) ? values[idx].trim() : '';
-        });
-        rows.push(obj);
-    }
-    return rows;
-}
-
-// Split satu baris CSV berdasarkan koma, dengan menangani quote
-function splitCSVRow(row) {
-    const fields = [];
-    let current = '';
-    let inQuote = false;
-    for (let i = 0; i < row.length; i++) {
-        const ch = row[i];
-        const next = row[i + 1];
-        if (inQuote) {
-            if (ch === '"' && next === '"') {
-                current += '"';
-                i++;
-            } else if (ch === '"') {
-                inQuote = false;
-            } else {
-                current += ch;
-            }
-        } else {
-            if (ch === '"') {
-                inQuote = true;
-            } else if (ch === ',') {
-                fields.push(current);
-                current = '';
-            } else {
-                current += ch;
-            }
-        }
-    }
-    fields.push(current);
-    return fields;
-}
-
-/* ============================================================
-   MAPPING KOLOM SHEET → FIELD APLIKASI
-   ============================================================ */
-
-// Pemetaan fleksibel: berbagai kemungkinan nama kolom
-// Sesuaikan jika nama kolom di sheet kamu berbeda
-const COLUMN_MAP = {
-    rm: ['no. rm', 'no rm', 'norm', 'no rm', 'rm', 'no.rekam.medical', 'no rekam medical', 'no rekam medis', 'nomor rm', 'nomor rekam medical', 'norekammedis'],
-    nama: ['nama pasien', 'nama', 'nama pasien ', 'namapasien', 'patient name', 'name'],
-    diagnosa: ['diagnosa', 'diagnosis', 'diag', 'diagnosa ', 'primary diagnosis', 'dx'],
-    status: ['status', 'status ', 'status pasien', 'status antrian', 'state'],
-    ruangan: ['ruangan', 'ruang', 'room', 'ruangan hd', 'lokasi'],
-    jadwal: ['jadwal hd', 'jadwal', 'jadwal hd ', 'schedule', 'jadwal dialisis', 'jadwalhd'],
-    catatan: ['catatan', 'keterangan', 'notes', 'catatan ', 'note', 'ket']
+/* ================================================================
+   STATUS CONFIG
+   ================================================================ */
+var ST={
+menunggu:{key:'menunggu',label:'Menunggu',icon:'fa-hourglass-half',color:'#3b82f6',bg:'#dbeafe',text:'#1e40af',rowClass:'row-menunggu',css:'stc-menunggu'},
+terjadwal:{key:'terjadwal',label:'Terjadwal',icon:'fa-calendar-check',color:'#10b981',bg:'#d1fae5',text:'#065f46',rowClass:'row-terjadwal',css:'stc-terjadwal'},
+hdlain:{key:'hdlain',label:'HD Lain',icon:'fa-arrows-turn-right',color:'#f59e0b',bg:'#fef3c7',text:'#92400e',rowClass:'row-hdlain',css:'stc-hdlain'},
+batal:{key:'batal',label:'Batal',icon:'fa-circle-xmark',color:'#ef4444',bg:'#fee2e2',text:'#991b1b',rowClass:'row-batal',css:'stc-batal'},
+meninggal:{key:'meninggal',label:'Meninggal',icon:'fa-heart-crack',color:'#6b7280',bg:'#e5e7eb',text:'#374151',rowClass:'row-meninggal',css:'stc-meninggal'}
+};
+var ST_KEYS=Object.keys(ST);
+var ST_ALIAS={
+'menunggu':'menunggu','waiting':'menunggu','antri':'menunggu','belum':'menunggu','belum dipanggil':'menunggu','dalam antrian':'menunggu','antrian':'menunggu',
+'terjadwal':'terjadwal','scheduled':'terjadwal','jadwal':'terjadwal','dijadwalkan':'terjadwal','sudah dijadwalkan':'terjadwal','dengan jadwal':'terjadwal',
+'hd lain':'hdlain','hdlain':'hdlain','hd_lain':'hdlain','hd lainnya':'hdlain','dialisis lain':'hdlain','hd di lain tempat':'hdlain','pindah hd':'hdlain','rujuk hd lain':'hdlain','hd lain/slc':'hdlain','hd slc':'hdlain',
+'batal':'batal','cancelled':'batal','dibatalkan':'batal','cancel':'batal','tidak jadi':'batal','batal hd':'batal',
+'meninggal':'meninggal','dead':'meninggal','wafat':'meninggal','meninggal dunia':'meninggal','md':'meninggal','alm':'meninggal','almarhum':'meninggal','almh':'meninggal'
 };
 
-// Cari key field dari nama kolom sheet
-function findFieldKey(colName) {
-    const lower = colName.toLowerCase().trim();
-    for (const [field, aliases] of Object.entries(COLUMN_MAP)) {
-        if (aliases.includes(lower)) return field;
-    }
-    return null;
+/* ================================================================
+   STATE
+   ================================================================ */
+var headers=[],allRows=[];
+var namaIdx=-1,rmIdx=-1,usiaIdx=-1,alamatIdx=-1,ruanganIdx=-1,phoneIdx=-1;
+var STATUS_HEADERS_IDX=15;
+var statusCounts={menunggu:0,terjadwal:0,hdlain:0,batal:0,meninggal:0,lainnya:0};
+var s1Active='menunggu',s2Active='all';
+var s1FD=[],s1Page=1,s1PS=25;
+var s2FD=[],s2Page=1,s2PS=25;
+var appMode=null,chart1=null,dataLoaded=false,dataError=false;
+var TK='_ts',TD='_tsD',SK='_status',SN='_statusNorm';
+var lastInvoiceData=[];
+var staffData={};
+var pickPopup=null;
+
+/* ================================================================
+   INIT
+   ================================================================ */
+document.getElementById('fYr').textContent=new Date().getFullYear();
+var db1=null,db2=null,dbP=null;
+document.getElementById('s1Nama').addEventListener('input',function(){clearTimeout(db1);db1=setTimeout(s1Search,350)});
+document.getElementById('s1RM').addEventListener('input',function(){clearTimeout(db1);db1=setTimeout(s1Search,350)});
+document.getElementById('s2Nama').addEventListener('input',function(){clearTimeout(db2);db2=setTimeout(s2Search,350)});
+document.getElementById('s2RM').addEventListener('input',function(){clearTimeout(db2);db2=setTimeout(s2Search,350)});
+document.getElementById('pSearchNama').addEventListener('input',function(){clearTimeout(dbP);dbP=setTimeout(patientSearch,400)});
+['s1Nama','s1RM'].forEach(function(id){document.getElementById(id).addEventListener('keydown',function(e){if(e.key==='Enter')s1Search()})});
+['s2Nama','s2RM'].forEach(function(id){document.getElementById(id).addEventListener('keydown',function(e){if(e.key==='Enter')s2Search()})});
+document.getElementById('pSearchNama').addEventListener('keydown',function(e){if(e.key==='Enter')patientSearch()});
+document.getElementById('adminPass').addEventListener('keydown',function(e){if(e.key==='Enter')doAdminLogin()});
+document.addEventListener('click',function(e){
+if(!e.target.closest('.dd-wrap'))document.querySelectorAll('.dd-menu').forEach(function(m){m.classList.remove('open')});
+if(pickPopup&&!e.target.closest('.pick-popup'))closePickPopup();
+});
+initVisitorCounter();checkSavedSession();loadStaffData();loadGasConfig();fetchData();
+
+/* ================================================================
+   VISITOR COUNTER
+   ================================================================ */
+function initVisitorCounter(){var key='sidaraja_visitor_v3',data;try{data=JSON.parse(localStorage.getItem(key))}catch(e){data=null}if(!data)data={total:0,today:0,lastDate:'',sessions:{}};var today=new Date().toISOString().slice(0,10),sid=getSessionId();if(data.lastDate!==today){data.today=0;data.lastDate=today;data.sessions={}}if(!data.sessions[sid]){data.sessions[sid]=true;data.today++;data.total++;try{localStorage.setItem(key,JSON.stringify(data))}catch(e){}}var el=document.getElementById('visitorCount');if(el)el.textContent=(data.today||0).toLocaleString('id-ID')}
+function getSessionId(){var k='sidaraja_sid',s=localStorage.getItem(k);if(!s){s='s_'+Date.now()+'_'+Math.random().toString(36).substr(2,6);try{localStorage.setItem(k,s)}catch(e){}}return s}
+function setVisitorBadgeMode(mode){var b=document.getElementById('visitorBadge');if(!b)return;b.className='visitor-badge '+(mode==='user'?'visitor-badge-patient':'visitor-badge-admin')}
+
+/* ================================================================
+   SESSION & LOGIN
+   ================================================================ */
+function checkSavedSession(){try{var s=localStorage.getItem(LS_SESSION)||sessionStorage.getItem(LS_SESSION);if(s){var ss=JSON.parse(s);if(ss&&ss.mode){appMode=ss.mode;enterApp()}}}catch(e){}}
+function saveSession(m,r){var d={mode:m,ts:Date.now()};if(r)localStorage.setItem(LS_SESSION,JSON.stringify(d));else sessionStorage.setItem(LS_SESSION,JSON.stringify(d))}
+function clearSession(){localStorage.removeItem(LS_SESSION);sessionStorage.removeItem(LS_SESSION)}
+function selectMode(mode){document.getElementById('modeAdmin').className='mode-card';document.getElementById('modeUser').className='mode-card';document.getElementById('adminSection').style.display='none';document.getElementById('userSection').style.display='none';document.getElementById('loginError').classList.add('hidden');if(mode==='admin'){document.getElementById('modeAdmin').className='mode-card sel-admin';document.getElementById('adminSection').style.display='block';setTimeout(function(){document.getElementById('adminPass').focus()},100)}else{document.getElementById('modeUser').className='mode-card sel-user';document.getElementById('userSection').style.display='block'}}
+function togglePassVis(id,btn){var i=document.getElementById(id),ic=btn.querySelector('i');if(i.type==='password'){i.type='text';ic.className='fa-solid fa-eye-slash'}else{i.type='password';ic.className='fa-solid fa-eye'}}
+function doAdminLogin(){var p=document.getElementById('adminPass').value,eE=document.getElementById('loginError'),eM=document.getElementById('loginErrorMsg');if(!p){eM.textContent='Kata sandi harus diisi!';eE.classList.remove('hidden');return}if(p===ADMIN_PASS){appMode='admin';saveSession('admin',true);enterApp();toast('s','Selamat datang, Admin!')}else{eM.textContent='Kata sandi admin salah.';eE.classList.remove('hidden');document.getElementById('adminPass').value='';document.getElementById('adminPass').focus()}}
+function doUserLogin(){appMode='user';saveSession('user',false);enterApp();toast('i','Mode Pasien aktif. Cari nama Anda untuk melihat status antrian.')}
+
+function enterApp(){
+document.getElementById('loginOverlay').style.display='none';
+var hdr=document.getElementById('mainHeader');
+if(appMode==='admin'){
+document.body.classList.remove('patient-bg');hdr.className='hdr grad-admin';
+document.getElementById('mainStripe').classList.remove('patient-stripe');document.getElementById('footerStripe').classList.remove('patient-stripe');
+document.getElementById('patientView').style.display='none';document.getElementById('slide1').style.display='block';
+document.getElementById('navTabsWrap').style.display='';document.getElementById('tab2').classList.remove('hidden-tab');document.getElementById('tab3').classList.remove('hidden-tab');
+document.getElementById('patientLogoutBtn').classList.add('hidden');
+document.getElementById('headerTitle').innerHTML='Daftar Antri<br><span style="background:linear-gradient(135deg,#6ee7b7,#34d399,#10b981);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Pasien Instalasi Dialisis RSSA</span>';
+document.getElementById('headerDesc').textContent='Klik kartu status di bawah untuk memfilter tampilan pasien pada dashboard.';
+document.getElementById('headerSubtitle').textContent='INSTALASI DIALISIS RSSA';
+document.getElementById('s1RMWrap').style.display='';document.getElementById('s1PrintWrap').style.display='';
+document.getElementById('searchHint').textContent='Cari berdasarkan nama atau No MR';
+document.getElementById('userGreeting').textContent='Mode Admin / Petugas';
+document.getElementById('userEmailDisplay').textContent='Akses penuh data pendaftaran';
+document.getElementById('neonRegWrap').classList.add('show');setVisitorBadgeMode('admin');
+if(dataLoaded){clickStatusCard(s1Active);renderChart1();s2FD=allRows.slice();s2Page=1;renderS2()}
+renderRoomCards();updateActivePickersIndicator();
+}else{
+document.body.classList.add('patient-bg');hdr.className='hdr grad-patient';
+document.getElementById('mainStripe').classList.add('patient-stripe');document.getElementById('footerStripe').classList.add('patient-stripe');
+document.getElementById('patientView').style.display='block';document.getElementById('slide1').style.display='none';document.getElementById('slide2').style.display='none';document.getElementById('slide3').style.display='none';
+document.getElementById('navTabsWrap').style.display='none';document.getElementById('patientLogoutBtn').classList.remove('hidden');
+document.getElementById('headerTitle').innerHTML='Cek Antrian<br><span style="background:linear-gradient(135deg,#fde68a,#f59e0b,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Pasien Instalasi Dialisis RSSA</span>';
+document.getElementById('headerDesc').textContent='Masukkan nama Anda untuk mengetahui status antrian dan ruangan.';
+document.getElementById('headerSubtitle').textContent='CEK ANTRIAN PASIEN';
+document.getElementById('neonRegWrap').classList.remove('show');setVisitorBadgeMode('user');renderGlobalContacts();
+document.getElementById('activePickersIndicator').style.display='none';
+if(dataLoaded){updPatientStats();patientReset()}
+}
 }
 
-// Normalisasi status agar konsisten
-function normalizeStatus(raw) {
-    if (!raw) return 'menunggu';
-    const s = raw.toLowerCase().trim();
-    if (s.includes('menunggu') || s.includes('antri') || s === 'waiting') return 'menunggu';
-    if (s.includes('terjadwal') || s.includes('jadwal') || s === 'scheduled') return 'terjadwal';
-    if (s.includes('hd lain') || s.includes('lain') || s.includes('dirujuk') || s.includes('pindah') || s === 'other') return 'hdlain';
-    if (s.includes('batal') || s.includes('cancel') || s === 'cancelled') return 'batal';
-    if (s.includes('meninggal') || s.includes('wafat') || s === 'death' || s === 'deceased') return 'meninggal';
-    // Default: jika tidak dikenali, anggap menunggu
-    return 'menunggu';
+function doLogout(){
+appMode=null;clearSession();document.getElementById('adminPass').value='';
+document.getElementById('modeAdmin').className='mode-card';document.getElementById('modeUser').className='mode-card';
+document.getElementById('adminSection').style.display='none';document.getElementById('userSection').style.display='none';
+document.getElementById('loginError').classList.add('hidden');document.getElementById('loginOverlay').style.display='flex';
+document.body.classList.remove('patient-bg');document.getElementById('mainHeader').className='hdr grad-admin';
+document.getElementById('mainStripe').classList.remove('patient-stripe');document.getElementById('footerStripe').classList.remove('patient-stripe');
+document.getElementById('patientLogoutBtn').classList.add('hidden');document.getElementById('patientView').style.display='none';
+document.getElementById('slide1').style.display='block';document.getElementById('slide2').style.display='none';document.getElementById('slide3').style.display='none';
+document.getElementById('navTabsWrap').style.display='';document.getElementById('tab2').classList.add('hidden-tab');document.getElementById('tab3').classList.add('hidden-tab');
+switchSlide(1);
+document.getElementById('headerTitle').innerHTML='Daftar Antri<br><span style="background:linear-gradient(135deg,#6ee7b7,#34d399,#10b981);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Pasien Instalasi Dialisis RSSA</span>';
+document.getElementById('headerDesc').textContent='Klik kartu status di bawah untuk memfilter tampilan pasien pada dashboard.';
+document.getElementById('headerSubtitle').textContent='INSTALASI DIALISIS RSSA';
+document.getElementById('s1RMWrap').style.display='';document.getElementById('s1PrintWrap').style.display='';
+document.getElementById('searchHint').textContent='Cari berdasarkan nama atau No MR';
+document.getElementById('contactListSection').style.display='none';document.getElementById('neonRegWrap').classList.add('show');
+document.getElementById('activePickersIndicator').style.display='none';setVisitorBadgeMode('admin');
+toast('i','Anda telah logout dari sistem.');
 }
 
-// Transformasi data mentah dari sheet ke format aplikasi
-function transformSheetData(rawRows) {
-    if (!rawRows || rawRows.length === 0) return [];
+/* ================================================================
+   STAFF DATA
+   ================================================================ */
+function getDefaultStaffData(){var d={};ROOMS.forEach(function(r){d[r.id]={roomId:r.id,roomName:r.name,staff:[]}});d['ruang_malahayati'].staff=[{id:'s_def_1',name:'Iman Waluyo',role:'Perawat',phone:'087812203039',photo:'',active:false}];d['ruang_teuku_umar'].staff=[{id:'s_def_2',name:'Gigih S',role:'Perawat',phone:'085814296441',photo:'',active:false}];d['ruang_cut_nyak_dien'].staff=[{id:'s_def_3',name:'Ani S',role:'Perawat',phone:'085233327277',photo:'',active:false}];return d}
+function loadStaffData(){try{var s=localStorage.getItem(LS_STAFF);staffData=s?JSON.parse(s):getDefaultStaffData();if(!staffData.ruang_malahayati)staffData=getDefaultStaffData()}catch(e){staffData=getDefaultStaffData()}}
+function saveStaffData(){try{localStorage.setItem(LS_STAFF,JSON.stringify(staffData))}catch(e){toast('e','Gagal menyimpan data petugas. Storage penuh.')}}
+function getActiveStaff(){var active=[];ROOMS.forEach(function(r){var rd=staffData[r.id];if(rd&&rd.staff)rd.staff.forEach(function(s){if(s.active)active.push({staff:s,room:r})})});return active}
 
-    // Bangun mapping kolom berdasarkan header baris pertama
-    const headerRow = rawRows[0];
-    const colMapping = {}; // { fieldKey: actualColName }
-    for (const colName of Object.keys(headerRow)) {
-        const fk = findFieldKey(colName);
-        if (fk) colMapping[fk] = colName;
-    }
+function renderRoomCards(){var grid=document.getElementById('roomCardsGrid');if(!grid)return;var html='';ROOMS.forEach(function(r){var rd=staffData[r.id]||{staff:[]};var hasActive=rd.staff.some(function(s){return s.active});html+='<div class="room-card fu'+(hasActive?' has-active':'')+'" style="animation-delay:.1s" id="rc_'+r.id+'">';html+='<div class="room-hdr" style="background:'+r.gradient+'"><div class="room-hdr-icon" style="background:rgba(0,0,0,.06)"><i class="fa-solid '+r.icon+'" style="color:'+r.color+'"></i></div><div class="room-hdr-info"><div class="room-hdr-name">'+esc(r.name)+'</div><div class="room-hdr-sub">Unit Hemodialisis</div></div><span class="room-active-badge"><i class="fa-solid fa-bolt"></i> AKTIF</span></div>';html+='<div class="room-body" id="rb_'+r.id+'">';if(!rd.staff.length){html+='<div class="staff-empty"><i class="fa-solid fa-user-nurse"></i>Belum ada petugas terdaftar</div>'}else{rd.staff.forEach(function(s){html+='<div class="staff-card'+(s.active?' is-active':'')+'" id="sc_'+s.id+'"><div class="staff-photo" onclick="changeStaffPhoto(\''+r.id+'\',\''+s.id+'\')">';if(s.photo)html+='<img src="'+s.photo+'" alt="'+esc(s.name)+'">';html+='<div class="photo-overlay"><i class="fa-solid fa-camera"></i></div>';if(!s.photo)html+='<i class="fa-solid fa-user-nurse" style="font-size:20px;color:var(--muted)"></i>';html+='</div><div class="staff-info"><div class="staff-name">'+esc(s.name)+(s.active?' <span style="font-size:9px;background:#dcfce7;color:#166534;padding:2px 6px;border-radius:6px;font-weight:800;margin-left:4px">AKTIF</span>':'')+'</div><div class="staff-role"><i class="fa-solid fa-stethoscope mr-1"></i>'+esc(s.role)+'</div><div class="staff-phone"><i class="fa-solid fa-phone mr-1"></i>'+esc(s.phone)+'</div></div><div class="staff-actions-col"><button class="btn-activate'+(s.active?' active':'')+'" onclick="toggleStaffActive(\''+r.id+'\',\''+s.id+'\')"><i class="fa-solid '+(s.active?'fa-stop-circle':'fa-play-circle')+'"></i> '+(s.active?'Nonaktifkan':'Aktifkan')+'</button><div style="display:flex;gap:4px"><button class="btn-sm" onclick="editStaff(\''+r.id+'\',\''+s.id+'\')" title="Edit"><i class="fa-solid fa-pen"></i></button><button class="btn-sm btn-del" onclick="deleteStaff(\''+r.id+'\',\''+s.id+'\')" title="Hapus"><i class="fa-solid fa-trash"></i></button></div></div></div>'})}html+='</div><div class="room-footer"><button class="btn-add-staff" onclick="addStaff(\''+r.id+'\')"><i class="fa-solid fa-user-plus"></i> Tambah Petugas</button></div></div>'});grid.innerHTML=html}
 
-    // Log mapping untuk debugging
-    console.log('[SIDARAJA] Kolom terdeteksi:', colMapping);
-    console.log('[SIDARAJA] Total baris data:', rawRows.length - 1);
+function toggleStaffActive(roomId,staffId){var rd=staffData[roomId];if(!rd)return;var staff=rd.staff.find(function(s){return s.id===staffId});if(!staff)return;staff.active=!staff.active;saveStaffData();renderRoomCards();updateActivePickersIndicator();if(staff.active)toast('s',staff.name+' diaktifkan — tombol "Ambil Pasien" akan muncul di Dashboard.');else toast('i',staff.name+' dinonaktifkan.')}
+function updateActivePickersIndicator(){var ind=document.getElementById('activePickersIndicator'),list=document.getElementById('activePickersList');if(!ind||!list)return;var active=getActiveStaff();if(!active.length){ind.style.display='none';return}ind.style.display='flex';var html='';active.forEach(function(a){html+='<span class="active-picker-chip"><span class="apc-dot"></span>'+esc(a.staff.name)+' — '+esc(a.room.name)+'</span>'});list.innerHTML=html}
+function addStaff(roomId){document.getElementById('staffModalTitle').textContent='Tambah Petugas';document.getElementById('sfId').value='';document.getElementById('sfRoom').value=roomId;document.getElementById('sfName').value='';document.getElementById('sfRole').value='Perawat';document.getElementById('sfPhone').value='';document.getElementById('sfPhotoPreview').style.display='none';document.getElementById('sfPhotoPreview').src='';document.getElementById('sfPhotoPlaceholder').style.display='block';document.getElementById('sfPhotoInput').value='';document.getElementById('staffModal').style.display='flex'}
+function editStaff(roomId,staffId){var rd=staffData[roomId];if(!rd)return;var s=rd.staff.find(function(x){return x.id===staffId});if(!s)return;document.getElementById('staffModalTitle').textContent='Edit Petugas';document.getElementById('sfId').value=s.id;document.getElementById('sfRoom').value=roomId;document.getElementById('sfName').value=s.name;document.getElementById('sfRole').value=s.role;document.getElementById('sfPhone').value=s.phone;if(s.photo){document.getElementById('sfPhotoPreview').src=s.photo;document.getElementById('sfPhotoPreview').style.display='block';document.getElementById('sfPhotoPlaceholder').style.display='none'}else{document.getElementById('sfPhotoPreview').style.display='none';document.getElementById('sfPhotoPlaceholder').style.display='block'}document.getElementById('sfPhotoInput').value='';document.getElementById('staffModal').style.display='flex'}
+function closeStaffModal(){document.getElementById('staffModal').style.display='none'}
+function saveStaff(){var name=document.getElementById('sfName').value.trim(),role=document.getElementById('sfRole').value,phone=document.getElementById('sfPhone').value.trim(),roomId=document.getElementById('sfRoom').value,id=document.getElementById('sfId').value;if(!name){toast('e','Nama petugas harus diisi!');return}if(!phone){toast('e','Nomor telepon harus diisi!');return}var photoSrc=document.getElementById('sfPhotoPreview').src;var photo=(document.getElementById('sfPhotoPreview').style.display!=='none'&&photoSrc)?photoSrc:'';var rd=staffData[roomId];if(id){var s=rd.staff.find(function(x){return x.id===id});if(s){s.name=name;s.role=role;s.phone=phone;if(photo)s.photo=photo;toast('s','Data petugas diperbarui.')}}else{var newId='s_'+Date.now()+'_'+Math.random().toString(36).substr(2,5);rd.staff.push({id:newId,name:name,role:role,phone:phone,photo:photo,active:false});toast('s','Petugas baru ditambahkan.')}saveStaffData();closeStaffModal();renderRoomCards()}
+function deleteStaff(roomId,staffId){var rd=staffData[roomId];if(!rd)return;var s=rd.staff.find(function(x){return x.id===staffId});if(!s)return;if(!confirm('Hapus petugas "'+s.name+'" dari ruangan ini?'))return;rd.staff=rd.staff.filter(function(x){return x.id!==staffId});saveStaffData();renderRoomCards();updateActivePickersIndicator();toast('i','Petugas dihapus.')}
+function previewStaffPhoto(input){if(!input.files||!input.files[0])return;var file=input.files[0];if(file.size>2*1024*1024){toast('e','Ukuran foto maksimal 2MB.');return}var reader=new FileReader();reader.onload=function(e){document.getElementById('sfPhotoPreview').src=e.target.result;document.getElementById('sfPhotoPreview').style.display='block';document.getElementById('sfPhotoPlaceholder').style.display='none'};reader.readAsDataURL(file)}
+function changeStaffPhoto(roomId,staffId){var input=document.createElement('input');input.type='file';input.accept='image/*';input.capture='user';input.onchange=function(){if(!input.files||!input.files[0])return;var file=input.files[0];if(file.size>2*1024*1024){toast('e','Ukuran foto maksimal 2MB.');return}var reader=new FileReader();reader.onload=function(e){var rd=staffData[roomId];if(!rd)return;var s=rd.staff.find(function(x){return x.id===staffId});if(!s)return;s.photo=e.target.result;saveStaffData();renderRoomCards();toast('s','Foto petugas diperbarui.')};reader.readAsDataURL(file)};input.click()}
 
-    const patients = [];
-    for (let i = 1; i < rawRows.length; i++) {
-        const row = rawRows[i];
-        // Skip baris kosong (semua field kosong)
-        const namaRaw = colMapping.nama ? (row[colMapping.nama] || '').trim() : '';
-        const rmRaw = colMapping.rm ? (row[colMapping.rm] || '').trim() : '';
-        if (!namaRaw && !rmRaw) continue;
+/* ================================================================
+   GAS CONFIG
+   ================================================================ */
+function loadGasConfig(){try{var u=localStorage.getItem(LS_GAS);if(u)document.getElementById('gasUrlInput').value=u}catch(e){}}
+function saveGasConfig(){var u=document.getElementById('gasUrlInput').value.trim();if(!u){localStorage.removeItem(LS_GAS);showGasStatus('info','URL dihapus.');return}if(!u.startsWith('https://script.google.com')){toast('e','URL harus dimulai dengan https://script.google.com');return}localStorage.setItem(LS_GAS,u);showGasStatus('ok','URL tersimpan.')}
+function testGasConnection(){var u=document.getElementById('gasUrlInput').value.trim();if(!u){toast('e','Masukkan URL GAS terlebih dahulu.');return}showGasStatus('load','Menguji koneksi...');fetch(u+'?action=ping',{method:'GET',mode:'no-cors'}).then(function(){showGasStatus('ok','Koneksi berhasil!')}).catch(function(e){showGasStatus('fail','Gagal: '+e.message)})}
+function showGasStatus(type,msg){var el=document.getElementById('gasStatus');var colors={ok:'#059669',fail:'#dc2626',load:'#d97706',info:'#2563eb'};el.innerHTML='<span class="conn-dot conn-'+(type==='ok'?'ok':type==='fail'?'fail':'load')+'"></span> '+msg;el.style.color=colors[type]||'var(--txt2)'}
 
-        patients.push({
-            no: i,
-            rm: rmRaw || '-',
-            nama: namaRaw || 'Tidak diketahui',
-            diagnosa: colMapping.diagnosa ? (row[colMapping.diagnosa] || '-').trim() : '-',
-            status: normalizeStatus(colMapping.status ? row[colMapping.status] : ''),
-            ruangan: colMapping.ruangan ? (row[colMapping.ruangan] || '-').trim() : '-',
-            jadwal: colMapping.jadwal ? (row[colMapping.jadwal] || '-').trim() : '-',
-            catatan: colMapping.catatan ? (row[colMapping.catatan] || '-').trim() : '-'
-        });
-    }
-    return patients;
+/* ================================================================
+   PICK POPUP
+   ================================================================ */
+function openPickPopup(patientRowIdx,btnEl){closePickPopup();var active=getActiveStaff();if(!active.length){toast('e','Tidak ada petugas yang aktif. Aktifkan petugas di menu AKSI terlebih dahulu.');return}var rect=btnEl.getBoundingClientRect();var popup=document.createElement('div');popup.className='pick-popup';popup.id='pickPopup';popup.style.left=Math.min(rect.left,window.innerWidth-280)+'px';popup.style.top=(rect.bottom+6)+'px';var html='<div class="pick-popup-hdr"><i class="fa-solid fa-hand-pointer"></i> Pilih Petugas Pengambil</div>';active.forEach(function(a){html+='<button class="pick-popup-item" onclick="doAmbilPasien('+patientRowIdx+',\''+a.staff.id+'\',\''+a.room.id+'\')"><div class="ppi-photo">';if(a.staff.photo)html+='<img src="'+a.staff.photo+'" alt="'+esc(a.staff.name)+'">';else html+='<i class="fa-solid fa-user-nurse" style="font-size:14px;color:var(--muted)"></i>';html+='</div><div><div class="ppi-name">'+esc(a.staff.name)+'</div><div class="ppi-room"><i class="fa-solid fa-hospital" style="margin-right:4px"></i>'+esc(a.room.name)+'</div></div></button>'});popup.innerHTML=html;document.body.appendChild(popup);pickPopup=popup}
+function closePickPopup(){if(pickPopup){pickPopup.remove();pickPopup=null}}
+
+/* ================================================================
+   AMBIL PASIEN
+   ================================================================ */
+function doAmbilPasien(rowIdx,staffId,roomId){closePickPopup();var rd=staffData[roomId];if(!rd)return;var staff=rd.staff.find(function(s){return s.id===staffId});if(!staff)return;var room=ROOMS.find(function(r){return r.id===roomId});if(!room)return;var patient=s1FD[rowIdx];if(!patient){toast('e','Data pasien tidak ditemukan.');return}var namaVal=namaIdx!==-1?(patient[headers[namaIdx]]||''):'-';var ruanganText=room.name+' ('+staff.name+')';patient[SN]='terjadwal';patient[SK]='Terjadwal — '+staff.name;if(ruanganIdx!==-1)patient[headers[ruanganIdx]]=ruanganText;statusCounts.menunggu=Math.max(0,(statusCounts.menunggu||0)-1);statusCounts.terjadwal=(statusCounts.terjadwal||0)+1;updStats();var tsVal=patient[TK];for(var i=0;i<allRows.length;i++){if(allRows[i][TK]===tsVal){allRows[i][SN]='terjadwal';allRows[i][SK]='Terjadwal — '+staff.name;if(ruanganIdx!==-1)allRows[i][headers[ruanganIdx]]=ruanganText;break}}writeBackToSheet(patient,ruanganText);s1FD=s1FD.filter(function(r){return r[SN]==='menunggu'});if(s1Page>Math.max(1,Math.ceil(s1FD.length/s1PS)))s1Page=Math.max(1,Math.ceil(s1FD.length/s1PS));renderS1();renderChart1();s2FD=filterByStatus(allRows,s2Active);renderS2();toast('s','Pasien <strong>'+esc(namaVal)+'</strong> diambil oleh <strong>'+esc(staff.name)+'</strong> — '+room.name)}
+async function writeBackToSheet(patient,ruanganText){var gasUrl=localStorage.getItem(LS_GAS);if(!gasUrl)return;var rowNumber=-1;var tsVal=patient[TK];for(var i=0;i<allRows.length;i++){if(allRows[i][TK]===tsVal){rowNumber=i+2;break}}
+var payload={action:'updateRow',row:rowNumber,statusCol:SHEET_STATUS_COL,ruanganCol:SHEET_RUANGAN_COL,statusValue:'Terjadwal',ruanganValue:ruanganText};
+try{var resp=await fetch(gasUrl,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});console.log('Write-back terkirim untuk baris '+rowNumber)}catch(e){console.error('Write-back gagal:',e.message);toast('e','Gagal menulis ke spreadsheet: '+e.message)}}
+
+/* ================================================================
+   NORMALISASI STATUS
+   ================================================================ */
+function normStatus(raw){
+if(!raw||!String(raw).trim())return'menunggu';
+var v=String(raw).trim().toLowerCase().replace(/[^a-z0-9\s\/\.]/g,'').replace(/\s+/g,' ').replace(/\.$/,'').trim();
+if(ST_ALIAS[v])return ST_ALIAS[v];
+for(var a in ST_ALIAS){if(a.length>2&&v.indexOf(a)!==-1)return ST_ALIAS[a]}
+if(/menunggu|antri|belum|waiting/.test(v))return'menunggu';
+if(/terjadwal|dijadwal|jadwal|scheduled/.test(v))return'terjadwal';
+if(/hd\s*lain|slc|pindah|rujuk|dialisis\s*lain/.test(v))return'hdlain';
+if(/batal|cancel|tidak\s*jadi|dibatalkan/.test(v))return'batal';
+if(/meninggal|wafat|alm|md|dead|almarhum/.test(v))return'meninggal';
+return'lainnya';
+}
+function maskMR(v){if(!v)return'-';var s=String(v).trim();if(s.length<=4)return'XXXX';return s.substring(0,s.length-4)+'XXXX'}
+function fmtPhoneLink(raw){if(!raw)return'';var s=String(raw).replace(/[^0-9+]/g,'').trim();if(s.startsWith('0'))s='62'+s.substring(1);else if(s.startsWith('+'))s=s.substring(1);else if(!s.startsWith('62'))s='62'+s;return s}
+
+/* ================================================================
+   FETCH DATA
+   ================================================================ */
+async function fetchData(){
+showS1Loading();setConn('load','MEMUAT');setConnLogin('load','Menghubungkan...');
+for(var i=0;i<CSV_URLS.length;i++){try{var r=await fetchWithTimeout(CSV_URLS[i],12000);var t=await r.text();if(t&&t.trim()){var p=parseCSV(t);if(p.length>=2){applyData(p);setConn('ok','ONLINE');setConnLogin('ok','Terhubung — Data dimuat');dataLoaded=true;dataError=false;if(appMode==='admin'){clickStatusCard(s1Active);renderChart1();s2FD=allRows.slice();s2Page=1;renderS2()}else if(appMode==='user'){updPatientStats();patientReset()}return}}}catch(e){console.warn('URL '+i+' gagal:',e.message)}}
+try{var pu=PROXY+encodeURIComponent(CSV_URLS[0]);var r2=await fetchWithTimeout(pu,15000);var t2=await r2.text();if(t2&&t2.trim()){var p2=parseCSV(t2);if(p2.length>=2){applyData(p2);setConn('ok','ONLINE (Proxy)');setConnLogin('ok','Terhubung via proxy');dataLoaded=true;dataError=false;if(appMode==='admin'){clickStatusCard(s1Active);renderChart1();s2FD=allRows.slice();s2Page=1;renderS2()}else if(appMode==='user'){updPatientStats();patientReset()}return}}}catch(e){console.warn('Proxy gagal:',e.message)}
+showS1Empty();setConn('fail','OFFLINE');setConnLogin('fail','Gagal terhubung');dataError=true;toast('e','Gagal memuat data. Pastikan spreadsheet sudah dipublikasikan ke web.');
+}
+async function refreshData(){var ic=document.getElementById('refreshIcon');ic.style.animation='sp .8s linear infinite';setConn('load','REFRESH');dataLoaded=false;dataError=false;await fetchData();ic.style.animation=''}
+async function fetchWithTimeout(url,ms){var c=new AbortController();var t=setTimeout(function(){c.abort()},ms);try{var r=await fetch(url,{signal:c.signal});clearTimeout(t);if(!r.ok)throw new Error('HTTP '+r.status);return r}catch(e){clearTimeout(t);throw e}}
+
+/* ================================================================
+   PARSE CSV
+   ================================================================ */
+function parseCSV(t){var rows=[],cells=[],field='',inQ=false,i=0;while(i<t.length){var ch=t[i];if(inQ){if(ch==='"'){if(i+1<t.length&&t[i+1]==='"'){field+='"';i+=2}else{inQ=false;i++}}else{field+=ch;i++}}else{if(ch==='"'){inQ=true;i++}else if(ch===','){cells.push(field);field='';i++}else if(ch==='\r'){i++}else if(ch==='\n'){cells.push(field);field='';rows.push(cells);cells=[];i++}else{field+=ch;i++}}}if(field||cells.length){cells.push(field);rows.push(cells)}return rows}
+
+/* ================================================================
+   APPLY DATA
+   ================================================================ */
+function applyData(parsed){
+var rawH=parsed[0];headers=[];
+for(var i=1;i<rawH.length;i++)headers.push((rawH[i]||'Kolom'+i).trim());
+namaIdx=-1;rmIdx=-1;usiaIdx=-1;alamatIdx=-1;ruanganIdx=-1;phoneIdx=-1;
+headers.forEach(function(h,idx){
+var hl=h.toLowerCase().trim();
+if(namaIdx===-1){if(/nama\s*pasien|^nama$|patient\s*name/.test(hl))namaIdx=idx;else if(/nama/.test(hl))namaIdx=idx}
+if(rmIdx===-1&&/no\.?\s*m\.?r\.?|norm|no\.?\s*rm|rekam\s*medis|nomor\s*mr|no\s*mr|medical\s*record/.test(hl))rmIdx=idx;
+if(usiaIdx===-1&&/^usia$|^umur$|^age$/.test(hl))usiaIdx=idx;
+if(alamatIdx===-1&&/alamat|^address$|domisili|tempat\s*tinggal/.test(hl))alamatIdx=idx;
+if(ruanganIdx===-1&&/keterangan\s*ruang|ruangan|ruang\s*perawatan|room/.test(hl))ruanganIdx=idx;
+if(phoneIdx===-1&&/telepon|telp|phone|hp|no\.?\s*hp|nomor\s*hp|kontak|no\.?\s*telp|nomor\s*telepon|cell|mobile|no\s*telp|notelp|nohp|nomorhp/.test(hl))phoneIdx=idx;
+});
+if(namaIdx===-1){headers.forEach(function(h,idx){if(namaIdx===-1&&/nama/i.test(h))namaIdx=idx})}
+if(namaIdx===-1)namaIdx=0;if(rmIdx===-1)rmIdx=1;if(usiaIdx===-1)usiaIdx=3;if(alamatIdx===-1)alamatIdx=4;
+if(ruanganIdx===-1&&headers.length>16)ruanganIdx=16;
+console.log('Kolom — Nama['+namaIdx+'] RM['+rmIdx+'] Usia['+usiaIdx+'] Alamat['+alamatIdx+'] Phone['+phoneIdx+'] Status['+STATUS_HEADERS_IDX+'] Ruangan['+ruanganIdx+']');
+allRows=[];statusCounts={menunggu:0,terjadwal:0,hdlain:0,batal:0,meninggal:0,lainnya:0};
+for(var r=1;r<parsed.length;r++){
+var row=parsed[r];if(!row||row.length<=1)continue;
+var rd={};rd[TK]=(row[0]||'').trim();rd[TD]=pTS(rd[TK]);
+var rawStatus='',hasData=false;
+for(var ci=1;ci<rawH.length;ci++){var hKey=headers[ci-1];var val=(ci<row.length)?(row[ci]||'').trim():'';rd[hKey]=val;if(val)hasData=true;if((ci-1)===STATUS_HEADERS_IDX)rawStatus=val}
+if(!hasData)continue;var sn=normStatus(rawStatus);rd[SK]=rawStatus;rd[SN]=sn;
+if(statusCounts[sn]!==undefined)statusCounts[sn]++;else statusCounts.lainnya++;allRows.push(rd);
+}
+allRows.sort(function(a,b){var da=a[TD],db=b[TD];if(da&&db)return da.getTime()-db.getTime();if(da)return-1;if(db)return 1;return 0});
+document.getElementById('lastUpdate').textContent='Terakhir diperbarui: '+fDT(new Date());
+updStats();s2FD=allRows.slice();s2Page=1;
+toast('s',allRows.length+' data dimuat — Menunggu: '+statusCounts.menunggu+', Terjadwal: '+statusCounts.terjadwal);
 }
 
-/* ============================================================
-   FETCH DATA DARI GOOGLE SHEETS
-   ============================================================ */
+/* ================================================================
+   UPDATE STATS
+   ================================================================ */
+function updStats(){
+var f=function(n){return n.toLocaleString('id-ID')};
+document.getElementById('scMenunggu').textContent=f(statusCounts.menunggu||0);
+document.getElementById('scTerjadwal').textContent=f(statusCounts.terjadwal||0);
+document.getElementById('scHdlain').textContent=f(statusCounts.hdlain||0);
+document.getElementById('scBatal').textContent=f(statusCounts.batal||0);
+document.getElementById('scMeninggal').textContent=f(statusCounts.meninggal||0);
+document.getElementById('scTotal').textContent=f(allRows.length);
+document.getElementById('s2cMenunggu').textContent=f(statusCounts.menunggu||0);
+document.getElementById('s2cTerjadwal').textContent=f(statusCounts.terjadwal||0);
+document.getElementById('s2cHdlain').textContent=f(statusCounts.hdlain||0);
+document.getElementById('s2cBatal').textContent=f(statusCounts.batal||0);
+document.getElementById('s2cMeninggal').textContent=f(statusCounts.meninggal||0);
+document.getElementById('s2cTotal').textContent=f(allRows.length);
+updPatientStats();
+}
+function updPatientStats(){document.getElementById('pMenunggu').textContent=(statusCounts.menunggu||0).toLocaleString('id-ID');document.getElementById('pTerjadwal').textContent=(statusCounts.terjadwal||0).toLocaleString('id-ID')}
 
-async function fetchSheetData() {
-    if (isLoading) return;
-    isLoading = true;
-    setConnectionStatus('loading');
+/* ================================================================
+   PATIENT SEARCH
+   ================================================================ */
+function patientSearch(){var q=document.getElementById('pSearchNama').value.trim().toLowerCase();if(!q){document.getElementById('patientResults').innerHTML='';document.getElementById('pNoRes').classList.add('hidden');return}var results=allRows.filter(function(r){if(namaIdx!==-1&&r[headers[namaIdx]]&&r[headers[namaIdx]].toLowerCase().indexOf(q)!==-1)return true;return false});renderPatientInvoices(results)}
+function patientReset(){document.getElementById('pSearchNama').value='';document.getElementById('patientResults').innerHTML='';document.getElementById('pNoRes').classList.add('hidden');document.getElementById('pNoRes').classList.remove('flex');lastInvoiceData=[]}
 
-    try {
-        const response = await fetch(SHEET_CSV_URL);
-        if (!response.ok) throw new Error('HTTP ' + response.status);
-        const csvText = await response.text();
+function renderPatientInvoices(results){
+var c=document.getElementById('patientResults'),nr=document.getElementById('pNoRes');
+if(!results.length){c.innerHTML='';nr.classList.remove('hidden');nr.classList.add('flex');lastInvoiceData=[];return}
+nr.classList.add('hidden');nr.classList.remove('flex');
+lastInvoiceData=results.map(function(r){return{nama:namaIdx!==-1?(r[headers[namaIdx]]||''):'-',rm:rmIdx!==-1?(r[headers[rmIdx]]||''):'-',usia:usiaIdx!==-1?(r[headers[usiaIdx]]||''):'-',alamat:alamatIdx!==-1?(r[headers[alamatIdx]]||''):'-',status:r[SK]||(ST[r[SN]]||ST.meninggal).label,statusNorm:r[SN]||'menunggu',ruangan:ruanganIdx!==-1?(r[headers[ruanganIdx]]||''):'-',phone:phoneIdx!==-1?(r[headers[phoneIdx]]||''):''}});
+var html='';
+results.forEach(function(r,idx){
+var sn=r[SN]||'menunggu',stC=ST[sn]||ST.meninggal;
+var namaVal=namaIdx!==-1?(r[headers[namaIdx]]||''):'-',rmVal=rmIdx!==-1?(r[headers[rmIdx]]||''):'-',usiaVal=usiaIdx!==-1?(r[headers[usiaIdx]]||''):'-',alamatVal=alamatIdx!==-1?(r[headers[alamatIdx]]||''):'-',statusVal=r[SK]||stC.label,ruanganVal=ruanganIdx!==-1?(r[headers[ruanganIdx]]||''):'-',phoneVal=phoneIdx!==-1?(r[headers[phoneIdx]]||''):'';
+var matchedRoom=null;ROOM_CONTACTS.forEach(function(rc){if(rc.keyword.test(ruanganVal))matchedRoom=rc});
+html+='<div class="inv fu mb-5" style="animation-delay:'+(idx*0.08)+'s" id="inv'+idx+'">';
+html+='<div class="inv-hdr"><div class="inv-hdr-left"><div class="inv-hdr-icon" style="background:linear-gradient(135deg,'+stC.bg+','+stC.color+'22)"><i class="fa-solid '+stC.icon+'" style="color:'+stC.color+'"></i></div><div><div style="font-size:13px;font-weight:800;color:var(--txt)">Hasil Pencarian Antrian</div><div style="font-size:11px;color:var(--muted)">SIDARAJA — Instalasi Dialisis RSSA</div></div></div>';
+html+='<span class="badge" style="background:'+stC.bg+';color:'+stC.text+';font-size:13px;padding:6px 14px"><i class="fa-solid '+stC.icon+' mr-1"></i>'+esc(statusVal)+'</span></div>';
+html+='<div class="inv-body">';
+html+=invRow('fa-user','Nama Pasien',esc(namaVal));html+=invRow('fa-id-card','Rekam Medik',esc(maskRM(rmVal)));html+=invRow('fa-cake-candles','Umur',esc(usiaVal)+(usiaVal!=='-'?' Tahun':''));html+=invRow('fa-location-dot','Alamat',esc(alamatVal));html+=invRow('fa-circle-info','Status',statusBadge(statusVal,sn));html+=invRow('fa-hospital','Keterangan Ruangan',esc(ruanganVal));
+html+='</div>';
+html+='<div class="inv-contacts"><div class="inv-contacts-title"><i class="fa-solid fa-phone-volume"></i> Hubungi Petugas Ruangan</div>';
+ROOM_CONTACTS.forEach(function(rc){var isActive=matchedRoom&&matchedRoom.name===rc.name;
+html+='<div class="contact-card'+(isActive?' active-room':'')+'"><div class="contact-name"><i class="fa-solid fa-hospital mr-2" style="color:'+(isActive?'var(--pg)':'var(--muted)')+'"></i>'+rc.name;if(isActive)html+=' <span style="font-size:10px;background:var(--pg);color:#fff;padding:2px 8px;border-radius:6px;margin-left:6px">RUANGAN ANDA</span>';
+html+='</div><div class="contact-person">'+rc.person+'</div><div class="contact-phone"><span class="contact-phone-num"><i class="fa-solid fa-phone mr-1"></i>'+rc.phone+'</span>';
+html+='<a href="https://wa.me/62'+rc.phone.substring(1)+'?text='+encodeURIComponent('Halo '+rc.person+', saya ingin bertanya tentang antrian dialisis atas nama: '+namaVal)+'" target="_blank" class="contact-btn contact-btn-wa"><i class="fa-brands fa-whatsapp"></i> WA</a>';
+html+='<a href="sms:+62'+rc.phone.substring(1)+'?body='+encodeURIComponent('Halo '+rc.person+', antrian dialisis atas nama: '+namaVal)+'" class="contact-btn contact-btn-sms"><i class="fa-solid fa-message"></i> SMS</a>';
+html+='<a href="https://t.me/share/url?url=&text='+encodeURIComponent('Halo '+rc.person+', antrian dialisis atas nama: '+namaVal)+'" target="_blank" class="contact-btn contact-btn-tg"><i class="fa-brands fa-telegram"></i> Telegram</a>';
+html+='</div></div>'});
+html+='</div>';
+var shareText='*HASIL PENCARIAN ANTRIAN DIALISIS*\n━━━━━━━━━━━━━━━━━━\nNama Pasien: '+namaVal+'\nRekam Medik: '+maskRM(rmVal)+'\nUmur: '+usiaVal+(usiaVal!=='-'?' Tahun':'')+'\nAlamat: '+alamatVal+'\nStatus: '+statusVal+'\nKeterangan Ruangan: '+ruanganVal+'\n━━━━━━━━━━━━━━━━━━\nHubungi Petugas:\n';
+ROOM_CONTACTS.forEach(function(rc){shareText+='• '+rc.name+': '+rc.person+' ('+rc.phone+')\n'});
+shareText+='━━━━━━━━━━━━━━━━━━\nSIDARAJA - Instalasi Dialisis RSSA';var encShare=encodeURIComponent(shareText);
+html+='<div class="inv-actions"><div class="inv-actions-title"><i class="fa-solid fa-share-nodes mr-1"></i> Bagikan Hasil</div>';
+html+='<a href="https://wa.me/?text='+encShare+'" target="_blank" class="share-btn share-wa"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>';
+html+='<a href="https://t.me/share/url?url='+encodeURIComponent(window.location.href)+'&text='+encShare+'" target="_blank" class="share-btn share-tg"><i class="fa-brands fa-telegram"></i> Telegram</a>';
+html+='<a href="sms:?body='+encShare+'" class="share-btn share-sms"><i class="fa-solid fa-message"></i> SMS</a>';
+html+='<button class="share-btn share-pdf" onclick="printPatientInvoice('+idx+')"><i class="fa-solid fa-file-pdf"></i> Cetak PDF</button>';
+html+='</div></div>'});
+c.innerHTML=html;
+}
+function invRow(icon,label,value){return'<div class="inv-row"><div class="inv-label"><i class="fa-solid '+icon+' mr-2" style="color:var(--pg);width:14px"></i>'+label+'</div><div class="inv-val">'+value+'</div></div>'}
 
-        const rawRows = parseCSV(csvText);
-        allPatients = transformSheetData(rawRows);
-
-        console.log('[SIDARAJA] Data berhasil dimuat:', allPatients.length, 'pasien');
-        setConnectionStatus('ok');
-        showToast('Data berhasil dimuat: ' + allPatients.length + ' pasien', 'success');
-    } catch (err) {
-        console.error('[SIDARAJA] Gagal memuat data:', err);
-        setConnectionStatus('fail');
-        showToast('Gagal memuat data dari Google Sheet. Pastikan sheet dipublikasikan.', 'error');
-        allPatients = [];
-    }
-
-    isLoading = false;
-    updateUI();
+function printPatientInvoice(idx){
+var d=lastInvoiceData[idx];if(!d){toast('e','Data invoice tidak ditemukan.');return}
+var sn=d.statusNorm||'menunggu',stC=ST[sn]||ST.meninggal;var now=new Date(),dateStr=fDT(now);
+var html='<div class="print-datetime">Dicetak: '+dateStr+'</div><div class="inv"><div class="inv-hdr" style="border-bottom:2px solid #333"><div class="inv-hdr-left"><div style="font-size:16px;font-weight:900;color:#1e293b">SIDARAJA — Instalasi Dialisis RSSA</div><div style="font-size:11px;color:#64748b">Hasil Pencarian Antrian Pasien</div></div><span class="badge" style="background:'+stC.bg+';color:'+stC.text+';font-size:12px;padding:4px 12px;-webkit-print-color-adjust:exact;print-color-adjust:exact">'+esc(d.status)+'</span></div><div class="inv-body">';
+html+=invRow('fa-user','Nama Pasien',esc(d.nama));html+=invRow('fa-id-card','Rekam Medik',esc(maskRM(d.rm)));html+=invRow('fa-cake-candles','Umur',esc(d.usia)+(d.usia!=='-'?' Tahun':''));html+=invRow('fa-location-dot','Alamat',esc(d.alamat));html+=invRow('fa-circle-info','Status',esc(d.status));html+=invRow('fa-hospital','Keterangan Ruangan',esc(d.ruangan));
+html+='</div><div class="inv-contacts" style="background:#f0f0f0;-webkit-print-color-adjust:exact;print-color-adjust:exact;padding:16px 24px"><div style="font-size:12px;font-weight:800;margin-bottom:8px;color:#047857">HUBUNGI PETUGAS RUANGAN</div>';
+ROOM_CONTACTS.forEach(function(rc){var isActive=rc.keyword.test(d.ruangan);html+='<div class="contact-card'+(isActive?' active-room':'')+'" style="margin-bottom:8px"><div style="font-weight:800;font-size:13px">'+rc.name+(isActive?' ★ RUANGAN ANDA':'')+'</div><div style="font-size:11px;color:#475569">'+rc.person+'</div><div style="font-size:13px;font-weight:700;color:#059669">'+rc.phone+'</div></div>'});
+html+='</div></div>';document.getElementById('printArea').innerHTML=html;setTimeout(function(){window.print()},250);
 }
 
-function setConnectionStatus(status) {
-    const dot = document.getElementById('connDot');
-    const label = document.getElementById('connLabel');
-    const dotLogin = document.getElementById('connDotLogin');
-    const labelLogin = document.getElementById('connLabelLogin');
-
-    const classes = { ok: 'conn-ok', fail: 'conn-fail', loading: 'conn-load' };
-    const labels = { ok: 'ONLINE', fail: 'OFFLINE', loading: 'MEMUAT...' };
-
-    [dot, dotLogin].forEach(d => {
-        d.className = 'conn-dot ' + (classes[status] || 'conn-ok');
-    });
-    label.textContent = labels[status] || 'ONLINE';
-    labelLogin.textContent = labels[status] || 'Siap';
+function renderGlobalContacts(){
+var c=document.getElementById('globalContacts'),html='';
+ROOM_CONTACTS.forEach(function(rc){html+='<div class="contact-card"><div class="contact-name"><i class="fa-solid fa-hospital mr-2" style="color:var(--pk)"></i>'+rc.name+'</div><div class="contact-person">'+rc.person+'</div><div class="contact-phone"><span class="contact-phone-num"><i class="fa-solid fa-phone mr-1"></i>'+rc.phone+'</span>';
+html+='<a href="https://wa.me/62'+rc.phone.substring(1)+'?text='+encodeURIComponent('Halo '+rc.person+', saya ingin bertanya tentang antrian dialisis.')+'" target="_blank" class="contact-btn contact-btn-wa"><i class="fa-brands fa-whatsapp"></i> WA</a>';
+html+='<a href="sms:+62'+rc.phone.substring(1)+'?body='+encodeURIComponent('Halo '+rc.person+', antrian dialisis.')+'" class="contact-btn contact-btn-sms"><i class="fa-solid fa-message"></i> SMS</a>';
+html+='<a href="https://t.me/share/url?url=&text='+encodeURIComponent('Halo '+rc.person+', antrian dialisis.')+'" target="_blank" class="contact-btn contact-btn-tg"><i class="fa-brands fa-telegram"></i> Telegram</a>';
+html+='</div></div>'});c.innerHTML=html;
 }
 
-function manualReload() {
-    const btn = document.getElementById('reloadBtn');
-    btn.classList.add('spinning');
-    fetchSheetData().then(() => {
-        setTimeout(() => btn.classList.remove('spinning'), 600);
-    });
+/* ================================================================
+   ADMIN: STATUS CARD CLICK + KONTAK PASIEN
+   ================================================================ */
+function clickStatusCard(key){
+s1Active=key;document.querySelectorAll('#statusCards .stc').forEach(function(c){c.classList.remove('sel')});
+var sel=document.querySelector('#statusCards .stc[data-key="'+key+'"]');if(sel)sel.classList.add('sel');
+var label=key==='all'?'Semua Data':(ST[key]?ST[key].label:key);
+document.getElementById('s1TableTitle').textContent='Daftar Pasien: '+label;
+document.getElementById('s1TableSub').textContent='Menampilkan pasien dengan status: '+label;
+s1FD=filterByStatus(allRows,key);s1Page=1;renderS1();renderContactList(key);
+}
+function clickS2Card(key){
+s2Active=key;document.querySelectorAll('[data-s2key]').forEach(function(c){c.classList.remove('sel')});
+var sel=document.querySelector('[data-s2key="'+key+'"]');if(sel)sel.classList.add('sel');
+var label=key==='all'?'Semua Data':(ST[key]?ST[key].label:key);
+document.getElementById('s2TableSub').textContent='Filter: '+label;
+s2FD=filterByStatus(allRows,key);s2Page=1;renderS2();
+}
+function filterByStatus(rows,key){if(key==='all')return rows.slice();return rows.filter(function(r){return r[SN]===key})}
+
+/* ================================================================
+   RENDER KONTAK PASIEN (ADMIN)
+   ================================================================ */
+function renderContactList(statusKey){
+var sec=document.getElementById('contactListSection');
+if(['batal','meninggal','all'].indexOf(statusKey)!==-1){sec.style.display='none';return}
+var filtered=filterByStatus(allRows,statusKey);if(!filtered.length){sec.style.display='none';return}
+var stC=ST[statusKey]||ST.menunggu;
+document.getElementById('contactListTitle').textContent='Daftar Kontak Pasien: '+stC.label;
+document.getElementById('contactListSub').textContent='Hubungi pasien via Telepon, WA, SMS, atau Telegram';
+var body=document.getElementById('contactListBody'),html='',hasPhone=phoneIdx!==-1,countWithPhone=0;
+filtered.forEach(function(r,idx){
+var namaVal=namaIdx!==-1?(r[headers[namaIdx]]||''):'-',rmVal=rmIdx!==-1?(r[headers[rmIdx]]||''):'-',ruanganVal=ruanganIdx!==-1?(r[headers[ruanganIdx]]||''):'-',phoneVal=hasPhone?(r[headers[phoneIdx]]||''):'';
+if(!phoneVal)return;countWithPhone++;var phoneLink=fmtPhoneLink(phoneVal);
+var waMsg=encodeURIComponent('Halo '+namaVal+', ini dari Instalasi Dialisis RSSA terkait jadwal antrian dialisis Anda.');
+var smsMsg=encodeURIComponent('Halo '+namaVal+', ini dari Instalasi Dialisis RSSA terkait jadwal antrian dialisis Anda.');
+var tgMsg=encodeURIComponent('Halo '+namaVal+', ini dari Instalasi Dialisis RSSA terkait jadwal antrian dialisis Anda.');
+html+='<div class="contact-list-item"><div class="cli-idx" style="background:linear-gradient(135deg,'+stC.color+','+stC.color+'dd)">'+(countWithPhone)+'</div>';
+html+='<div class="cli-info"><div class="cli-name">'+esc(namaVal)+'</div><div class="cli-sub">No MR: '+esc(maskRM(rmVal))+(ruanganVal?' | Ruangan: '+esc(ruanganVal):'')+'</div><div class="cli-phone"><i class="fa-solid fa-phone mr-1"></i>'+esc(phoneVal)+'</div></div>';
+html+='<div class="cli-actions">';
+html+='<a href="tel:+'+phoneLink+'" class="cli-btn cli-btn-call"><i class="fa-solid fa-phone"></i> Telepon</a>';
+html+='<a href="https://wa.me/'+phoneLink+'?text='+waMsg+'" target="_blank" class="cli-btn cli-btn-wa"><i class="fa-brands fa-whatsapp"></i> WA</a>';
+html+='<a href="sms:+'+phoneLink+'?body='+smsMsg+'" class="cli-btn cli-btn-sms"><i class="fa-solid fa-message"></i> SMS</a>';
+html+='<a href="https://t.me/share/url?url=&text='+tgMsg+'" target="_blank" class="cli-btn cli-btn-tg"><i class="fa-brands fa-telegram"></i> Telegram</a>';
+html+='</div></div>';
+});
+if(!countWithPhone){sec.style.display='none';return}
+body.innerHTML=html;document.getElementById('contactListCount').textContent=countWithPhone+' kontak dengan nomor telepon';sec.style.display='block';
 }
 
-function startAutoRefresh() {
-    if (refreshTimer) clearInterval(refreshTimer);
-    refreshTimer = setInterval(() => {
-        if (currentMode) fetchSheetData();
-    }, REFRESH_INTERVAL);
+function printContactList(){
+var sec=document.getElementById('contactListSection'),items=sec.querySelectorAll('.contact-list-item');
+if(!items.length){toast('e','Tidak ada kontak untuk dicetak.');return}
+var statusKey=s1Active,stC=ST[statusKey]||ST.menunggu,now=new Date(),dateStr=fDT(now);
+var html='<div style="margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid #1e3a5f"><h1 style="font-size:18px;margin-bottom:4px;color:#1e3a5f">SIDARAJA — Daftar Kontak Pasien: '+stC.label+'</h1><p style="font-size:10px;color:#94a3b8">Tanggal cetak: '+dateStr+' | Jumlah kontak: '+items.length+'</p></div>';
+html+='<table style="width:100%;border-collapse:collapse;font-size:11pt"><thead><tr style="background:#1e3a5f;color:#fff"><th style="padding:8px;text-align:left">No</th><th style="padding:8px;text-align:left">Nama Pasien</th><th style="padding:8px;text-align:left">No MR</th><th style="padding:8px;text-align:left">Telepon</th><th style="padding:8px;text-align:left">Ruangan</th></tr></thead><tbody>';
+var filtered=filterByStatus(allRows,statusKey),n=0;
+filtered.forEach(function(r,idx){var phoneVal=phoneIdx!==-1?(r[headers[phoneIdx]]||''):'';if(!phoneVal)return;n++;
+var namaVal=namaIdx!==-1?(r[headers[namaIdx]]||''):'-',rmVal=rmIdx!==-1?(r[headers[rmIdx]]||''):'-',ruanganVal=ruanganIdx!==-1?(r[headers[ruanganIdx]]||''):'-';
+var bg=n%2===0?'#f8fafc':'#fff';
+html+='<tr style="background:'+bg+'"><td style="padding:6px 8px;border-bottom:1px solid #e2e8f0">'+n+'</td><td style="padding:6px 8px;border-bottom:1px solid #e2e8f0">'+esc(namaVal)+'</td><td style="padding:6px 8px;border-bottom:1px solid #e2e8f0">'+esc(rmVal)+'</td><td style="padding:6px 8px;border-bottom:1px solid #e2e8f0">'+esc(phoneVal)+'</td><td style="padding:6px 8px;border-bottom:1px solid #e2e8f0">'+esc(ruanganVal)+'</td></tr>'});
+html+='</tbody></table><div style="margin-top:16px;padding-top:8px;border-top:1px solid #e2e8f0;font-size:10px;color:#94a3b8">Dicetak dari Sistem Daftaran Antrian Pasien Rawat Jalan HD RSSA — Instalasi Dialisis RSSA — '+dateStr+'</div>';
+document.getElementById('printArea').innerHTML=html;setTimeout(function(){window.print()},250);
 }
 
-/* ============================================================
-   UPDATE SEMUA UI SETELAH DATA BERUBAH
-   ============================================================ */
-function updateUI() {
-    updateStats();
-    updatePatientStats();
-    renderTable();
-    renderFullTable();
-    renderChart();
-    renderAmbilList();
-    updateLastUpdate();
+/* ================================================================
+   CHART
+   ================================================================ */
+function saveChartImage(){if(!chart1){toast('e','Chart belum tersedia.');return}var canvas=document.getElementById('chart1');var link=document.createElement('a');link.download='Distribusi_Status_Dialisis_'+new Date().toISOString().slice(0,10)+'.png';link.href=canvas.toDataURL('image/png');link.click();toast('s','Gambar chart berhasil disimpan.')}
+function printChart(){if(!chart1){toast('e','Chart belum tersedia.');return}var canvas=document.getElementById('chart1');var imgData=canvas.toDataURL('image/png');var now=new Date(),dateStr=fDT(now);
+var html='<div style="text-align:center;margin-bottom:20px"><h1 style="font-size:20px;color:#1e3a5f;margin-bottom:4px">SIDARAJA — Distribusi Status Pasien</h1><p style="font-size:11px;color:#64748b">Tanggal cetak: '+dateStr+'</p></div>';
+html+='<div style="text-align:center;margin-bottom:20px"><img src="'+imgData+'" style="max-width:400px;width:100%"></div>';
+html+='<table style="width:60%;margin:0 auto;border-collapse:collapse;font-size:11pt"><thead><tr style="background:#1e3a5f;color:#fff"><th style="padding:8px">Status</th><th style="padding:8px">Jumlah</th><th style="padding:8px">Persentase</th></tr></thead><tbody>';
+var total=ST_KEYS.reduce(function(s,k){return s+(statusCounts[k]||0)},0)+(statusCounts.lainnya||0);
+ST_KEYS.forEach(function(k){var s=ST[k],cnt=statusCounts[k]||0,pct=total?Math.round(cnt/total*100):0;html+='<tr><td style="padding:6px 12px;border-bottom:1px solid #e2e8f0;text-align:center">'+s.label+'</td><td style="padding:6px 12px;border-bottom:1px solid #e2e8f0;text-align:center">'+cnt+'</td><td style="padding:6px 12px;border-bottom:1px solid #e2e8f0;text-align:center">'+pct+'%</td></tr>'});
+if(statusCounts.lainnya>0)html+='<tr><td style="padding:6px 12px;border-bottom:1px solid #e2e8f0;text-align:center">Lainnya</td><td style="padding:6px 12px;border-bottom:1px solid #e2e8f0;text-align:center">'+statusCounts.lainnya+'</td><td style="padding:6px 12px;border-bottom:1px solid #e2e8f0;text-align:center">'+(total?Math.round(statusCounts.lainnya/total*100):0)+'%</td></tr>';
+html+='<tr style="font-weight:bold;background:#f1f5f9"><td style="padding:6px 12px;text-align:center">TOTAL</td><td style="padding:6px 12px;text-align:center">'+total+'</td><td style="padding:6px 12px;text-align:center">100%</td></tr>';
+html+='</tbody></table><div style="margin-top:16px;text-align:center;font-size:10px;color:#94a3b8">Dicetak dari Sistem Daftaran Antrian Pasien Rawat Jalan HD RSSA — Instalasi Dialisis RSSA — '+dateStr+'</div>';
+document.getElementById('printArea').innerHTML=html;setTimeout(function(){window.print()},250);
 }
 
-/* ============================================================
-   SISTEM LOGIN
-   ============================================================ */
-function selectMode(mode) {
-    currentMode = mode;
-    const adminCard = document.getElementById('modeAdmin');
-    const userCard = document.getElementById('modeUser');
-    const adminSection = document.getElementById('adminSection');
-    const userSection = document.getElementById('userSection');
-    const errorDiv = document.getElementById('loginError');
-
-    adminCard.classList.remove('sel-admin');
-    userCard.classList.remove('sel-user');
-    adminSection.style.display = 'none';
-    userSection.style.display = 'none';
-    errorDiv.classList.add('hidden');
-
-    if (mode === 'admin') {
-        adminCard.classList.add('sel-admin');
-        adminSection.style.display = 'block';
-        setTimeout(() => document.getElementById('adminPass').focus(), 100);
-    } else if (mode === 'user') {
-        userCard.classList.add('sel-user');
-        userSection.style.display = 'block';
-    }
+function renderChart1(){
+var ctx=document.getElementById('chart1').getContext('2d');if(chart1)chart1.destroy();
+var data=ST_KEYS.map(function(k){return statusCounts[k]||0}),colors=ST_KEYS.map(function(k){return ST[k].color}),labels=ST_KEYS.map(function(k){return ST[k].label});
+if(statusCounts.lainnya>0){data.push(statusCounts.lainnya);colors.push('#94a3b8');labels.push('Lainnya')}
+chart1=new Chart(ctx,{type:'doughnut',data:{labels:labels,datasets:[{data:data,backgroundColor:colors,borderColor:colors.map(function(c){return c+'cc'}),borderWidth:3,hoverOffset:8}]},options:{responsive:true,maintainAspectRatio:true,cutout:'62%',plugins:{legend:{display:false},tooltip:{backgroundColor:'#1e293b',titleFont:{family:'Plus Jakarta Sans'},bodyFont:{family:'Plus Jakarta Sans'},padding:12,cornerRadius:10,callbacks:{label:function(c){var t=c.dataset.data.reduce(function(a,b){return a+b},0);return' '+c.raw+' pasien ('+(t?Math.round(c.raw/t*100):0)+'%)'}}}},animation:{duration:1200}}});
+var leg='';ST_KEYS.forEach(function(k){var s=ST[k];leg+='<span class="flex items-center gap-2"><span class="w-3 h-3 rounded-full" style="background:'+s.color+'"></span>'+s.label+': <strong>'+(statusCounts[k]||0)+'</strong></span>'});
+if(statusCounts.lainnya>0)leg+='<span class="flex items-center gap-2"><span class="w-3 h-3 rounded-full" style="background:#94a3b8"></span>Lainnya: <strong>'+statusCounts.lainnya+'</strong></span>';
+document.getElementById('leg1').innerHTML=leg;
 }
 
-function doAdminLogin() {
-    const passInput = document.getElementById('adminPass');
-    const pass = passInput.value;
-    const errorDiv = document.getElementById('loginError');
-    const errorMsg = document.getElementById('loginErrorMsg');
-    const loginBox = document.getElementById('loginBox');
+/* ================================================================
+   SLIDE 1: PENCARIAN ADMIN
+   ================================================================ */
+function s1Search(){
+var nq=document.getElementById('s1Nama').value.trim().toLowerCase(),rq=document.getElementById('s1RM').value.trim().toLowerCase();
+var base=filterByStatus(allRows,s1Active);
+s1FD=base.filter(function(r){if(nq){var found=false;if(namaIdx!==-1&&r[headers[namaIdx]]&&r[headers[namaIdx]].toLowerCase().indexOf(nq)!==-1)found=true;if(!found){for(var k in r){if(r[k]&&typeof r[k]==='string'&&k.indexOf('_')!==0&&r[k].toLowerCase().indexOf(nq)!==-1){found=true;break}}}if(!found)return false}if(rq){var foundR=false;if(rmIdx!==-1&&r[headers[rmIdx]]&&String(r[headers[rmIdx]]).toLowerCase().indexOf(rq)!==-1)foundR=true;if(!foundR&&r[TK]&&String(r[TK]).toLowerCase().indexOf(rq)!==-1)foundR=true;if(!foundR)return false}return true});
+s1Page=1;renderS1();
+if(s1FD.length===0&&(nq||rq)){document.getElementById('s1NoRes').classList.remove('hidden');document.getElementById('s1NoRes').classList.add('flex')}else{document.getElementById('s1NoRes').classList.add('hidden');document.getElementById('s1NoRes').classList.remove('flex')}
+}
+function s1Reset(){document.getElementById('s1Nama').value='';document.getElementById('s1RM').value='';document.getElementById('s1NoRes').classList.add('hidden');document.getElementById('s1NoRes').classList.remove('flex');clickStatusCard(s1Active)}
+function s1CPS(){s1PS=parseInt(document.getElementById('s1PS').value);s1Page=1;renderS1()}
 
-    if (!pass || pass.trim() === '') {
-        errorDiv.classList.remove('hidden');
-        errorMsg.textContent = 'Kata sandi tidak boleh kosong!';
-        passInput.focus();
-        loginBox.classList.add('login-shake');
-        setTimeout(() => loginBox.classList.remove('login-shake'), 500);
-        return;
-    }
-
-    if (pass !== ADMIN_PASSWORD) {
-        errorDiv.classList.remove('hidden');
-        errorMsg.textContent = 'Kata sandi salah! Silakan coba lagi.';
-        passInput.value = '';
-        passInput.focus();
-        loginBox.classList.add('login-shake');
-        setTimeout(() => loginBox.classList.remove('login-shake'), 500);
-        return;
-    }
-
-    errorDiv.classList.add('hidden');
-    document.getElementById('loginOverlay').style.display = 'none';
-    showAdminView();
-    showToast('Berhasil masuk sebagai Admin!', 'success');
+/* ================================================================
+   SLIDE 1: RENDER TABEL ADMIN
+   ================================================================ */
+function renderS1(){
+if(!dataLoaded&&allRows.length===0)return;
+var tc=document.getElementById('s1TC'),nr=document.getElementById('s1NoRes'),em=document.getElementById('s1Empty'),ld=document.getElementById('s1Load');
+ld.classList.add('hidden');ld.classList.remove('flex');tc.classList.remove('hidden');nr.classList.add('hidden');nr.classList.remove('flex');em.classList.add('hidden');em.classList.remove('flex');
+var hasActive=getActiveStaff().length>0;
+var showAmbilBtn=(s1Active==='menunggu'&&hasActive);
+var h='<tr>';
+h+='<th style="width:50px;text-align:center">No</th>';
+h+='<th style="width:140px">Urutan / Waktu</th>';
+h+='<th style="width:110px;text-align:center">Status</th>';
+h+='<th>Nama Pasien</th>';
+h+='<th>No. Rekam Medis</th>';
+h+='<th>Alamat</th>';
+h+='<th style="min-width:200px">Nomor Telepon</th>';
+if(showAmbilBtn)h+='<th style="width:130px;text-align:center">Aksi</th>';
+h+='</tr>';
+document.getElementById('s1TH').innerHTML=h;
+var tp=Math.max(1,Math.ceil(s1FD.length/s1PS));if(s1Page>tp)s1Page=tp;
+var si=(s1Page-1)*s1PS,ei=Math.min(si+s1PS,s1FD.length),pd=s1FD.slice(si,ei);
+var nq=document.getElementById('s1Nama').value.trim().toLowerCase(),rq=document.getElementById('s1RM').value.trim().toLowerCase();
+var b='';
+if(!pd.length){
+var colSpan=showAmbilBtn?8:7;
+b+='<tr><td colspan="'+colSpan+'" style="text-align:center;padding:40px;color:var(--muted)"><i class="fa-solid fa-inbox text-3xl block mb-3" style="color:var(--g300)"></i>Tidak ada data untuk filter ini</td></tr>';
+}else{
+pd.forEach(function(r,idx){
+var rn=si+idx+1,sn=r[SN]||'menunggu',stC=ST[sn]||ST.meninggal;
+var namaVal=(namaIdx!==-1&&r[headers[namaIdx]])?r[headers[namaIdx]]:'-';
+var rmVal=(rmIdx!==-1&&r[headers[rmIdx]])?r[headers[rmIdx]]:'-';
+var alamatVal=(alamatIdx!==-1&&r[headers[alamatIdx]])?r[headers[alamatIdx]]:'-';
+var phoneVal=(phoneIdx!==-1&&r[headers[phoneIdx]])?r[headers[phoneIdx]]:'';
+var namaDisp=esc(namaVal),rmDisp=esc(rmVal),alamatDisp=esc(alamatVal);
+if(nq&&namaVal.toLowerCase().indexOf(nq)!==-1)namaDisp=hl(namaVal,nq);
+if(rq&&rmVal.toLowerCase().indexOf(rq)!==-1)rmDisp=hl(rmVal,rq);
+var phoneDisp='';
+if(phoneVal){
+var phoneLink=fmtPhoneLink(phoneVal);
+var waMsg=encodeURIComponent('Halo '+namaVal+', ini dari Instalasi Dialisis RSSA terkait jadwal antrian dialisis Anda.');
+var smsMsg=encodeURIComponent('Halo '+namaVal+', ini dari Instalasi Dialisis RSSA terkait jadwal antrian dialisis Anda.');
+var tgMsg=encodeURIComponent('Halo '+namaVal+', ini dari Instalasi Dialisis RSSA terkait jadwal antrian dialisis Anda.');
+phoneDisp='<div style="font-weight:700;color:var(--pg);margin-bottom:4px;font-size:13px">'+esc(phoneVal)+'</div>';
+phoneDisp+='<div style="display:flex;gap:3px;flex-wrap:wrap">';
+phoneDisp+='<a href="tel:+'+phoneLink+'" class="cli-btn cli-btn-call"><i class="fa-solid fa-phone"></i> Telp</a>';
+phoneDisp+='<a href="https://wa.me/'+phoneLink+'?text='+waMsg+'" target="_blank" class="cli-btn cli-btn-wa"><i class="fa-brands fa-whatsapp"></i> WA</a>';
+phoneDisp+='<a href="sms:+'+phoneLink+'?body='+smsMsg+'" class="cli-btn cli-btn-sms"><i class="fa-solid fa-message"></i> SMS</a>';
+phoneDisp+='<a href="https://t.me/share/url?url=&text='+tgMsg+'" target="_blank" class="cli-btn cli-btn-tg"><i class="fa-brands fa-telegram"></i> TG</a>';
+phoneDisp+='</div>';
+}else{phoneDisp='<span style="color:var(--muted)">—</span>'}
+b+='<tr class="'+stC.rowClass+'">';
+b+='<td style="text-align:center"><span class="ac" style="background:linear-gradient(135deg,'+stC.color+','+stC.color+'dd)">'+rn+'</span></td>';
+b+='<td class="tc"><i class="fa-regular fa-clock" style="margin-right:4px;color:var(--b400)"></i>'+esc(fTS(r[TK]))+'</td>';
+b+='<td style="text-align:center">'+statusBadge(r[SK]||'',sn)+'</td>';
+b+='<td style="font-weight:700;color:var(--txt)">'+namaDisp+'</td>';
+b+='<td style="font-weight:600;letter-spacing:.02em">'+rmDisp+'</td>';
+b+='<td title="'+esc(alamatVal)+'" style="max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+alamatDisp+'</td>';
+b+='<td style="white-space:normal;max-width:280px;overflow:visible">'+phoneDisp+'</td>';
+if(showAmbilBtn){
+b+='<td style="text-align:center;white-space:nowrap">';
+b+='<button class="btn-ambil enabled" id="ambilBtn_'+rn+'" onclick="openPickPopup('+idx+',this)"><i class="fa-solid fa-hand-pointer"></i> Ambil Pasien</button>';
+b+='</td>';}
+b+='</tr>';
+});}
+document.getElementById('s1TB').innerHTML=b;
+document.getElementById('s1PI').textContent='Menampilkan '+(s1FD.length?si+1:0)+'–'+ei+' dari '+s1FD.length+' pasien';
+renderPg('s1PB',tp,s1Page,function(p){s1Page=p;renderS1();document.getElementById('s1TC').scrollIntoView({behavior:'smooth',block:'start'})});
 }
 
-function doUserLogin() {
-    document.getElementById('loginOverlay').style.display = 'none';
-    showPatientView();
-    showToast('Mode Pasien aktif. Silakan cek antrian Anda.', 'info');
+function showS1Loading(){var ld=document.getElementById('s1Load');ld.classList.remove('hidden');ld.classList.add('flex');['s1Empty','s1NoRes','s1TC'].forEach(function(id){var el=document.getElementById(id);el.classList.add('hidden');el.classList.remove('flex')})}
+function showS1Empty(){document.getElementById('s1Load').classList.add('hidden');document.getElementById('s1Load').classList.remove('flex');document.getElementById('s1Empty').classList.remove('hidden');document.getElementById('s1Empty').classList.add('flex');document.getElementById('s1TC').classList.add('hidden')}
+
+/* ================================================================
+   SLIDE 2: PENCARIAN ADMIN
+   ================================================================ */
+function s2Search(){var nq=document.getElementById('s2Nama').value.trim().toLowerCase(),rq=document.getElementById('s2RM').value.trim().toLowerCase();var base=filterByStatus(allRows,s2Active);s2FD=base.filter(function(r){if(nq){var found=false;if(namaIdx!==-1&&r[headers[namaIdx]]&&r[headers[namaIdx]].toLowerCase().indexOf(nq)!==-1)found=true;if(!found){for(var k in r){if(r[k]&&typeof r[k]==='string'&&k.indexOf('_')!==0&&r[k].toLowerCase().indexOf(nq)!==-1){found=true;break}}}if(!found)return false}if(rq){var foundR=false;if(rmIdx!==-1&&r[headers[rmIdx]]&&String(r[headers[rmIdx]]).toLowerCase().indexOf(rq)!==-1)foundR=true;if(!foundR&&r[TK]&&String(r[TK]).toLowerCase().indexOf(rq)!==-1)foundR=true;if(!foundR)return false}return true});s2Page=1;renderS2()}
+function s2Reset(){document.getElementById('s2Nama').value='';document.getElementById('s2RM').value='';clickS2Card('all')}
+function s2CPS(){s2PS=parseInt(document.getElementById('s2PS').value);s2Page=1;renderS2()}
+
+function renderS2(){
+var h='<tr><th style="width:56px;text-align:center">No</th><th style="width:150px">Waktu/Urutan</th><th style="width:120px;text-align:center">Status</th>';
+for(var i=0;i<headers.length;i++)h+='<th>'+esc(headers[i])+'</th>';h+='</tr>';document.getElementById('s2TH').innerHTML=h;
+var tp=Math.max(1,Math.ceil(s2FD.length/s2PS));if(s2Page>tp)s2Page=tp;
+var si=(s2Page-1)*s2PS,ei=Math.min(si+s2PS,s2FD.length),pd=s2FD.slice(si,ei);
+var nq=document.getElementById('s2Nama').value.trim().toLowerCase(),rq=document.getElementById('s2RM').value.trim().toLowerCase();
+var b='';pd.forEach(function(r,idx){var rn=si+idx+1,sn=r[SN]||'menunggu',stC=ST[sn]||ST.meninggal;
+b+='<tr class="'+stC.rowClass+'"><td style="text-align:center"><span class="ac" style="background:linear-gradient(135deg,'+stC.color+','+stC.color+'dd)">'+rn+'</span></td><td class="tc"><i class="fa-regular fa-clock" style="margin-right:4px;color:var(--b400)"></i>'+esc(fTS(r[TK]))+'</td><td style="text-align:center">'+statusBadge(r[SK]||'',sn)+'</td>';
+for(var ci=0;ci<headers.length;ci++){
+var cv=r[headers[ci]]||'',cd=esc(cv);
+if(nq&&ci===namaIdx&&cv.toLowerCase().indexOf(nq)!==-1)cd=hl(cv,nq);
+if(rq&&ci===rmIdx&&cv.toLowerCase().indexOf(rq)!==-1)cd=hl(cv,rq);
+if(ci===STATUS_HEADERS_IDX)cd=esc(cv);
+var xl=headers[ci].toLowerCase();
+if(/kelamin|gender|jenis\s*kelamin/.test(xl))cd=genderBadge(cv);
+b+='<td title="'+esc(cv)+'">'+cd+'</td>';
+}
+b+='</tr>'});
+document.getElementById('s2TB').innerHTML=b;
+document.getElementById('s2PI').textContent='Menampilkan '+(s2FD.length?si+1:0)+'–'+ei+' dari '+s2FD.length+' data';
+renderPg('s2PB',tp,s2Page,function(p){s2Page=p;renderS2();document.getElementById('s2TC').scrollIntoView({behavior:'smooth',block:'start'})});
 }
 
-function showAdminView() {
-    currentMode = 'admin';
-    document.body.classList.remove('patient-bg');
-    document.getElementById('mainHeader').className = 'hdr grad-admin';
-    document.getElementById('mainStripe').className = 'stripe';
+/* ================================================================
+   BADGES
+   ================================================================ */
+function statusBadge(raw,normalized){var s=ST[normalized]||ST.meninggal;var display=(raw&&raw.trim())?raw:s.label;return'<span class="badge" style="background:'+s.bg+';color:'+s.text+'"><i class="fa-solid '+s.icon+'" style="margin-right:4px"></i>'+esc(display)+'</span>'}
+function genderBadge(v){var vl=v.toLowerCase().trim(),bg,co;if(/laki|^l$|pria|laki-laki/.test(vl)){bg='#dbeafe';co='#1e40af'}else if(/perem|^p$|wanita|perempuan/.test(vl)){bg='#fce7f3';co='#9d174d'}else{bg='#e2e8f0';co='#475569'}return'<span class="badge" style="background:'+bg+';color:'+co+'">'+esc(v)+'</span>'}
 
-    document.getElementById('patientView').style.display = 'none';
-    document.getElementById('slide1').style.display = 'block';
-    document.getElementById('slide2').style.display = 'none';
-    document.getElementById('slide3').style.display = 'none';
-    document.getElementById('navTabsWrap').style.display = 'block';
+/* ================================================================
+   DROPDOWN CETAK
+   ================================================================ */
+function toggleDD(id){document.getElementById(id).classList.toggle('open')}
+function printView(mode){document.querySelectorAll('.dd-menu').forEach(function(m){m.classList.remove('open')});var data=s1FD;if(!data.length){toast('e','Tidak ada data untuk dicetak.');return}var statusLabel=s1Active==='all'?'Semua':(ST[s1Active]?ST[s1Active].label:s1Active);generateDoc(data,'Dashboard Antrian — '+statusLabel,mode)}
+function printViewS2(mode){document.querySelectorAll('.dd-menu').forEach(function(m){m.classList.remove('open')});var data=s2FD;if(!data.length){toast('e','Tidak ada data untuk dicetak.');return}var statusLabel=s2Active==='all'?'Semua':(ST[s2Active]?ST[s2Active].label:s2Active);generateDoc(data,'Data Lengkap — '+statusLabel,mode)}
 
-    document.getElementById('tab1').classList.remove('hidden-tab');
-    document.getElementById('tab2').classList.remove('hidden-tab');
-    document.getElementById('tab3').classList.remove('hidden-tab');
-    document.getElementById('tab1').classList.add('active');
-    document.getElementById('tab2').classList.remove('active');
-    document.getElementById('tab3').classList.remove('active');
-
-    document.getElementById('logoutBtn').style.display = 'inline-flex';
-    document.getElementById('reloadBtn').style.display = 'inline-flex';
-    document.getElementById('visitorBadge').className = 'visitor-badge visitor-badge-admin';
-    document.getElementById('neonRegWrap').classList.add('show');
-
-    document.getElementById('headerTitle').innerHTML = 'Daftar Antri<br><span style="background:linear-gradient(135deg,#6ee7b7,#34d399,#10b981);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Pasien Instalasi Dialisis RSSA</span>';
-    document.getElementById('headerDesc').textContent = 'Klik kartu status di bawah untuk memfilter tampilan pasien pada dashboard.';
-
-    currentSlide = 1;
-    fetchSheetData();
-    startAutoRefresh();
+function generateDoc(data,title,mode){
+var now=new Date(),dateStr=fDT(now);
+if(mode==='pdf'){
+var html='<div style="margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid #1e3a5f"><h1 style="font-size:18px;margin-bottom:4px;color:#1e3a5f">SIDARAJA — Instalasi Dialisis RSSA</h1><h2 style="font-size:14px;color:#475569;margin-bottom:8px">'+esc(title)+'</h2><p style="font-size:10px;color:#94a3b8">Tanggal cetak: '+dateStr+' | Jumlah data: '+data.length+' pasien</p></div>';
+html+='<table style="border-collapse:collapse;width:100%;font-size:9pt"><thead><tr style="background:#1e3a5f;color:#fff"><th style="padding:6px">No</th><th style="padding:6px">Urutan/Waktu</th><th style="padding:6px">Status</th><th style="padding:6px">Nama Pasien</th><th style="padding:6px">No. Rekam Medis</th><th style="padding:6px">Alamat</th><th style="padding:6px">Nomor Telepon</th></tr></thead><tbody>';
+data.forEach(function(r,i){var sn=r[SN]||'menunggu';var bg=i%2===0?'#fff':'#f8fafc';
+var namaVal=(namaIdx!==-1&&r[headers[namaIdx]])?r[headers[namaIdx]]:'-';
+var rmVal=(rmIdx!==-1&&r[headers[rmIdx]])?r[headers[rmIdx]]:'-';
+var alamatVal=(alamatIdx!==-1&&r[headers[alamatIdx]])?r[headers[alamatIdx]]:'-';
+var phoneVal=(phoneIdx!==-1&&r[headers[phoneIdx]])?r[headers[phoneIdx]]:'-';
+html+='<tr style="background:'+bg+'"><td style="padding:4px 6px;border-bottom:1px solid #e2e8f0">'+(i+1)+'</td><td style="padding:4px 6px;border-bottom:1px solid #e2e8f0">'+esc(fTS(r[TK]))+'</td><td style="padding:4px 6px;border-bottom:1px solid #e2e8f0">'+esc(r[SK]||ST[sn].label)+'</td><td style="padding:4px 6px;border-bottom:1px solid #e2e8f0">'+esc(namaVal)+'</td><td style="padding:4px 6px;border-bottom:1px solid #e2e8f0">'+esc(rmVal)+'</td><td style="padding:4px 6px;border-bottom:1px solid #e2e8f0">'+esc(alamatVal)+'</td><td style="padding:4px 6px;border-bottom:1px solid #e2e8f0">'+esc(phoneVal)+'</td></tr>'});
+html+='</tbody></table><div style="margin-top:16px;padding-top:8px;border-top:1px solid #e2e8f0;font-size:10px;color:#94a3b8">Dicetak dari Sistem Daftaran Antrian Pasien Rawat Jalan HD RSSA — Instalasi Dialisis RSSA — '+dateStr+'</div>';
+document.getElementById('printArea').innerHTML=html;setTimeout(function(){window.print()},200);return;
+}
+if(mode==='word'){
+var whtml='<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="UTF-8"><title>'+esc(title)+'</title><style>body{font-family:Calibri,sans-serif;font-size:11pt}h1{font-size:16pt;color:#1e3a5f;margin-bottom:2px}h2{font-size:12pt;color:#475569;margin-bottom:8px}table{border-collapse:collapse;width:100%;margin-top:10px}th{background:#1e3a5f;color:#fff;padding:6px 8px;text-align:left;font-size:9pt}td{padding:5px 8px;border-bottom:1px solid #e2e8f0;font-size:9pt}tr:nth-child(even){background:#f8fafc}</style></head><body>';
+whtml+='<h1>SIDARAJA — Instalasi Dialisis RSSA</h1><h2>'+esc(title)+'</h2><p style="font-size:9pt;color:#64748b">Tanggal: '+dateStr+' | Jumlah: '+data.length+' pasien</p>';
+whtml+='<table><thead><tr><th>No</th><th>Urutan/Waktu</th><th>Status</th><th>Nama Pasien</th><th>No. Rekam Medis</th><th>Alamat</th><th>Nomor Telepon</th></tr></thead><tbody>';
+data.forEach(function(r,i){
+var sn=r[SN]||'menunggu';
+var namaVal=(namaIdx!==-1&&r[headers[namaIdx]])?r[headers[namaIdx]]:'-';
+var rmVal=(rmIdx!==-1&&r[headers[rmIdx]])?r[headers[rmIdx]]:'-';
+var alamatVal=(alamatIdx!==-1&&r[headers[alamatIdx]])?r[headers[alamatIdx]]:'-';
+var phoneVal=(phoneIdx!==-1&&r[headers[phoneIdx]])?r[headers[phoneIdx]]:'-';
+whtml+='<tr><td>'+(i+1)+'</td><td>'+esc(fTS(r[TK]))+'</td><td>'+esc(r[SK]||ST[sn].label)+'</td><td>'+esc(namaVal)+'</td><td>'+esc(rmVal)+'</td><td>'+esc(alamatVal)+'</td><td>'+esc(phoneVal)+'</td></tr>';
+});
+whtml+='</tbody></table></body></html>';
+var blob=new Blob(['\uFEFF'+whtml],{type:'application/msword'});
+var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Antrian_Dialisis_'+now.toISOString().slice(0,10)+'.doc';a.click();URL.revokeObjectURL(a.href);
+toast('s','Berhasil menyimpan file Word ('+data.length+' data).');return;
+}
+if(mode==='text'){
+var txt='SIDARAJA — INSTALASI DIALISIS RSSA\n'+title+'\nTanggal: '+dateStr+' | Jumlah: '+data.length+' pasien\n'+'='.repeat(80)+'\n\n';
+var cols=['No','Urutan/Waktu','Status','Nama Pasien','No. Rekam Medis','Alamat','Nomor Telepon'];var widths=[4,18,12,22,16,24,18];
+var headerLine='';cols.forEach(function(c,i){headerLine+=String(c).padEnd(widths[i],' ').substring(0,widths[i])+' | '});
+txt+=headerLine+'\n'+'_'.repeat(headerLine.length)+'\n';
+data.forEach(function(r,i){
+var sn=r[SN]||'menunggu';
+var namaVal=(namaIdx!==-1&&r[headers[namaIdx]])?r[headers[namaIdx]]:'-';
+var rmVal=(rmIdx!==-1&&r[headers[rmIdx]])?r[headers[rmIdx]]:'-';
+var alamatVal=(alamatIdx!==-1&&r[headers[alamatIdx]])?r[headers[alamatIdx]]:'-';
+var phoneVal=(phoneIdx!==-1&&r[headers[phoneIdx]])?r[headers[phoneIdx]]:'-';
+var vals=[String(i+1),fTS(r[TK]),r[SK]||ST[sn].label,namaVal,rmVal,alamatVal,phoneVal];
+var line='';vals.forEach(function(v,j){line+=String(v).padEnd(widths[j],' ').substring(0,widths[j])+' | '});
+txt+=line+'\n';
+});
+txt+='\n'+'='.repeat(80)+'\nDicetak dari Sistem Daftaran Antrian Pasien Rawat Jalan HD RSSA — Instalasi Dialisis RSSA — '+dateStr+'\n';
+var blob2=new Blob(['\uFEFF'+txt],{type:'text/plain;charset=utf-8'});
+var a2=document.createElement('a');a2.href=URL.createObjectURL(blob2);a2.download='Antrian_Dialisis_'+now.toISOString().slice(0,10)+'.txt';a2.click();URL.revokeObjectURL(a2.href);
+toast('s','Berhasil menyimpan file Text ('+data.length+' data).');
+}
 }
 
-function showPatientView() {
-    currentMode = 'user';
-    document.body.classList.add('patient-bg');
-    document.getElementById('mainHeader').className = 'hdr grad-patient';
-    document.getElementById('mainStripe').className = 'stripe patient-stripe';
-
-    document.getElementById('slide1').style.display = 'none';
-    document.getElementById('slide2').style.display = 'none';
-    document.getElementById('slide3').style.display = 'none';
-    document.getElementById('navTabsWrap').style.display = 'none';
-    document.getElementById('patientView').style.display = 'block';
-
-    document.getElementById('logoutBtn').style.display = 'inline-flex';
-    document.getElementById('reloadBtn').style.display = 'inline-flex';
-    document.getElementById('visitorBadge').className = 'visitor-badge visitor-badge-patient';
-    document.getElementById('neonRegWrap').classList.add('show');
-
-    document.getElementById('headerTitle').innerHTML = 'Cek Antrian<br><span style="background:linear-gradient(135deg,#6ee7b7,#fde68a,#f9a8d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Pasien Instalasi Dialisis RSSA</span>';
-    document.getElementById('headerDesc').textContent = 'Masukkan nama Anda untuk melihat status antrian.';
-
-    fetchSheetData();
-    startAutoRefresh();
+/* ================================================================
+   NAVIGASI SLIDE
+   ================================================================ */
+function switchSlide(n){
+if((n===2||n===3)&&appMode!=='admin'){toast('e','Akses ditolak. Fitur ini hanya untuk Admin/Petugas.');return}
+document.getElementById('slide1').style.display=n===1?'block':'none';
+document.getElementById('slide2').style.display=n===2?'block':'none';
+document.getElementById('slide3').style.display=n===3?'block':'none';
+document.getElementById('tab1').className='nav-tab'+(n===1?' active':'');
+if(appMode==='admin'){document.getElementById('tab2').className='nav-tab'+(n===2?' active':'');document.getElementById('tab3').className='nav-tab'+(n===3?' active':'')}
 }
 
-function doLogout() {
-    currentMode = null;
-    if (refreshTimer) { clearInterval(refreshTimer); refreshTimer = null; }
-
-    document.getElementById('adminPass').value = '';
-    document.getElementById('adminSection').style.display = 'none';
-    document.getElementById('userSection').style.display = 'none';
-    document.getElementById('modeAdmin').classList.remove('sel-admin');
-    document.getElementById('modeUser').classList.remove('sel-user');
-    document.getElementById('loginError').classList.add('hidden');
-
-    document.getElementById('patientView').style.display = 'none';
-    document.getElementById('slide1').style.display = 'none';
-    document.getElementById('slide2').style.display = 'none';
-    document.getElementById('slide3').style.display = 'none';
-    document.getElementById('navTabsWrap').style.display = 'none';
-    document.getElementById('logoutBtn').style.display = 'none';
-    document.getElementById('reloadBtn').style.display = 'none';
-    document.getElementById('neonRegWrap').classList.remove('show');
-
-    document.body.classList.remove('patient-bg');
-    document.getElementById('mainHeader').className = 'hdr grad-admin';
-    document.getElementById('mainStripe').className = 'stripe';
-    document.getElementById('loginOverlay').style.display = 'flex';
-
-    allPatients = [];
-    showToast('Anda telah keluar dari sistem.', 'info');
+/* ================================================================
+   PAGINATION
+   ================================================================ */
+function renderPg(id,tp,cp,fn){
+var c=document.getElementById(id);
+var h='<button class="pb" '+(cp===1?'disabled':'')+'><i class="fa-solid fa-chevron-left text-xs"></i></button>';
+var mv=5,sp=Math.max(1,cp-Math.floor(mv/2)),ep=Math.min(tp,sp+mv-1);
+if(ep-sp+1<mv)sp=Math.max(1,ep-mv+1);
+if(sp>1){h+='<button class="pb">1</button>';if(sp>2)h+='<span class="text-xs px-1" style="color:var(--g400)">...</span>'}
+for(var i=sp;i<=ep;i++)h+='<button class="pb '+(i===cp?'act':'')+'">'+i+'</button>';
+if(ep<tp){if(ep<tp-1)h+='<span class="text-xs px-1" style="color:var(--g400)">...</span>';h+='<button class="pb">'+tp+'</button>'}
+h+='<button class="pb" '+(cp===tp?'disabled':'')+'><i class="fa-solid fa-chevron-right text-xs"></i></button>';
+c.innerHTML=h;
+c.querySelectorAll('.pb').forEach(function(b){
+if(b.disabled)return;
+if(b.querySelector('.fa-chevron-left')){b.onclick=function(){fn(cp-1)}}
+else if(b.querySelector('.fa-chevron-right')){b.onclick=function(){fn(cp+1)}}
+else{var p=parseInt(b.textContent.trim());if(!isNaN(p))b.onclick=function(){fn(p)}}
+});
 }
 
-function togglePassVis(inputId, btn) {
-    const input = document.getElementById(inputId);
-    const icon = btn.querySelector('i');
-    if (input.type === 'password') {
-        input.type = 'text';
-        icon.className = 'fa-solid fa-eye-slash';
-    } else {
-        input.type = 'password';
-        icon.className = 'fa-solid fa-eye';
-    }
-}
-
-/* ============================================================
-   NAVIGASI SLIDE/TAB
-   ============================================================ */
-function switchSlide(num) {
-    currentSlide = num;
-    document.getElementById('slide1').style.display = 'none';
-    document.getElementById('slide2').style.display = 'none';
-    document.getElementById('slide3').style.display = 'none';
-    document.getElementById('slide' + num).style.display = 'block';
-
-    document.getElementById('tab1').classList.remove('active');
-    document.getElementById('tab2').classList.remove('active');
-    document.getElementById('tab3').classList.remove('active');
-    document.getElementById('tab' + num).classList.add('active');
-
-    if (num === 2) renderFullTable();
-    if (num === 3) renderAmbilList();
-}
-
-/* ============================================================
-   STATISTIK
-   ============================================================ */
-function updateStats() {
-    const counts = { menunggu: 0, terjadwal: 0, hdlain: 0, batal: 0, meninggal: 0 };
-    allPatients.forEach(p => { if (counts[p.status] !== undefined) counts[p.status]++; });
-    document.getElementById('scMenunggu').textContent = counts.menunggu;
-    document.getElementById('scTerjadwal').textContent = counts.terjadwal;
-    document.getElementById('scHdlain').textContent = counts.hdlain;
-    document.getElementById('scBatal').textContent = counts.batal;
-    document.getElementById('scMeninggal').textContent = counts.meninggal;
-    document.getElementById('scTotal').textContent = allPatients.length;
-}
-
-function updatePatientStats() {
-    const counts = { menunggu: 0, terjadwal: 0 };
-    allPatients.forEach(p => { if (counts[p.status] !== undefined) counts[p.status]++; });
-    document.getElementById('pMenunggu').textContent = counts.menunggu;
-    document.getElementById('pTerjadwal').textContent = counts.terjadwal;
-}
-
-function updateLastUpdate() {
-    const now = new Date();
-    const str = now.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) + ' ' + now.toLocaleTimeString('id-ID');
-    document.getElementById('lastUpdate').textContent = 'Terakhir diperbarui: ' + str;
-}
-
-/* ============================================================
-   FILTER & PENCARIAN
-   ============================================================ */
-function getFilteredPatients() {
-    let data = allPatients;
-    if (currentFilter !== 'all') {
-        data = data.filter(p => p.status === currentFilter);
-    }
-    if (searchQuery) {
-        const q = searchQuery.toLowerCase();
-        data = data.filter(p =>
-            p.nama.toLowerCase().includes(q) ||
-            p.rm.toLowerCase().includes(q) ||
-            p.diagnosa.toLowerCase().includes(q)
-        );
-    }
-    return data;
-}
-
-function clickStatusCard(key) {
-    currentFilter = key;
-    // Update visual kartu status
-    document.querySelectorAll('.stc').forEach(card => {
-        card.classList.remove('sel');
-        if (card.dataset.key === key) card.classList.add('sel');
-    });
-    renderTable();
-}
-
-function onSearchInput() {
-    searchQuery = document.getElementById('searchInput').value.trim();
-    renderTable();
-}
-
-function clearSearch() {
-    searchQuery = '';
-    document.getElementById('searchInput').value = '';
-    renderTable();
-}
-
-/* ============================================================
-   BADGE STATUS
-   ============================================================ */
-function statusBadge(status) {
-    const map = {
-        menunggu: { bg: '#eff6ff', color: '#1e40af', label: 'Menunggu' },
-        terjadwal: { bg: '#ecfdf5', color: '#065f46', label: 'Terjadwal' },
-        hdlain: { bg: '#fffbeb', color: '#92400e', label: 'HD Lain' },
-        batal: { bg: '#fef2f2', color: '#991b1b', label: 'Batal' },
-        meninggal: { bg: '#f3f4f6', color: '#374151', label: 'Meninggal' }
-    };
-    const s = map[status] || { bg: '#f1f5f9', color: '#475569', label: status };
-    return '<span class="badge" style="background:' + s.bg + ';color:' + s.color + '">' + s.label + '</span>';
-}
-
-function statusIcon(status) {
-    const map = {
-        menunggu: '<i class="fa-solid fa-hourglass-half" style="color:#2563eb"></i>',
-        terjadwal: '<i class="fa-solid fa-calendar-check" style="color:#059669"></i>',
-        hdlain: '<i class="fa-solid fa-arrows-turn-right" style="color:#d97706"></i>',
-        batal: '<i class="fa-solid fa-circle-xmark" style="color:#dc2626"></i>',
-        meninggal: '<i class="fa-solid fa-heart-crack" style="color:#4b5563"></i>'
-    };
-    return map[status] || '<i class="fa-solid fa-circle-question" style="color:#94a3b8"></i>';
-}
-
-/* ============================================================
-   RENDER TABEL DASHBOARD (SLIDE 1)
-   ============================================================ */
-function renderTable() {
-    const data = getFilteredPatients();
-    const tbody = document.getElementById('tableBody');
-
-    if (data.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="7" class="text-center py-8" style="color:var(--muted)"><i class="fa-solid fa-inbox mr-2"></i>Tidak ada data untuk filter ini.</td></tr>';
-        return;
-    }
-
-    tbody.innerHTML = data.map((p, i) =>
-        '<tr class="row-' + p.status + '">' +
-        '<td>' + (i + 1) + '</td>' +
-        '<td style="font-weight:700;color:var(--b700)">' + escHtml(p.rm) + '</td>' +
-        '<td style="font-weight:700;color:var(--txt)">' + escHtml(p.nama) + '</td>' +
-        '<td>' + escHtml(p.diagnosa) + '</td>' +
-        '<td>' + statusBadge(p.status) + '</td>' +
-        '<td>' + escHtml(p.ruangan) + '</td>' +
-        '<td>' + escHtml(p.jadwal) + '</td>' +
-        '</tr>'
-    ).join('');
-}
-
-/* ============================================================
-   RENDER TABEL LENGKAP (SLIDE 2)
-   ============================================================ */
-function renderFullTable() {
-    const tbody = document.getElementById('fullTableBody');
-    if (allPatients.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="8" class="text-center py-8" style="color:var(--muted)"><i class="fa-solid fa-inbox mr-2"></i>Tidak ada data.</td></tr>';
-        return;
-    }
-    tbody.innerHTML = allPatients.map((p, i) =>
-        '<tr class="row-' + p.status + '">' +
-        '<td>' + (i + 1) + '</td>' +
-        '<td style="font-weight:700;color:var(--b700)">' + escHtml(p.rm) + '</td>' +
-        '<td style="font-weight:700;color:var(--txt)">' + escHtml(p.nama) + '</td>' +
-        '<td>' + escHtml(p.diagnosa) + '</td>' +
-        '<td>' + statusBadge(p.status) + '</td>' +
-        '<td>' + escHtml(p.ruangan) + '</td>' +
-        '<td>' + escHtml(p.jadwal) + '</td>' +
-        '<td>' + escHtml(p.catatan) + '</td>' +
-        '</tr>'
-    ).join('');
-}
-
-/* ============================================================
-   RENDER CHART PIE (SLIDE 1)
-   ============================================================ */
-function renderChart() {
-    const counts = { menunggu: 0, terjadwal: 0, hdlain: 0, batal: 0, meninggal: 0 };
-    allPatients.forEach(p => { if (counts[p.status] !== undefined) counts[p.status]++; });
-
-    const labels = ['Menunggu', 'Terjadwal', 'HD Lain', 'Batal', 'Meninggal'];
-    const values = [counts.menunggu, counts.terjadwal, counts.hdlain, counts.batal, counts.meninggal];
-    const colors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#6b7280'];
-    const borderColors = ['#2563eb', '#059669', '#d97706', '#dc2626', '#4b5563'];
-
-    if (chart1Instance) {
-        chart1Instance.data.datasets[0].data = values;
-        chart1Instance.update();
-        return;
-    }
-
-    const ctx = document.getElementById('chart1');
-    if (!ctx) return;
-
-    chart1Instance = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: labels,
-            datasets: [{
-                data: values,
-                backgroundColor: colors,
-                borderColor: borderColors,
-                borderWidth: 2,
-                hoverOffset: 8
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: true,
-            cutout: '55%',
-            plugins: {
-                legend: {
-                    position: 'bottom',
-                    labels: {
-                        padding: 12,
-                        usePointStyle: true,
-                        pointStyleWidth: 10,
-                        font: { family: 'Plus Jakarta Sans', size: 11, weight: '600' }
-                    }
-                },
-                tooltip: {
-                    backgroundColor: '#1e293b',
-                    titleFont: { family: 'Plus Jakarta Sans', weight: '700' },
-                    bodyFont: { family: 'Plus Jakarta Sans' },
-                    padding: 10,
-                    cornerRadius: 8,
-                    callbacks: {
-                        label: function(ctx) {
-                            const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
-                            const pct = total > 0 ? ((ctx.parsed / total) * 100).toFixed(1) : 0;
-                            return ' ' + ctx.label + ': ' + ctx.parsed + ' (' + pct + '%)';
-                        }
-                    }
-                }
-            }
-        }
-    });
-}
-
-/* ============================================================
-   RENDER DAFTAR AMBIL PASIEN (SLIDE 3)
-   ============================================================ */
-function renderAmbilList(filter) {
-    const container = document.getElementById('ambilList');
-    // Hanya tampilkan pasien berstatus "menunggu"
-    let data = allPatients.filter(p => p.status === 'menunggu');
-
-    if (filter) {
-        const q = filter.toLowerCase();
-        data = data.filter(p =>
-            p.nama.toLowerCase().includes(q) ||
-            p.rm.toLowerCase().includes(q)
-        );
-    }
-
-    if (data.length === 0) {
-        container.innerHTML = '<p class="text-center py-6" style="color:var(--muted)"><i class="fa-solid fa-inbox mr-2"></i>Tidak ada pasien menunggu' + (filter ? ' untuk filter "' + escHtml(filter) + '"' : '') + '.</p>';
-        return;
-    }
-
-    container.innerHTML = data.map((p, i) =>
-        '<div class="ambil-item">' +
-        '<div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#dbeafe,#bfdbfe);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:800;color:#1e40af;font-size:13px">' + (i + 1) + '</div>' +
-        '<div class="ai-rm">' + escHtml(p.rm) + '</div>' +
-        '<div class="ai-nama">' + escHtml(p.nama) + '</div>' +
-        '<div class="ai-diag">' + escHtml(p.diagnosa) + '</div>' +
-        '<button class="bp" style="padding:8px 18px;font-size:12px;flex-shrink:0" onclick="ambilPasien(' + (allPatients.indexOf(p)) + ')"><i class="fa-solid fa-check mr-1"></i>Ambil</button>' +
-        '</div>'
-    ).join('');
-}
-
-function filterAmbilList() {
-    const q = document.getElementById('ambilSearch').value.trim();
-    renderAmbilList(q || undefined);
-}
-
-// Aksi ambil pasien — ubah status menjadi "terjadwal"
-function ambilPasien(index) {
-    if (index < 0 || index >= allPatients.length) return;
-    const p = allPatients[index];
-    if (p.status !== 'menunggu') return;
-
-    p.status = 'terjadwal';
-    if (!p.ruangan || p.ruangan === '-') p.ruangan = 'Diproses';
-    if (!p.catatan || p.catatan === '-') p.catatan = 'Diambil pada ' + new Date().toLocaleString('id-ID');
-
-    updateUI();
-    showToast('Pasien ' + p.nama + ' berhasil diambil dari antrian.', 'success');
-}
-
-/* ============================================================
-   PENCARIAN PASIEN (MODE PASIEN)
-   ============================================================ */
-function patientSearch() {
-    const q = document.getElementById('pSearchNama').value.trim();
-    const resultsDiv = document.getElementById('patientResults');
-    const noResDiv = document.getElementById('pNoRes');
-
-    if (!q) {
-        resultsDiv.innerHTML = '';
-        noResDiv.classList.add('hidden');
-        showToast('Silakan masukkan nama pasien terlebih dahulu.', 'warning');
-        return;
-    }
-
-    const lower = q.toLowerCase();
-    const found = allPatients.filter(p => p.nama.toLowerCase().includes(lower));
-
-    if (found.length === 0) {
-        resultsDiv.innerHTML = '';
-        noResDiv.classList.remove('hidden');
-        return;
-    }
-
-    noResDiv.classList.add('hidden');
-    resultsDiv.innerHTML = found.map(p =>
-        '<div class="patient-result-card">' +
-        '<div class="patient-result-header">' +
-        '<div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#d1fae5,#a7f3d0);display:flex;align-items:center;justify-content:center;flex-shrink:0">' + statusIcon(p.status) + '</div>' +
-        '<div style="flex:1">' +
-        '<div style="font-weight:800;font-size:16px;color:var(--txt)">' + escHtml(p.nama) + '</div>' +
-        '<div style="font-size:12px;color:var(--muted);font-weight:600">' + escHtml(p.rm) + ' &bull; ' + escHtml(p.diagnosa) + '</div>' +
-        '</div>' +
-        statusBadge(p.status) +
-        '</div>' +
-        '<div class="patient-result-body">' +
-        '<div class="pr-row"><div class="pr-label">Status</div><div class="pr-value">' + statusBadge(p.status) + '</div></div>' +
-        '<div class="pr-row"><div class="pr-label">Ruangan</div><div class="pr-value">' + escHtml(p.ruangan) + '</div></div>' +
-        '<div class="pr-row"><div class="pr-label">Jadwal HD</div><div class="pr-value">' + escHtml(p.jadwal) + '</div></div>' +
-        '<div class="pr-row"><div class="pr-label">Catatan</div><div class="pr-value">' + escHtml(p.catatan) + '</div></div>' +
-        '</div>' +
-        '</div>'
-    ).join('');
-}
-
-function patientReset() {
-    document.getElementById('pSearchNama').value = '';
-    document.getElementById('patientResults').innerHTML = '';
-    document.getElementById('pNoRes').classList.add('hidden');
-}
-
-/* ============================================================
-   EXPORT CSV
-   ============================================================ */
-function exportCSV() {
-    if (allPatients.length === 0) {
-        showToast('Tidak ada data untuk di-export.', 'warning');
-        return;
-    }
-    const headers = ['No', 'No. RM', 'Nama Pasien', 'Diagnosa', 'Status', 'Ruangan', 'Jadwal HD', 'Catatan'];
-    const statusLabels = { menunggu: 'Menunggu', terjadwal: 'Terjadwal', hdlain: 'HD Lain', batal: 'Batal', meninggal: 'Meninggal' };
-
-    let csv = '\uFEFF'; // BOM untuk Excel
-    csv += headers.join(',') + '\n';
-    allPatients.forEach((p, i) => {
-        const row = [
-            i + 1,
-            '"' + p.rm.replace(/"/g, '""') + '"',
-            '"' + p.nama.replace(/"/g, '""') + '"',
-            '"' + p.diagnosa.replace(/"/g, '""') + '"',
-            '"' + (statusLabels[p.status] || p.status) + '"',
-            '"' + p.ruangan.replace(/"/g, '""') + '"',
-            '"' + p.jadwal.replace(/"/g, '""') + '"',
-            '"' + p.catatan.replace(/"/g, '""') + '"'
-        ];
-        csv += row.join(',') + '\n';
-    });
-
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'SIDARAJA_Pasien_' + new Date().toISOString().slice(0, 10) + '.csv';
-    a.click();
-    URL.revokeObjectURL(url);
-    showToast('File CSV berhasil diunduh!', 'success');
-}
-
-/* ============================================================
-   TOAST NOTIFICATION
-   ============================================================ */
-function showToast(message, type) {
-    const container = document.getElementById('toastC');
-    const typeClass = { success: 'tt-s', error: 'tt-e', info: 'tt-i', warning: 'tt-w' };
-    const icons = { success: 'fa-circle-check', error: 'fa-circle-xmark', info: 'fa-circle-info', warning: 'fa-triangle-exclamation' };
-
-    const el = document.createElement('div');
-    el.className = 'tt ' + (typeClass[type] || 'tt-i');
-    el.innerHTML = '<i class="fa-solid ' + (icons[type] || 'fa-circle-info') + '"></i><span>' + message + '</span>';
-    container.appendChild(el);
-
-    setTimeout(() => {
-        el.classList.add('tt-x');
-        setTimeout(() => el.remove(), 300);
-    }, 4000);
-}
-
-/* ============================================================
-   PENGUNJUNG (simulasi)
-   ============================================================ */
-function updateVisitorCount() {
-    let count = parseInt(sessionStorage.getItem('sidaraja_visitors') || '0');
-    if (count === 0) {
-        count = Math.floor(Math.random() * 15) + 5;
-    } else {
-        count += Math.floor(Math.random() * 3) - 1;
-        if (count < 3) count = 3;
-        if (count > 30) count = 30;
-    }
-    sessionStorage.setItem('sidaraja_visitors', count);
-    document.getElementById('visitorCount').textContent = count;
-}
-
-/* ============================================================
+/* ================================================================
    UTILITAS
-   ============================================================ */
-function escHtml(str) {
-    if (!str) return '';
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
+   ================================================================ */
+function hl(t,q){var e=esc(t);var safe=q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');return e.replace(new RegExp('('+safe+')','gi'),'<span class="hm">$1</span>')}
+function toast(t,m){
+var c=document.getElementById('toastC'),el=document.createElement('div');
+var ic={s:'fa-circle-check',e:'fa-circle-xmark',i:'fa-circle-info',w:'fa-triangle-exclamation'};
+var cl={s:'tt-s',e:'tt-e',i:'tt-i',w:'tt-e'};
+el.className='tt '+(cl[t]||'tt-i');
+el.innerHTML='<i class="fa-solid '+(ic[t]||'fa-circle-info')+'"></i><span>'+m+'</span>';
+c.appendChild(el);
+setTimeout(function(){el.classList.add('tt-x');setTimeout(function(){el.remove()},300)},6000);
 }
-
-/* ============================================================
-   INISIALISASI
-   ============================================================ */
-updateVisitorCount();
-setInterval(updateVisitorCount, 15000);
+function setConn(state,label){
+var dot=document.getElementById('connDot'),lbl=document.getElementById('connLabel');
+dot.className='conn-dot conn-'+(state==='ok'?'ok':state==='fail'?'fail':'load');
+lbl.textContent=label;lbl.style.color=state==='ok'?'#6ee7b7':state==='fail'?'#fca5a5':'#fde68a';
+}
+function setConnLogin(state,label){
+var dot=document.getElementById('connDotLogin'),lbl=document.getElementById('connLabelLogin');
+if(!dot||!lbl)return;dot.className='conn-dot conn-'+(state==='ok'?'ok':state==='fail'?'fail':'load');lbl.textContent=label;
+}
+function pTS(s){
+if(!s)return null;var d=new Date(s);if(!isNaN(d.getTime()))return d;
+var m1=s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})\s+(\d{1,2}):(\d{2}):(\d{2})$/);
+if(m1){var p=m1.slice(1).map(Number);var dy,mo;if(p[0]>12){dy=p[0];mo=p[1]-1}else if(p[1]>12){dy=p[1];mo=p[0]-1}else{dy=p[1];mo=p[0]-1}d=new Date(p[2],mo,dy,p[3],p[4],p[5]);if(!isNaN(d.getTime()))return d}
+var m2=s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+if(m2){var p2=m2.slice(1).map(Number);var dy2,mo2;if(p2[0]>12){dy2=p2[0];mo2=p2[1]-1}else if(p2[1]>12){dy2=p2[1];mo2=p2[0]-1}else{dy2=p2[1];mo2=p2[0]-1}d=new Date(p2[2],mo2,dy2);if(!isNaN(d.getTime()))return d}
+return null;
+}
+function fTS(s){var d=pTS(s);if(d&&!isNaN(d.getTime()))return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');return s||'-'}
+function fDT(d){return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear()+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')}
+function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
 </script>
 </body>
 </html>
