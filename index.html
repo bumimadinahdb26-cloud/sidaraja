@@ -1195,7 +1195,19 @@ function phoneButtons(phone) {
   var clean = phone.replace(/[^0-9+]/g, '');
   if (clean.startsWith('0')) clean = '62' + clean.substring(1);
   if (!clean.startsWith('+')) clean = '+' + clean;
-  var wa = 'https://wa.me/' + clean.replace('+', '') + '?text=Halo, saya ingin menanyakan antrian hemodialisis.';
+  var wa = 'https://wa.me/' + clean.replace('+', '') + '?text=Yth. Bapak/Ibu [Nama Pasien],
+
+Kami dari Unit Hemodialisa [Nama RS/Klinik].
+
+Saat ini terdapat ketersediaan jadwal hemodialisa. Mohon konfirmasi kesediaan Bapak/Ibu untuk hadir pada:
+
+Tanggal : [Tanggal]
+Jam : [Jam]
+
+Silakan membalas pesan ini atau menghubungi kami di [Nomor Kontak].
+
+Terima kasih.
+';
   var tg = 'https://t.me/+62' + clean.replace('+62', '');
   return '<div style="display:flex;gap:4px;flex-wrap:wrap">' +
     '<a href="' + wa + '" target="_blank" class="contact-btn contact-btn-wa" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i> WA</a>' +
