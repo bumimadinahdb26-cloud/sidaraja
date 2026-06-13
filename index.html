@@ -1191,18 +1191,64 @@ function statusColor(s) {
 }
 
 function phoneButtons(phone) {
-  if (!phone) return '<span style="color:var(--muted);font-size:12px">—</span>';
-  var clean = phone.replace(/[^0-9+]/g, '');
-  if (clean.startsWith('0')) clean = '62' + clean.substring(1);
-  if (!clean.startsWith('+')) clean = '+' + clean;
-  var wa = 'https://wa.me/' + clean.replace('+', '') + '?text=Halo, saya ingin menanyakan antrian hemodialisis.';
-  var tg = 'https://t.me/+62' + clean.replace('+62', '');
-  return '<div style="display:flex;gap:4px;flex-wrap:wrap">' +
-    '<a href="' + wa + '" target="_blank" class="contact-btn contact-btn-wa" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i> WA</a>' +
-    '<a href="sms:' + clean + '" class="contact-btn contact-btn-sms" title="SMS"><i class="fa-solid fa-comment-sms"></i> SMS</a>' +
-    '<a href="tel:' + clean + '" class="contact-btn contact-btn-call" title="Telepon"><i class="fa-solid fa-phone"></i> Call</a>' +
-    '<a href="' + tg + '" target="_blank" class="contact-btn contact-btn-tg" title="Telegram"><i class="fa-brands fa-telegram"></i> TG</a>' +
-    '</div>';
+  if (!phone) {
+    return '<span style="color:var(--muted);font-size:12px">—</span>';
+  }
+
+  var clean = String(phone).replace(/[^0-9+]/g, '');
+
+  if (clean.startsWith('0')) {
+    clean = '62' + clean.substring(1);
+  }
+
+  if (!clean.startsWith('+')) {
+    clean = '+' + clean;
+  }
+
+  var pesan =
+`Yth. Bapak/Ibu,
+
+Kami dari Instalasi Hemodialisis RSUD Dr. Saiful Anwar Malang, Pemerintah Provinsi Jawa Timur.
+
+Saat ini terdapat ketersediaan jadwal hemodialisis. Mohon konfirmasi kesediaan Bapak/Ibu untuk hadir pada:
+
+Hari      :
+Tanggal :
+Jam       :
+
+Mohon memberikan konfirmasi kehadiran melalui pesan ini.
+
+Terima kasih atas perhatian dan kerja samanya.`;
+
+  var wa =
+    'https://wa.me/' +
+    clean.replace('+', '') +
+    '?text=' +
+    encodeURIComponent(pesan);
+
+  var tg =
+    'https://t.me/+62' +
+    clean.replace('+62', '');
+
+  return `
+    <div style="display:flex;gap:4px;flex-wrap:wrap">
+      <a href="${wa}" target="_blank" class="contact-btn contact-btn-wa">
+        <i class="fa-brands fa-whatsapp"></i> WA
+      </a>
+
+      <a href="sms:${clean}" class="contact-btn contact-btn-sms">
+        <i class="fa-solid fa-comment-sms"></i> SMS
+      </a>
+
+      <a href="tel:${clean}" class="contact-btn contact-btn-call">
+        <i class="fa-solid fa-phone"></i> Call
+      </a>
+
+      <a href="${tg}" target="_blank" class="contact-btn contact-btn-tg">
+        <i class="fa-brands fa-telegram"></i> TG
+      </a>
+    </div>
+  `;
 }
 
 function renderDashTable() {
