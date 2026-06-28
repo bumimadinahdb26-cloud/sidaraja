@@ -553,7 +553,7 @@ function doGet(e) {
 
 function doPost(e) {
   try {
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var ss = SpreadsheetApp.openById('1UbMj1gbz-wDIUlT64-nnHPa2xvGxlS_fEgnaEzcU1cA');
     var d = JSON.parse(e.postData.contents);
 
     if (d.action === 'updateStatus') {
