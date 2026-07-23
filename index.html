@@ -981,191 +981,89 @@ function renderActionTable() {
 }
 
 /* ===== Kirim update STATUS ke Apps Script (kolom Q) ===== */
-unction updateAksi(selectEl) {
-var row = parseInt(selectEl.getAttribute('data-row'));
-var value = selectEl.value;
-var prevValue = selectEl.getAttribute('data-prev') || '';
+function updateStatus(selectEl) {
+  var row = parseInt(selectEl.getAttribute('data-row'));
+  var value = selectEl.value;
+  var prevValue = selectEl.getAttribute('data-prev') || '';
 
-if (!value) {
-toast('Pilih aksi terlebih dahulu', 'info');
-selectEl.value = prevValue;
-return;
-}
+  if (!value) { toast('Pilih status terlebih dahulu', 'info'); selectEl.value = prevValue; return; }
 
-// Jika Anda hanya ingin minta nama untuk aksi yang berisi kata "ambil",
-// ubah condition di bawah menjadi: var needsNama = String(value).toLowerCase().includes('ambil');
-var needsNama = String(value).toLowerCase().includes('ambil') || true; // saat ini selalu minta nama (sesuai permintaan)
-var namaPetugas = '';
+  selectEl.disabled = true; selectEl.style.opacity = '0.5';
 
-if (needsNama) {
-// gunakan prompt sederhana agar langsung bisa dipakai tanpa modal tambahan
-namaPetugas = prompt('Masukkan nama petugas yang melakukan pengambilan (tulis manual):');
-// jika user cancel atau kosong, batalkan perubahan
-if (namaPetugas === null) {
-selectEl.value = prevValue;
-return;
-}
-namaPetugas = namaPetugas.trim();
-if (!namaPetugas) {
-toast('Nama petugas tidak boleh kosong', 'error');
-selectEl.value = prevValue;
-return;
-}
-}
-
-// gabungkan nilai yang dikirim ke spreadsheet
-var aksiValueToSend = value;
-if (namaPetugas) {
-aksiValueToSend = value + ' — Petugas: ' + namaPetugas;
+  fetch(AKSI_GAS_URL, {
+    method: 'POST',
+    body: JSON.stringify({ action: 'updateStatus', row: row, status: value })
+  }).then(function() {
+    // Berhasil — update data lokal
+    aksiData.forEach(function(d) { if (d.row === row) d.status = value; });
+    allData.forEach(function(d) { if (d.row === row) d.status = value; });
+    selectEl.setAttribute('data-prev', value);
+    selectEl.disabled = false; selectEl.style.opacity = '1';
+    // Update warna baris
+    var tr = selectEl.closest('tr');
+    if (tr) {
+      tr.className = 'row-' + getStatusKey(value);
+    }
+    updateStatusCounts(); renderChart();
+    toast('Status berhasil diubah ke "' + value + '" (baris ' + row + ')', 'success');
+  }).catch(function(err) {
+    selectEl.disabled = false; selectEl.style.opacity = '1';
+    toast('Gagal update status: ' + err.message, 'error');
+    selectEl.value = prevValue;
+  });
 }
 
-// disable sementara UI agar user tidak klik ganda
-selectEl.disabled = true;
-selectEl.style.opacity = 0.5;
+/* ===== Kirim update AKSI ke Apps Script (kolom R) ===== */
+function updateAksi(selectEl) {
+  var row = parseInt(selectEl.getAttribute('data-row'));
+  var value = selectEl.value;
+  var prevValue = selectEl.getAttribute('data-prev') || '';
 
-fetch(AKSIGASURL, {
-method: 'POST',
-body: JSON.stringify({ action: 'updateAksi', row: row, aksi: aksiValueToSend })
-})
-.then(function(res) {
-// Apps Script kadang mengembalikan text; coba parse json jika mungkin
-return res.text().then(function(t) {
-try { return JSON.parse(t); } catch (e) { return { status: 'success' }; }
-});
-})
-.then(function(json) {
-if (json && json.status && json.status.toLowerCase() === 'error') {
-throw new Error(json.message || 'GAS error');
-}
-// update data lokal supaya UI langsung konsisten
-if (Array.isArray(aksiData)) {
-aksiData.forEach(function(d) { if (d.row === row) d.aksi = aksiValueToSend; });
-}
-if (Array.isArray(allData)) {
-allData.forEach(function(d) { if (d.row === row) d.keterangan = aksiValueToSend; });
-}
-// simpan nilai sebagai prev
-selectEl.setAttribute('data-prev', aksiValueToSend);
+  if (!value) { toast('Pilih aksi terlebih dahulu', 'info'); selectEl.value = prevValue; return; }
 
-// jika opsi custom belum ada di select, tambahkan agar tetap terlihat
-var exists = Array.from(selectEl.options).some(function(o){ return o.value === aksiValueToSend; });
-if (!exists) {
-var opt = document.createElement('option');
-opt.value = aksiValueToSend;
-opt.text = aksiValueToSend;
-opt.selected = true;
-selectEl.appendChild(opt);
-} else {
-selectEl.value = aksiValueToSend;
+  selectEl.disabled = true; selectEl.style.opacity = '0.5';
+
+  fetch(AKSI_GAS_URL, {
+    method: 'POST',
+    body: JSON.stringify({ action: 'updateAksi', row: row, aksi: value })
+  }).then(function() {
+    aksiData.forEach(function(d) { if (d.row === row) d.aksi = value; });
+    allData.forEach(function(d) { if (d.row === row) d.keterangan = value; });
+    selectEl.setAttribute('data-prev', value);
+    selectEl.disabled = false; selectEl.style.opacity = '1';
+    toast('Aksi berhasil diubah ke "' + value + '" (baris ' + row + ')', 'success');
+  }).catch(function(err) {
+    selectEl.disabled = false; selectEl.style.opacity = '1';
+    toast('Gagal update aksi: ' + err.message, 'error');
+    selectEl.value = prevValue;
+  });
 }
 
-selectEl.disabled = false;
-selectEl.style.opacity = 1;
-toast('Aksi berhasil diubah ke "' + aksiValueToSend + '"', 'success');
-
-// update tabel / tampilan aksi jika ada fungsi renderActionTable
-try { renderActionTable(); } catch (e) { /* ignore */ }
-})
-.catch(function(err) {
-console.error('updateAksi error', err);
-selectEl.disabled = false;
-selectEl.style.opacity = 1;
-selectEl.value = prevValue;
-toast('Gagal update aksi: ' + (err.message || err), 'error');
-});
-}
 /* ===== CHART ===== */
 function renderChart() {
-// hitung jumlah per status dari allData
-var counts = { menunggu: 0, terjadwal: 0, hdlain: 0, batal: 0, meninggal: 0, norespon: 0 };
-if (Array.isArray(allData)) {
-allData.forEach(function(d) {
-var k = getStatusKey(d.status);
-if (counts.hasOwnProperty(k)) counts[k]++;
-});
+  var counts = { menunggu: 0, terjadwal: 0, hdlain: 0, batal: 0, meninggal: 0, norespon: 0 };
+  allData.forEach(function(d) { var k = getStatusKey(d.status); if (counts.hasOwnProperty(k)) counts[k]++; });
+  var labels = ['Menunggu', 'Terjadwal', 'HD Lain', 'Batal', 'Meninggal', 'No Respon'];
+  var data = [counts.menunggu, counts.terjadwal, counts.hdlain, counts.batal, counts.meninggal, counts.norespon];
+  var colors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#6b7280', '#0891b2'];
+  var total = data.reduce(function(a, b) { return a + b; }, 0);
+  if (chartInstance) { chartInstance.destroy(); chartInstance = null; }
+  var ctx = $('chart1'); if (!ctx) return;
+  chartInstance = new Chart(ctx, {
+    type: 'doughnut',
+    data: { labels: labels, datasets: [{ data: data, backgroundColor: colors, borderWidth: 3, borderColor: '#fff', hoverBorderWidth: 0, hoverOffset: 8 }] },
+    options: { responsive: true, maintainAspectRatio: true, cutout: '62%', plugins: { legend: { display: false }, tooltip: { backgroundColor: '#1e293b', titleFont: { family: 'Plus Jakarta Sans', weight: '700', size: 13 }, bodyFont: { family: 'Plus Jakarta Sans', size: 12 }, padding: 12, cornerRadius: 10, callbacks: { label: function(ctx) { var pct = total > 0 ? ((ctx.parsed / total) * 100).toFixed(1) : 0; return ' ' + ctx.label + ': ' + ctx.parsed + ' (' + pct + '%)'; } } } }, animation: { animateRotate: true, duration: 800 } }
+  });
+  var leg = $('leg1');
+  if (leg) { leg.innerHTML = labels.map(function(l, i) { return '<div class="flex items-center gap-1.5"><span style="width:10px;height:10px;border-radius:3px;background:' + colors[i] + ';display:inline-block"></span>' + l + ' <span style="color:var(--muted)">(' + data[i] + ')</span></div>'; }).join(''); }
 }
 
-var labels = ['Menunggu', 'Terjadwal', 'HD Lain', 'Batal', 'Meninggal', 'No Respon'];
-var data = [
-counts.menunggu,
-counts.terjadwal,
-counts.hdlain,
-counts.batal,
-counts.meninggal,
-counts.norespon
-];
-var colors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#6b7280', '#0891b2'];
-
-// destroy instance lama jika ada
-if (chartInstance) {
-try { chartInstance.destroy(); } catch (e) { /* ignore */ }
-chartInstance = null;
+function saveChartAsImage(canvasId, name) {
+  var canvas = $(canvasId); if (!canvas) return;
+  var link = document.createElement('a'); link.download = 'sidaraja_' + name + '_' + Date.now() + '.png'; link.href = canvas.toDataURL('image/png'); link.click();
+  toast('Gambar chart berhasil disimpan', 'success');
 }
 
-// dapatkan elemen canvas — file Anda menggunakan id "chart1canvas"
-var canvas = document.getElementById('chart1canvas');
-if (!canvas) return;
-
-// atur ukuran sedang: responsif lebar penuh, tinggi tetap moderat
-canvas.style.maxWidth = '480px';
-canvas.style.width = '100%';
-canvas.style.height = '260px';
-// untuk Chart.js v4 kita perlu mengambil context 2d
-var ctx = canvas.getContext('2d');
-
-// buat grafik batang (bar)
-chartInstance = new Chart(ctx, {
-type: 'bar',
-data: {
-labels: labels,
-datasets: [{
-label: 'Jumlah Pasien',
-data: data,
-backgroundColor: colors,
-borderColor: colors.map(function() { return '#ffffff'; }),
-borderWidth: 1
-}]
-},
-options: {
-responsive: true,
-maintainAspectRatio: false, // karena kita mengontrol height via style
-scales: {
-x: {
-grid: { display: false },
-ticks: { color: '#475569' }
-},
-y: {
-beginAtZero: true,
-ticks: { color: '#475569', precision: 0 },
-grid: { color: 'rgba(148,163,184,0.08)' }
-}
-},
-plugins: {
-legend: { display: false },
-tooltip: {
-backgroundColor: '#1e293b',
-titleFont: { family: 'Plus Jakarta Sans', weight: '700', size: 13 },
-bodyFont: { family: 'Plus Jakarta Sans', size: 12 },
-padding: 10,
-cornerRadius: 8
-}
-},
-animation: { duration: 600 }
-}
-});
-
-// update legend area (elemen id="leg1") dengan label + nilai
-var leg = document.getElementById('leg1');
-if (leg) {
-var html = labels.map(function(l, i) {
-return '<div class="flex items-center gap-1.5" style="margin-right:8px;margin-bottom:6px;">'
-+ '<span style="width:10px;height:10px;border-radius:3px;display:inline-block;background:' + colors[i] + ';margin-right:8px;"></span>'
-+ '<span style="font-weight:700;margin-right:6px;">' + l + '</span>'
-+ '<span style="color:var(--muted);font-size:13px;">' + data[i] + '</span>'
-+ '</div>';
-}).join('');
-leg.innerHTML = html;
-} }
 /* ===== PASIEN VIEW ===== */
 function updatePatientStats() {
   var m = 0, t = 0;
