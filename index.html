@@ -104,7 +104,7 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .tt-x{animation:to .3s ease forwards}@keyframes to{to{opacity:0;transform:translateX(40px)}}
 .fu{opacity:0;transform:translateY(16px);animation:fu2 .5s cubic-bezier(.16,1,.3,1) forwards}
 @keyframes fu2{to{opacity:1;transform:translateY(0)}}
-.cc{position:relative;width:100%;max-width:240px;margin:0 auto}
+.cc{position:relative;width:100%;height:360px}
 .conn-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
 .conn-ok{background:#10b981;box-shadow:0 0 6px rgba(16,185,129,.5)}
 .conn-fail{background:#ef4444;box-shadow:0 0 6px rgba(239,68,68,.5)}
@@ -202,6 +202,15 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .dl-info-item:hover{background:var(--b50);border-color:var(--b200)}
 /* Saving indicator */
 .saving-indicator{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:var(--pk);animation:pulse2 .8s infinite}
+/* Pengambilan pasien */
+.pickup-cell{display:flex;flex-direction:column;gap:4px;align-items:flex-start;min-width:150px}
+.pickup-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9px;font-size:11.5px;font-weight:800;cursor:pointer;transition:all .2s;border:none;font-family:inherit;background:linear-gradient(135deg,#0891b2,#0e7490);color:#fff;white-space:nowrap}
+.pickup-btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(8,145,178,.35)}
+.pickup-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+.pickup-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:8px;font-size:11px;font-weight:800;background:#d1fae5;color:#065f46;white-space:nowrap}
+.pickup-time{font-size:10px;color:var(--muted);font-weight:600;white-space:nowrap}
+.pickup-cancel-btn{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:7px;font-size:10px;font-weight:700;cursor:pointer;transition:all .2s;border:1px solid #fecaca;background:#fef2f2;color:#991b1b;font-family:inherit}
+.pickup-cancel-btn:hover{background:#fee2e2}
 @media(max-width:768px){.hdr-logo-area{height:100px}.login-logo-area{height:110px}.profile-dd{min-width:240px;right:-60px}}
 @media(max-width:480px){.hdr-logo-area{height:80px}.login-logo-area{height:90px}.stg{grid-template-columns:1fr 1fr!important}.csg{grid-template-columns:1fr!important}.nav-tab{padding:10px 14px;font-size:12px}.login-body{padding:20px}.hdr-user-name{max-width:80px}.profile-dd{right:-40px;min-width:220px}}
 @media print{body>*{display:none!important}#printArea{display:block!important}}
@@ -411,8 +420,8 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 </section>
 <section class="mt-6 fu">
 <div class="csg grid grid-cols-1 lg:grid-cols-3 gap-6">
-<div class="card p-6 flex flex-col items-center justify-center">
-<h3 class="text-sm font-bold mb-4" style="color:var(--b900)"><i class="fa-solid fa-chart-pie mr-2" style="color:var(--g500)"></i>Distribusi Status</h3>
+<div class="card p-6 flex flex-col">
+<h3 class="text-sm font-bold mb-4" style="color:var(--b900)"><i class="fa-solid fa-chart-column mr-2" style="color:var(--g500)"></i>Distribusi Status</h3>
 <div class="cc"><canvas id="chart1"></canvas></div>
 <div id="leg1" class="mt-4 flex flex-wrap justify-center gap-3 text-xs font-semibold"></div>
 <div class="chart-actions"><button class="chart-act-btn" onclick="saveChartAsImage('chart1','distribusi')"><i class="fa-solid fa-download"></i> Simpan Gambar</button></div>
@@ -452,7 +461,7 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 </div>
 </main>
 
-<!-- ===== SLIDE 3: AKSI — STATUS & AKSI keduanya DROPDOWN ===== -->
+<!-- ===== SLIDE 3: AKSI — STATUS & AKSI keduanya DROPDOWN + PENGAMBILAN PASIEN ===== -->
 <main id="slide3" style="display:none" class="px-4 sm:px-8 pb-16">
 <div class="max-w-7xl mx-auto mt-6 fu">
 <div class="card p-6">
@@ -465,7 +474,7 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 </div>
 <p class="text-xs mb-4" style="color:var(--muted)">
 <i class="fa-solid fa-circle-info mr-1"></i>
-Kedua kolom <strong style="color:var(--b600)">Status</strong> (kolom Q) dan <strong style="color:var(--pk)">Aksi</strong> (kolom R) adalah dropdown. Pilih lalu otomatis tersimpan ke spreadsheet.
+Kolom <strong style="color:var(--b600)">Status</strong> (kolom Q) dan <strong style="color:var(--pk)">Aksi</strong> (kolom R) adalah dropdown, otomatis tersimpan ke spreadsheet. Kolom <strong style="color:#0e7490">Pengambilan</strong> mencatat petugas mana yang mengambil pasien beserta waktunya (kolom S &amp; T).
 </p>
 <div class="flex gap-3 mb-4 flex-wrap">
 <div class="relative flex-1" style="min-width:200px"><i class="fa-solid fa-search iic"></i><input type="text" id="actionSearch" class="si2" placeholder="Cari pasien..." oninput="renderActionTable()"></div>
@@ -481,7 +490,7 @@ Kedua kolom <strong style="color:var(--b600)">Status</strong> (kolom Q) dan <str
 </div>
 <div class="tw" style="max-height:62vh;overflow-y:auto;border-radius:12px;border:1px solid var(--bdr)">
 <table class="dt">
-<thead><tr><th>No</th><th>Nama</th><th>No RM</th><th>HbsAg</th><th>Status <i class="fa-solid fa-caret-down ml-1" style="opacity:.5"></i></th><th>Aksi <i class="fa-solid fa-caret-down ml-1" style="opacity:.5"></i></th><th>No HP</th></tr></thead>
+<thead><tr><th>No</th><th>Nama</th><th>No RM</th><th>HbsAg</th><th>Status <i class="fa-solid fa-caret-down ml-1" style="opacity:.5"></i></th><th>Aksi <i class="fa-solid fa-caret-down ml-1" style="opacity:.5"></i></th><th>Pengambilan</th><th>No HP</th></tr></thead>
 <tbody id="actionBody"></tbody>
 </table>
 </div>
@@ -499,7 +508,7 @@ KONFIGURASI
 Spreadsheet: 1UbMj1gbz-wDIUlT64-nnHPa2xvGxlS_fEgnaEzcU1cA
 - Data pasien: sheet "Form Responses 1" (gid=1588121083)
 
-Pemetaan kolom (0-based di gviz):
+Pemetaan kolom (0-based di gviz / index array getValues()):
   1  = NAMA (B)
   2  = NO RM (C)
   4  = UMUR (E)
@@ -508,8 +517,10 @@ Pemetaan kolom (0-based di gviz):
   9  = HbsAg (J)
   11 = Isolasi (L)
   14 = NO HP (O)
-  16 = STATUS (Q)  → dropdown, kolom ke-17 di sheet
-  17 = AKSI (R)    → dropdown, kolom ke-18 di sheet
+  16 = STATUS (Q)        → dropdown, kolom ke-17 di sheet (1-based)
+  17 = AKSI (R)          → dropdown, kolom ke-18 di sheet (1-based)
+  18 = DIAMBIL OLEH (S)  → nama petugas yang mengambil pasien, kolom ke-19
+  19 = WAKTU AMBIL (T)   → timestamp pengambilan, kolom ke-20
 
 ================================================================
 APPS SCRIPT (Code.gs) — DEPLOY DI URL AKSI_GAS_URL
@@ -538,7 +549,9 @@ function doGet(e) {
         isolasi: data[i][11] || '',
         noHP: data[i][14] || '',
         status: data[i][16] || '',
-        aksi: data[i][17] || ''
+        aksi: data[i][17] || '',
+        diambilOleh: data[i][18] || '',
+        waktuAmbil: data[i][19] || ''
       });
     }
     return ContentService.createTextOutput(
@@ -574,6 +587,26 @@ function doPost(e) {
       ).setMimeType(ContentService.MimeType.JSON);
     }
 
+    if (d.action === 'ambilPasien') {
+      // Catat petugas & waktu pengambilan pasien pada kolom S & T
+      var sheet = ss.getSheetByName("Form Responses 1");
+      sheet.getRange(parseInt(d.row), 19).setValue(d.petugas); // kolom S
+      sheet.getRange(parseInt(d.row), 20).setValue(d.waktu);   // kolom T
+      return ContentService.createTextOutput(
+        JSON.stringify({status:'success'})
+      ).setMimeType(ContentService.MimeType.JSON);
+    }
+
+    if (d.action === 'batalkanAmbil') {
+      // Kosongkan kembali kolom S & T (batalkan pengambilan)
+      var sheet = ss.getSheetByName("Form Responses 1");
+      sheet.getRange(parseInt(d.row), 19).setValue('');
+      sheet.getRange(parseInt(d.row), 20).setValue('');
+      return ContentService.createTextOutput(
+        JSON.stringify({status:'success'})
+      ).setMimeType(ContentService.MimeType.JSON);
+    }
+
     if (d.action === 'register') {
       var us = ss.getSheetByName("user");
       if (!us) us = ss.insertSheet("user");
@@ -597,6 +630,10 @@ function doPost(e) {
 }
 
 Deploy: New deployment → Web app → Execute as: Me | Access: Anyone
+
+CATATAN: Tambahkan header "Diambil Oleh" pada kolom S dan "Waktu Ambil"
+pada kolom T di baris pertama sheet "Form Responses 1" agar rapi (opsional,
+tidak wajib untuk fungsi ini karena Apps Script menulis by index kolom).
 ================================================================
 */
 
@@ -901,7 +938,7 @@ function renderDashboard() {
   body.innerHTML = html;
 }
 
-/* ===== RENDERING: AKSI — STATUS & AKSI keduanya DROPDOWN ===== */
+/* ===== RENDERING: AKSI — STATUS & AKSI dropdown + PENGAMBILAN PASIEN ===== */
 function loadAksiData() {
   var loading = $('aksiLoading'), errDiv = $('aksiError'), body = $('actionBody');
   loading.style.display = 'block'; errDiv.style.display = 'none'; body.innerHTML = '';
@@ -915,7 +952,7 @@ function loadAksiData() {
     extractAksiOptions(); renderActionTable(); loading.style.display = 'none';
   }).catch(function(err) {
     console.log('Aksi GAS fetch gagal, fallback ke gviz:', err);
-    aksiData = allData.map(function(d) { return { row: d.row, nama: d.nama, noRM: d.noRM, hbsAg: d.hbsAg, status: d.status, aksi: d.keterangan, noHP: d.noHP }; });
+    aksiData = allData.map(function(d) { return { row: d.row, nama: d.nama, noRM: d.noRM, hbsAg: d.hbsAg, status: d.status, aksi: d.keterangan, noHP: d.noHP, diambilOleh: '', waktuAmbil: '' }; });
     setConnState('aksiConnDot', 'aksiConnLabel', isOnline ? 'ok' : 'fail');
     extractAksiOptions(); renderActionTable(); loading.style.display = 'none';
     if (!isOnline) { errDiv.style.display = 'block'; $('aksiErrorMsg').textContent = 'Mode offline — update memerlukan koneksi.'; }
@@ -940,7 +977,7 @@ function renderActionTable() {
     return ms && mf;
   });
 
-  if (filtered.length === 0) { body.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--muted)"><i class="fa-solid fa-inbox" style="font-size:24px;display:block;margin-bottom:8px"></i>Tidak ada data</td></tr>'; return; }
+  if (filtered.length === 0) { body.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--muted)"><i class="fa-solid fa-inbox" style="font-size:24px;display:block;margin-bottom:8px"></i>Tidak ada data</td></tr>'; return; }
 
   var html = '';
   filtered.forEach(function(d, i) {
@@ -965,6 +1002,20 @@ function renderActionTable() {
       aksiOpts += '<option value="' + escHtml(opt) + '"' + sel + '>' + escHtml(opt) + '</option>';
     });
 
+    /* ---- Kolom PENGAMBILAN (kolom S & T) ---- */
+    var pengambilanCell;
+    if (d.diambilOleh) {
+      pengambilanCell = '<div class="pickup-cell">' +
+        '<span class="pickup-badge"><i class="fa-solid fa-user-check"></i> ' + escHtml(d.diambilOleh) + '</span>' +
+        (d.waktuAmbil ? '<span class="pickup-time"><i class="fa-regular fa-clock"></i> ' + escHtml(d.waktuAmbil) + '</span>' : '') +
+        '<button class="pickup-cancel-btn" onclick="batalkanAmbil(' + d.row + ')"><i class="fa-solid fa-rotate-left"></i> Batalkan</button>' +
+        '</div>';
+    } else {
+      pengambilanCell = '<div class="pickup-cell">' +
+        '<button class="pickup-btn" onclick="ambilPasien(' + d.row + ', this)"><i class="fa-solid fa-hand-holding-medical"></i> Ambil Pasien</button>' +
+        '</div>';
+    }
+
     html += '<tr class="row-' + sk + '" id="arow-' + d.row + '">';
     html += '<td>' + (i + 1) + '</td>';
     html += '<td class="font-semibold" style="color:var(--txt)">' + escHtml(d.nama) + '</td>';
@@ -974,6 +1025,8 @@ function renderActionTable() {
     html += '<td><select class="aksi-dd dd-status" data-row="' + d.row + '" data-prev="' + escHtml(d.status || '') + '" onchange="updateStatus(this)">' + statusOpts + '</select></td>';
     /* Kolom AKSI: dropdown */
     html += '<td><select class="aksi-dd dd-aksi" data-row="' + d.row + '" data-prev="' + escHtml(d.aksi || '') + '" onchange="updateAksi(this)">' + aksiOpts + '</select></td>';
+    /* Kolom PENGAMBILAN */
+    html += '<td>' + pengambilanCell + '</td>';
     html += '<td>' + renderPhoneLinks(d.noHP) + '</td>';
     html += '</tr>';
   });
@@ -1039,7 +1092,45 @@ function updateAksi(selectEl) {
   });
 }
 
-/* ===== CHART ===== */
+/* ===== Ambil / catat pengambilan pasien oleh petugas yang sedang login (kolom S & T) ===== */
+function ambilPasien(row, btnEl) {
+  if (!currentUser || currentUser.role !== 'Petugas') { toast('Hanya petugas yang login yang bisa mengambil pasien', 'error'); return; }
+  var petugas = currentUser.nama;
+  var waktu = new Date().toLocaleString('id-ID');
+
+  if (btnEl) { btnEl.disabled = true; btnEl.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menyimpan...'; }
+
+  fetch(AKSI_GAS_URL, {
+    method: 'POST',
+    body: JSON.stringify({ action: 'ambilPasien', row: row, petugas: petugas, waktu: waktu })
+  }).then(function() {
+    aksiData.forEach(function(d) { if (d.row === row) { d.diambilOleh = petugas; d.waktuAmbil = waktu; } });
+    renderActionTable();
+    toast('Pasien (baris ' + row + ') berhasil diambil oleh ' + petugas, 'success');
+  }).catch(function(err) {
+    if (btnEl) { btnEl.disabled = false; btnEl.innerHTML = '<i class="fa-solid fa-hand-holding-medical"></i> Ambil Pasien'; }
+    toast('Gagal menyimpan pengambilan pasien: ' + err.message, 'error');
+  });
+}
+
+/* ===== Batalkan pengambilan pasien (kosongkan kolom S & T) ===== */
+function batalkanAmbil(row) {
+  if (!currentUser || currentUser.role !== 'Petugas') { toast('Hanya petugas yang login yang bisa membatalkan', 'error'); return; }
+  if (!confirm('Batalkan pengambilan pasien pada baris ' + row + '?')) return;
+
+  fetch(AKSI_GAS_URL, {
+    method: 'POST',
+    body: JSON.stringify({ action: 'batalkanAmbil', row: row })
+  }).then(function() {
+    aksiData.forEach(function(d) { if (d.row === row) { d.diambilOleh = ''; d.waktuAmbil = ''; } });
+    renderActionTable();
+    toast('Pengambilan pasien (baris ' + row + ') dibatalkan', 'info');
+  }).catch(function(err) {
+    toast('Gagal membatalkan pengambilan: ' + err.message, 'error');
+  });
+}
+
+/* ===== CHART (BATANG / BAR) ===== */
 function renderChart() {
   var counts = { menunggu: 0, terjadwal: 0, hdlain: 0, batal: 0, meninggal: 0, norespon: 0 };
   allData.forEach(function(d) { var k = getStatusKey(d.status); if (counts.hasOwnProperty(k)) counts[k]++; });
@@ -1050,9 +1141,36 @@ function renderChart() {
   if (chartInstance) { chartInstance.destroy(); chartInstance = null; }
   var ctx = $('chart1'); if (!ctx) return;
   chartInstance = new Chart(ctx, {
-    type: 'doughnut',
-    data: { labels: labels, datasets: [{ data: data, backgroundColor: colors, borderWidth: 3, borderColor: '#fff', hoverBorderWidth: 0, hoverOffset: 8 }] },
-    options: { responsive: true, maintainAspectRatio: true, cutout: '62%', plugins: { legend: { display: false }, tooltip: { backgroundColor: '#1e293b', titleFont: { family: 'Plus Jakarta Sans', weight: '700', size: 13 }, bodyFont: { family: 'Plus Jakarta Sans', size: 12 }, padding: 12, cornerRadius: 10, callbacks: { label: function(ctx) { var pct = total > 0 ? ((ctx.parsed / total) * 100).toFixed(1) : 0; return ' ' + ctx.label + ': ' + ctx.parsed + ' (' + pct + '%)'; } } } }, animation: { animateRotate: true, duration: 800 } }
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Jumlah Pasien',
+        data: data,
+        backgroundColor: colors,
+        borderRadius: 8,
+        maxBarThickness: 46
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#1e293b',
+          titleFont: { family: 'Plus Jakarta Sans', weight: '700', size: 13 },
+          bodyFont: { family: 'Plus Jakarta Sans', size: 12 },
+          padding: 12, cornerRadius: 10,
+          callbacks: { label: function(ctx) { var pct = total > 0 ? ((ctx.parsed.y / total) * 100).toFixed(1) : 0; return ' ' + ctx.parsed.y + ' pasien (' + pct + '%)'; } }
+        }
+      },
+      scales: {
+        y: { beginAtZero: true, ticks: { precision: 0, font: { family: 'Plus Jakarta Sans', size: 11 } }, grid: { color: '#f1f5f9' } },
+        x: { ticks: { font: { family: 'Plus Jakarta Sans', size: 10.5, weight: '600' } }, grid: { display: false } }
+      },
+      animation: { duration: 800 }
+    }
   });
   var leg = $('leg1');
   if (leg) { leg.innerHTML = labels.map(function(l, i) { return '<div class="flex items-center gap-1.5"><span style="width:10px;height:10px;border-radius:3px;background:' + colors[i] + ';display:inline-block"></span>' + l + ' <span style="color:var(--muted)">(' + data[i] + ')</span></div>'; }).join(''); }
