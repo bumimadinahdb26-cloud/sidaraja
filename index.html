@@ -981,10 +981,10 @@ function renderActionTable() {
 }
 
 /* ===== Kirim update STATUS ke Apps Script (kolom Q) ===== */
-function updateAksi(selectEl) {
+unction updateAksi(selectEl) {
 var row = parseInt(selectEl.getAttribute('data-row'));
 var value = selectEl.value;
-var prevValue = selectEl.getAttribute('data-prev');
+var prevValue = selectEl.getAttribute('data-prev') || '';
 
 if (!value) {
 toast('Pilih aksi terlebih dahulu', 'info');
@@ -992,12 +992,16 @@ selectEl.value = prevValue;
 return;
 }
 
-// Jika aksi membutuhkan nama petugas (contoh: 'Ambil'), minta input manual.
-var needsNama = (String(value).toLowerCase().includes('ambil') || true); // <--- jika Anda ingin selalu minta nama, set true; atau gunakan kondisi hanya untuk 'ambil'
+// Jika Anda hanya ingin minta nama untuk aksi yang berisi kata "ambil",
+// ubah condition di bawah menjadi: var needsNama = String(value).toLowerCase().includes('ambil');
+var needsNama = String(value).toLowerCase().includes('ambil') || true; // saat ini selalu minta nama (sesuai permintaan)
 var namaPetugas = '';
+
 if (needsNama) {
+// gunakan prompt sederhana agar langsung bisa dipakai tanpa modal tambahan
 namaPetugas = prompt('Masukkan nama petugas yang melakukan pengambilan (tulis manual):');
-if (namaPetugas === null) { // user cancel
+// jika user cancel atau kosong, batalkan perubahan
+if (namaPetugas === null) {
 selectEl.value = prevValue;
 return;
 }
@@ -1009,40 +1013,61 @@ return;
 }
 }
 
-selectEl.disabled = true;
-selectEl.style.opacity = 0.5;
-
+// gabungkan nilai yang dikirim ke spreadsheet
 var aksiValueToSend = value;
 if (namaPetugas) {
 aksiValueToSend = value + ' — Petugas: ' + namaPetugas;
 }
 
+// disable sementara UI agar user tidak klik ganda
+selectEl.disabled = true;
+selectEl.style.opacity = 0.5;
+
 fetch(AKSIGASURL, {
 method: 'POST',
 body: JSON.stringify({ action: 'updateAksi', row: row, aksi: aksiValueToSend })
 })
-.then(function(r){ return r.json ? r.json() : r.text().then(JSON.parse); })
-.then(function(res){
-// update lokal
-aksiData.forEach(function(d){ if (d.row === row) d.aksi = aksiValueToSend; });
-allData.forEach(function(d){ if (d.row === row) d.keterangan = aksiValueToSend; });
+.then(function(res) {
+// Apps Script kadang mengembalikan text; coba parse json jika mungkin
+return res.text().then(function(t) {
+try { return JSON.parse(t); } catch (e) { return { status: 'success' }; }
+});
+})
+.then(function(json) {
+if (json && json.status && json.status.toLowerCase() === 'error') {
+throw new Error(json.message || 'GAS error');
+}
+// update data lokal supaya UI langsung konsisten
+if (Array.isArray(aksiData)) {
+aksiData.forEach(function(d) { if (d.row === row) d.aksi = aksiValueToSend; });
+}
+if (Array.isArray(allData)) {
+allData.forEach(function(d) { if (d.row === row) d.keterangan = aksiValueToSend; });
+}
+// simpan nilai sebagai prev
 selectEl.setAttribute('data-prev', aksiValueToSend);
-selectEl.disabled = false;
-selectEl.style.opacity = 1;
-// update UI: tulis ulang option yang dipilih untuk menampilkan teks lengkap
+
+// jika opsi custom belum ada di select, tambahkan agar tetap terlihat
+var exists = Array.from(selectEl.options).some(function(o){ return o.value === aksiValueToSend; });
+if (!exists) {
 var opt = document.createElement('option');
 opt.value = aksiValueToSend;
 opt.text = aksiValueToSend;
 opt.selected = true;
-// replace select options to preserve selected custom value:
-// (hapus opsi yang sebelumnya dipilih lalu sisipkan)
-// sederhana: tambahkan jika belum ada
-var exists = Array.from(selectEl.options).some(function(o){ return o.value === aksiValueToSend; });
-if (!exists) selectEl.appendChild(opt);
-toast('Aksi berhasil diubah ke ' + aksiValueToSend, 'success');
-renderActionTable();
+selectEl.appendChild(opt);
+} else {
+selectEl.value = aksiValueToSend;
+}
+
+selectEl.disabled = false;
+selectEl.style.opacity = 1;
+toast('Aksi berhasil diubah ke "' + aksiValueToSend + '"', 'success');
+
+// update tabel / tampilan aksi jika ada fungsi renderActionTable
+try { renderActionTable(); } catch (e) { /* ignore */ }
 })
-.catch(function(err){
+.catch(function(err) {
+console.error('updateAksi error', err);
 selectEl.disabled = false;
 selectEl.style.opacity = 1;
 selectEl.value = prevValue;
@@ -1051,27 +1076,44 @@ toast('Gagal update aksi: ' + (err.message || err), 'error');
 }
 /* ===== CHART ===== */
 function renderChart() {
-var counts = { menunggu:0, terjadwal:0, hdlain:0, batal:0, meninggal:0, norespon:0 };
-allData.forEach(function(d){
+// hitung jumlah per status dari allData
+var counts = { menunggu: 0, terjadwal: 0, hdlain: 0, batal: 0, meninggal: 0, norespon: 0 };
+if (Array.isArray(allData)) {
+allData.forEach(function(d) {
 var k = getStatusKey(d.status);
 if (counts.hasOwnProperty(k)) counts[k]++;
 });
+}
 
-var labels = ['Menunggu','Terjadwal','HD Lain','Batal','Meninggal','No Respon'];
-var data = [counts.menunggu, counts.terjadwal, counts.hdlain, counts.batal, counts.meninggal, counts.norespon];
-var colors = ['#3b82f6','#10b981','#f59e0b','#ef4444','#6b7280','#0891b2'];
+var labels = ['Menunggu', 'Terjadwal', 'HD Lain', 'Batal', 'Meninggal', 'No Respon'];
+var data = [
+counts.menunggu,
+counts.terjadwal,
+counts.hdlain,
+counts.batal,
+counts.meninggal,
+counts.norespon
+];
+var colors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#6b7280', '#0891b2'];
 
+// destroy instance lama jika ada
 if (chartInstance) {
-chartInstance.destroy();
+try { chartInstance.destroy(); } catch (e) { /* ignore */ }
 chartInstance = null;
-} var canvas = document.getElementById('chart1canvas');
+}
+
+// dapatkan elemen canvas — file Anda menggunakan id "chart1canvas"
+var canvas = document.getElementById('chart1canvas');
 if (!canvas) return;
-// atur ukuran sedang: lebar responsif, tinggi moderat
+
+// atur ukuran sedang: responsif lebar penuh, tinggi tetap moderat
 canvas.style.maxWidth = '480px';
 canvas.style.width = '100%';
 canvas.style.height = '260px';
-
+// untuk Chart.js v4 kita perlu mengambil context 2d
 var ctx = canvas.getContext('2d');
+
+// buat grafik batang (bar)
 chartInstance = new Chart(ctx, {
 type: 'bar',
 data: {
@@ -1080,13 +1122,13 @@ datasets: [{
 label: 'Jumlah Pasien',
 data: data,
 backgroundColor: colors,
-borderColor: colors.map(c => '#ffffff'),
+borderColor: colors.map(function() { return '#ffffff'; }),
 borderWidth: 1
 }]
 },
 options: {
 responsive: true,
-maintainAspectRatio: false,
+maintainAspectRatio: false, // karena kita mengontrol height via style
 scales: {
 x: {
 grid: { display: false },
@@ -1094,7 +1136,7 @@ ticks: { color: '#475569' }
 },
 y: {
 beginAtZero: true,
-ticks: { color: '#475569', stepSize: 1 },
+ticks: { color: '#475569', precision: 0 },
 grid: { color: 'rgba(148,163,184,0.08)' }
 }
 },
@@ -1112,12 +1154,17 @@ animation: { duration: 600 }
 }
 });
 
-// update legend area (leg1) jika perlu
-var leg = id('leg1');
+// update legend area (elemen id="leg1") dengan label + nilai
+var leg = document.getElementById('leg1');
 if (leg) {
-leg.innerHTML = labels.map(function(l, i){
-return '<div class="flex items-center gap-1.5"><span style="width:10px;height:10px;border-radius:3px;display:inline-block;background:' + colors[i] + '"></span><span>' + l + '</span><span style="color:var(--muted);margin-left:6px">' + data[i] + '</span></div>';
+var html = labels.map(function(l, i) {
+return '<div class="flex items-center gap-1.5" style="margin-right:8px;margin-bottom:6px;">'
++ '<span style="width:10px;height:10px;border-radius:3px;display:inline-block;background:' + colors[i] + ';margin-right:8px;"></span>'
++ '<span style="font-weight:700;margin-right:6px;">' + l + '</span>'
++ '<span style="color:var(--muted);font-size:13px;">' + data[i] + '</span>'
++ '</div>';
 }).join('');
+leg.innerHTML = html;
 } }
 /* ===== PASIEN VIEW ===== */
 function updatePatientStats() {
