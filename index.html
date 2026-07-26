@@ -306,6 +306,43 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 </div>
 </div>
 
+<!-- ===== MODAL WHATSAPP ===== -->
+<div class="modal-overlay" id="waModal" style="display:none" onclick="if(event.target===this)closeWaModal()">
+<div class="modal-box" style="max-width:550px">
+<div class="modal-hdr">
+<h3><i class="fa-brands fa-whatsapp mr-2" style="color:#25D366"></i>Kirim WhatsApp Pasien</h3>
+<button class="modal-close" onclick="closeWaModal()"><i class="fa-solid fa-xmark"></i></button>
+</div>
+<div class="modal-body">
+<div class="form-group">
+<label class="form-label">Nama Pasien</label>
+<input type="text" class="form-input" id="waNama" readonly>
+</div>
+<div class="form-group">
+<label class="form-label">Nomor WhatsApp</label>
+<input type="text" class="form-input" id="waNomor" readonly>
+</div>
+<div class="form-group">
+<label class="form-label">Pilih Ruangan HD yang Kosong</label>
+<select class="form-input" id="waRuangan" onchange="generateWaText()">
+<option value="">-- Pilih Ruangan --</option>
+<option value="Teuku Umar">Teuku Umar</option>
+<option value="Malahayati">Malahayati</option>
+<option value="Cut Nyak Dien">Cut Nyak Dien</option>
+</select>
+</div>
+<div class="form-group">
+<label class="form-label">Pesan WhatsApp</label>
+<textarea class="form-input" id="waText" rows="10" style="font-size:13px;line-height:1.5;resize:vertical"></textarea>
+</div>
+</div>
+<div class="modal-footer">
+<button class="bo" onclick="closeWaModal()"><i class="fa-solid fa-xmark"></i> Batal</button>
+<button class="bp" onclick="sendWaMessage()" style="background:linear-gradient(135deg,#25D366,#128C7E)"><i class="fa-brands fa-whatsapp"></i> Kirim WhatsApp</button>
+</div>
+</div>
+</div>
+
 <!-- ===== HEADER UTAMA ===== -->
 <header class="hdr grad-admin" id="mainHeader" style="display:none">
 <div class="hdr-logo-area"></div>
@@ -449,9 +486,9 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 <a href="https://docs.google.com/spreadsheets/d/1UbMj1gbz-wDIUlT64-nnHPa2xvGxlS_fEgnaEzcU1cA/edit?resourcekey=&gid=1588121083#gid=1588121083" target="_blank" rel="noopener noreferrer" class="bp text-base px-8 py-3 justify-center" style="text-decoration:none;background:linear-gradient(135deg,#059669,#047857)"><i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Excel SIDARJA</a>
 </div>
 <div class="space-y-3">
-<div class="dl-info-item"><div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#ecfdf5"><i class="fa-solid fa-table-cells" style="color:#059669"></i></div><div><div class="text-xs font-bold" style="color:var(--txt)">Sheet "Form Responses 1"</div><div class="text-xs" style="color:var(--muted)">Data utama pasien antrian dialisis</div></div></div>
-<div class="dl-info-item"><div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#eff6ff"><i class="fa-solid fa-arrows-rotate" style="color:#2563eb"></i></div><div><div class="text-xs font-bold" style="color:var(--txt)">Real-time Update</div><div class="text-xs" style="color:var(--muted)">Perubahan di spreadsheet langsung tercermin di aplikasi</div></div></div>
-<div class="dl-info-item"><div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#fffbeb"><i class="fa-solid fa-shield-halved" style="color:#d97706"></i></div><div><div class="text-xs font-bold" style="color:var(--txt)">Akses Terkontrol</div><div class="text-xs" style="color:var(--muted)">Hanya petugas yang berhak mengedit data sensitif</div></div></div>
+<div class="dl-info-item"><div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink:0" style="background:#ecfdf5"><i class="fa-solid fa-table-cells" style="color:#059669"></i></div><div><div class="text-xs font-bold" style="color:var(--txt)">Sheet "Form Responses 1"</div><div class="text-xs" style="color:var(--muted)">Data utama pasien antrian dialisis</div></div></div>
+<div class="dl-info-item"><div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink:0" style="background:#eff6ff"><i class="fa-solid fa-arrows-rotate" style="color:#2563eb"></i></div><div><div class="text-xs font-bold" style="color:var(--txt)">Real-time Update</div><div class="text-xs" style="color:var(--muted)">Perubahan di spreadsheet langsung tercermin di aplikasi</div></div></div>
+<div class="dl-info-item"><div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink:0" style="background:#fffbeb"><i class="fa-solid fa-shield-halved" style="color:#d97706"></i></div><div><div class="text-xs font-bold" style="color:var(--txt)">Akses Terkontrol</div><div class="text-xs" style="color:var(--muted)">Hanya petugas yang berhak mengedit data sensitif</div></div></div>
 </div>
 </div>
 </div>
@@ -552,6 +589,7 @@ var chartInstance2 = null;
 var aksiData = [];
 var aksiDropdownOptions = [];
 var isOnline = true;
+var currentWaPhone = '';
 
 function $(id) { return document.getElementById(id); }
 function escHtml(s) {
@@ -610,13 +648,15 @@ function renderHbsAgBadge(val) {
   return '<span class="badge badge-hbsag-other">' + escHtml(val) + '</span>';
 }
 
-function renderPhoneLinks(phone) {
+function renderPhoneLinks(phone, rowIdx) {
   if (!phone) return '<span style="color:var(--muted)">-</span>';
   var p = String(phone).replace(/[^0-9+]/g, '');
   if (!p) return '<span style="color:var(--muted)">-</span>';
   var wa = p.startsWith('0') ? '62' + p.substring(1) : p;
+  var waBtn = rowIdx ? '<button onclick="openWaModal(' + rowIdx + ')" class="contact-btn contact-btn-wa" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></button>'
+                     : '<a href="https://wa.me/' + wa + '" target="_blank" class="contact-btn contact-btn-wa" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>';
   return '<div class="flex gap-1 flex-wrap">' +
-    '<a href="https://wa.me/' + wa + '" target="_blank" class="contact-btn contact-btn-wa" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>' +
+    waBtn +
     '<a href="tel:' + p + '" class="contact-btn contact-btn-call" title="Telepon"><i class="fa-solid fa-phone"></i></a>' +
     '<a href="sms:' + p + '" class="contact-btn contact-btn-sms" title="SMS"><i class="fa-solid fa-comment-sms"></i></a>' +
     '</div>';
@@ -904,7 +944,7 @@ function renderActionTable() {
     html += '<td><select class="aksi-dd dd-status" data-row="' + d.row + '" data-prev="' + escHtml(d.status || '') + '" onchange="updateStatus(this)">' + statusOpts + '</select></td>';
     html += '<td><select class="aksi-dd dd-aksi" data-row="' + d.row + '" data-prev="' + escHtml(d.aksi || '') + '" onchange="updateAksi(this)">' + aksiOpts + '</select></td>';
     html += '<td>' + pengambilanCell + '</td>';
-    html += '<td>' + renderPhoneLinks(d.noHP) + '</td>';
+    html += '<td>' + renderPhoneLinks(d.noHP, d.row) + '</td>';
     html += '</tr>';
   });
   body.innerHTML = html;
@@ -1113,6 +1153,55 @@ function kirimWA() {
   window.open("https://wa.me/?text=" + encodeURIComponent(text), '_blank');
 }
 
+function openWaModal(rowIdx) {
+  var d = aksiData.find(function(x) { return x.row === rowIdx; });
+  if (!d) {
+    d = allData.find(function(x) { return x.row === rowIdx; });
+  }
+  if (!d) { toast('Data pasien tidak ditemukan', 'error'); return; }
+  
+  var p = String(d.noHP || '').replace(/[^0-9+]/g, '');
+  if (!p) { toast('Nomor HP pasien tidak tersedia', 'error'); return; }
+  
+  currentWaPhone = p.startsWith('0') ? '62' + p.substring(1) : p;
+  $('waNama').value = d.nama;
+  $('waNomor').value = currentWaPhone;
+  $('waRuangan').value = '';
+  generateWaText();
+  $('waModal').style.display = 'flex';
+}
+
+function generateWaText() {
+  var nama = $('waNama').value;
+  var ruangan = $('waRuangan').value;
+  
+  var text = "INSTALASI DIALISIS\n";
+  text += "RSUD DR SAIFUL ANWAR\n";
+  text += "PROV JAWA TIMUR\n\n";
+  text += "Salam sehat kami sampaikan,\n\n";
+  if (ruangan) {
+    text += "Kami dari tim penjadwalan Instalasi Dialisis RSUD Dr. Saiful Anwar ingin menginformasikan bahwa saat ini di ruangan " + ruangan + " terdapat jadwal kosong untuk pelaksanaan Hemodialisis.\n\n";
+    text += "Apakah Bapak/Ibu " + nama + " bersedia untuk mengisi jadwal tersebut?\n\n";
+  } else {
+    text += "Kami dari tim penjadwalan Instalasi Dialisis RSUD Dr. Saiful Anwar ingin menghubungi Bapak/Ibu " + nama + " terkait jadwal Hemodialisis.\n\n";
+  }
+  text += "Mohon kesediaannya untuk memberikan konfirmasi balasan. Terima kasih atas perhatian dan kerja samanya.\n\n";
+  text += "Salam hangat,\nTim Penjadwalan Instalasi Dialisis RSSA";
+  
+  $('waText').value = text;
+}
+
+function sendWaMessage() {
+  var text = $('waText').value;
+  if (!text.trim()) { toast('Pesan tidak boleh kosong', 'error'); return; }
+  window.open("https://wa.me/" + currentWaPhone + "?text=" + encodeURIComponent(text), '_blank');
+  closeWaModal();
+}
+
+function closeWaModal() {
+  $('waModal').style.display = 'none';
+}
+
 function updatePatientStats() {
   var m = 0, t = 0;
   allData.forEach(function(d) { var k = getStatusKey(d.status); if (k === 'menunggu') m++; if (k === 'terjadwal') t++; });
@@ -1136,7 +1225,7 @@ function patientSearch() {
     html += '<p class="text-xs mt-1" style="color:var(--muted)">No RM: ' + escHtml(d.noRM) + ' &bull; Umur: ' + escHtml(d.umur) + '</p></div>';
     html += '<span class="badge badge-' + sk + '">' + escHtml(d.status || '-') + '</span></div>';
     if (d.keterangan) html += '<p class="text-xs mt-2" style="color:var(--txt2)"><i class="fa-solid fa-note-sticky mr-1" style="color:var(--pk)"></i>' + escHtml(d.keterangan) + '</p>';
-    html += '<div class="mt-3">' + renderPhoneLinks(d.noHP) + '</div></div>';
+    html += '<div class="mt-3">' + renderPhoneLinks(d.noHP, null) + '</div></div>';
   });
   container.innerHTML = html;
 }
