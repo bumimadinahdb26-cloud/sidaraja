@@ -77,7 +77,7 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .nav-tab:not(.active):hover{background:var(--g200);color:var(--g600)}
 .tw{overflow-x:auto}
 .dt{width:100%;border-collapse:separate;border-spacing:0}
-.dt thead th{background:linear-gradient(135deg,var(--b900),var(--b700));padding:12px 14px;text-align:left;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.95);position:sticky;top:0;z-index:10;white-space:nowrap;border-bottom:3px solid var(--g500)}
+.dt thead th{background:linear-gradient(135deg,var(--b900),var(--b700));padding:10px 12px;text-align:left;font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.95);position:sticky;top:0;z-index:10;white-space:nowrap;border-bottom:3px solid var(--g500)}
 .dt thead th:first-child{border-radius:12px 0 0 0}.dt thead th:last-child{border-radius:0 12px 0 0}
 .dt tbody tr{transition:background .15s}.dt tbody tr:nth-child(even){background:var(--g50)}.dt tbody tr:nth-child(odd){background:var(--w)}.dt tbody tr:hover{background:var(--b50)!important}
 .dt tbody tr.row-menunggu{background:#eff6ff!important}.dt tbody tr.row-menunggu:hover{background:#dbeafe!important}
@@ -87,9 +87,9 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .dt tbody tr.row-meninggal{background:#f3f4f6!important}.dt tbody tr.row-meninggal:hover{background:#e5e7eb!important}
 .dt tbody tr.row-norespon{background:#ecfeff!important}.dt tbody tr.row-norespon:hover{background:#cffafe!important}
 .dt tbody tr.row-other{background:#f8fafc!important}
-.dt tbody td{padding:10px 12px;border-bottom:1px solid var(--bdr);font-size:12px;color:var(--txt2);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dt tbody td{padding:9px 10px;border-bottom:1px solid var(--bdr);font-size:11.5px;color:var(--txt2);max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .dt tbody tr:last-child td{border-bottom:none}
-.badge{display:inline-block;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:700;white-space:nowrap}
+.badge{display:inline-block;padding:3px 9px;border-radius:8px;font-size:10px;font-weight:700;white-space:nowrap}
 .badge-menunggu{background:#dbeafe;color:#1e40af}.badge-terjadwal{background:#d1fae5;color:#065f46}
 .badge-hdlain{background:#fef3c7;color:#92400e}.badge-batal{background:#fee2e2;color:#991b1b}
 .badge-meninggal{background:#e5e7eb;color:#374151}.badge-norespon{background:#cffafe;color:#155e75}
@@ -186,12 +186,12 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .loading-bar.show{display:block}
 .loading-bar-inner{height:100%;width:30%;background:linear-gradient(90deg,var(--b500),var(--g500));border-radius:4px;animation:loadSlide 1.5s ease-in-out infinite}
 @keyframes loadSlide{0%{transform:translateX(-100%)}100%{transform:translateX(400%)}}
-.aksi-dd{padding:7px 10px;border:2px solid var(--bdr);border-radius:8px;font-size:12px;font-weight:600;color:var(--txt);background:var(--w);outline:none;font-family:inherit;cursor:pointer;transition:all .2s;min-width:120px}
+.aksi-dd{padding:6px 8px;border:2px solid var(--bdr);border-radius:8px;font-size:11px;font-weight:600;color:var(--txt);background:var(--w);outline:none;font-family:inherit;cursor:pointer;transition:all .2s}
 .aksi-dd:focus{border-color:var(--pk);box-shadow:0 0 0 3px rgba(217,119,6,.12)}
 .aksi-dd:disabled{opacity:.45;cursor:not-allowed}
-.aksi-dd.dd-status{border-color:var(--b200);min-width:120px}
+.aksi-dd.dd-status{border-color:var(--b200);min-width:105px}
 .aksi-dd.dd-status:focus{border-color:var(--b500);box-shadow:0 0 0 3px rgba(59,130,246,.12)}
-.aksi-dd.dd-room{border-color:var(--pgl);min-width:130px}
+.aksi-dd.dd-room{border-color:var(--pgl);min-width:115px}
 .aksi-dd.dd-room:focus{border-color:var(--pg);box-shadow:0 0 0 3px rgba(5,150,105,.12)}
 .excel-link-card{border:2px solid var(--pg);border-radius:24px;overflow:hidden;transition:all .3s}
 .excel-link-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(5,150,105,.15)}
@@ -199,8 +199,7 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .excel-icon-wrap{transition:transform .3s}
 .dl-info-item{display:flex;align-items:center;gap:12px;padding:14px 18px;border-radius:14px;background:var(--g50);border:1px solid var(--bdr);transition:all .2s}
 .dl-info-item:hover{background:var(--b50);border-color:var(--b200)}
-.saving-indicator{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:var(--pk);animation:pulse2 .8s infinite}
-.pickup-cell{display:flex;flex-direction:column;gap:4px;align-items:flex-start;min-width:140px}
+.pickup-cell{display:flex;flex-direction:column;gap:4px;align-items:flex-start;min-width:130px}
 .pickup-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:9px;font-size:11px;font-weight:800;cursor:pointer;transition:all .2s;border:none;font-family:inherit;background:linear-gradient(135deg,#0891b2,#0e7490);color:#fff;white-space:nowrap}
 .pickup-btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(8,145,178,.35)}
 .pickup-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
@@ -220,6 +219,7 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .room-stat-icon{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:22px}
 .room-stat-num{font-size:2.2rem;font-weight:900;line-height:1}
 .room-stat-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 @media(max-width:768px){.hdr-logo-area{height:100px}.login-logo-area{height:110px}.profile-dd{min-width:240px;right:-60px}.stg{grid-template-columns:repeat(4,1fr)!important}.room-stats-grid{grid-template-columns:1fr!important}}
 @media(max-width:480px){.hdr-logo-area{height:80px}.login-logo-area{height:90px}.stg{grid-template-columns:repeat(2,1fr)!important}.nav-tab{padding:10px 14px;font-size:12px}.login-body{padding:20px}.hdr-user-name{max-width:80px}.profile-dd{right:-40px;min-width:220px}}
 @media print{body>*{display:none!important}#printArea{display:block!important}}
@@ -230,7 +230,7 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 <div class="tc2" id="toastC"></div>
 <div id="printArea" style="display:none"></div>
 
-<!-- ===== LOGIN OVERLAY ===== -->
+<!-- LOGIN OVERLAY -->
 <div class="login-overlay" id="loginOverlay">
 <div class="login-box">
 <div class="login-logo-area"></div>
@@ -275,7 +275,7 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 <div class="ok-box" id="regOk"><i class="fa-solid fa-circle-check"></i><span id="regOkMsg"></span></div>
 <div class="loading-bar" id="regLoading"><div class="loading-bar-inner"></div></div>
 <button class="bp w-full justify-center text-base" onclick="doPetugasRegister()" id="btnRegister"><i class="fa-solid fa-user-plus"></i> Daftar Akun Baru</button>
-<p class="text-center text-xs mt-3" style="color:var(--muted)">Data pendaftaran tersimpan di perangkat ini.</p>
+<p class="text-center text-xs mt-3" style="color:var(--muted)">Akun tersimpan di sheet "user" & perangkat ini.</p>
 <p class="text-center text-xs mt-1" style="color:var(--muted)">Sudah punya akun? <a href="#" onclick="switchAuthTab('login');return false" style="color:var(--b600);font-weight:700">Masuk di sini</a></p>
 </div>
 </div>
@@ -295,7 +295,7 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 </div>
 </div>
 
-<!-- ===== MODAL PROFIL ===== -->
+<!-- MODAL PROFIL -->
 <div class="modal-overlay" id="profileModal" style="display:none" onclick="if(event.target===this)closeProfileModal()">
 <div class="modal-box">
 <div class="modal-hdr"><h3><i class="fa-solid fa-user-pen mr-2" style="color:var(--b600)"></i>Profil Petugas</h3><button class="modal-close" onclick="closeProfileModal()"><i class="fa-solid fa-xmark"></i></button></div>
@@ -318,7 +318,7 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 </div>
 </div>
 
-<!-- ===== HEADER UTAMA ===== -->
+<!-- HEADER UTAMA -->
 <header class="hdr grad-admin" id="mainHeader" style="display:none">
 <div class="hdr-logo-area"></div>
 <div class="hdr-body">
@@ -372,7 +372,7 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 <div class="stripe" id="mainStripe"></div>
 </header>
 
-<!-- ===== NAV TABS (Admin) ===== -->
+<!-- NAV TABS -->
 <div class="max-w-7xl mx-auto px-4 sm:px-8 mt-6" id="navTabsWrap" style="display:none">
 <div class="flex gap-1 flex-wrap">
 <button class="nav-tab active" id="tab1" onclick="switchSlide(1)"><i class="fa-solid fa-hand-pointer mr-2"></i>Dashboard</button>
@@ -381,7 +381,7 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 </div>
 </div>
 
-<!-- ===== PATIENT VIEW ===== -->
+<!-- PATIENT VIEW -->
 <main id="patientView" style="display:none" class="px-4 sm:px-8 pb-16">
 <div class="max-w-3xl mx-auto">
 <section class="mt-6 fu">
@@ -413,7 +413,7 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 </div>
 </main>
 
-<!-- ===== SLIDE 1: DASHBOARD (Pengambilan Pasien) ===== -->
+<!-- SLIDE 1: DASHBOARD (Pengambilan Pasien) -->
 <main id="slide1" class="px-4 sm:px-8 pb-16" style="display:none">
 <div class="max-w-7xl mx-auto">
 <section class="mt-6 fu">
@@ -448,7 +448,7 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 </div>
 </main>
 
-<!-- ===== SLIDE 2: DATA LENGKAP ===== -->
+<!-- SLIDE 2: DATA LENGKAP -->
 <main id="slide2" style="display:none" class="px-4 sm:px-8 pb-16">
 <div class="max-w-3xl mx-auto mt-6 fu">
 <div class="excel-link-card card overflow-hidden">
@@ -458,9 +458,9 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 <p class="text-green-200 text-sm font-medium">Akses langsung ke spreadsheet Google Sheets</p>
 </div>
 <div class="p-6 sm:p-8">
-<p class="text-sm text-center mb-6" style="color:var(--txt2);max-width:440px;margin-left:auto;margin-right:auto">Klik tombol di bawah untuk membuka data lengkap seluruh pasien Instalasi Dialisis RSSA yang dikelola melalui Google Spreadsheet SIDARJA.</p>
+<p class="text-sm text-center mb-6" style="color:var(--txt2);max-width:440px;margin-left:auto;margin-right:auto">Klik tombol di bawah untuk membuka data lengkap seluruh pasien Instalasi Dialisis RSSA.</p>
 <div class="flex flex-col sm:flex-row gap-3 justify-center mb-6">
-<a href="https://docs.google.com/spreadsheets/d/1UbMj1gbz-wDIUlT64-nnHPa2xvGxlS_fEgnaEzcU1cA/edit?resourcekey=&gid=1588121083#gid=1588121083" target="_blank" rel="noopener noreferrer" class="bp text-base px-8 py-3 justify-center" style="text-decoration:none;background:linear-gradient(135deg,#059669,#047857)"><i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Excel SIDARJA</a>
+<a href="https://docs.google.com/spreadsheets/d/1UbMj1gbz-wDIUlT64-nnHPa2xvGxlS_fEgnaEzcU1cA/edit?gid=1588121083#gid=1588121083" target="_blank" rel="noopener noreferrer" class="bp text-base px-8 py-3 justify-center" style="text-decoration:none;background:linear-gradient(135deg,#059669,#047857)"><i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Excel SIDARJA</a>
 </div>
 <div class="space-y-3">
 <div class="dl-info-item"><div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#ecfdf5"><i class="fa-solid fa-table-cells" style="color:#059669"></i></div><div><div class="text-xs font-bold" style="color:var(--txt)">Sheet "Form Responses 1"</div><div class="text-xs" style="color:var(--muted)">Data utama pasien antrian dialisis</div></div></div>
@@ -472,7 +472,7 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 </div>
 </main>
 
-<!-- ===== SLIDE 3: STATISTIK ===== -->
+<!-- SLIDE 3: STATISTIK -->
 <main id="slide3" style="display:none" class="px-4 sm:px-8 pb-16">
 <div class="max-w-7xl mx-auto">
 <section class="mt-6 fu">
@@ -483,37 +483,14 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 <div class="chart-actions"><button class="chart-act-btn" onclick="saveChartAsImage('chart1','distribusi-status')"><i class="fa-solid fa-download"></i> Simpan Gambar</button></div>
 </div>
 </section>
-
 <section class="mt-6 fu">
 <h3 class="text-sm font-bold mb-4" style="color:var(--b900)"><i class="fa-solid fa-door-open mr-2" style="color:var(--cn)"></i>Statistik Pengambilan Pasien per Ruangan</h3>
 <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 room-stats-grid">
-<div class="room-stat-card rsc-tu">
-<div class="flex items-center gap-4 mb-4">
-<div class="room-stat-icon" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe)"><i class="fa-solid fa-hospital-user" style="color:#2563eb"></i></div>
-<div><div class="room-stat-label">Ruangan</div><div class="text-lg font-black" style="color:#1e40af">Teuku Umar</div></div>
-</div>
-<div class="room-stat-num" style="color:#1e40af" id="rsTu">0</div>
-<div class="room-stat-label mt-1">pasien diambil hari ini</div>
-</div>
-<div class="room-stat-card rsc-ml">
-<div class="flex items-center gap-4 mb-4">
-<div class="room-stat-icon" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0)"><i class="fa-solid fa-hospital-user" style="color:#059669"></i></div>
-<div><div class="room-stat-label">Ruangan</div><div class="text-lg font-black" style="color:#065f46">Malahayati</div></div>
-</div>
-<div class="room-stat-num" style="color:#065f46" id="rsMl">0</div>
-<div class="room-stat-label mt-1">pasien diambil hari ini</div>
-</div>
-<div class="room-stat-card rsc-cnd">
-<div class="flex items-center gap-4 mb-4">
-<div class="room-stat-icon" style="background:linear-gradient(135deg,#fce7f3,#fbcfe8)"><i class="fa-solid fa-hospital-user" style="color:#db2777"></i></div>
-<div><div class="room-stat-label">Ruangan</div><div class="text-lg font-black" style="color:#9d174d">Cut Nyak Dien</div></div>
-</div>
-<div class="room-stat-num" style="color:#9d174d" id="rsCnd">0</div>
-<div class="room-stat-label mt-1">pasien diambil hari ini</div>
-</div>
+<div class="room-stat-card rsc-tu"><div class="flex items-center gap-4 mb-4"><div class="room-stat-icon" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe)"><i class="fa-solid fa-hospital-user" style="color:#2563eb"></i></div><div><div class="room-stat-label">Ruangan</div><div class="text-lg font-black" style="color:#1e40af">Teuku Umar</div></div></div><div class="room-stat-num" style="color:#1e40af" id="rsTu">0</div><div class="room-stat-label mt-1">pasien diambil hari ini</div></div>
+<div class="room-stat-card rsc-ml"><div class="flex items-center gap-4 mb-4"><div class="room-stat-icon" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0)"><i class="fa-solid fa-hospital-user" style="color:#059669"></i></div><div><div class="room-stat-label">Ruangan</div><div class="text-lg font-black" style="color:#065f46">Malahayati</div></div></div><div class="room-stat-num" style="color:#065f46" id="rsMl">0</div><div class="room-stat-label mt-1">pasien diambil hari ini</div></div>
+<div class="room-stat-card rsc-cnd"><div class="flex items-center gap-4 mb-4"><div class="room-stat-icon" style="background:linear-gradient(135deg,#fce7f3,#fbcfe8)"><i class="fa-solid fa-hospital-user" style="color:#db2777"></i></div><div><div class="room-stat-label">Ruangan</div><div class="text-lg font-black" style="color:#9d174d">Cut Nyak Dien</div></div></div><div class="room-stat-num" style="color:#9d174d" id="rsCnd">0</div><div class="room-stat-label mt-1">pasien diambil hari ini</div></div>
 </div>
 </section>
-
 <section class="mt-6 fu">
 <div class="card p-6">
 <h3 class="text-sm font-bold mb-4" style="color:var(--b900)"><i class="fa-solid fa-chart-pie mr-2" style="color:var(--pp)"></i>Distribusi Pengambilan per Ruangan</h3>
@@ -522,40 +499,49 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 <div class="chart-actions"><button class="chart-act-btn" onclick="saveChartAsImage('chart2','distribusi-ruangan')"><i class="fa-solid fa-download"></i> Simpan Gambar</button></div>
 </div>
 </section>
-
 <section class="mt-6 fu">
 <div class="card p-6">
 <h3 class="text-sm font-bold mb-4" style="color:var(--b900)"><i class="fa-solid fa-table mr-2" style="color:var(--pk)"></i>Detail Pengambilan Hari Ini</h3>
 <div class="tw" style="max-height:360px;overflow-y:auto;border-radius:12px;border:1px solid var(--bdr)">
-<table class="dt">
-<thead><tr><th>No</th><th>Nama Pasien</th><th>No RM</th><th>Ruangan</th><th>Waktu Diambil</th><th>Aksi</th></tr></thead>
-<tbody id="pickupDetailBody"></tbody>
-</table>
+<table class="dt"><thead><tr><th>No</th><th>Nama Pasien</th><th>No RM</th><th>Ruangan</th><th>Waktu Diambil</th><th>Aksi</th></tr></thead><tbody id="pickupDetailBody"></tbody></table>
 </div>
-<div id="pickupDetailEmpty" style="display:none" class="text-center py-10">
-<p class="text-sm font-bold" style="color:var(--muted)"><i class="fa-solid fa-clipboard-list mr-2"></i>Belum ada pengambilan pasien hari ini.</p>
-</div>
+<div id="pickupDetailEmpty" style="display:none" class="text-center py-10"><p class="text-sm font-bold" style="color:var(--muted)"><i class="fa-solid fa-clipboard-list mr-2"></i>Belum ada pengambilan pasien hari ini.</p></div>
 </div>
 </section>
 </div>
 </main>
 
 <script>
-/* ============================================================
-   SIDARAJA — Sistem Informasi Antrian Pasien Instalasi Dialisis
-   ============================================================ */
+/*
+ * ============================================================
+ *  SIDARAJA — Frontend Script
+ *  Terintegrasi dengan Google Apps Script backend
+ * ============================================================
+ *
+ *  CARA DEPLOY:
+ *  1. Buka script.google.com, buat project baru
+ *  2. Paste Code.gs di atas
+ *  3. Deploy > New deployment > Web app
+ *     - Execute as: Me
+ *     - Who has access: Anyone
+ *  4. Salin URL deployment, tempel di APPS_SCRIPT_URL di bawah
+ *  5. Jalankan testConnection() sekali di editor Apps Script
+ */
 
-// ============ KONFIGURASI ============
-var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxDummyPlaceholder/exec';
+// ========== GANTI DENGAN URL DEPLOYMENT ANDA ==========
+var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/PASTE_DEPLOYMENT_ID_DISINI/exec';
+
+// ========== KONFIGURASI ==========
 var ROOMS = ['Teuku Umar', 'Malahayati', 'Cut Nyak Dien'];
 var STATUS_LIST = ['menunggu', 'terjadwal', 'hdlain', 'batal', 'meninggal', 'norespon'];
-var STATUS_LABELS = { menunggu: 'Menunggu', terjadwal: 'Terjadwal', hdlain: 'HD Lain', batal: 'Batal', meninggal: 'Meninggal', norespon: 'No Respon', other: 'Lainnya' };
-var STATUS_COLORS = { menunggu: '#3b82f6', terjadwal: '#10b981', hdlain: '#f59e0b', batal: '#ef4444', meninggal: '#6b7280', norespon: '#0891b2', other: '#94a3b8' };
-var ROOM_COLORS = { 'Teuku Umar': '#2563eb', 'Malahayati': '#059669', 'Cut Nyak Dien': '#db2777' };
-var ROOM_SHORT = { 'Teuku Umar': 'TU', 'Malahayati': 'ML', 'Cut Nyak Dien': 'CND' };
+var STATUS_LABELS = { menunggu:'Menunggu', terjadwal:'Terjadwal', hdlain:'HD Lain', batal:'Batal', meninggal:'Meninggal', norespon:'No Respon', other:'Lainnya' };
+var STATUS_COLORS = { menunggu:'#3b82f6', terjadwal:'#10b981', hdlain:'#f59e0b', batal:'#ef4444', meninggal:'#6b7280', norespon:'#0891b2', other:'#94a3b8' };
+var ROOM_COLORS = { 'Teuku Umar':'#2563eb', 'Malahayati':'#059669', 'Cut Nyak Dien':'#db2777' };
+var ROOM_SHORT = { 'Teuku Umar':'TU', 'Malahayati':'ML', 'Cut Nyak Dien':'CND' };
 
-// ============ STATE ============
+// ========== STATE ==========
 var DATA = [];
+var DATA_ROWS = []; // nomor baris sheet (1-indexed, header=1)
 var USERS = [];
 var currentUser = null;
 var currentMode = null;
@@ -565,73 +551,47 @@ var chart1Instance = null;
 var chart2Instance = null;
 var pickups = {};
 var isOnline = false;
+var colMap = {}; // mapping kolom dari header sheet
 
-// ============ DATA SAMPEL (fallback jika sheet tidak terhubung) ============
-var SAMPLE_DATA = [
-  ['2025-01-20 07:30','Ahmad Sudirman','RM-001234','45 Th','Laki-laki','CKD Stage 5','Negatif','HD rutin Senin-Kamis','Menunggu','081234567890',''],
-  ['2025-01-20 07:35','Siti Aminah','RM-001235','52 Th','Perempuan','CKD Stage 5','Positif','HD pertama kali','Menunggu','081234567891',''],
-  ['2025-01-20 07:40','Budi Santoso','RM-001236','38 Th','Laki-laki','CKD Stage 4','Negatif','HD rutin Selasa-Jumat','Terjadwal','081234567892','Teuku Umar'],
-  ['2025-01-20 07:45','Dewi Rahayu','RM-001237','60 Th','Perempuan','CKD Stage 5','Negatif','HD rutin','Terjadwal','081234567893','Malahayati'],
-  ['2025-01-20 07:50','Hasan Basri','RM-001238','55 Th','Laki-laki','Diabetik Nefropati','Positif','HD baru','Menunggu','081234567894',''],
-  ['2025-01-20 07:55','Nur Hidayah','RM-001239','42 Th','Perempuan','CKD Stage 5','Negatif','HD rutin','Menunggu','081234567895',''],
-  ['2025-01-20 08:00','Rizky Pratama','RM-001240','33 Th','Laki-laki','Glomerulonefritis','Negatif','HD lanjutan','Terjadwal','081234567896','Cut Nyak Dien'],
-  ['2025-01-20 08:05','Fatimah Zahra','RM-001241','48 Th','Perempuan','CKD Stage 5','Negatif','HD rutin Senin-Rabu','Menunggu','081234567897',''],
-  ['2025-01-20 08:10','Agus Wijaya','RM-001242','65 Th','Laki-laki','Hipertensi Nefropati','Positif','HD baru','Batal','081234567898',''],
-  ['2025-01-20 08:15','Rina Wulandari','RM-001243','50 Th','Perempuan','CKD Stage 5','Negatif','HD rutin','Terjadwal','081234567899','Teuku Umar'],
-  ['2025-01-20 08:20','Joko Supriyono','RM-001244','70 Th','Laki-laki','CKD Stage 5','Negatif','HD darurat','Meninggal','081234567800',''],
-  ['2025-01-20 08:25','Sri Mulyani','RM-001245','44 Th','Perempuan','CKD Stage 4','Negatif','HD rutin','Menunggu','081234567801',''],
-  ['2025-01-20 08:30','Andi Rahman','RM-001246','57 Th','Laki-laki','Diabetik Nefropati','Positif','HD pindah','HDLain','081234567802','Malahayati'],
-  ['2025-01-20 08:35','Lina Marlina','RM-001247','39 Th','Perempuan','CKD Stage 5','Negatif','HD rutin','NoRespon','081234567803',''],
-  ['2025-01-20 08:40','Dedi Mulyadi','RM-001248','61 Th','Laki-laki','CKD Stage 5','Negatif','HD rutin','Menunggu','081234567804',''],
-  ['2025-01-20 08:45','Yuni Astuti','RM-001249','46 Th','Perempuan','Glomerulonefritis','Negatif','HD pertama','Menunggu','081234567805',''],
-  ['2025-01-20 08:50','Tono Sugiarto','RM-001250','53 Th','Laki-laki','CKD Stage 5','Positif','HD rutin','Terjadwal','081234567806','Cut Nyak Dien'],
-  ['2025-01-20 08:55','Mega Putri','RM-001251','36 Th','Perempuan','CKD Stage 4','Negatif','HD baru','Menunggu','081234567807',''],
-  ['2025-01-20 09:00','Irfan Hakim','RM-001252','58 Th','Laki-laki','Hipertensi Nefropati','Negatif','HD rutin','Terjadwal','081234567808','Teuku Umar'],
-  ['2025-01-20 09:05','Winda Sari','RM-001253','41 Th','Perempuan','CKD Stage 5','Negatif','HD lanjutan','Menunggu','081234567809','']
-];
-
-// ============ INISIALISASI ============
+// ========== INISIALISASI ==========
 document.addEventListener('DOMContentLoaded', function() {
   loadUsers();
   loadPickups();
   checkSession();
   fetchData();
-
   document.getElementById('loginEmail').addEventListener('keydown', function(e) { if (e.key === 'Enter') doPetugasLogin(); });
   document.getElementById('loginPass').addEventListener('keydown', function(e) { if (e.key === 'Enter') doPetugasLogin(); });
   document.getElementById('regPassConfirm').addEventListener('keydown', function(e) { if (e.key === 'Enter') doPetugasRegister(); });
   document.getElementById('pSearchNama').addEventListener('keydown', function(e) { if (e.key === 'Enter') patientSearch(); });
-
   document.addEventListener('click', function(e) {
     var dd = document.getElementById('profileDD');
     var pp = document.getElementById('hdrUserProfile');
-    if (dd && pp && !pp.contains(e.target)) {
-      dd.classList.remove('open');
-      pp.classList.remove('dd-open');
-    }
+    if (dd && pp && !pp.contains(e.target)) {dd.classList.remove('open');
+      pp.classList.remove('dd-open');}
   });
 });
 
-// ============ UTILITAS ============
+// ========== UTILITAS ==========
 function escHtml(s) { var d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
 function escAttr(s) { return (s || '').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function isValidEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
 function getTodayStr() { return new Date().toISOString().split('T')[0]; }
 function nowTimeStr() { return new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }); }
 function getPickupKey(d) { return 'pk_' + (d.norm || '') + '_' + (d.nama || ''); }
+
 function normalizeStatus(s) {
   if (!s) return '';
-  s = s.toString().trim().toLowerCase().replace(/\s+/g, '');
-  if (s === 'hdlain' || s === 'hdlainnya' || s === 'hddilain' || s === 'hdlain.') return 'hdlain';
-  if (s === 'norespon' || s === 'tidakrespon' || s === 'norespon.' || s === 'no respon') return 'norespon';
-  if (s === 'terjadwal' || s === 'terjadwal.') return 'terjadwal';
-  if (s === 'menunggu' || s === 'menunggu.') return 'menunggu';
-  if (s === 'batal' || s === 'batal.') return 'batal';
-  if (s === 'meninggal' || s === 'meninggal.') return 'meninggal';
+  s = s.toString().trim().toLowerCase().replace(/\s+/g,'').replace(/\./g,'');
+  if (s === 'hdlain' || s === 'hdlainnya' || s === 'hddilain') return 'hdlain';
+  if (s === 'norespon' || s === 'tidakrespon' || s === 'norespon') return 'norespon';
+  if (s === 'terjadwal') return 'terjadwal';
+  if (s === 'menunggu') return 'menunggu';
+  if (s === 'batal') return 'batal';
+  if (s === 'meninggal') return 'meninggal';
   return 'other';
 }
 
-// ============ TOAST ============
+// ========== TOAST ==========
 function toast(msg, type) {
   var c = document.getElementById('toastC');
   var cls = type === 's' ? 'tt-s' : type === 'e' ? 'tt-e' : 'tt-i';
@@ -643,65 +603,72 @@ function toast(msg, type) {
   setTimeout(function() { el.classList.add('tt-x'); setTimeout(function() { if (el.parentNode) el.parentNode.removeChild(el); }, 300); }, 3500);
 }
 
-// ============ ERROR / OK BOX ============
-function showErr(id, msg) { var el = document.getElementById(id); el.querySelector('span').textContent = msg; el.classList.add('show'); }
-function hideErr(id) { document.getElementById(id).classList.remove('show'); }
-function showOk(id, msg) { var el = document.getElementById(id); el.querySelector('span').textContent = msg; el.classList.add('show'); }
-function hideOk(id) { document.getElementById(id).classList.remove('show'); }
+// ========== ERROR / OK BOX ==========
+function showErr(id, msg) { var el = document.getElementById(id); if(!el) return; el.querySelector('span').textContent = msg; el.classList.add('show'); }
+function hideErr(id) { var el = document.getElementById(id); if(el) el.classList.remove('show'); }
+function showOk(id, msg) { var el = document.getElementById(id); if(!el) return; el.querySelector('span').textContent = msg; el.classList.add('show'); }
+function hideOk(id) { var el = document.getElementById(id); if(el) el.classList.remove('show'); }
 
-// ============ KONEKSI STATUS ============
+// ========== KONEKSI STATUS ==========
 function setConnStatus(s) {
-  var dot = document.getElementById('connDot');
-  var lbl = document.getElementById('connLabel');
-  var ld = document.getElementById('connDotLogin');
-  var ll = document.getElementById('connLabelLogin');
-  var obh = document.getElementById('offlineBadgeHeader');
-  var obl = document.getElementById('offlineBadgeLogin');
-
+  var dot = document.getElementById('connDot'), lbl = document.getElementById('connLabel');
+  var ld = document.getElementById('connDotLogin'), ll = document.getElementById('connLabelLogin');
+  var obh = document.getElementById('offlineBadgeHeader'), obl = document.getElementById('offlineBadgeLogin');
   if (s === 'ok') {
-    if (dot) { dot.className = 'conn-dot conn-ok'; }
-    if (lbl) { lbl.textContent = 'ONLINE'; lbl.style.color = '#6ee7b7'; }
-    if (ld) { ld.className = 'conn-dot conn-ok'; }
-    if (ll) { ll.textContent = 'Terhubung'; ll.style.color = '#059669'; }
-    if (obh) obh.classList.remove('show');
-    if (obl) obl.classList.remove('show');
+    if(dot){dot.className='conn-dot conn-ok';} if(lbl){lbl.textContent='ONLINE';lbl.style.color='#6ee7b7';}
+    if(ld){ld.className='conn-dot conn-ok';} if(ll){ll.textContent='Terhubung';ll.style.color='#059669';}
+    if(obh) obh.classList.remove('show'); if(obl) obl.classList.remove('show');
   } else if (s === 'fail') {
-    if (dot) { dot.className = 'conn-dot conn-fail'; }
-    if (lbl) { lbl.textContent = 'OFFLINE (LOKAL)'; lbl.style.color = '#fca5a5'; }
-    if (ld) { ld.className = 'conn-dot conn-fail'; }
-    if (ll) { ll.textContent = 'Mode Lokal (Data Sampel)'; ll.style.color = '#dc2626'; }
-    if (obh) obh.classList.add('show');
-    if (obl) obl.classList.add('show');
+    if(dot){dot.className='conn-dot conn-fail';} if(lbl){lbl.textContent='OFFLINE (LOKAL)';lbl.style.color='#fca5a5';}
+    if(ld){ld.className='conn-dot conn-fail';} if(ll){ll.textContent='Mode Lokal';ll.style.color='#dc2626';}
+    if(obh) obh.classList.add('show'); if(obl) obl.classList.add('show');
   } else {
-    if (dot) { dot.className = 'conn-dot conn-load'; }
-    if (lbl) { lbl.textContent = 'MEMUAT'; lbl.style.color = '#93c5fd'; }
-    if (ld) { ld.className = 'conn-dot conn-load'; }
-    if (ll) { ll.textContent = 'Menghubungkan...'; ll.style.color = 'var(--muted)'; }
-    if (obh) obh.classList.remove('show');
-    if (obl) obl.classList.remove('show');
+    if(dot){dot.className='conn-dot conn-load';} if(lbl){lbl.textContent='MEMUAT';lbl.style.color='#93c5fd';}
+    if(ld){ld.className='conn-dot conn-load';} if(ll){ll.textContent='Menghubungkan...';ll.style.color='var(--muted)';}
+    if(obh) obh.classList.remove('show'); if(obl) obl.classList.remove('show');
   }
 }
 
-// ============ LOCALSTORAGE: USERS ============
+// ========== LOCALSTORAGE ==========
 function saveUsers() { try { localStorage.setItem('sidaraja_users', JSON.stringify(USERS)); } catch(e) {} }
 function loadUsers() { try { var d = localStorage.getItem('sidaraja_users'); USERS = d ? JSON.parse(d) : []; } catch(e) { USERS = []; } }
-
-// ============ LOCALSTORAGE: PICKUPS ============
 function savePickups() { try { localStorage.setItem('sidaraja_pickups', JSON.stringify(pickups)); } catch(e) {} }
 function loadPickups() {
   try {
     var d = localStorage.getItem('sidaraja_pickups');
     pickups = d ? JSON.parse(d) : {};
-    // Hapus pickup yang bukan hari ini
     var today = getTodayStr();
     var keys = Object.keys(pickups);
     for (var i = 0; i < keys.length; i++) {
-      if (pickups[keys[i]].date !== today) { delete pickups[keys[i]]; }
+      if (pickups[keys[i]].date !== today) delete pickups[keys[i]];
     }
   } catch(e) { pickups = {}; }
 }
 
-// ============ AUTH: MODE SELECTION ============
+// ========== API CALL (TERINTEGRASI APPS SCRIPT) ==========
+function apiCall(action, params) {
+  var url = APPS_SCRIPT_URL;
+  var p = new URLSearchParams();
+  p.append('action', action);
+  if (params) {
+    for (var key in params) {
+      if (params.hasOwnProperty(key)) p.append(key, params[key]);
+    }
+  }
+  url += '?' + p.toString();
+
+  return fetch(url, { redirect: 'follow' })
+    .then(function(r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .catch(function(err) {
+      console.warn('API [' + action + '] gagal:', err.message);
+      return { ok: false, msg: 'Offline / Gagal terhubung' };
+    });
+}
+
+// ========== AUTH: MODE & TAB ==========
 function selectMode(mode) {
   document.getElementById('modeAdmin').className = 'mode-card' + (mode === 'admin' ? ' sel-admin' : '');
   document.getElementById('modeUser').className = 'mode-card' + (mode === 'user' ? ' sel-user' : '');
@@ -714,9 +681,7 @@ function switchAuthTab(tab) {
   document.getElementById('authTabRegister').className = 'auth-tab' + (tab === 'register' ? ' active' : '');
   document.getElementById('authLoginForm').style.display = tab === 'login' ? 'block' : 'none';
   document.getElementById('authRegisterForm').style.display = tab === 'register' ? 'block' : 'none';
-  hideErr('loginError');
-  hideErr('regError');
-  hideOk('regOk');
+  hideErr('loginError'); hideErr('regError'); hideOk('regOk');
 }
 
 function togglePassVis(inputId, btn) {
@@ -726,32 +691,47 @@ function togglePassVis(inputId, btn) {
   else { inp.type = 'password'; ico.className = 'fa-solid fa-eye'; }
 }
 
-// ============ AUTH: LOGIN PETUGAS ============
+// ========== AUTH: LOGIN PETUGAS ==========
 function doPetugasLogin() {
   hideErr('loginError');
   var email = document.getElementById('loginEmail').value.trim();
   var pass = document.getElementById('loginPass').value;
-
   if (!email) { showErr('loginError', 'Email wajib diisi.'); return; }
   if (!isValidEmail(email)) { showErr('loginError', 'Format email tidak valid.'); return; }
   if (!pass) { showErr('loginError', 'Kata sandi wajib diisi.'); return; }
 
-  var user = null;
-  for (var i = 0; i < USERS.length; i++) {
-    if (USERS[i].email === email && USERS[i].pass === pass) { user = USERS[i]; break; }
-  }
-  if (!user) { showErr('loginError', 'Email atau kata sandi salah. Silakan coba lagi.'); return; }
+  var btn = document.getElementById('btnLogin');
+  btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Memverifikasi...';
 
-  currentUser = user;
-  currentMode = 'admin';
-  localStorage.setItem('sidaraja_session', JSON.stringify({ email: email, mode: 'admin' }));
-  enterApp();
+  // Coba login via server, fallback ke lokal
+  apiCall('login', { email: email, pass: pass }).then(function(res) {
+    btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Masuk sebagai Petugas';
+    
+    if (res.ok && res.user) {
+      currentUser = { nama: res.user.nama, email: res.user.email, date: res.user.created ? new Date(res.user.created).toLocaleDateString('id-ID', {day:'numeric',month:'long',year:'numeric'}) : '-', photo: res.user.photo || '' };
+      currentMode = 'admin';
+      localStorage.setItem('sidaraja_session', JSON.stringify({ email: email, mode: 'admin' }));
+      enterApp();
+    } else {
+      // Fallback lokal
+      var user = null;
+      for (var i = 0; i < USERS.length; i++) {
+        if (USERS[i].email === email && USERS[i].pass === pass) { user = USERS[i]; break; }
+      }
+      if (user) {
+        currentUser = user; currentMode = 'admin';
+        localStorage.setItem('sidaraja_session', JSON.stringify({ email: email, mode: 'admin' }));
+        enterApp();
+      } else {
+        showErr('loginError', 'Email atau kata sandi salah.');
+      }
+    }
+  });
 }
 
-// ============ AUTH: REGISTER PETUGAS ============
+// ========== AUTH: REGISTER PETUGAS ==========
 function doPetugasRegister() {
-  hideErr('regError');
-  hideOk('regOk');
+  hideErr('regError'); hideOk('regOk');
   var nama = document.getElementById('regNama').value.trim();
   var email = document.getElementById('regEmail').value.trim();
   var pass = document.getElementById('regPass').value;
@@ -764,51 +744,45 @@ function doPetugasRegister() {
   if (pass.length < 6) { showErr('regError', 'Kata sandi minimal 6 karakter.'); return; }
   if (pass !== pass2) { showErr('regError', 'Konfirmasi kata sandi tidak cocok.'); return; }
 
-  for (var i = 0; i < USERS.length; i++) {
-    if (USERS[i].email === email) { showErr('regError', 'Email sudah terdaftar. Silakan masuk.'); return; }
-  }
-
   document.getElementById('regLoading').className = 'loading-bar show';
   document.getElementById('btnRegister').disabled = true;
 
-  setTimeout(function() {
-    var newUser = {
-      nama: nama,
-      email: email,
-      pass: pass,
-      date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }),
-      photo: ''
-    };
-    USERS.push(newUser);
-    saveUsers();
-
+  // Coba kirim ke server
+  apiCall('register', { nama: nama, email: email, pass: pass }).then(function(res) {
     document.getElementById('regLoading').className = 'loading-bar';
     document.getElementById('btnRegister').disabled = false;
-    showOk('regOk', 'Pendaftaran berhasil! Silakan masuk dengan akun Anda.');
-    document.getElementById('regNama').value = '';
-    document.getElementById('regEmail').value = '';
-    document.getElementById('regPass').value = '';
-    document.getElementById('regPassConfirm').value = '';
 
-    setTimeout(function() { switchAuthTab('login'); }, 1500);
-  }, 1200);
+    if (res.ok) {
+      showOk('regOk', 'Pendaftaran berhasil! Silakan masuk.');
+      document.getElementById('regNama').value = ''; document.getElementById('regEmail').value = '';
+      document.getElementById('regPass').value = ''; document.getElementById('regPassConfirm').value = '';
+      setTimeout(function() { switchAuthTab('login'); }, 1500);
+    } else {
+      // Fallback simpan lokal
+      for (var i = 0; i < USERS.length; i++) {
+        if (USERS[i].email === email) { showErr('regError', 'Email sudah terdaftar.'); return; }
+      }
+      USERS.push({ nama: nama, email: email, pass: pass, date: new Date().toLocaleDateString('id-ID', {day:'numeric',month:'long',year:'numeric'}), photo: '' });
+      saveUsers();
+      showOk('regOk', 'Pendaftaran berhasil (lokal)! Silakan masuk.');
+      document.getElementById('regNama').value = ''; document.getElementById('regEmail').value = '';
+      document.getElementById('regPass').value = ''; document.getElementById('regPassConfirm').value = '';
+      setTimeout(function() { switchAuthTab('login'); }, 1500);
+    }
+  });
 }
 
-// ============ AUTH: LOGIN USER (PASIEN) ============
+// ========== AUTH: LOGIN USER & LOGOUT ==========
 function doUserLogin() {
-  currentMode = 'user';
-  currentUser = { nama: 'Pasien', email: '' };
+  currentMode = 'user'; currentUser = { nama: 'Pasien', email: '' };
   localStorage.setItem('sidaraja_session', JSON.stringify({ mode: 'user' }));
   enterApp();
 }
 
-// ============ AUTH: LOGOUT ============
 function doLogout() {
-  currentUser = null;
-  currentMode = null;
+  currentUser = null; currentMode = null;
   localStorage.removeItem('sidaraja_session');
   closeProfileDD();
-
   document.getElementById('loginOverlay').style.display = 'flex';
   document.getElementById('mainHeader').style.display = 'none';
   document.getElementById('navTabsWrap').style.display = 'none';
@@ -816,39 +790,29 @@ function doLogout() {
   document.getElementById('slide1').style.display = 'none';
   document.getElementById('slide2').style.display = 'none';
   document.getElementById('slide3').style.display = 'none';
-
-  document.getElementById('loginEmail').value = '';
-  document.getElementById('loginPass').value = '';
-  hideErr('loginError');
-  selectMode('');
-  switchAuthTab('login');
+  document.getElementById('loginEmail').value = ''; document.getElementById('loginPass').value = '';
+  hideErr('loginError'); selectMode(''); switchAuthTab('login');
 }
 
-// ============ SESSION CHECK ============
+// ========== SESSION CHECK ==========
 function checkSession() {
   try {
     var s = JSON.parse(localStorage.getItem('sidaraja_session'));
     if (s && s.mode === 'admin' && s.email) {
       for (var i = 0; i < USERS.length; i++) {
-        if (USERS[i].email === s.email) {
-          currentUser = USERS[i];
-          currentMode = 'admin';
-          enterApp();
-          return;
-        }
+        if (USERS[i].email === s.email) { currentUser = USERS[i]; currentMode = 'admin'; enterApp(); return; }
       }
+      // Jika belum ada di lokal, tetap set mode admin (akan cek fetch nanti)
+      currentUser = { nama: s.email.split('@')[0], email: s.email, date: '-', photo: '' };
+      currentMode = 'admin'; enterApp(); return;
     }
-    if (s && s.mode === 'user') {
-      doUserLogin();
-      return;
-    }
-  } catch(e) { /* abaikan parse error */ }
+    if (s && s.mode === 'user') { doUserLogin(); return; }
+  } catch(e) {}
 }
 
-// ============ MASUK APLIKASI ============
+// ========== MASUK APLIKASI ==========
 function enterApp() {
   document.getElementById('loginOverlay').style.display = 'none';
-
   if (currentMode === 'admin') {
     document.getElementById('mainHeader').style.display = 'flex';
     document.getElementById('mainHeader').className = 'hdr grad-admin';
@@ -860,8 +824,7 @@ function enterApp() {
     document.getElementById('neonRegWrap').className = 'neon-reg-wrap show';
     document.getElementById('mainTitle').innerHTML = 'Daftar Antri<br><span style="background:linear-gradient(135deg,#6ee7b7,#34d399,#10b981);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Pasien Instalasi Dialisis RSSA</span>';
     document.getElementById('headerDesc').textContent = 'Kelola pengambilan pasien dan status antrian dialisis.';
-    updateAdminProfile();
-    switchSlide(1);
+    updateAdminProfile(); switchSlide(1);
   } else {
     document.getElementById('mainHeader').style.display = 'flex';
     document.getElementById('mainHeader').className = 'hdr grad-patient';
@@ -890,25 +853,12 @@ function updateAdminProfile() {
   document.getElementById('profileDDEmail').textContent = currentUser.email;
 }
 
-// ============ PROFIL DROPDOWN & MODAL ============
-function toggleProfileDD(e) {
-  if (e) e.stopPropagation();
-  var dd = document.getElementById('profileDD');
-  var pp = document.getElementById('hdrUserProfile');
-  dd.classList.toggle('open');
-  pp.classList.toggle('dd-open');
-}
-
-function closeProfileDD() {
-  var dd = document.getElementById('profileDD');
-  var pp = document.getElementById('hdrUserProfile');
-  if (dd) dd.classList.remove('open');
-  if (pp) pp.classList.remove('dd-open');
-}
+// ========== PROFIL ==========
+function toggleProfileDD(e) { if(e) e.stopPropagation(); var dd=document.getElementById('profileDD'),pp=document.getElementById('hdrUserProfile'); dd.classList.toggle('open'); pp.classList.toggle('dd-open'); }
+function closeProfileDD() { var dd=document.getElementById('profileDD'),pp=document.getElementById('hdrUserProfile'); if(dd) dd.classList.remove('open'); if(pp) pp.classList.remove('dd-open'); }
 
 function openProfileModal() {
-  closeProfileDD();
-  if (!currentUser) return;
+  closeProfileDD(); if (!currentUser) return;
   document.getElementById('profileNama').value = currentUser.nama;
   document.getElementById('profileEmail').value = currentUser.email;
   document.getElementById('profileDate').value = currentUser.date || '-';
@@ -926,14 +876,10 @@ function openProfileModal() {
   }
   document.getElementById('profileModal').style.display = 'flex';
 }
-
-function closeProfileModal() {
-  document.getElementById('profileModal').style.display = 'none';
-}
+function closeProfileModal() { document.getElementById('profileModal').style.display = 'none'; }
 
 function handlePhotoUpload(e) {
-  var file = e.target.files[0];
-  if (!file) return;
+  var file = e.target.files[0]; if (!file) return;
   if (file.size > 2 * 1024 * 1024) { toast('Ukuran foto maks 2MB', 'e'); return; }
   var reader = new FileReader();
   reader.onload = function(ev) {
@@ -954,81 +900,58 @@ function saveProfile() {
   currentUser.nama = nama;
   if (currentUser._tempPhoto) { currentUser.photo = currentUser._tempPhoto; delete currentUser._tempPhoto; }
   saveUsers();
-  updateAdminProfile();
-  closeProfileModal();
-  toast('Profil berhasil diperbarui', 's');
+  // Sync ke server
+  apiCall('updateProfile', { email: currentUser.email, nama: nama, photo: currentUser.photo || '' });
+  updateAdminProfile(); closeProfileModal(); toast('Profil berhasil diperbarui', 's');
 }
 
-// ============ NAVIGASI TAB ============
+// ========== NAVIGASI ==========
 function switchSlide(n) {
   currentSlide = n;
   for (var i = 1; i <= 3; i++) {
-    var tab = document.getElementById('tab' + i);
-    var slide = document.getElementById('slide' + i);
+    var tab = document.getElementById('tab' + i), slide = document.getElementById('slide' + i);
     if (!tab || !slide) continue;
-    if (i === n) {
-      tab.className = 'nav-tab active';
-      slide.style.display = 'block';
-    } else {
-      tab.className = 'nav-tab';
-      slide.style.display = 'none';
-    }
+    tab.className = (i === n) ? 'nav-tab active' : 'nav-tab';
+    slide.style.display = (i === n) ? 'block' : 'none';
   }
   if (n === 1) renderDashTable();
   if (n === 3) renderStatistik();
 }
 
-// ============ STATUS CARD CLICK ============
 function clickStatusCard(key) {
   selectedStatus = key;
   var cards = document.querySelectorAll('#statusCards .stc');
   for (var i = 0; i < cards.length; i++) {
-    if (cards[i].getAttribute('data-key') === key) cards[i].classList.add('sel');
-    else cards[i].classList.remove('sel');
+    cards[i].classList.toggle('sel', cards[i].getAttribute('data-key') === key);
   }
-  var label = key === 'all' ? '(Semua Data)' : '(' + (STATUS_LABELS[key] || key) + ')';
-  document.getElementById('filterLabel').textContent = label;
+  document.getElementById('filterLabel').textContent = key === 'all' ? '(Semua Data)' : '(' + (STATUS_LABELS[key] || key) + ')';
   renderDashTable();
 }
 
-// ============ DATA FETCHING ============
+// ========== DATA FETCHING ==========
 function fetchData() {
   setConnStatus('load');
-  fetch(APPS_SCRIPT_URL, { mode: 'cors' })
-    .then(function(r) {
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      return r.json();
-    })
-    .then(function(json) {
+  apiCall('getPatients', {}).then(function(res) {
+    if (res.ok && res.data && res.data.length > 0) {
       isOnline = true;
       setConnStatus('ok');
-      if (Array.isArray(json)) {
-        parseRawData(json);
-      } else if (json && json.data && Array.isArray(json.data)) {
-        parseRawData(json.data);
-        if (json.users && Array.isArray(json.users)) {
-          USERS = json.users.map(function(u) {
-            return { nama: (u[0]||'').toString(), email: (u[1]||'').toString(), pass: (u[2]||'').toString(), date: (u[3]||'').toString(), photo: (u[4]||'').toString() };
-          });
-          saveUsers();
-        }
-      } else {
-        parseRawData(SAMPLE_DATA);
-      }
-      onDataReady();
-    })
-    .catch(function(err) {
-      console.warn('Fetch gagal, menggunakan data lokal:', err.message);
+      DATA_ROWS = res.rows || [];
+      parseRawData(res.data);
+    } else {
       isOnline = false;
       setConnStatus('fail');
-      parseRawData(SAMPLE_DATA);
-      onDataReady();
-    });
+      DATA = []; DATA_ROWS = [];
+    }
+    onDataReady();
+  });
 }
 
 function refreshData() {
   var ico = document.getElementById('refreshIcon');
   if (ico) { ico.style.animation = 'spin .6s linear'; setTimeout(function() { ico.style.animation = ''; }, 600); }
+  // Reset pickup lokal saat refresh agar sync dengan sheet
+  pickups = {};
+  savePickups();
   fetchData();
 }
 
@@ -1036,28 +959,52 @@ function parseRawData(raw) {
   DATA = [];
   if (!raw || !raw.length) return;
   var startIdx = 0;
-  if (raw.length > 0 && raw[0] && raw[0].length > 5 && typeof raw[0][1] === 'string' && (raw[0][1].toLowerCase().indexOf('nama') >= 0 || raw[0][1].toLowerCase().indexOf('name') >= 0)) {
+  // Deteksi header di baris 0
+  if (raw[0] && raw[0].length > 3 && typeof raw[0][1] === 'string' && (raw[0][1].toLowerCase().indexOf('nama') >= 0 || raw[0][1].toLowerCase().indexOf('name') >= 0)) {
     startIdx = 1;
+    // Mapping kolom
+    colMap = {};
+    for (var h = 0; h < raw[0].length; h++) {
+      if (raw[0][h]) colMap[String(raw[0][h]).trim().toUpperCase()] = h;
+    }
   }
+  
   for (var i = startIdx; i < raw.length; i++) {
     var r = raw[i];
-    if (!r || !r[1] || !r[1].toString().trim()) continue;
-    var status = normalizeStatus(r[8]);
-    DATA.push({
+    if (!r || !r[1] || !String(r[1]).trim()) continue;
+    
+    var ruangan = (r[colMap['RUANGAN']] !== undefined) ? String(r[colMap['RUANGAN']] || '').trim() : '';
+    var aksi = (r[colMap['AKSI']] !== undefined) ? String(r[colMap['AKSI']] || '').trim().toUpperCase() : '';
+    var pengambilan = (r[colMap['PENGAMBILAN']] !== undefined) ? String(r[colMap['PENGAMBILAN']] || '').trim() : '';
+    var status = normalizeStatus(r[colMap['STATUS']] || r[8]);
+
+    var obj = {
       idx: DATA.length,
-      timestamp: (r[0] || '').toString(),
-      nama: (r[1] || '').toString().trim(),
-      norm: (r[2] || '').toString().trim(),
-      umur: (r[3] || '').toString().trim(),
-      jk: (r[4] || '').toString().trim(),
-      diagnosa: (r[5] || '').toString().trim(),
-      hbsag: (r[6] || '').toString().trim(),
-      keterangan: (r[7] || '').toString().trim(),
+      timestamp: String(r[0] || ''),
+      nama: String(r[1] || '').trim(),
+      norm: String(r[2] || '').trim(),
+      umur: String(r[3] || '').trim(),
+      jk: String(r[4] || '').trim(),
+      diagnosa: String(r[5] || '').trim(),
+      hbsag: String(r[6] || '').trim(),
+      keterangan: String(r[7] || '').trim(),
       status: status,
-      nohp: (r[9] || '').toString().trim(),
-      ruangan: (r[10] || '').toString().trim()
-    });
+      nohp: String(r[9] || '').trim(),
+      ruangan: ruangan,
+      aksi: aksi,
+      pengambilan: pengambilan
+    };
+
+    // Sinkronisasi pickup lokal dengan data sheet
+    if (aksi === 'SUDAH' && pengambilan) {
+      var pk = getPickupKey(obj);
+      if (!pickups[pk]) {
+        pickups[pk] = { room: ruangan, time: pengambilan.split(' ')[1] || pengambilan, date: getTodayStr(), nama: obj.nama, norm: obj.norm };
+      }
+    }
+    DATA.push(obj);
   }
+  savePickups();
 }
 
 function onDataReady() {
@@ -1066,14 +1013,18 @@ function onDataReady() {
   if (currentMode === 'admin') renderDashTable();
   if (currentMode === 'user') renderPatientStats();
   if (currentSlide === 3) renderStatistik();
-
+  
+  // Visitor counter
   var vc = parseInt(localStorage.getItem('sidaraja_visitors') || '0') + 1;
   localStorage.setItem('sidaraja_visitors', vc.toString());
   document.getElementById('visitorCount').textContent = vc;
   document.getElementById('visitorBadge').style.display = 'flex';
+  
+  // Sync visitor ke server
+  apiCall('visitor', {});
 }
 
-// ============ RENDER: STATUS CARDS ============
+// ========== RENDER: STATUS CARDS ==========
 function renderStatusCards() {
   var counts = getStatusCounts();
   document.getElementById('scMenunggu').textContent = counts.menunggu || 0;
@@ -1086,16 +1037,11 @@ function renderStatusCards() {
 }
 
 function getStatusCounts() {
-  var c = { menunggu: 0, terjadwal: 0, hdlain: 0, batal: 0, meninggal: 0, norespon: 0, other: 0 };
-  for (var i = 0; i < DATA.length; i++) {
-    var s = DATA[i].status;
-    if (c[s] !== undefined) c[s]++;
-    else c.other++;
-  }
+  var c = { menunggu:0, terjadwal:0, hdlain:0, batal:0, meninggal:0, norespon:0, other:0 };
+  for (var i = 0; i < DATA.length; i++) { var s = DATA[i].status; if (c[s] !== undefined) c[s]++; else c.other++; }
   return c;
 }
 
-// ============ BADGE HELPERS ============
 function getStatusBadge(status) {
   var label = STATUS_LABELS[status] || status || 'Lainnya';
   var cls = 'badge badge-' + status;
@@ -1111,502 +1057,272 @@ function getHbsAgBadge(val) {
   return '<span class="badge badge-hbsag-other">' + escHtml(val) + '</span>';
 }
 
-// ============ RENDER: DASHBOARD TABLE (Pengambilan Pasien) ============
+// ========== RENDER: DASHBOARD TABLE ==========
 function renderDashTable() {
   var tbody = document.getElementById('dashBody');
   var emptyEl = document.getElementById('dashEmpty');
   var countEl = document.getElementById('dashCount');
 
-  var filtered = selectedStatus === 'all' ? DATA : [];
-  if (selectedStatus !== 'all') {
-    for (var i = 0; i < DATA.length; i++) {
-      if (DATA[i].status === selectedStatus) filtered.push(DATA[i]);
-    }
+  var filtered = [];
+  for (var i = 0; i < DATA.length; i++) {
+    if (selectedStatus === 'all' || DATA[i].status === selectedStatus) filtered.push(DATA[i]);
   }
-
   countEl.textContent = filtered.length + ' pasien';
 
-  if (filtered.length === 0) {
-    tbody.innerHTML = '';
-    emptyEl.style.display = 'block';
-    return;
-  }
+  if (filtered.length === 0) { tbody.innerHTML = ''; emptyEl.style.display = 'block'; return; }
   emptyEl.style.display = 'none';
 
   var html = '';
   for (var j = 0; j < filtered.length; j++) {
     var d = filtered[j];
-    var rowClass = d.status ? 'row-' + d.status : 'row-other';
-    var statusBadge = getStatusBadge(d.status);
-    var hbsagBadge = getHbsAgBadge(d.hbsag);
+    var rowIdx = DATA_ROWS[j] || (d.idx + 2); // +2 karena header=1
     var pk = getPickupKey(d);
     var pickupInfo = pickups[pk];
-    var roomSel = buildRoomSelect(d, pk);
-    var statusSel = buildStatusSelect(d);
-    var pickupCell = buildPickupCell(d, pk, pickupInfo);
-    var contactCell = buildContactCell(d);
+    var rowClass = d.status ? 'row-' + d.status : 'row-other';
 
     html += '<tr class="' + rowClass + '">';
     html += '<td class="font-bold" style="color:var(--txt)">' + (j + 1) + '</td>';
-    html += '<td class="font-bold" style="color:var(--txt);max-width:150px" title="' + escAttr(d.nama) + '">' + escHtml(d.nama) + '</td>';
+    html += '<td class="font-bold" style="color:var(--txt);max-width:140px" title="' + escAttr(d.nama) + '">' + escHtml(d.nama) + '</td>';
     html += '<td>' + escHtml(d.norm) + '</td>';
     html += '<td>' + escHtml(d.umur) + '</td>';
-    html += '<td>' + hbsagBadge + '</td>';
-    html += '<td>' + roomSel + '</td>';
-    html += '<td>' + statusSel + '</td>';
-    html += '<td>' + pickupCell + '</td>';
-    html += '<td>' + contactCell + '</td>';
+    html += '<td>' + getHbsAgBadge(d.hbsag) + '</td>';
+    html += '<td>' + buildRoomSelect(d, pk, rowIdx) + '</td>';
+    html += '<td>' + buildStatusSelect(d, rowIdx) + '</td>';
+    html += '<td>' + buildPickupCell(d, pk, pickupInfo, rowIdx) + '</td>';
+    html += '<td>' + buildContactCell(d) + '</td>';
     html += '</tr>';
   }
   tbody.innerHTML = html;
 }
 
-// ============ BUILD: ROOM SELECT ============
-function buildRoomSelect(d, pk) {
+function buildRoomSelect(d, pk, rowIdx) {
   var cur = d.ruangan || '';
   if (pickups[pk] && pickups[pk].room) cur = pickups[pk].room;
   var dis = pickups[pk] ? ' disabled' : '';
-  var html = '<select class="aksi-dd dd-room" data-pk="' + escAttr(pk) + '" onchange="onRoomChange(this)"' + dis + ' style="min-width:110px">';
-  html += '<option value="">-- Ruangan --</option>';
-  for (var i = 0; i < ROOMS.length; i++) {
-    var sel = ROOMS[i] === cur ? ' selected' : '';
-    html += '<option value="' + escAttr(ROOMS[i]) + '"' + sel + '>' + escHtml(ROOMS[i]) + '</option>';
-  }
-  html += '</select>';
-  return html;
+  var h = '<select class="aksi-dd dd-room" data-row="' + rowIdx + '" onchange="onRoomChange(this)"' + dis + ' style="min-width:110px">';
+  h += '<option value="">-- Ruangan --</option>';
+  for (var i = 0; i < ROOMS.length; i++) { h += '<option value="' + escAttr(ROOMS[i]) + '"' + (ROOMS[i] === cur ? ' selected' : '') + '>' + escHtml(ROOMS[i]) + '</option>'; }
+  h += '</select>'; return h;
 }
 
-// ============ BUILD: STATUS SELECT ============
-function buildStatusSelect(d) {
+function buildStatusSelect(d, rowIdx) {
   var cur = d.status || '';
-  var html = '<select class="aksi-dd dd-status" data-norm="' + escAttr(d.norm) + '" data-nama="' + escAttr(d.nama) + '" onchange="onStatusChange(this)" style="min-width:110px">';
-  html += '<option value="">-- Status --</option>';
+  var h = '<select class="aksi-dd dd-status" data-row="' + rowIdx + '" onchange="onStatusChange(this)" style="min-width:105px">';
+  h += '<option value="">-- Status --</option>';
   var keys = ['menunggu', 'terjadwal', 'hdlain', 'batal', 'meninggal', 'norespon'];
-  for (var i = 0; i < keys.length; i++) {
-    var sel = keys[i] === cur ? ' selected' : '';
-    html += '<option value="' + keys[i] + '"' + sel + '>' + escHtml(STATUS_LABELS[keys[i]]) + '</option>';
-  }
-  html += '</select>';
-  return html;
+  for (var i = 0; i < keys.length; i++) { h += '<option value="' + keys[i] + '"' + (keys[i] === cur ? ' selected' : '') + '>' + escHtml(STATUS_LABELS[keys[i]]) + '</option>'; }
+  h += '</select>'; return h;
 }
 
-// ============ BUILD: PICKUP CELL ============
-function buildPickupCell(d, pk, info) {
+function buildPickupCell(d, pk, info, rowIdx) {
   if (info) {
-    var roomLabel = info.room ? ' — ' + info.room : '';
     var h = '<div class="pickup-cell">';
     h += '<span class="pickup-badge"><i class="fa-solid fa-circle-check"></i> ' + escHtml(ROOM_SHORT[info.room] || info.room || 'Diambil') + '</span>';
-    h += '<span class="pickup-time"><i class="fa-regular fa-clock"></i> ' + escHtml(info.time) + roomLabel + '</span>';
-    h += '<button class="pickup-cancel-btn" onclick="cancelPickup(\'' + escAttr(pk) + '\')"><i class="fa-solid fa-xmark"></i> Batal</button>';
-    h += '</div>';
-    return h;
+    h += '<span class="pickup-time"><i class="fa-regular fa-clock"></i> ' + escHtml(info.time) + '</span>';
+    h += '<button class="pickup-cancel-btn" onclick="cancelPickup(' + rowIdx + ',\'' + escAttr(pk) + '\')"><i class="fa-solid fa-xmark"></i> Batal</button>';
+    h += '</div>'; return h;
   }
-  var h = '<div class="pickup-cell">';
-  h += '<button class="pickup-btn" onclick="doPickup(\'' + escAttr(pk) + '\')"><i class="fa-solid fa-hand-pointer"></i> Ambil Pasien</button>';
-  h += '</div>';
-  return h;
+  return '<div class="pickup-cell"><button class="pickup-btn" onclick="doPickup(' + rowIdx + ',\'' + escAttr(pk) + '\')"><i class="fa-solid fa-hand-pointer"></i> Ambil Pasien</button></div>';
 }
 
-// ============ BUILD: CONTACT CELL ============
 function buildContactCell(d) {
-  var hp = d.nohp || '';
-  if (!hp) return '<span style="color:var(--muted);font-size:11px">-</span>';
+  var hp = d.nohp || ''; if (!hp) return '<span style="color:var(--muted);font-size:11px">-</span>';
   var clean = hp.replace(/[^0-9+]/g, '');
-  var h = '<div style="display:flex;gap:3px;flex-wrap:wrap">';
-  h += '<a href="https://wa.me/' + clean + '" target="_blank" rel="noopener" class="contact-btn contact-btn-wa" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>';
-  h += '<a href="sms:' + clean + '" class="contact-btn contact-btn-sms" title="SMS"><i class="fa-solid fa-comment-sms"></i></a>';
-  h += '<a href="tel:' + clean + '" class="contact-btn contact-btn-call" title="Telepon"><i class="fa-solid fa-phone"></i></a>';
-  h += '</div>';
-  return h;
+  return '<div style="display:flex;gap:3px;flex-wrap:wrap">' +
+    '<a href="https://wa.me/' + clean + '" target="_blank" rel="noopener" class="contact-btn contact-btn-wa" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>' +
+    '<a href="sms:' + clean + '" class="contact-btn contact-btn-sms" title="SMS"><i class="fa-solid fa-comment-sms"></i></a>' +
+    '<a href="tel:' + clean + '" class="contact-btn contact-btn-call" title="Telepon"><i class="fa-solid fa-phone"></i></a></div>';
 }
 
-// ============ AKSI: ROOM CHANGE ============
-function onRoomChange(sel) {
-  var pk = sel.getAttribute('data-pk');
-  var room = sel.value;
-  // Cari data pasien dan update ruangan
-  for (var i = 0; i < DATA.length; i++) {
-    if (getPickupKey(DATA[i]) === pk) {
-      DATA[i].ruangan = room;
-      break;
-    }
-  }
-}
-
-// ============ AKSI: STATUS CHANGE ============
+// ========== AKSI: UPDATE STATUS / RUANGAN / PICKUP ==========
 function onStatusChange(sel) {
-  var norm = sel.getAttribute('data-norm');
-  var nama = sel.getAttribute('data-nama');
-  var newStatus = sel.value;
-  for (var i = 0; i < DATA.length; i++) {
-    if (DATA[i].norm === norm && DATA[i].nama === nama) {
-      DATA[i].status = normalizeStatus(newStatus);
-      break;
-    }
-  }
+  var rowIdx = sel.getAttribute('data-row');
+  var newStatus = normalizeStatus(sel.value);
+  // Update lokal
+  for (var i = 0; i < DATA.length; i++) { if (DATA_ROWS[i] == rowIdx) { DATA[i].status = newStatus; break; } }
   renderStatusCards();
-  toast('Status pasien diperbarui: ' + (STATUS_LABELS[normalizeStatus(newStatus)] || newStatus), 's');
+  toast('Status diperbarui: ' + (STATUS_LABELS[newStatus] || newStatus), 's');
+  // Kirim ke server
+  apiCall('updateStatus', { row: rowIdx, status: sel.value });
 }
 
-// ============ AKSI: PICKUP PASIEN ============
-function doPickup(pk) {
-  // Cari ruangan dari dropdown
-  var sel = document.querySelector('select[data-pk="' + pk + '"]');
+function onRoomChange(sel) {
+  var rowIdx = sel.getAttribute('data-row');
+  var room = sel.value;
+  for (var i = 0; i < DATA.length; i++) { if (DATA_ROWS[i] == rowIdx) { DATA[i].ruangan = room; break; } }
+  apiCall('updateRuangan', { row: rowIdx, ruangan: room });
+}
+
+function doPickup(rowIdx, pk) {
+  var sel = document.querySelector('select[data-row="' + rowIdx + '"].dd-room');
   var room = sel ? sel.value : '';
   if (!room) {
-    toast('Pilih ruangan terlebih dahulu sebelum mengambil pasien.', 'e');
-    if (sel) { sel.focus(); sel.style.borderColor = '#ef4444'; setTimeout(function() { sel.style.borderColor = ''; }, 2000); }
+    toast('Pilih ruangan terlebih dahulu!', 'e');
+    if (sel) { sel.style.borderColor = '#ef4444'; sel.focus(); setTimeout(function() { sel.style.borderColor = ''; }, 2000); }
     return;
   }
 
-  // Cari data pasien
+  // Update lokal
   var pasien = null;
   for (var i = 0; i < DATA.length; i++) {
-    if (getPickupKey(DATA[i]) === pk) { pasien = DATA[i]; break; }
-  }
-  if (!pasien) { toast('Data pasien tidak ditemukan.', 'e'); return; }
-
-  // Simpan pickup
-  pickups[pk] = {
-    room: room,
-    time: nowTimeStr(),
-    date: getTodayStr(),
-    nama: pasien.nama,
-    norm: pasien.norm
-  };
-  savePickups();
-
-  // Update status pasien ke terjadwal
-  pasien.status = 'terjadwal';
-  pasien.ruangan = room;
-
-  renderStatusCards();
-  renderDashTable();
-  toast(pasien.nama + ' berhasil diambil — Ruangan ' + room, 's');
-}
-
-// ============ AKSI: CANCEL PICKUP ============
-function cancelPickup(pk) {
-  if (!pickups[pk]) return;
-  var info = pickups[pk];
-
-  // Kembalikan status ke menunggu
-  for (var i = 0; i < DATA.length; i++) {
-    if (getPickupKey(DATA[i]) === pk) {
-      DATA[i].status = 'menunggu';
-      DATA[i].ruangan = '';
+    if (DATA_ROWS[i] == rowIdx) {
+      pasien = DATA[i];
+      DATA[i].ruangan = room;
+      DATA[i].status = 'terjadwal';
+      DATA[i].aksi = 'SUDAH';
       break;
     }
   }
+  if (!pasien) return;
 
-  delete pickups[pk];
+  pickups[pk] = { room: room, time: nowTimeStr(), date: getTodayStr(), nama: pasien.nama, norm: pasien.norm };
   savePickups();
-  renderStatusCards();
-  renderDashTable();
+
+  renderStatusCards(); renderDashTable();
+  toast(pasien.nama + ' berhasil diambil — Ruangan ' + room, 's');
+  
+  // Kirim ke server
+  apiCall('setPickup', { row: rowIdx });
+}
+
+function cancelPickup(rowIdx, pk) {
+  if (!pickups[pk]) return;
+  var info = pickups[pk];
+  
+  // Update lokal
+  for (var i = 0; i < DATA.length; i++) {
+    if (DATA_ROWS[i] == rowIdx) {
+      DATA[i].status = 'menunggu';
+      DATA[i].ruangan = '';
+      DATA[i].aksi = 'BELUM';
+      break;
+    }
+  }
+  delete pickups[pk]; savePickups();
+  renderStatusCards(); renderDashTable();
   toast('Pengambilan ' + (info.nama || 'pasien') + ' dibatalkan.', 'i');
+  
+  // Kirim ke server
+  apiCall('cancelPickup', { row: rowIdx });
 }
 
-// ============ RENDER: STATISTIK (SLIDE 3) ============
+// ========== RENDER: STATISTIK ==========
 function renderStatistik() {
-  renderChart1();
-  renderRoomStats();
-  renderChart2();
-  renderPickupDetail();
+  renderChart1(); renderRoomStats(); renderChart2(); renderPickupDetail();
 }
 
-// ============ CHART 1: Distribusi Status ============
 function renderChart1() {
   var counts = getStatusCounts();
-  var labels = [];
-  var values = [];
-  var colors = [];
+  var labels = [], values = [], colors = [];
   var keys = ['menunggu', 'terjadwal', 'hdlain', 'batal', 'meninggal', 'norespon'];
   for (var i = 0; i < keys.length; i++) {
-    if (counts[keys[i]] > 0) {
-      labels.push(STATUS_LABELS[keys[i]]);
-      values.push(counts[keys[i]]);
-      colors.push(STATUS_COLORS[keys[i]]);
-    }
+    if (counts[keys[i]] > 0) { labels.push(STATUS_LABELS[keys[i]]); values.push(counts[keys[i]]); colors.push(STATUS_COLORS[keys[i]]); }
   }
-  if (counts.other > 0) {
-    labels.push('Lainnya');
-    values.push(counts.other);
-    colors.push(STATUS_COLORS.other);
-  }
+  if (counts.other > 0) { labels.push('Lainnya'); values.push(counts.other); colors.push(STATUS_COLORS.other); }
+  if (labels.length === 0) { labels = ['Tidak Ada Data']; values = [0]; colors = ['#e2e8f0']; }
 
-  var ctx = document.getElementById('chart1');
-  if (!ctx) return;
-
+  var ctx = document.getElementById('chart1'); if (!ctx) return;
   if (chart1Instance) { chart1Instance.destroy(); chart1Instance = null; }
-
   chart1Instance = new Chart(ctx, {
     type: 'bar',
-    data: {
-      labels: labels,
-      datasets: [{
-        label: 'Jumlah Pasien',
-        data: values,
-        backgroundColor: colors,
-        borderColor: colors.map(function(c) { return c; }),
-        borderWidth: 2,
-        borderRadius: 8,
-        borderSkipped: false
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          backgroundColor: '#1e293b',
-          titleFont: { family: 'Plus Jakarta Sans', weight: '700' },
-          bodyFont: { family: 'Plus Jakarta Sans' },
-          padding: 12,
-          cornerRadius: 10,
-          callbacks: {
-            label: function(ctx) { return ' ' + ctx.parsed.y + ' pasien'; }
-          }
-        }
-      },
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: { stepSize: 1, font: { family: 'Plus Jakarta Sans', weight: '600', size: 11 }, color: '#94a3b8' },
-          grid: { color: 'rgba(226,232,240,0.6)', drawBorder: false }
-        },
-        x: {
-          ticks: { font: { family: 'Plus Jakarta Sans', weight: '700', size: 11 }, color: '#475569' },
-          grid: { display: false }
-        }
-      },
-      animation: { duration: 800, easing: 'easeOutQuart' }
-    }
+    data: { labels: labels, datasets: [{ label: 'Jumlah', data: values, backgroundColor: colors, borderWidth: 0, borderRadius: 8, borderSkipped: false }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { backgroundColor: '#1e293b', padding: 12, cornerRadius: 10, titleFont: { family: 'Plus Jakarta Sans', weight: '700' }, bodyFont: { family: 'Plus Jakarta Sans' } } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1, font: { family: 'Plus Jakarta Sans', weight: '600' }, color: '#94a3b8' }, grid: { color: 'rgba(226,232,240,0.6)' } }, x: { ticks: { font: { family: 'Plus Jakarta Sans', weight: '700' }, color: '#475569' }, grid: { display: false } } }, animation: { duration: 800 } }
   });
 
-  // Custom legend
   var legEl = document.getElementById('leg1');
-  if (legEl) {
-    var lh = '';
-    for (var j = 0; j < labels.length; j++) {
-      lh += '<div style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;border-radius:4px;background:' + colors[j] + ';display:inline-block"></span><span style="color:var(--txt2)">' + escHtml(labels[j]) + ' (' + values[j] + ')</span></div>';
-    }
-    legEl.innerHTML = lh;
-  }
+  if (legEl) { var lh = ''; for (var j = 0; j < labels.length; j++) { lh += '<div style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;border-radius:4px;background:' + colors[j] + '"></span><span style="color:var(--txt2)">' + escHtml(labels[j]) + ' (' + values[j] + ')</span></div>'; } legEl.innerHTML = lh; }
 }
 
-// ============ ROOM STATS CARDS ============
 function renderRoomStats() {
-  var today = getTodayStr();
-  var roomCounts = { 'Teuku Umar': 0, 'Malahayati': 0, 'Cut Nyak Dien': 0 };
+  var rc = { 'Teuku Umar': 0, 'Malahayati': 0, 'Cut Nyak Dien': 0 };
   var keys = Object.keys(pickups);
-  for (var i = 0; i < keys.length; i++) {
-    var p = pickups[keys[i]];
-    if (p.date === today && roomCounts[p.room] !== undefined) {
-      roomCounts[p.room]++;
-    }
-  }
-  document.getElementById('rsTu').textContent = roomCounts['Teuku Umar'];
-  document.getElementById('rsMl').textContent = roomCounts['Malahayati'];
-  document.getElementById('rsCnd').textContent = roomCounts['Cut Nyak Dien'];
+  for (var i = 0; i < keys.length; i++) { var p = pickups[keys[i]]; if (p.date === getTodayStr() && rc[p.room] !== undefined) rc[p.room]++; }
+  document.getElementById('rsTu').textContent = rc['Teuku Umar'];
+  document.getElementById('rsMl').textContent = rc['Malahayati'];
+  document.getElementById('rsCnd').textContent = rc['Cut Nyak Dien'];
 }
 
-// ============ CHART 2: Distribusi Ruangan (Pie) ============
 function renderChart2() {
-  var today = getTodayStr();
-  var roomCounts = { 'Teuku Umar': 0, 'Malahayati': 0, 'Cut Nyak Dien': 0 };
+  var rc = { 'Teuku Umar': 0, 'Malahayati': 0, 'Cut Nyak Dien': 0 };
   var keys = Object.keys(pickups);
-  for (var i = 0; i < keys.length; i++) {
-    var p = pickups[keys[i]];
-    if (p.date === today && roomCounts[p.room] !== undefined) {
-      roomCounts[p.room]++;
-    }
-  }
-
+  for (var i = 0; i < keys.length; i++) { var p = pickups[keys[i]]; if (p.date === getTodayStr() && rc[p.room] !== undefined) rc[p.room]++; }
   var labels = ['Teuku Umar', 'Malahayati', 'Cut Nyak Dien'];
-  var values = [roomCounts['Teuku Umar'], roomCounts['Malahayati'], roomCounts['Cut Nyak Dien']];
+  var values = [rc['Teuku Umar'], rc['Malahayati'], rc['Cut Nyak Dien']];
   var colors = [ROOM_COLORS['Teuku Umar'], ROOM_COLORS['Malahayati'], ROOM_COLORS['Cut Nyak Dien']];
   var total = values[0] + values[1] + values[2];
 
-  var ctx = document.getElementById('chart2');
-  if (!ctx) return;
-
+  var ctx = document.getElementById('chart2'); if (!ctx) return;
   if (chart2Instance) { chart2Instance.destroy(); chart2Instance = null; }
-
   chart2Instance = new Chart(ctx, {
     type: 'doughnut',
-    data: {
-      labels: labels,
-      datasets: [{
-        data: total > 0 ? values : [1, 1, 1],
-        backgroundColor: total > 0 ? colors : ['#e2e8f0', '#e2e8f0', '#e2e8f0'],
-        borderColor: '#fff',
-        borderWidth: 3,
-        hoverOffset: 8
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      cutout: '60%',
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          enabled: total > 0,
-          backgroundColor: '#1e293b',
-          titleFont: { family: 'Plus Jakarta Sans', weight: '700' },
-          bodyFont: { family: 'Plus Jakarta Sans' },
-          padding: 12,
-          cornerRadius: 10,
-          callbacks: {
-            label: function(ctx) {
-              var pct = total > 0 ? Math.round((ctx.parsed / total) * 100) : 0;
-              return ' ' + ctx.parsed + ' pasien (' + pct + '%)';
-            }
-          }
-        }
-      },
-      animation: { duration: 800, easing: 'easeOutQuart' }
-    }
+    data: { labels: labels, datasets: [{ data: total > 0 ? values : [1, 1, 1], backgroundColor: total > 0 ? colors : ['#e2e8f0','#e2e8f0','#e2e8f0'], borderColor: '#fff', borderWidth: 3, hoverOffset: 8 }] },
+    options: { responsive: true, maintainAspectRatio: false, cutout: '60%', plugins: { legend: { display: false }, tooltip: { enabled: total > 0, backgroundColor: '#1e293b', padding: 12, cornerRadius: 10, titleFont: { family: 'Plus Jakarta Sans', weight: '700' }, bodyFont: { family: 'Plus Jakarta Sans' }, callbacks: { label: function(ctx) { var pct = total > 0 ? Math.round((ctx.parsed / total) * 100) : 0; return ' ' + ctx.parsed + ' pasien (' + pct + '%)'; } } } }, animation: { duration: 800 } }
   });
 
-  // Custom legend
   var legEl = document.getElementById('leg2');
   if (legEl) {
-    var lh = '';
-    for (var j = 0; j < labels.length; j++) {
-      var pct = total > 0 ? Math.round((values[j] / total) * 100) : 0;
-      lh += '<div style="display:flex;align-items:center;gap:8px"><span style="width:14px;height:14px;border-radius:4px;background:' + colors[j] + ';display:inline-block"></span><span style="color:var(--txt2);font-weight:700">' + escHtml(labels[j]) + '</span><span style="color:var(--muted)">' + values[j] + ' (' + pct + '%)</span></div>';
-    }
-    if (total === 0) {
-      lh = '<span style="color:var(--muted);font-size:12px">Belum ada data pengambilan hari ini</span>';
-    }
-    legEl.innerHTML = lh;
+    if (total === 0) { legEl.innerHTML = '<span style="color:var(--muted);font-size:12px">Belum ada data pengambilan hari ini</span>'; }
+    else { var lh = ''; for (var j = 0; j < labels.length; j++) { var pct = Math.round((values[j] / total) * 100); lh += '<div style="display:flex;align-items:center;gap:8px"><span style="width:14px;height:14px;border-radius:4px;background:' + colors[j] + '"></span><span style="color:var(--txt2);font-weight:700">' + escHtml(labels[j]) + '</span><span style="color:var(--muted)">' + values[j] + ' (' + pct + '%)</span></div>'; } legEl.innerHTML = lh; }
   }
 }
 
-// ============ PICKUP DETAIL TABLE ============
 function renderPickupDetail() {
   var tbody = document.getElementById('pickupDetailBody');
   var emptyEl = document.getElementById('pickupDetailEmpty');
   if (!tbody || !emptyEl) return;
-
-  var today = getTodayStr();
-  var items = [];
-  var keys = Object.keys(pickups);
-  for (var i = 0; i < keys.length; i++) {
-    var p = pickups[keys[i]];
-    if (p.date === today) items.push(p);
-  }
-
-  if (items.length === 0) {
-    tbody.innerHTML = '';
-    emptyEl.style.display = 'block';
-    return;
-  }
+  var today = getTodayStr(), items = [], keys = Object.keys(pickups);
+  for (var i = 0; i < keys.length; i++) { if (pickups[keys[i]].date === today) items.push(pickups[keys[i]]); }
+  if (items.length === 0) { tbody.innerHTML = ''; emptyEl.style.display = 'block'; return; }
   emptyEl.style.display = 'none';
-
-  var html = '';
+  var h = '';
   for (var j = 0; j < items.length; j++) {
     var it = items[j];
-    var roomColor = ROOM_COLORS[it.room] || '#94a3b8';
-    html += '<tr>';
-    html += '<td class="font-bold" style="color:var(--txt)">' + (j + 1) + '</td>';
-    html += '<td class="font-bold" style="color:var(--txt)">' + escHtml(it.nama) + '</td>';
-    html += '<td>' + escHtml(it.norm) + '</td>';
-    html += '<td><span style="display:inline-flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:50%;background:' + roomColor + '"></span>' + escHtml(it.room || '-') + '</span></td>';
-    html += '<td>' + escHtml(it.time) + '</td>';
-    html += '<td><button class="pickup-cancel-btn" onclick="cancelPickupFromStat(\'' + escAttr('pk_' + (it.norm||'') + '_' + (it.nama||'')) + '\')"><i class="fa-solid fa-rotate-left"></i> Batalkan</button></td>';
-    html += '</tr>';
+    var rColor = ROOM_COLORS[it.room] || '#94a3b8';
+    var pk = 'pk_' + (it.norm||'') + '_' + (it.nama||'');
+    // Cari rowIdx
+    var rowIdx = 0;
+    for (var k = 0; k < DATA.length; k++) { if (getPickupKey(DATA[k]) === pk) { rowIdx = DATA_ROWS[k]; break; } }
+    h += '<tr><td class="font-bold" style="color:var(--txt)">' + (j+1) + '</td>';
+    h += '<td class="font-bold" style="color:var(--txt)">' + escHtml(it.nama) + '</td>';
+    h += '<td>' + escHtml(it.norm) + '</td>';
+    h += '<td><span style="display:inline-flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:50%;background:' + rColor + '"></span>' + escHtml(it.room || '-') + '</span></td>';
+    h += '<td>' + escHtml(it.time) + '</td>';
+    h += '<td><button class="pickup-cancel-btn" onclick="cancelPickupStat(' + rowIdx + ',\'' + escAttr(pk) + '\')"><i class="fa-solid fa-rotate-left"></i> Batalkan</button></td></tr>';
   }
-  tbody.innerHTML = html;
+  tbody.innerHTML = h;
 }
 
-function cancelPickupFromStat(pk) {
-  cancelPickup(pk);
+function cancelPickupStat(rowIdx, pk) {
+  cancelPickup(rowIdx, pk);
   renderStatistik();
 }
 
-// ============ SAVE CHART AS IMAGE ============
-function saveChartAsImage(canvasId, filename) {
-  var canvas = document.getElementById(canvasId);
-  if (!canvas) return;
-  try {
-    var url = canvas.toDataURL('image/png');
-    var a = document.createElement('a');
-    a.href = url;
-    a.download = 'sidaraja-' + filename + '-' + getTodayStr() + '.png';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    toast('Gambar berhasil disimpan.', 's');
-  } catch(e) {
-    toast('Gagal menyimpan gambar.', 'e');
-  }
-}
-
-// ============ PATIENT VIEW: STATS ============
+// ========== PATIENT VIEW ==========
 function renderPatientStats() {
-  var counts = getStatusCounts();
-  document.getElementById('pMenunggu').textContent = counts.menunggu || 0;
-  document.getElementById('pTerjadwal').textContent = counts.terjadwal || 0;
+  var c = getStatusCounts();
+  document.getElementById('pMenunggu').textContent = c.menunggu || 0;
+  document.getElementById('pTerjadwal').textContent = c.terjadwal || 0;
 }
 
-// ============ PATIENT VIEW: SEARCH ============
 function patientSearch() {
   var q = document.getElementById('pSearchNama').value.trim().toLowerCase();
   if (!q) { toast('Masukkan nama pasien.', 'e'); return; }
-
-  var results = [];
-  for (var i = 0; i < DATA.length; i++) {
-    if (DATA[i].nama.toLowerCase().indexOf(q) >= 0) results.push(DATA[i]);
-  }
-
-  var resEl = document.getElementById('patientResults');
-  var noRes = document.getElementById('pNoRes');
-
-  if (results.length === 0) {
-    resEl.innerHTML = '';
-    noRes.style.display = 'block';
-    return;
-  }
+  var results = [], resEl = document.getElementById('patientResults'), noRes = document.getElementById('pNoRes');
+  for (var i = 0; i < DATA.length; i++) { if (DATA[i].nama.toLowerCase().indexOf(q) >= 0) results.push(DATA[i]); }
+  if (results.length === 0) { resEl.innerHTML = ''; noRes.style.display = 'block'; return; }
   noRes.style.display = 'none';
-
   var h = '';
   for (var j = 0; j < results.length; j++) {
-    var d = results[j];
-    var statusBadge = getStatusBadge(d.status);
-    var hbsagBadge = getHbsAgBadge(d.hbsag);
-    var roomInfo = d.ruangan ? '<div style="margin-top:8px"><span class="badge" style="background:#ecfeff;color:#155e75;border:1px solid #a5f3fc"><i class="fa-solid fa-door-open mr-1"></i>Ruangan: ' + escHtml(d.ruangan) + '</span></div>' : '';
-    var pk = getPickupKey(d);
-    var pickupInfo = pickups[pk];
-    var pickupInfoHtml = '';
-    if (pickupInfo) {
-      pickupInfoHtml = '<div style="margin-top:8px"><span class="pickup-badge"><i class="fa-solid fa-circle-check"></i> Diambil ' + escHtml(pickupInfo.time) + ' — ' + escHtml(pickupInfo.room) + '</span></div>';
-    }
-
+    var d = results[j]; var pk = getPickupKey(d); var pInfo = pickups[pk];
     h += '<div class="card p-5 mb-3 fu" style="border-radius:16px;border-left:4px solid ' + (STATUS_COLORS[d.status] || '#94a3b8') + '">';
-    h += '<div class="flex items-start justify-between gap-3">';
-    h += '<div>';
-    h += '<div class="text-base font-black" style="color:var(--txt)">' + escHtml(d.nama) + '</div>';
-    h += '<div class="text-xs mt-1" style="color:var(--muted)">' + escHtml(d.norm) + ' &bull; ' + escHtml(d.umur) + ' &bull; ' + escHtml(d.jk) + '</div>';
-    h += '</div>';
-    h += statusBadge;
-    h += '</div>';
-    h += '<div class="flex flex-wrap gap-2 mt-3">';
-    h += hbsagBadge;
+    h += '<div class="flex items-start justify-between gap-3"><div><div class="text-base font-black" style="color:var(--txt)">' + escHtml(d.nama) + '</div>';
+    h += '<div class="text-xs mt-1" style="color:var(--muted)">' + escHtml(d.norm) + ' &bull; ' + escHtml(d.umur) + ' &bull; ' + escHtml(d.jk) + '</div></div>' + getStatusBadge(d.status) + '</div>';
+    h += '<div class="flex flex-wrap gap-2 mt-3">' + getHbsAgBadge(d.hbsag);
     if (d.diagnosa) h += '<span class="badge" style="background:#f1f5f9;color:#475569"><i class="fa-solid fa-stethoscope mr-1"></i>' + escHtml(d.diagnosa) + '</span>';
-    if (d.keterangan) h += '<span class="badge" style="background:#fffbeb;color:#92400e"><i class="fa-solid fa-note-sticky mr-1"></i>' + escHtml(d.keterangan) + '</span>';
     h += '</div>';
-    h += roomInfo;
-    h += pickupInfoHtml;
-    if (d.nohp) {
-      var clean = d.nohp.replace(/[^0-9+]/g, '');
-      h += '<div class="flex gap-2 mt-3">';
-      h += '<a href="https://wa.me/' + clean + '" target="_blank" rel="noopener" class="contact-btn contact-btn-wa"><i class="fa-brands fa-whatsapp mr-1"></i>WhatsApp</a>';
-      h += '<a href="tel:' + clean + '" class="contact-btn contact-btn-call"><i class="fa-solid fa-phone mr-1"></i>Telepon</a>';
-      h += '</div>';
-    }
+    if (d.ruangan) h += '<div style="margin-top:8px"><span class="badge" style="background:#ecfeff;color:#155e75;border:1px solid #a5f3fc"><i class="fa-solid fa-door-open mr-1"></i>Ruangan: ' + escHtml(d.ruangan) + '</span></div>';
+    if (pInfo) h += '<div style="margin-top:8px"><span class="pickup-badge"><i class="fa-solid fa-circle-check"></i> Diambil ' + escHtml(pInfo.time) + ' — ' + escHtml(pInfo.room) + '</span></div>';
+    if (d.nohp) { var cl = d.nohp.replace(/[^0-9+]/g, ''); h += '<div class="flex gap-2 mt-3"><a href="https://wa.me/' + cl + '" target="_blank" class="contact-btn contact-btn-wa"><i class="fa-brands fa-whatsapp mr-1"></i>WhatsApp</a><a href="tel:' + cl + '" class="contact-btn contact-btn-call"><i class="fa-solid fa-phone mr-1"></i>Telepon</a></div>'; }
     h += '</div>';
   }
   resEl.innerHTML = h;
@@ -1618,13 +1334,17 @@ function patientReset() {
   document.getElementById('pNoRes').style.display = 'none';
 }
 
-// ============ CSS ANIMASI SPIN (untuk refresh icon) ============
-var spinStyle = document.createElement('style');
-spinStyle.textContent = '@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}';
-document.head.appendChild(spinStyle);
-</script>
-  ROOMS.forEach(function(r) {
-    html += '<option value="'
+// ========== SAVE CHART ==========
+function saveChartAsImage(canvasId, filename) {
+  var canvas = document.getElementById(canvasId); if (!canvas) return;
+  try {
+    var url = canvas.toDataURL('image/png');
+    var a = document.createElement('a'); a.href = url;
+    a.download = 'sidaraja-' + filename + '-' + getTodayStr() + '.png';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    toast('Gambar berhasil disimpan.', 's');
+  } catch(e) { toast('Gagal menyimpan gambar.', 'e'); }
+}
 </script>
 </body>
 </html>
