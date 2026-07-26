@@ -752,7 +752,15 @@ function parseRawData(raw){
     var aksi=(r[colMap['AKSI']]!==undefined)?String(r[colMap['AKSI']]||'').trim().toUpperCase():'';
     var pengambilan=(r[colMap['PENGAMBILAN']]!==undefined)?String(r[colMap['PENGAMBILAN']]||'').trim():'';
     var status=normalizeStatus(r[colMap['STATUS']]||r[8]);
-    var obj={idx:DATA.length,timestamp:String(r[0]||''),nama:String(r[1]||'').trim(),norm:String(r[2]||'').trim(),umur:String(r[3]||'').trim(),jk:String(r[4]||'').trim(),diagnosa:String(r[5]||'').trim(),hbsag:String(r[6]||'').trim(),keterangan:String(r[7]||'').trim(),status:status,nohp:String(r[9]||'').trim(),ruangan:ruangan,aksi:aksi,pengambilan:pengambilan};
+    // Cari nomor HP secara dinamis dari header kolom
+    var nohpVal = '';
+    var hpKeys = ['NOHP','NOMOR HP','NO. HP','NOMOR WHATSAPP','NO. WHATSAPP','TELEPON','NO WA','NOWA','HP','WA'];
+    for (var hi = 0; hi < hpKeys.length; hi++) {
+      if (colMap[hpKeys[hi]] !== undefined) { nohpVal = String(r[colMap[hpKeys[hi]]] || '').trim(); break; }
+    }
+    if (!nohpVal) nohpVal = String(r[9] || '').trim(); // fallback ke indeks 9
+
+    var obj={idx:DATA.length,timestamp:String(r[0]||''),nama:String(r[1]||'').trim(),norm:String(r[2]||'').trim(),umur:String(r[3]||'').trim(),jk:String(r[4]||'').trim(),diagnosa:String(r[5]||'').trim(),hbsag:String(r[6]||'').trim(),keterangan:String(r[7]||'').trim(),status:status,nohp:nohpVal,ruangan:ruangan,aksi:aksi,pengambilan:pengambilan};
     if(aksi==='SUDAH'&&pengambilan){var pk=getPickupKey(obj);if(!pickups[pk])pickups[pk]={room:ruangan,time:pengambilan.split(' ')[1]||pengambilan,date:getTodayStr(),nama:obj.nama,norm:obj.norm};}
     DATA.push(obj);
   }
@@ -764,6 +772,16 @@ function onDataReady(){
   renderStatusCards();if(currentMode==='admin')renderDashTable();if(currentMode==='user')renderPatientStats();if(currentSlide===3)renderStatistik();
   var vc=parseInt(localStorage.getItem('sidaraja_visitors')||'0')+1;localStorage.setItem('sidaraja_visitors',vc.toString());document.getElementById('visitorCount').textContent=vc;document.getElementById('visitorBadge').style.display='flex';
   apiCall('visitor',{});
+     // Debug: cek apakah nomor HP terbaca
+  var hpCount = 0;
+  for (var dbg = 0; dbg < DATA.length; dbg++) {
+    if (DATA[dbg].nohp && DATA[dbg].nohp.length >= 8) hpCount++;
+  }
+  console.log('SIDARAJA Debug: ' + DATA.length + ' pasien, ' + hpCount + ' punya nomor HP valid');
+  console.log('SIDARAJA Debug: colMap keys =', Object.keys(colMap).join(', '));
+  if (DATA.length > 0) {
+    console.log('SIDARAJA Debug: contoh data[0].nohp = "' + DATA[0].nohp + '"');
+  }
 }
 
 // ========== STATUS CARDS ==========
@@ -819,12 +837,14 @@ function buildPickupCell(d,pk,info,rowIdx){
   return '<div class="pickup-cell"><button class="pickup-btn" onclick="doPickup('+rowIdx+',\''+escAttr(pk)+'\')"><i class="fa-solid fa-hand-pointer"></i> Ambil Pasien</button></div>';
 }
 function buildContactCell(d){
-  var hp=d.nohp||'';if(!hp)return '<span style="color:var(--muted);font-size:11px">-</span>';
-  var clean=hp.replace(/[^0-9+]/g,'');
+  var hp = (d.nohp || '').replace(/[^0-9+]/g, '').replace(/^\+62/,'0');
+  if (!hp || hp.length < 8) return '<span style="color:var(--muted);font-size:11px">-</span>';
+  
+  var safePhone = hp.replace(/'/g, "\\'");
   return '<div style="display:flex;gap:3px;flex-wrap:wrap">'+
-    '<a href="javascript:void(0)" onclick="openWaPopup(\''+escAttr(clean)+'\','+d.idx+')" class="contact-btn contact-btn-wa" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>'+
-    '<a href="sms:'+clean+'" class="contact-btn contact-btn-sms" title="SMS"><i class="fa-solid fa-comment-sms"></i></a>'+
-    '<a href="tel:'+clean+'" class="contact-btn contact-btn-call" title="Telepon"><i class="fa-solid fa-phone"></i></a></div>';
+    '<a href="javascript:void(0)" onclick="openWaPopup(\'' + safePhone + '\',' + d.idx + ')" class="contact-btn contact-btn-wa" title="WhatsApp ke ' + escAttr(d.nama) + ': ' + escAttr(hp) + '"><i class="fa-brands fa-whatsapp"></i> WA</a>'+
+    '<a href="sms:' + hp + '" class="contact-btn contact-btn-sms" title="SMS"><i class="fa-solid fa-comment-sms"></i></a>'+
+    '<a href="tel:' + hp + '" class="contact-btn contact-btn-call" title="Telepon"><i class="fa-solid fa-phone"></i></a></div>';
 }
 
 // ========== AKSI: STATUS / RUANGAN / PICKUP ==========
@@ -859,29 +879,48 @@ function cancelPickup(rowIdx,pk){
 
 // ========== WHATSAPP POPUP ==========
 function openWaPopup(phone, dataIdx) {
-  var d = DATA[dataIdx]; if (!d || !phone) return;
+  // Validasi nomor telepon
+  if (!phone || phone.length < 8) {
+    toast('Nomor telepon pasien tidak valid atau kosong.', 'e');
+    return;
+  }
+
+  var d = null;
+  // Cari data pasien berdasarkan idx ATAU cari manual
+  if (dataIdx !== undefined && dataIdx !== null && DATA[dataIdx]) {
+    d = DATA[dataIdx];
+  }
+  if (!d) {
+    toast('Data pasien tidak ditemukan.', 'e');
+    return;
+  }
+
   waPendingData = { phone: phone, data: d };
 
   var ruangan = d.ruangan || 'belum ditentukan';
   var ruangText = ROOM_SHORT[ruangan] ? ruangan + ' (' + ROOM_SHORT[ruangan] + ')' : ruangan;
+  var hbsagText = (d.hbsag || '-').toString().toLowerCase();
+  var hbsagLabel = (hbsagText === 'positif' || hbsagText === 'pos' || hbsagText === '+') ? 'Positif ⚠️' : 'Negatif';
 
   var msg = 'Assalamualaikum Warahmatullahi Wabarakatuh.\n\n' +
-    'Bapak/Ibu ' + d.nama + ' yang kami hormati,\n\n' +
-    'Perkenalkan, kami dari Tim Pendaftaran Rawat Jalan Pasien Hemodialisa (HD) RSSA Malang. Kami menghubungi Bapak/Ibu terkait jadwal pemeriksaan dan tindakan hemodialisa di Instalasi Dialisis RSSA.\n\n' +
+    'Bapak/Ibu *' + d.nama + '* yang kami hormati,\n\n' +
+    'Perkenalkan, kami dari *Tim Pendaftaran Rawat Jalan Pasien Hemodialisa (HD) RSSA Malang*. Kami menghubungi Bapak/Ibu terkait jadwal tindakan hemodialisa di Instalasi Dialisis RSSA.\n\n' +
     '📋 *Data Pasien:*\n' +
     'Nama   : ' + d.nama + '\n' +
     'No. RM : ' + d.norm + '\n' +
     'Umur   : ' + (d.umur || '-') + '\n' +
-    'HbsAg  : ' + (d.hbsag || '-') + '\n' +
+    'HbsAg  : ' + hbsagLabel + '\n' +
     'Ruangan: ' + ruangText + '\n\n' +
-    'Mohon konfirmasi kehadiran Bapak/Ibu untuk jadwal HD yang telah ditentukan. Jika ada kendala atau ingin mengubah jadwal, silakan hubungi kami kembali.\n\n' +
-    'Terima kasih atas kerja samanya. Semoga Bapak/Ibu senantiasa diberikan kesehatan.\n\n' +
+    'Mohon konfirmasi kehadiran Bapak/Ibu. Jika ada kendala atau ingin mengubah jadwal, silakan hubungi kami kembali.\n\n' +
+    'Terima kasih atas kerja samanya. Semoga Bapak/Ibu senantiasa diberikan kesehatan. Aamiin.\n\n' +
     'Salam sehat,\n' +
     'Tim Pendaftaran Rawat Jalan HD\n' +
     'Instalasi Dialisis RSSA Malang';
 
   document.getElementById('waPopupRecipient').textContent = d.nama + ' — ' + phone;
-  document.getElementById('waMsgPreview').innerHTML = escHtml(msg).replace(/\*(.*?)\*/g, '<span class="wa-bold">$1</span>');
+  document.getElementById('waMsgPreview').innerHTML = escHtml(msg)
+    .replace(/\*(.*?)\*/g, '<span class="wa-bold">$1</span>')
+    .replace(/⚠️/g, '⚠️');
   document.getElementById('waPopup').style.display = 'flex';
 }
 
