@@ -8,6 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>tailwind.config={theme:{extend:{fontFamily:{sans:['Plus Jakarta Sans','sans-serif']}}}}</script>
 <style>
 :root{--b900:#1e3a5f;--b700:#1d4ed8;--b600:#2563eb;--b500:#3b82f6;--b400:#60a5fa;--b300:#93c5fd;--b200:#bfdbfe;--b100:#dbeafe;--b50:#eff6ff;--g600:#059669;--g500:#10b981;--g400:#34d399;--w:#fff;--g50:#f8fafc;--g100s:#f1f5f9;--g200:#e2e8f0;--g400:#94a3b8;--g500:#64748b;--g600:#475569;--txt:#1e293b;--txt2:#475569;--muted:#94a3b8;--bdr:#e2e8f0;--pg:#059669;--pgl:#d1fae5;--pgbg:#ecfdf5;--pk:#d97706;--pkl:#fde68a;--pkbg:#fffbeb;--pp:#db2777;--ppl:#fbcfe8;--ppbg:#fce7f3;--cn:#0891b2;--cnl:#cffafe;--cnbg:#ecfeff;--cnd:#155e75}
@@ -186,23 +187,19 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 .loading-bar.show{display:block}
 .loading-bar-inner{height:100%;width:30%;background:linear-gradient(90deg,var(--b500),var(--g500));border-radius:4px;animation:loadSlide 1.5s ease-in-out infinite}
 @keyframes loadSlide{0%{transform:translateX(-100%)}100%{transform:translateX(400%)}}
-/* Dropdown khusus tabel Aksi */
 .aksi-dd{padding:7px 10px;border:2px solid var(--bdr);border-radius:8px;font-size:12px;font-weight:600;color:var(--txt);background:var(--w);outline:none;font-family:inherit;cursor:pointer;transition:all .2s;min-width:140px;max-width:170px}
 .aksi-dd:focus{border-color:var(--pk);box-shadow:0 0 0 3px rgba(217,119,6,.12)}
 .aksi-dd:disabled{opacity:.45;cursor:not-allowed}
 .aksi-dd.dd-status{border-color:var(--b200);min-width:130px}
 .aksi-dd.dd-status:focus{border-color:var(--b500);box-shadow:0 0 0 3px rgba(59,130,246,.12)}
 .aksi-dd.dd-aksi{border-color:var(--pkl);min-width:150px}
-/* Link card */
 .excel-link-card{border:2px solid var(--pg);border-radius:24px;overflow:hidden;transition:all .3s}
 .excel-link-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(5,150,105,.15)}
 .excel-link-card:hover .excel-icon-wrap{transform:scale(1.08)}
 .excel-icon-wrap{transition:transform .3s}
 .dl-info-item{display:flex;align-items:center;gap:12px;padding:14px 18px;border-radius:14px;background:var(--g50);border:1px solid var(--bdr);transition:all .2s}
 .dl-info-item:hover{background:var(--b50);border-color:var(--b200)}
-/* Saving indicator */
 .saving-indicator{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:var(--pk);animation:pulse2 .8s infinite}
-/* Pengambilan pasien */
 .pickup-cell{display:flex;flex-direction:column;gap:4px;align-items:flex-start;min-width:150px}
 .pickup-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:9px;font-size:11.5px;font-weight:800;cursor:pointer;transition:all .2s;border:none;font-family:inherit;background:linear-gradient(135deg,#0891b2,#0e7490);color:#fff;white-space:nowrap}
 .pickup-btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(8,145,178,.35)}
@@ -369,6 +366,7 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 <button class="nav-tab active" id="tab1" onclick="switchSlide(1)"><i class="fa-solid fa-clipboard-list mr-2"></i>Dashboard</button>
 <button class="nav-tab" id="tab2" onclick="switchSlide(2)"><i class="fa-solid fa-database mr-2"></i>Data Lengkap</button>
 <button class="nav-tab" id="tab3" onclick="switchSlide(3)"><i class="fa-solid fa-hand-pointer mr-2"></i>Aksi</button>
+<button class="nav-tab" id="tab4" onclick="switchSlide(4)"><i class="fa-solid fa-chart-pie mr-2"></i>Statistik</button>
 </div>
 </div>
 
@@ -407,7 +405,13 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 <!-- ===== SLIDE 1: DASHBOARD ===== -->
 <main id="slide1" class="px-4 sm:px-8 pb-16" style="display:none">
 <div class="max-w-7xl mx-auto">
-<section class="mt-6 fu">
+<div class="flex gap-3 mb-4 flex-wrap justify-end">
+<button class="bo" onclick="cetakPrint()"><i class="fa-solid fa-print"></i> Cetak Print</button>
+<button class="bp" onclick="kirimPDF()"><i class="fa-solid fa-file-pdf"></i> Kirim PDF</button>
+<button class="bg2" onclick="kirimWA()"><i class="fa-brands fa-whatsapp"></i> Kirim WA</button>
+</div>
+<div id="dashboardPrintArea">
+<section class="mt-2 fu">
 <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4 stg" id="statusCards">
 <div class="stc stc-menunggu sel" onclick="clickStatusCard('menunggu')" data-key="menunggu"><div class="stc-check" style="background:#3b82f6"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe)"><i class="fa-solid fa-hourglass-half text-lg" style="color:#2563eb"></i></div><div><div class="stc-label">Menunggu</div><div class="stc-num" style="color:#1e40af" id="scMenunggu">0</div></div></div>
 <div class="stc stc-terjadwal" onclick="clickStatusCard('terjadwal')" data-key="terjadwal"><div class="stc-check" style="background:#10b981"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0)"><i class="fa-solid fa-calendar-check text-lg" style="color:#059669"></i></div><div><div class="stc-label">Terjadwal</div><div class="stc-num" style="color:#065f46" id="scTerjadwal">0</div></div></div>
@@ -419,21 +423,14 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 </div>
 </section>
 <section class="mt-6 fu">
-<div class="csg grid grid-cols-1 lg:grid-cols-3 gap-6">
-<div class="card p-6 flex flex-col">
-<h3 class="text-sm font-bold mb-4" style="color:var(--b900)"><i class="fa-solid fa-chart-column mr-2" style="color:var(--g500)"></i>Distribusi Status</h3>
-<div class="cc"><canvas id="chart1"></canvas></div>
-<div id="leg1" class="mt-4 flex flex-wrap justify-center gap-3 text-xs font-semibold"></div>
-<div class="chart-actions"><button class="chart-act-btn" onclick="saveChartAsImage('chart1','distribusi')"><i class="fa-solid fa-download"></i> Simpan Gambar</button></div>
-</div>
-<div class="card p-6 lg:col-span-2">
+<div class="card p-6">
 <h3 class="text-sm font-bold mb-4" style="color:var(--b900)"><i class="fa-solid fa-list-check mr-2" style="color:var(--b500)"></i>Daftar Pasien <span class="text-xs font-normal" style="color:var(--muted)" id="filterLabel">(Menunggu)</span></h3>
-<div class="tw" style="max-height:420px;overflow-y:auto;border-radius:12px;border:1px solid var(--bdr)">
+<div class="tw" style="max-height:520px;overflow-y:auto;border-radius:12px;border:1px solid var(--bdr)">
 <table class="dt"><thead><tr><th>No</th><th>Nama</th><th>No RM</th><th>Umur</th><th>HbsAg</th><th>Keterangan</th><th>Status</th></tr></thead><tbody id="dashBody"></tbody></table>
 </div>
 </div>
-</div>
 </section>
+</div>
 </div>
 </main>
 
@@ -447,7 +444,7 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 <p class="text-green-200 text-sm font-medium">Akses langsung ke spreadsheet Google Sheets</p>
 </div>
 <div class="p-6 sm:p-8">
-<p class="text-sm text-center mb-6" style="color:var(--txt2);max-width:440px;margin-left:auto;margin-right:auto">Klik tombol di bawah untuk membuka data lengkap seluruh pasien Instalasi Dialisis RSSA yang dikelola langsung melalui Google Spreadsheet SIDARJA.</p>
+<p class="text-sm text-center mb-6" style="color:var(--txt2);max-width:440px;margin-left:auto;margin-right:auto">Klik tombol di bawah untuk membuka data lengkap seluruh pasien Instalasi Dialisis RSSA yang dikelola langsung melalui Google Spreadsheet SIDARAJA.</p>
 <div class="flex flex-col sm:flex-row gap-3 justify-center mb-6">
 <a href="https://docs.google.com/spreadsheets/d/1UbMj1gbz-wDIUlT64-nnHPa2xvGxlS_fEgnaEzcU1cA/edit?resourcekey=&gid=1588121083#gid=1588121083" target="_blank" rel="noopener noreferrer" class="bp text-base px-8 py-3 justify-center" style="text-decoration:none;background:linear-gradient(135deg,#059669,#047857)"><i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Excel SIDARJA</a>
 </div>
@@ -461,7 +458,7 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 </div>
 </main>
 
-<!-- ===== SLIDE 3: AKSI — STATUS & AKSI keduanya DROPDOWN + PENGAMBILAN PASIEN ===== -->
+<!-- ===== SLIDE 3: AKSI ===== -->
 <main id="slide3" style="display:none" class="px-4 sm:px-8 pb-16">
 <div class="max-w-7xl mx-auto mt-6 fu">
 <div class="card p-6">
@@ -500,169 +497,62 @@ Kolom <strong style="color:var(--b600)">Status</strong> (kolom Q) dan <strong st
 </div>
 </main>
 
+<!-- ===== SLIDE 4: STATISTIK ===== -->
+<main id="slide4" class="px-4 sm:px-8 pb-16" style="display:none">
+<div class="max-w-7xl mx-auto mt-6 fu">
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
+<div class="card p-6 text-center" style="border-top:4px solid #3b82f6">
+<div class="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-3" style="background:#eff6ff"><i class="fa-solid fa-hospital-user text-2xl" style="color:#2563eb"></i></div>
+<div class="text-3xl font-black" style="color:#1e40af" id="countTeukuUmar">0</div>
+<div class="text-sm font-bold mt-1" style="color:var(--muted)">Teuku Umar</div>
+</div>
+<div class="card p-6 text-center" style="border-top:4px solid #10b981">
+<div class="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-3" style="background:#ecfdf5"><i class="fa-solid fa-hospital-user text-2xl" style="color:#059669"></i></div>
+<div class="text-3xl font-black" style="color:#065f46" id="countMalahayati">0</div>
+<div class="text-sm font-bold mt-1" style="color:var(--muted)">Malahayati</div>
+</div>
+<div class="card p-6 text-center" style="border-top:4px solid #f59e0b">
+<div class="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-3" style="background:#fffbeb"><i class="fa-solid fa-hospital-user text-2xl" style="color:#d97706"></i></div>
+<div class="text-3xl font-black" style="color:#92400e" id="countCutNyakDien">0</div>
+<div class="text-sm font-bold mt-1" style="color:var(--muted)">Cut Nyak Dien</div>
+</div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<div class="card p-6 flex flex-col">
+<h3 class="text-sm font-bold mb-4" style="color:var(--b900)"><i class="fa-solid fa-chart-column mr-2" style="color:var(--g500)"></i>Distribusi Status Pasien</h3>
+<div class="cc"><canvas id="chart1"></canvas></div>
+<div id="leg1" class="mt-4 flex flex-wrap justify-center gap-3 text-xs font-semibold"></div>
+<div class="chart-actions"><button class="chart-act-btn" onclick="saveChartAsImage('chart1','distribusi-status')"><i class="fa-solid fa-download"></i> Simpan Gambar</button></div>
+</div>
+<div class="card p-6 flex flex-col">
+<h3 class="text-sm font-bold mb-4" style="color:var(--b900)"><i class="fa-solid fa-hospital mr-2" style="color:var(--b500)"></i>Distribusi Ruang HD</h3>
+<div class="cc"><canvas id="chart2"></canvas></div>
+<div id="leg2" class="mt-4 flex flex-wrap justify-center gap-3 text-xs font-semibold"></div>
+<div class="chart-actions"><button class="chart-act-btn" onclick="saveChartAsImage('chart2','distribusi-ruangan')"><i class="fa-solid fa-download"></i> Simpan Gambar</button></div>
+</div>
+</div>
+</div>
+</main>
+
 <script>
-/*
-================================================================
-KONFIGURASI
-================================================================
-Spreadsheet: 1UbMj1gbz-wDIUlT64-nnHPa2xvGxlS_fEgnaEzcU1cA
-- Data pasien: sheet "Form Responses 1" (gid=1588121083)
-
-Pemetaan kolom (0-based di gviz / index array getValues()):
-  1  = NAMA (B)
-  2  = NO RM (C)
-  4  = UMUR (E)
-  5  = ALAMAT (F)
-  8  = Akses HD (I)
-  9  = HbsAg (J)
-  11 = Isolasi (L)
-  14 = NO HP (O)
-  16 = STATUS (Q)        → dropdown, kolom ke-17 di sheet (1-based)
-  17 = AKSI (R)          → dropdown, kolom ke-18 di sheet (1-based)
-  18 = DIAMBIL OLEH (S)  → nama petugas yang mengambil pasien, kolom ke-19
-  19 = WAKTU AMBIL (T)   → timestamp pengambilan, kolom ke-20
-
-================================================================
-APPS SCRIPT (Code.gs) — DEPLOY DI URL AKSI_GAS_URL
-================================================================
-Buka spreadsheet → Extensions → Apps Script, paste:
-
-function doGet(e) {
-  try {
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
-    var sheet = ss.getSheetByName("Form Responses 1");
-    if (!sheet) return ContentService.createTextOutput(
-      JSON.stringify({status:'error',message:'Sheet tidak ditemukan'})
-    ).setMimeType(ContentService.MimeType.JSON);
-    var data = sheet.getDataRange().getValues();
-    var result = [];
-    for (var i = 1; i < data.length; i++) {
-      if (!data[i][1]) continue;
-      result.push({
-        row: i + 1,
-        nama: data[i][1] || '',
-        noRM: data[i][2] || '',
-        umur: data[i][4] || '',
-        alamat: data[i][5] || '',
-        aksesHD: data[i][8] || '',
-        hbsAg: data[i][9] || '',
-        isolasi: data[i][11] || '',
-        noHP: data[i][14] || '',
-        status: data[i][16] || '',
-        aksi: data[i][17] || '',
-        diambilOleh: data[i][18] || '',
-        waktuAmbil: data[i][19] || ''
-      });
-    }
-    return ContentService.createTextOutput(
-      JSON.stringify({status:'success',data:result})
-    ).setMimeType(ContentService.MimeType.JSON);
-  } catch(err) {
-    return ContentService.createTextOutput(
-      JSON.stringify({status:'error',message:err.toString()})
-    ).setMimeType(ContentService.MimeType.JSON);
-  }
-}
-
-function doPost(e) {
-  try {
-    var ss = SpreadsheetApp.openById('1UbMj1gbz-wDIUlT64-nnHPa2xvGxlS_fEgnaEzcU1cA');
-    var d = JSON.parse(e.postData.contents);
-
-    if (d.action === 'updateStatus') {
-      // Update kolom Q (indeks 17, kolom ke-17)
-      var sheet = ss.getSheetByName("Form Responses 1");
-      sheet.getRange(parseInt(d.row), 17).setValue(d.status);
-      return ContentService.createTextOutput(
-        JSON.stringify({status:'success'})
-      ).setMimeType(ContentService.MimeType.JSON);
-    }
-
-    if (d.action === 'updateAksi') {
-      // Update kolom R (indeks 18, kolom ke-18)
-      var sheet = ss.getSheetByName("Form Responses 1");
-      sheet.getRange(parseInt(d.row), 18).setValue(d.aksi);
-      return ContentService.createTextOutput(
-        JSON.stringify({status:'success'})
-      ).setMimeType(ContentService.MimeType.JSON);
-    }
-
-    if (d.action === 'ambilPasien') {
-      // Catat petugas & waktu pengambilan pasien pada kolom S & T
-      var sheet = ss.getSheetByName("Form Responses 1");
-      sheet.getRange(parseInt(d.row), 19).setValue(d.petugas); // kolom S
-      sheet.getRange(parseInt(d.row), 20).setValue(d.waktu);   // kolom T
-      return ContentService.createTextOutput(
-        JSON.stringify({status:'success'})
-      ).setMimeType(ContentService.MimeType.JSON);
-    }
-
-    if (d.action === 'batalkanAmbil') {
-      // Kosongkan kembali kolom S & T (batalkan pengambilan)
-      var sheet = ss.getSheetByName("Form Responses 1");
-      sheet.getRange(parseInt(d.row), 19).setValue('');
-      sheet.getRange(parseInt(d.row), 20).setValue('');
-      return ContentService.createTextOutput(
-        JSON.stringify({status:'success'})
-      ).setMimeType(ContentService.MimeType.JSON);
-    }
-
-    if (d.action === 'register') {
-      var us = ss.getSheetByName("user");
-      if (!us) us = ss.insertSheet("user");
-      us.appendRow([
-        new Date().toLocaleString('id-ID'),
-        d.nama, d.email, d.password, d.waktuDaftar
-      ]);
-      return ContentService.createTextOutput(
-        JSON.stringify({status:'success'})
-      ).setMimeType(ContentService.MimeType.JSON);
-    }
-
-    return ContentService.createTextOutput(
-      JSON.stringify({status:'error',message:'Aksi tidak dikenal'})
-    ).setMimeType(ContentService.MimeType.JSON);
-  } catch(err) {
-    return ContentService.createTextOutput(
-      JSON.stringify({status:'error',message:err.toString()})
-    ).setMimeType(ContentService.MimeType.JSON);
-  }
-}
-
-Deploy: New deployment → Web app → Execute as: Me | Access: Anyone
-
-CATATAN: Tambahkan header "Diambil Oleh" pada kolom S dan "Waktu Ambil"
-pada kolom T di baris pertama sheet "Form Responses 1" agar rapi (opsional,
-tidak wajib untuk fungsi ini karena Apps Script menulis by index kolom).
-================================================================
-*/
-
 var SHEET_ID = '1UbMj1gbz-wDIUlT64-nnHPa2xvGxlS_fEgnaEzcU1cA';
 var GID = '1588121083';
 var DATA_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?gid=' + GID + '&tqx=out:json';
 var AKSI_GAS_URL = 'https://script.google.com/macros/s/AKfycbz1IWHom_-RWePiit_3Dfhq_bKXpbmp_GVdh-SQshmxl24HiK4OJihfiZaX8A_TLz8S/exec';
 
-/* ===== Opsi dropdown STATUS (kolom Q) sesuai data validation spreadsheet ===== */
-var STATUS_OPTIONS = [
-  'MENUNGGU',
-  'TERJADWAL',
-  'HD LAIN',
-  'BATAL',
-  'MENINGGAL',
-  'NO RESPON'
-];
+var STATUS_OPTIONS = ['MENUNGGU', 'TERJADWAL', 'HD LAIN', 'BATAL', 'MENINGGAL', 'NO RESPON'];
 
-/* ===== STATE ===== */
 var allData = [];
 var currentFilter = 'menunggu';
 var currentUser = null;
 var currentMode = null;
 var chartInstance = null;
+var chartInstance2 = null;
 var aksiData = [];
 var aksiDropdownOptions = [];
 var isOnline = true;
 
-/* ===== UTILITAS ===== */
 function $(id) { return document.getElementById(id); }
 function escHtml(s) {
   if (!s && s !== 0) return '';
@@ -732,7 +622,6 @@ function renderPhoneLinks(phone) {
     '</div>';
 }
 
-/* ===== AUTENTIKASI ===== */
 function selectMode(mode) {
   currentMode = mode;
   $('modeAdmin').className = 'mode-card' + (mode === 'admin' ? ' sel-admin' : '');
@@ -797,7 +686,7 @@ function doUserLogin() { currentUser = { nama: 'Pasien', email: '', role: 'Pasie
 function doLogout() {
   currentUser = null; currentMode = null; localStorage.removeItem('sidaraja_user');
   $('loginOverlay').style.display = 'flex'; $('mainHeader').style.display = 'none'; $('navTabsWrap').style.display = 'none';
-  $('patientView').style.display = 'none'; $('slide1').style.display = 'none'; $('slide2').style.display = 'none'; $('slide3').style.display = 'none';
+  $('patientView').style.display = 'none'; $('slide1').style.display = 'none'; $('slide2').style.display = 'none'; $('slide3').style.display = 'none'; $('slide4').style.display = 'none';
   document.body.classList.remove('patient-bg'); selectMode(null); switchAuthTab('login');
   $('loginEmail').value = ''; $('loginPass').value = '';
 }
@@ -815,7 +704,7 @@ function enterApp(mode) {
     $('mainHeader').className = 'hdr grad-patient'; $('mainStripe').className = 'stripe patient-stripe';
     $('headerDesc').textContent = 'Mode pasien — cari antrian Anda di bawah.';
     $('neonRegWrap').classList.remove('show'); $('navTabsWrap').style.display = 'none';
-    $('patientView').style.display = 'block'; $('slide1').style.display = 'none'; $('slide2').style.display = 'none'; $('slide3').style.display = 'none';
+    $('patientView').style.display = 'block'; $('slide1').style.display = 'none'; $('slide2').style.display = 'none'; $('slide3').style.display = 'none'; $('slide4').style.display = 'none';
     $('hdrUserProfile').style.display = 'none'; $('patientLogoutBtn').style.display = 'inline-flex';
     document.body.classList.add('patient-bg');
   }
@@ -830,7 +719,6 @@ function checkAuth() {
   }
 }
 
-/* ===== PROFIL ===== */
 function updateProfileUI() {
   if (!currentUser) return;
   var initial = currentUser.nama ? currentUser.nama.charAt(0).toUpperCase() : '?';
@@ -865,16 +753,15 @@ function handlePhotoUpload(event) {
   }; reader.readAsDataURL(file);
 }
 
-/* ===== NAVIGASI SLIDE ===== */
 function switchSlide(n) {
-  for (var i = 1; i <= 3; i++) {
+  for (var i = 1; i <= 4; i++) {
     $('tab' + i).classList.toggle('active', i === n);
     $('slide' + i).style.display = i === n ? 'block' : 'none';
   }
   if (n === 3) loadAksiData();
+  if (n === 4) { renderChart(); renderRoomChart(); }
 }
 
-/* ===== DATA FETCHING (Gviz) ===== */
 function fetchSheetData() {
   setConnState('connDot', 'connLabel', 'load'); setConnState('connDotLogin', 'connLabelLogin', 'load');
   fetch(DATA_URL).then(function(r) { return r.text(); }).then(function(text) {
@@ -889,7 +776,8 @@ function fetchSheetData() {
     isOnline = true; setConnState('connDot', 'connLabel', 'ok'); setConnState('connDotLogin', 'connLabelLogin', 'ok');
     $('offlineBadgeLogin').classList.remove('show'); $('offlineBadgeHeader').classList.remove('show');
     $('lastUpdate').textContent = 'Terakhir diperbarui: ' + new Date().toLocaleString('id-ID');
-    updateStatusCounts(); renderDashboard(); renderChart(); updatePatientStats();
+    updateStatusCounts(); renderDashboard(); updatePatientStats();
+    if ($('slide4').style.display === 'block') { renderChart(); renderRoomChart(); }
   }).catch(function(err) {
     console.error('Fetch error:', err); isOnline = false;
     setConnState('connDot', 'connLabel', 'fail'); setConnState('connDotLogin', 'connLabelLogin', 'fail');
@@ -900,7 +788,6 @@ function fetchSheetData() {
 
 function refreshData() { var icon = $('refreshIcon'); if (icon) icon.classList.add('fa-spin'); fetchSheetData(); setTimeout(function() { if (icon) icon.classList.remove('fa-spin'); }, 2000); }
 
-/* ===== STATUS CARDS ===== */
 function clickStatusCard(key) {
   currentFilter = key;
   document.querySelectorAll('#statusCards .stc').forEach(function(c) { c.classList.toggle('sel', c.getAttribute('data-key') === key); });
@@ -917,7 +804,6 @@ function updateStatusCounts() {
   $('scTotal').textContent = allData.length;
 }
 
-/* ===== RENDERING: DASHBOARD ===== */
 function renderDashboard() {
   var body = $('dashBody'); if (!body) return;
   var filtered = allData.filter(function(d) { return currentFilter === 'all' || getStatusKey(d.status) === currentFilter; });
@@ -938,7 +824,6 @@ function renderDashboard() {
   body.innerHTML = html;
 }
 
-/* ===== RENDERING: AKSI — STATUS & AKSI dropdown + PENGAMBILAN PASIEN ===== */
 function loadAksiData() {
   var loading = $('aksiLoading'), errDiv = $('aksiError'), body = $('actionBody');
   loading.style.display = 'block'; errDiv.style.display = 'none'; body.innerHTML = '';
@@ -959,7 +844,6 @@ function loadAksiData() {
   });
 }
 
-/* Ekstrak opsi unik dari kolom R (aksi) */
 function extractAksiOptions() {
   var opts = {};
   aksiData.forEach(function(d) { var v = (d.aksi || '').trim(); if (v) opts[v] = true; });
@@ -983,26 +867,22 @@ function renderActionTable() {
   filtered.forEach(function(d, i) {
     var sk = getStatusKey(d.status);
 
-    /* ---- Dropdown STATUS (kolom Q) ---- */
     var statusOpts = '<option value="">-- Pilih --</option>';
     STATUS_OPTIONS.forEach(function(opt) {
       var sel = String(d.status || '').toUpperCase().trim() === opt ? ' selected' : '';
       statusOpts += '<option value="' + escHtml(opt) + '"' + sel + '>' + escHtml(opt) + '</option>';
     });
-    // Tambahkan nilai yang ada di data tapi belum ada di STATUS_OPTIONS
     var existingVal = (d.status || '').trim();
     if (existingVal && STATUS_OPTIONS.indexOf(existingVal.toUpperCase()) === -1) {
       statusOpts += '<option value="' + escHtml(existingVal) + '" selected>' + escHtml(existingVal) + '</option>';
     }
 
-    /* ---- Dropdown AKSI (kolom R) ---- */
     var aksiOpts = '<option value="">-- Pilih --</option>';
     aksiDropdownOptions.forEach(function(opt) {
       var sel = (d.aksi || '') === opt ? ' selected' : '';
       aksiOpts += '<option value="' + escHtml(opt) + '"' + sel + '>' + escHtml(opt) + '</option>';
     });
 
-    /* ---- Kolom PENGAMBILAN (kolom S & T) ---- */
     var pengambilanCell;
     if (d.diambilOleh) {
       pengambilanCell = '<div class="pickup-cell">' +
@@ -1021,11 +901,8 @@ function renderActionTable() {
     html += '<td class="font-semibold" style="color:var(--txt)">' + escHtml(d.nama) + '</td>';
     html += '<td>' + escHtml(d.noRM) + '</td>';
     html += '<td>' + renderHbsAgBadge(d.hbsAg) + '</td>';
-    /* Kolom STATUS: dropdown */
     html += '<td><select class="aksi-dd dd-status" data-row="' + d.row + '" data-prev="' + escHtml(d.status || '') + '" onchange="updateStatus(this)">' + statusOpts + '</select></td>';
-    /* Kolom AKSI: dropdown */
     html += '<td><select class="aksi-dd dd-aksi" data-row="' + d.row + '" data-prev="' + escHtml(d.aksi || '') + '" onchange="updateAksi(this)">' + aksiOpts + '</select></td>';
-    /* Kolom PENGAMBILAN */
     html += '<td>' + pengambilanCell + '</td>';
     html += '<td>' + renderPhoneLinks(d.noHP) + '</td>';
     html += '</tr>';
@@ -1033,7 +910,6 @@ function renderActionTable() {
   body.innerHTML = html;
 }
 
-/* ===== Kirim update STATUS ke Apps Script (kolom Q) ===== */
 function updateStatus(selectEl) {
   var row = parseInt(selectEl.getAttribute('data-row'));
   var value = selectEl.value;
@@ -1047,17 +923,14 @@ function updateStatus(selectEl) {
     method: 'POST',
     body: JSON.stringify({ action: 'updateStatus', row: row, status: value })
   }).then(function() {
-    // Berhasil — update data lokal
     aksiData.forEach(function(d) { if (d.row === row) d.status = value; });
     allData.forEach(function(d) { if (d.row === row) d.status = value; });
     selectEl.setAttribute('data-prev', value);
     selectEl.disabled = false; selectEl.style.opacity = '1';
-    // Update warna baris
     var tr = selectEl.closest('tr');
-    if (tr) {
-      tr.className = 'row-' + getStatusKey(value);
-    }
-    updateStatusCounts(); renderChart();
+    if (tr) { tr.className = 'row-' + getStatusKey(value); }
+    updateStatusCounts(); 
+    if ($('slide4').style.display === 'block') { renderChart(); renderRoomChart(); }
     toast('Status berhasil diubah ke "' + value + '" (baris ' + row + ')', 'success');
   }).catch(function(err) {
     selectEl.disabled = false; selectEl.style.opacity = '1';
@@ -1066,7 +939,6 @@ function updateStatus(selectEl) {
   });
 }
 
-/* ===== Kirim update AKSI ke Apps Script (kolom R) ===== */
 function updateAksi(selectEl) {
   var row = parseInt(selectEl.getAttribute('data-row'));
   var value = selectEl.value;
@@ -1084,6 +956,7 @@ function updateAksi(selectEl) {
     allData.forEach(function(d) { if (d.row === row) d.keterangan = value; });
     selectEl.setAttribute('data-prev', value);
     selectEl.disabled = false; selectEl.style.opacity = '1';
+    if ($('slide4').style.display === 'block') { renderRoomChart(); }
     toast('Aksi berhasil diubah ke "' + value + '" (baris ' + row + ')', 'success');
   }).catch(function(err) {
     selectEl.disabled = false; selectEl.style.opacity = '1';
@@ -1092,7 +965,6 @@ function updateAksi(selectEl) {
   });
 }
 
-/* ===== Ambil / catat pengambilan pasien oleh petugas yang sedang login (kolom S & T) ===== */
 function ambilPasien(row, btnEl) {
   if (!currentUser || currentUser.role !== 'Petugas') { toast('Hanya petugas yang login yang bisa mengambil pasien', 'error'); return; }
   var petugas = currentUser.nama;
@@ -1113,7 +985,6 @@ function ambilPasien(row, btnEl) {
   });
 }
 
-/* ===== Batalkan pengambilan pasien (kosongkan kolom S & T) ===== */
 function batalkanAmbil(row) {
   if (!currentUser || currentUser.role !== 'Petugas') { toast('Hanya petugas yang login yang bisa membatalkan', 'error'); return; }
   if (!confirm('Batalkan pengambilan pasien pada baris ' + row + '?')) return;
@@ -1130,7 +1001,6 @@ function batalkanAmbil(row) {
   });
 }
 
-/* ===== CHART (BATANG / BAR) ===== */
 function renderChart() {
   var counts = { menunggu: 0, terjadwal: 0, hdlain: 0, batal: 0, meninggal: 0, norespon: 0 };
   allData.forEach(function(d) { var k = getStatusKey(d.status); if (counts.hasOwnProperty(k)) counts[k]++; });
@@ -1142,28 +1012,12 @@ function renderChart() {
   var ctx = $('chart1'); if (!ctx) return;
   chartInstance = new Chart(ctx, {
     type: 'bar',
-    data: {
-      labels: labels,
-      datasets: [{
-        label: 'Jumlah Pasien',
-        data: data,
-        backgroundColor: colors,
-        borderRadius: 8,
-        maxBarThickness: 46
-      }]
-    },
+    data: { labels: labels, datasets: [{ label: 'Jumlah Pasien', data: data, backgroundColor: colors, borderRadius: 8, maxBarThickness: 46 }] },
     options: {
-      responsive: true,
-      maintainAspectRatio: false,
+      responsive: true, maintainAspectRatio: false,
       plugins: {
         legend: { display: false },
-        tooltip: {
-          backgroundColor: '#1e293b',
-          titleFont: { family: 'Plus Jakarta Sans', weight: '700', size: 13 },
-          bodyFont: { family: 'Plus Jakarta Sans', size: 12 },
-          padding: 12, cornerRadius: 10,
-          callbacks: { label: function(ctx) { var pct = total > 0 ? ((ctx.parsed.y / total) * 100).toFixed(1) : 0; return ' ' + ctx.parsed.y + ' pasien (' + pct + '%)'; } }
-        }
+        tooltip: { backgroundColor: '#1e293b', titleFont: { family: 'Plus Jakarta Sans', weight: '700', size: 13 }, bodyFont: { family: 'Plus Jakarta Sans', size: 12 }, padding: 12, cornerRadius: 10, callbacks: { label: function(ctx) { var pct = total > 0 ? ((ctx.parsed.y / total) * 100).toFixed(1) : 0; return ' ' + ctx.parsed.y + ' pasien (' + pct + '%)'; } } }
       },
       scales: {
         y: { beginAtZero: true, ticks: { precision: 0, font: { family: 'Plus Jakarta Sans', size: 11 } }, grid: { color: '#f1f5f9' } },
@@ -1176,13 +1030,89 @@ function renderChart() {
   if (leg) { leg.innerHTML = labels.map(function(l, i) { return '<div class="flex items-center gap-1.5"><span style="width:10px;height:10px;border-radius:3px;background:' + colors[i] + ';display:inline-block"></span>' + l + ' <span style="color:var(--muted)">(' + data[i] + ')</span></div>'; }).join(''); }
 }
 
+function renderRoomChart() {
+  var counts = { "Teuku Umar": 0, "Malahayati": 0, "Cut Nyak Dien": 0 };
+  allData.forEach(function(d) {
+    var k = (d.keterangan || "").toLowerCase();
+    if (k.includes("teuku umar")) counts["Teuku Umar"]++;
+    if (k.includes("malahayati")) counts["Malahayati"]++;
+    if (k.includes("cut nyak dien")) counts["Cut Nyak Dien"]++;
+  });
+  
+  $('countTeukuUmar').textContent = counts["Teuku Umar"];
+  $('countMalahayati').textContent = counts["Malahayati"];
+  $('countCutNyakDien').textContent = counts["Cut Nyak Dien"];
+
+  var labels = Object.keys(counts);
+  var data = Object.values(counts);
+  var colors = ['#3b82f6', '#10b981', '#f59e0b'];
+  
+  if (chartInstance2) { chartInstance2.destroy(); chartInstance2 = null; }
+  var ctx = $('chart2'); if (!ctx) return;
+  chartInstance2 = new Chart(ctx, {
+    type: 'bar',
+    data: { labels: labels, datasets: [{ label: 'Jumlah Pasien', data: data, backgroundColor: colors, borderRadius: 8, maxBarThickness: 46 }] },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { backgroundColor: '#1e293b', titleFont: { family: 'Plus Jakarta Sans', weight: '700', size: 13 }, bodyFont: { family: 'Plus Jakarta Sans', size: 12 }, padding: 12, cornerRadius: 10, callbacks: { label: function(ctx) { return ' ' + ctx.parsed.y + ' pasien'; } } }
+      },
+      scales: {
+        y: { beginAtZero: true, ticks: { precision: 0, font: { family: 'Plus Jakarta Sans', size: 11 } }, grid: { color: '#f1f5f9' } },
+        x: { ticks: { font: { family: 'Plus Jakarta Sans', size: 10.5, weight: '600' } }, grid: { display: false } }
+      },
+      animation: { duration: 800 }
+    }
+  });
+  var leg = $('leg2');
+  if (leg) { leg.innerHTML = labels.map(function(l, i) { return '<div class="flex items-center gap-1.5"><span style="width:10px;height:10px;border-radius:3px;background:' + colors[i] + ';display:inline-block"></span>' + l + ' <span style="color:var(--muted)">(' + data[i] + ')</span></div>'; }).join(''); }
+}
+
 function saveChartAsImage(canvasId, name) {
   var canvas = $(canvasId); if (!canvas) return;
   var link = document.createElement('a'); link.download = 'sidaraja_' + name + '_' + Date.now() + '.png'; link.href = canvas.toDataURL('image/png'); link.click();
   toast('Gambar chart berhasil disimpan', 'success');
 }
 
-/* ===== PASIEN VIEW ===== */
+function cetakPrint() {
+  $('printArea').innerHTML = $('dashboardPrintArea').innerHTML;
+  window.print();
+  setTimeout(function() { $('printArea').innerHTML = ''; }, 500);
+}
+
+function kirimPDF() {
+  var element = $('dashboardPrintArea');
+  html2pdf().set({
+    margin: 10,
+    filename: 'SIDARAJA_Dashboard_' + new Date().toLocaleDateString('id-ID').replace(/\//g, '-') + '.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+  }).from(element).save().then(function() {
+    toast('PDF berhasil diunduh', 'success');
+  }).catch(function(err) {
+    toast('Gagal membuat PDF: ' + err.message, 'error');
+  });
+}
+
+function kirimWA() {
+  var counts = { menunggu: 0, terjadwal: 0, hdlain: 0, batal: 0, meninggal: 0, norespon: 0 };
+  allData.forEach(function(d) { var k = getStatusKey(d.status); if (counts.hasOwnProperty(k)) counts[k]++; });
+  
+  var text = "*SIDARAJA - Laporan Dashboard*\n\n";
+  text += "Total Pasien: " + allData.length + "\n";
+  text += "- Menunggu: " + counts.menunggu + "\n";
+  text += "- Terjadwal: " + counts.terjadwal + "\n";
+  text += "- HD Lain: " + counts.hdlain + "\n";
+  text += "- Batal: " + counts.batal + "\n";
+  text += "- Meninggal: " + counts.meninggal + "\n";
+  text += "- No Respon: " + counts.norespon + "\n\n";
+  text += "Update: " + new Date().toLocaleString('id-ID');
+  
+  window.open("https://wa.me/?text=" + encodeURIComponent(text), '_blank');
+}
+
 function updatePatientStats() {
   var m = 0, t = 0;
   allData.forEach(function(d) { var k = getStatusKey(d.status); if (k === 'menunggu') m++; if (k === 'terjadwal') t++; });
@@ -1213,7 +1143,6 @@ function patientSearch() {
 
 function patientReset() { $('pSearchNama').value = ''; $('patientResults').innerHTML = ''; $('pNoRes').style.display = 'none'; }
 
-/* ===== INISIALISASI ===== */
 function init() {
   checkAuth();
   $('visitorCount').textContent = Math.floor(Math.random() * 15) + 5;
