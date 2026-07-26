@@ -475,39 +475,112 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 <!-- SLIDE 3: STATISTIK -->
 <main id="slide3" style="display:none" class="px-4 sm:px-8 pb-16">
 <div class="max-w-7xl mx-auto">
+
+<!-- FILTER PERIODE BULANAN -->
+<section class="mt-6 fu">
+<div class="card p-5" style="border:2px solid var(--cnl);border-radius:18px;background:linear-gradient(135deg,#fff,#ecfeff)">
+<div class="flex flex-wrap items-center gap-4">
+  <div class="flex items-center gap-3">
+    <div class="w-11 h-11 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,#cffafe,#a5f3fc)"><i class="fa-solid fa-calendar-days text-lg" style="color:var(--cn)"></i></div>
+    <div><div class="text-xs font-bold uppercase tracking-wider" style="color:var(--muted)">Filter Periode</div><div class="text-sm font-black" style="color:var(--cnd)">Statistik Bulanan Pengambilan</div></div>
+  </div>
+  <div class="flex-1"></div>
+  <div class="flex items-center gap-3 flex-wrap">
+    <label class="text-xs font-bold" style="color:var(--muted)">Pilih Bulan:</label>
+    <select id="monthFilterSelect" class="aksi-dd" onchange="onMonthFilterChange(this)" style="min-width:210px;border-color:var(--cnl);font-size:13px;padding:9px 12px">
+      <option value="today">Hari Ini</option>
+    </select>
+  </div>
+</div>
+<div class="mt-3 flex items-center gap-2">
+  <span class="text-xs font-bold" style="color:var(--cn)" id="filterPeriodLabel"><i class="fa-solid fa-filter mr-1"></i>Menampilkan: Hari Ini</span>
+  <span class="text-xs font-bold" style="color:var(--muted)" id="filterTotalLabel">— 0 pasien</span>
+</div>
+</div>
+</section>
+
+<!-- DISTRIBUSI STATUS (SNAPSHOT SAAT INI) -->
 <section class="mt-6 fu">
 <div class="card p-6">
-<h3 class="text-sm font-bold mb-4" style="color:var(--b900)"><i class="fa-solid fa-chart-column mr-2" style="color:var(--g500)"></i>Distribusi Status Pasien</h3>
+<h3 class="text-sm font-bold mb-1" style="color:var(--b900)"><i class="fa-solid fa-chart-column mr-2" style="color:var(--g500)"></i>Distribusi Status Pasien (Saat Ini)</h3>
+<p class="text-xs mb-4" style="color:var(--muted)">Snapshot kondisi terbaru seluruh pasien tanpa filter periode.</p>
 <div class="cc"><canvas id="chart1"></canvas></div>
 <div id="leg1" class="mt-4 flex flex-wrap justify-center gap-3 text-xs font-semibold"></div>
 <div class="chart-actions"><button class="chart-act-btn" onclick="saveChartAsImage('chart1','distribusi-status')"><i class="fa-solid fa-download"></i> Simpan Gambar</button></div>
 </div>
 </section>
-<section class="mt-6 fu">
-<h3 class="text-sm font-bold mb-4" style="color:var(--b900)"><i class="fa-solid fa-door-open mr-2" style="color:var(--cn)"></i>Statistik Pengambilan Pasien per Ruangan</h3>
+
+<!-- PEMISAH SECTION BULANAN -->
+<div class="mt-8 mb-2 flex items-center gap-3">
+  <div style="flex:1;height:2px;background:var(--bdr);border-radius:1px"></div>
+  <span class="text-xs font-black uppercase tracking-widest" style="color:var(--cn)"><i class="fa-solid fa-chart-pie mr-1"></i>Statistik Pengambilan per Ruangan</span>
+  <div style="flex:1;height:2px;background:var(--bdr);border-radius:1px"></div>
+</div>
+
+<!-- KARTU STATISTIK 3 RUANGAN -->
+<section class="mt-4 fu">
 <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 room-stats-grid">
-<div class="room-stat-card rsc-tu"><div class="flex items-center gap-4 mb-4"><div class="room-stat-icon" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe)"><i class="fa-solid fa-hospital-user" style="color:#2563eb"></i></div><div><div class="room-stat-label">Ruangan</div><div class="text-lg font-black" style="color:#1e40af">Teuku Umar</div></div></div><div class="room-stat-num" style="color:#1e40af" id="rsTu">0</div><div class="room-stat-label mt-1">pasien diambil hari ini</div></div>
-<div class="room-stat-card rsc-ml"><div class="flex items-center gap-4 mb-4"><div class="room-stat-icon" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0)"><i class="fa-solid fa-hospital-user" style="color:#059669"></i></div><div><div class="room-stat-label">Ruangan</div><div class="text-lg font-black" style="color:#065f46">Malahayati</div></div></div><div class="room-stat-num" style="color:#065f46" id="rsMl">0</div><div class="room-stat-label mt-1">pasien diambil hari ini</div></div>
-<div class="room-stat-card rsc-cnd"><div class="flex items-center gap-4 mb-4"><div class="room-stat-icon" style="background:linear-gradient(135deg,#fce7f3,#fbcfe8)"><i class="fa-solid fa-hospital-user" style="color:#db2777"></i></div><div><div class="room-stat-label">Ruangan</div><div class="text-lg font-black" style="color:#9d174d">Cut Nyak Dien</div></div></div><div class="room-stat-num" style="color:#9d174d" id="rsCnd">0</div><div class="room-stat-label mt-1">pasien diambil hari ini</div></div>
+  <div class="room-stat-card rsc-tu">
+    <div class="flex items-center gap-4 mb-3">
+      <div class="room-stat-icon" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe)"><i class="fa-solid fa-hospital-user" style="color:#2563eb"></i></div>
+      <div><div class="room-stat-label">Ruangan</div><div class="text-lg font-black" style="color:#1e40af">Teuku Umar</div></div>
+    </div>
+    <div class="room-stat-num" style="color:#1e40af" id="rsTu">0</div>
+    <div class="room-stat-label mt-1" id="rsTuLabel">pasien diambil hari ini</div>
+  </div>
+  <div class="room-stat-card rsc-ml">
+    <div class="flex items-center gap-4 mb-3">
+      <div class="room-stat-icon" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0)"><i class="fa-solid fa-hospital-user" style="color:#059669"></i></div>
+      <div><div class="room-stat-label">Ruangan</div><div class="text-lg font-black" style="color:#065f46">Malahayati</div></div>
+    </div>
+    <div class="room-stat-num" style="color:#065f46" id="rsMl">0</div>
+    <div class="room-stat-label mt-1" id="rsMlLabel">pasien diambil hari ini</div>
+  </div>
+  <div class="room-stat-card rsc-cnd">
+    <div class="flex items-center gap-4 mb-3">
+      <div class="room-stat-icon" style="background:linear-gradient(135deg,#fce7f3,#fbcfe8)"><i class="fa-solid fa-hospital-user" style="color:#db2777"></i></div>
+      <div><div class="room-stat-label">Ruangan</div><div class="text-lg font-black" style="color:#9d174d">Cut Nyak Dien</div></div>
+    </div>
+    <div class="room-stat-num" style="color:#9d174d" id="rsCnd">0</div>
+    <div class="room-stat-label mt-1" id="rsCndLabel">pasien diambil hari ini</div>
+  </div>
 </div>
 </section>
+
+<!-- TREN HARIAN (STACKED BAR) -->
 <section class="mt-6 fu">
 <div class="card p-6">
-<h3 class="text-sm font-bold mb-4" style="color:var(--b900)"><i class="fa-solid fa-chart-pie mr-2" style="color:var(--pp)"></i>Distribusi Pengambilan per Ruangan</h3>
-<div style="max-width:400px;margin:0 auto"><div class="cc" style="height:320px"><canvas id="chart2"></canvas></div></div>
+<h3 class="text-sm font-bold mb-1" style="color:var(--b900)"><i class="fa-solid fa-chart-bar mr-2" style="color:var(--cn)"></i>Tren Harian Pengambilan <span id="chart3PeriodLabel" style="color:var(--cn)">— Hari Ini</span></h3>
+<p class="text-xs mb-4" style="color:var(--muted)">Jumlah pasien diambil per hari, dibagi per ruangan.</p>
+<div class="cc" style="height:300px"><canvas id="chart3"></canvas></div>
+<div id="leg3" class="mt-4 flex flex-wrap justify-center gap-4 text-xs font-semibold"></div>
+<div class="chart-actions"><button class="chart-act-btn" onclick="saveChartAsImage('chart3','tren-harian')"><i class="fa-solid fa-download"></i> Simpan Gambar</button></div>
+</div>
+</section>
+
+<!-- DISTRIBUSI PIE PER RUANGAN -->
+<section class="mt-6 fu">
+<div class="card p-6">
+<h3 class="text-sm font-bold mb-1" style="color:var(--b900)"><i class="fa-solid fa-chart-pie mr-2" style="color:var(--pp)"></i>Distribusi Pengambilan per Ruangan <span id="chart2PeriodLabel" style="color:var(--pp)">— Hari Ini</span></h3>
+<p class="text-xs mb-4" style="color:var(--muted)">Proporsi pengambilan masing-masing ruangan.</p>
+<div style="max-width:380px;margin:0 auto"><div class="cc" style="height:300px"><canvas id="chart2"></canvas></div></div>
 <div id="leg2" class="mt-4 flex flex-wrap justify-center gap-4 text-xs font-semibold"></div>
 <div class="chart-actions"><button class="chart-act-btn" onclick="saveChartAsImage('chart2','distribusi-ruangan')"><i class="fa-solid fa-download"></i> Simpan Gambar</button></div>
 </div>
 </section>
+
+<!-- DETAIL TABLE -->
 <section class="mt-6 fu">
 <div class="card p-6">
-<h3 class="text-sm font-bold mb-4" style="color:var(--b900)"><i class="fa-solid fa-table mr-2" style="color:var(--pk)"></i>Detail Pengambilan Hari Ini</h3>
-<div class="tw" style="max-height:360px;overflow-y:auto;border-radius:12px;border:1px solid var(--bdr)">
-<table class="dt"><thead><tr><th>No</th><th>Nama Pasien</th><th>No RM</th><th>Ruangan</th><th>Waktu Diambil</th><th>Aksi</th></tr></thead><tbody id="pickupDetailBody"></tbody></table>
+<h3 class="text-sm font-bold mb-1" style="color:var(--b900)"><i class="fa-solid fa-table mr-2" style="color:var(--pk)"></i>Detail Pengambilan <span id="tablePeriodLabel" style="color:var(--pk)">— Hari Ini</span></h3>
+<p class="text-xs mb-4" style="color:var(--muted)">Daftar pasien yang sudah diambil pada periode terpilih.</p>
+<div class="tw" style="max-height:380px;overflow-y:auto;border-radius:12px;border:1px solid var(--bdr)">
+<table class="dt"><thead><tr><th>No</th><th>Tanggal</th><th>Nama Pasien</th><th>No RM</th><th>Ruangan</th><th>Waktu</th><th>Aksi</th></tr></thead><tbody id="pickupDetailBody"></tbody></table>
 </div>
-<div id="pickupDetailEmpty" style="display:none" class="text-center py-10"><p class="text-sm font-bold" style="color:var(--muted)"><i class="fa-solid fa-clipboard-list mr-2"></i>Belum ada pengambilan pasien hari ini.</p></div>
+<div id="pickupDetailEmpty" style="display:none" class="text-center py-10"><p class="text-sm font-bold" style="color:var(--muted)"><i class="fa-solid fa-clipboard-list mr-2"></i>Belum ada data pengambilan untuk periode ini.</p></div>
 </div>
 </section>
+
 </div>
 </main>
 
@@ -1160,6 +1233,7 @@ function doPickup(rowIdx, pk) {
     toast('Pilih ruangan terlebih dahulu!', 'e');
     if (sel) { sel.style.borderColor = '#ef4444'; sel.focus(); setTimeout(function() { sel.style.borderColor = ''; }, 2000); }
     return;
+      if (currentSlide === 3) renderStatistik();
   }
 
   // Update lokal
@@ -1196,6 +1270,7 @@ function cancelPickup(rowIdx, pk) {
       DATA[i].ruangan = '';
       DATA[i].aksi = 'BELUM';
       break;
+    if (currentSlide === 3) renderStatistik();
     }
   }
   delete pickups[pk]; savePickups();
@@ -1206,11 +1281,160 @@ function cancelPickup(rowIdx, pk) {
   apiCall('cancelPickup', { row: rowIdx });
 }
 
-// ========== RENDER: STATISTIK ==========
-function renderStatistik() {
-  renderChart1(); renderRoomStats(); renderChart2(); renderPickupDetail();
+// ========== STATE TAMBAHAN STATISTIK ==========
+var selectedMonth = null; // null = hari ini, 'YYYY-MM' = bulan tertentu
+var chart3Instance = null; // tren harian
+
+// ========== UTILITAS STATISTIK ==========
+function parseStamp(stamp) {
+  if (!stamp) return null;
+  var p = stamp.match(/(\d{2})\/(\d{2})\/(\d{4})\s+(\d{2}):(\d{2}):(\d{2})/);
+  if (!p) return null;
+  return new Date(parseInt(p[3]), parseInt(p[2]) - 1, parseInt(p[1]), parseInt(p[4]), parseInt(p[5]), parseInt(p[6]));
 }
 
+function getMonthName(m) {
+  return ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'][m] || '';
+}
+
+function getDaysInMonth(year, month) {
+  return new Date(year, month + 1, 0).getDate();
+}
+
+function getAllPickupRecords() {
+  var records = [];
+  // 1. Parse dari data sheet (historis)
+  for (var i = 0; i < DATA.length; i++) {
+    var d = DATA[i];
+    if (d.pengambilan && d.pengambilan.trim() && d.ruangan && d.ruangan.trim()) {
+      var dt = parseStamp(d.pengambilan);
+      if (dt) {
+        records.push({
+          nama: d.nama, norm: d.norm, ruangan: d.ruangan.trim(),
+          time: d.pengambilan, date: dt,
+          year: dt.getFullYear(), month: dt.getMonth(), day: dt.getDate(),
+          ym: dt.getFullYear() + '-' + String(dt.getMonth() + 1).padStart(2, '0'),
+          ymd: dt.getFullYear() + '-' + String(dt.getMonth() + 1).padStart(2, '0') + '-' + String(dt.getDate()).padStart(2, '0'),
+          rowIdx: DATA_ROWS[i] || 0
+        });
+      }
+    }
+  }
+  // 2. Tambahkan pickup hari ini dari localStorage (yang belum ke sheet)
+  var today = getTodayStr();
+  var pkKeys = Object.keys(pickups);
+  for (var j = 0; j < pkKeys.length; j++) {
+    var pk = pkKeys[j], p = pickups[pk];
+    if (p.date === today && p.room) {
+      var found = false;
+      for (var k = 0; k < records.length; k++) {
+        if (records[k].norm === p.norm && records[k].nama === p.nama && records[k].ymd === today) { found = true; break; }
+      }
+      if (!found) {
+        var now = new Date();
+        records.push({
+          nama: p.nama, norm: p.norm, ruangan: p.room,
+          time: now.toLocaleDateString('id-ID') + ' ' + p.time, date: now,
+          year: now.getFullYear(), month: now.getMonth(), day: now.getDate(),
+          ym: now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0'),
+          ymd: today, rowIdx: 0
+        });
+      }
+    }
+  }
+  return records;
+}
+
+function getAvailableMonths(records) {
+  var map = {};
+  for (var i = 0; i < records.length; i++) {
+    var ym = records[i].ym;
+    if (!map[ym]) map[ym] = { year: records[i].year, month: records[i].month, label: getMonthName(records[i].month) + ' ' + records[i].year, ym: ym };
+  }
+  var arr = [];
+  for (var key in map) { if (map.hasOwnProperty(key)) arr.push(map[key]); }
+  arr.sort(function(a, b) { return b.ym > a.ym ? 1 : b.ym < a.ym ? -1 : 0; });
+  return arr;
+}
+
+function getFilteredRecords() {
+  var all = getAllPickupRecords();
+  if (selectedMonth === null) {
+    var today = getTodayStr();
+    return all.filter(function(r) { return r.ymd === today; });
+  }
+  return all.filter(function(r) { return r.ym === selectedMonth; });
+}
+
+function getPeriodLabel() {
+  if (selectedMonth === null) {
+    return 'Hari Ini (' + new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) + ')';
+  }
+  var parts = selectedMonth.split('-');
+  return getMonthName(parseInt(parts[1]) - 1) + ' ' + parts[0];
+}
+
+// ========== FILTER UI ==========
+function renderMonthFilter() {
+  var records = getAllPickupRecords();
+  var months = getAvailableMonths(records);
+  var el = document.getElementById('monthFilterSelect');
+  if (!el) return;
+  var todayLabel = 'Hari Ini (' + new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) + ')';
+  var h = '<option value="today"' + (selectedMonth === null ? ' selected' : '') + '>' + escHtml(todayLabel) + '</option>';
+  // Tambahkan bulan ini ke daftar jika belum ada datanya
+  var currentYm = new Date().getFullYear() + '-' + String(new Date().getMonth() + 1).padStart(2, '0');
+  var hasCurrentMonth = false;
+  for (var i = 0; i < months.length; i++) { if (months[i].ym === currentYm) { hasCurrentMonth = true; break; } }
+  if (!hasCurrentMonth) {
+    months.unshift({ year: new Date().getFullYear(), month: new Date().getMonth(), label: getMonthName(new Date().getMonth()) + ' ' + new Date().getFullYear(), ym: currentYm });
+  }
+  for (var j = 0; j < months.length; j++) {
+    h += '<option value="' + months[j].ym + '"' + (selectedMonth === months[j].ym ? ' selected' : '') + '>' + escHtml(months[j].label) + '</option>';
+  }
+  el.innerHTML = h;
+}
+
+function onMonthFilterChange(sel) {
+  selectedMonth = (sel.value === 'today') ? null : sel.value;
+  renderStatistik();
+}
+
+// ========== RENDER UTAMA STATISTIK ==========
+function renderStatistik() {
+  renderMonthFilter();
+  var filtered = getFilteredRecords();
+  var label = getPeriodLabel();
+  var subLabel = selectedMonth === null ? 'pasien diambil hari ini' : 'pasien diambil periode ini';
+
+  // Update label periode di semua section
+  var fpl = document.getElementById('filterPeriodLabel');
+  if (fpl) fpl.innerHTML = '<i class="fa-solid fa-filter mr-1"></i>Menampilkan: ' + escHtml(label);
+  var ftl = document.getElementById('filterTotalLabel');
+  if (ftl) ftl.textContent = '— ' + filtered.length + ' pasien';
+  var c3pl = document.getElementById('chart3PeriodLabel');
+  if (c3pl) c3pl.textContent = '— ' + label;
+  var c2pl = document.getElementById('chart2PeriodLabel');
+  if (c2pl) c2pl.textContent = '— ' + label;
+  var tpl = document.getElementById('tablePeriodLabel');
+  if (tpl) tpl.textContent = '— ' + label;
+
+  // Update label di kartu ruangan
+  var tuL = document.getElementById('rsTuLabel');
+  var mlL = document.getElementById('rsMlLabel');
+  var cnL = document.getElementById('rsCndLabel');
+  if (tuL) tuL.textContent = subLabel;
+  if (mlL) mlL.textContent = subLabel;
+  if (cnL) cnL.textContent = subLabel;
+
+  renderChart1();        // Distribusi status (tidak terfilter)
+  renderRoomStats(filtered);
+  renderChart3(filtered);
+  renderChart2(filtered);
+  renderPickupDetail(filtered);
+}
+
+// ========== CHART 1: DISTRIBUSI STATUS (TIDAK TERFILTER) ==========
 function renderChart1() {
   var counts = getStatusCounts();
   var labels = [], values = [], colors = [];
@@ -1226,26 +1450,112 @@ function renderChart1() {
   chart1Instance = new Chart(ctx, {
     type: 'bar',
     data: { labels: labels, datasets: [{ label: 'Jumlah', data: values, backgroundColor: colors, borderWidth: 0, borderRadius: 8, borderSkipped: false }] },
-    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { backgroundColor: '#1e293b', padding: 12, cornerRadius: 10, titleFont: { family: 'Plus Jakarta Sans', weight: '700' }, bodyFont: { family: 'Plus Jakarta Sans' } } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1, font: { family: 'Plus Jakarta Sans', weight: '600' }, color: '#94a3b8' }, grid: { color: 'rgba(226,232,240,0.6)' } }, x: { ticks: { font: { family: 'Plus Jakarta Sans', weight: '700' }, color: '#475569' }, grid: { display: false } } }, animation: { duration: 800 } }
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { backgroundColor: '#1e293b', padding: 12, cornerRadius: 10, titleFont: { family: 'Plus Jakarta Sans', weight: '700' }, bodyFont: { family: 'Plus Jakarta Sans' }, callbacks: { label: function(c) { return ' ' + c.parsed.y + ' pasien'; } } } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1, font: { family: 'Plus Jakarta Sans', weight: '600' }, color: '#94a3b8' }, grid: { color: 'rgba(226,232,240,0.6)' } }, x: { ticks: { font: { family: 'Plus Jakarta Sans', weight: '700' }, color: '#475569' }, grid: { display: false } } }, animation: { duration: 800 } }
   });
 
   var legEl = document.getElementById('leg1');
   if (legEl) { var lh = ''; for (var j = 0; j < labels.length; j++) { lh += '<div style="display:flex;align-items:center;gap:6px"><span style="width:12px;height:12px;border-radius:4px;background:' + colors[j] + '"></span><span style="color:var(--txt2)">' + escHtml(labels[j]) + ' (' + values[j] + ')</span></div>'; } legEl.innerHTML = lh; }
 }
 
-function renderRoomStats() {
+// ========== KARTU STATISTIK RUANGAN ==========
+function renderRoomStats(filtered) {
   var rc = { 'Teuku Umar': 0, 'Malahayati': 0, 'Cut Nyak Dien': 0 };
-  var keys = Object.keys(pickups);
-  for (var i = 0; i < keys.length; i++) { var p = pickups[keys[i]]; if (p.date === getTodayStr() && rc[p.room] !== undefined) rc[p.room]++; }
+  for (var i = 0; i < filtered.length; i++) {
+    if (rc[filtered[i].ruangan] !== undefined) rc[filtered[i].ruangan]++;
+  }
   document.getElementById('rsTu').textContent = rc['Teuku Umar'];
   document.getElementById('rsMl').textContent = rc['Malahayati'];
   document.getElementById('rsCnd').textContent = rc['Cut Nyak Dien'];
 }
 
-function renderChart2() {
+// ========== CHART 3: TREN HARIAN (STACKED BAR) ==========
+function renderChart3(filtered) {
+  var ctx = document.getElementById('chart3'); if (!ctx) return;
+  if (chart3Instance) { chart3Instance.destroy(); chart3Instance = null; }
+
+  // Tentukan range hari
+  var dayLabels = [], maxDay = 1;
+  if (selectedMonth === null) {
+    // Hari ini saja -> tampilkan 1 bar
+    dayLabels = [new Date().getDate().toString()];
+    maxDay = 1;
+  } else {
+    var parts = selectedMonth.split('-');
+    var yr = parseInt(parts[0]), mo = parseInt(parts[1]) - 1;
+    maxDay = getDaysInMonth(yr, mo);
+    for (var d = 1; d <= maxDay; d++) dayLabels.push(d.toString());
+  }
+
+  // Hitung data per ruangan per hari
+  var dataTU = new Array(maxDay).fill(0);
+  var dataML = new Array(maxDay).fill(0);
+  var dataCND = new Array(maxDay).fill(0);
+
+  for (var i = 0; i < filtered.length; i++) {
+    var r = filtered[i];
+    var dayIdx = (selectedMonth === null) ? 0 : (r.day - 1);
+    if (dayIdx >= 0 && dayIdx < maxDay) {
+      if (r.ruangan === 'Teuku Umar') dataTU[dayIdx]++;
+      else if (r.ruangan === 'Malahayati') dataML[dayIdx]++;
+      else if (r.ruangan === 'Cut Nyak Dien') dataCND[dayIdx]++;
+    }
+  }
+
+  var hasData = dataTU.some(function(v) { return v > 0; }) || dataML.some(function(v) { return v > 0; }) || dataCND.some(function(v) { return v > 0; });
+
+  chart3Instance = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: dayLabels,
+      datasets: [
+        { label: 'Teuku Umar', data: dataTU, backgroundColor: 'rgba(37,99,235,0.8)', borderRadius: 3, borderSkipped: false, stack: 'rooms' },
+        { label: 'Malahayati', data: dataML, backgroundColor: 'rgba(5,150,105,0.8)', borderRadius: 3, borderSkipped: false, stack: 'rooms' },
+        { label: 'Cut Nyak Dien', data: dataCND, backgroundColor: 'rgba(219,39,119,0.8)', borderRadius: 3, borderSkipped: false, stack: 'rooms' }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#1e293b', padding: 12, cornerRadius: 10,
+          titleFont: { family: 'Plus Jakarta Sans', weight: '700' },
+          bodyFont: { family: 'Plus Jakarta Sans' },
+          callbacks: {
+            title: function(items) { return 'Tanggal ' + items[0].label; },
+            label: function(c) { return ' ' + c.dataset.label + ': ' + c.parsed.y + ' pasien'; }
+          }
+        }
+      },
+      scales: {
+        x: { stacked: true, ticks: { font: { family: 'Plus Jakarta Sans', weight: '600', size: 10 }, color: '#94a3b8', maxRotation: 0, autoSkip: true, maxTicksLimit: 31 }, grid: { display: false }, title: { display: true, text: 'Tanggal', font: { family: 'Plus Jakarta Sans', weight: '700', size: 11 }, color: '#64748b' } },
+        y: { stacked: true, beginAtZero: true, ticks: { stepSize: 1, font: { family: 'Plus Jakarta Sans', weight: '600' }, color: '#94a3b8' }, grid: { color: 'rgba(226,232,240,0.5)' }, title: { display: true, text: 'Jumlah Pasien', font: { family: 'Plus Jakarta Sans', weight: '700', size: 11 }, color: '#64748b' } }
+      },
+      animation: { duration: 700 }
+    }
+  });
+
+  // Custom legend
+  var legEl = document.getElementById('leg3');
+  if (legEl) {
+    var lh = '';
+    var roomData = [
+      { name: 'Teuku Umar', color: 'rgba(37,99,235,0.8)', total: dataTU.reduce(function(a, b) { return a + b; }, 0) },
+      { name: 'Malahayati', color: 'rgba(5,150,105,0.8)', total: dataML.reduce(function(a, b) { return a + b; }, 0) },
+      { name: 'Cut Nyak Dien', color: 'rgba(219,39,119,0.8)', total: dataCND.reduce(function(a, b) { return a + b; }, 0) }
+    ];
+    for (var j = 0; j < roomData.length; j++) {
+      lh += '<div style="display:flex;align-items:center;gap:8px"><span style="width:14px;height:14px;border-radius:4px;background:' + roomData[j].color + '"></span><span style="color:var(--txt2);font-weight:700">' + escHtml(roomData[j].name) + '</span><span style="color:var(--muted)">' + roomData[j].total + '</span></div>';
+    }
+    if (!hasData) lh = '<span style="color:var(--muted);font-size:12px">Tidak ada data untuk periode ini</span>';
+    legEl.innerHTML = lh;
+  }
+}
+
+// ========== CHART 2: PIE DISTRIBUSI RUANGAN ==========
+function renderChart2(filtered) {
   var rc = { 'Teuku Umar': 0, 'Malahayati': 0, 'Cut Nyak Dien': 0 };
-  var keys = Object.keys(pickups);
-  for (var i = 0; i < keys.length; i++) { var p = pickups[keys[i]]; if (p.date === getTodayStr() && rc[p.room] !== undefined) rc[p.room]++; }
+  for (var i = 0; i < filtered.length; i++) { if (rc[filtered[i].ruangan] !== undefined) rc[filtered[i].ruangan]++; }
   var labels = ['Teuku Umar', 'Malahayati', 'Cut Nyak Dien'];
   var values = [rc['Teuku Umar'], rc['Malahayati'], rc['Cut Nyak Dien']];
   var colors = [ROOM_COLORS['Teuku Umar'], ROOM_COLORS['Malahayati'], ROOM_COLORS['Cut Nyak Dien']];
@@ -1255,39 +1565,51 @@ function renderChart2() {
   if (chart2Instance) { chart2Instance.destroy(); chart2Instance = null; }
   chart2Instance = new Chart(ctx, {
     type: 'doughnut',
-    data: { labels: labels, datasets: [{ data: total > 0 ? values : [1, 1, 1], backgroundColor: total > 0 ? colors : ['#e2e8f0','#e2e8f0','#e2e8f0'], borderColor: '#fff', borderWidth: 3, hoverOffset: 8 }] },
-    options: { responsive: true, maintainAspectRatio: false, cutout: '60%', plugins: { legend: { display: false }, tooltip: { enabled: total > 0, backgroundColor: '#1e293b', padding: 12, cornerRadius: 10, titleFont: { family: 'Plus Jakarta Sans', weight: '700' }, bodyFont: { family: 'Plus Jakarta Sans' }, callbacks: { label: function(ctx) { var pct = total > 0 ? Math.round((ctx.parsed / total) * 100) : 0; return ' ' + ctx.parsed + ' pasien (' + pct + '%)'; } } } }, animation: { duration: 800 } }
+    data: { labels: labels, datasets: [{ data: total > 0 ? values : [1, 1, 1], backgroundColor: total > 0 ? colors : ['#e2e8f0', '#e2e8f0', '#e2e8f0'], borderColor: '#fff', borderWidth: 3, hoverOffset: 8 }] },
+    options: { responsive: true, maintainAspectRatio: false, cutout: '60%', plugins: { legend: { display: false }, tooltip: { enabled: total > 0, backgroundColor: '#1e293b', padding: 12, cornerRadius: 10, titleFont: { family: 'Plus Jakarta Sans', weight: '700' }, bodyFont: { family: 'Plus Jakarta Sans' }, callbacks: { label: function(c) { var pct = total > 0 ? Math.round((c.parsed / total) * 100) : 0; return ' ' + c.parsed + ' pasien (' + pct + '%)'; } } } }, animation: { duration: 800 } }
   });
 
   var legEl = document.getElementById('leg2');
   if (legEl) {
-    if (total === 0) { legEl.innerHTML = '<span style="color:var(--muted);font-size:12px">Belum ada data pengambilan hari ini</span>'; }
+    if (total === 0) { legEl.innerHTML = '<span style="color:var(--muted);font-size:12px">Tidak ada data pengambilan untuk periode ini</span>'; }
     else { var lh = ''; for (var j = 0; j < labels.length; j++) { var pct = Math.round((values[j] / total) * 100); lh += '<div style="display:flex;align-items:center;gap:8px"><span style="width:14px;height:14px;border-radius:4px;background:' + colors[j] + '"></span><span style="color:var(--txt2);font-weight:700">' + escHtml(labels[j]) + '</span><span style="color:var(--muted)">' + values[j] + ' (' + pct + '%)</span></div>'; } legEl.innerHTML = lh; }
   }
 }
 
-function renderPickupDetail() {
+// ========== DETAIL TABLE ==========
+function renderPickupDetail(filtered) {
   var tbody = document.getElementById('pickupDetailBody');
   var emptyEl = document.getElementById('pickupDetailEmpty');
   if (!tbody || !emptyEl) return;
-  var today = getTodayStr(), items = [], keys = Object.keys(pickups);
-  for (var i = 0; i < keys.length; i++) { if (pickups[keys[i]].date === today) items.push(pickups[keys[i]]); }
-  if (items.length === 0) { tbody.innerHTML = ''; emptyEl.style.display = 'block'; return; }
+
+  if (filtered.length === 0) { tbody.innerHTML = ''; emptyEl.style.display = 'block'; return; }
   emptyEl.style.display = 'none';
+
+  // Urutkan berdasarkan tanggal & waktu terbaru
+  var sorted = filtered.slice().sort(function(a, b) { return b.date.getTime() - a.date.getTime(); });
+
   var h = '';
-  for (var j = 0; j < items.length; j++) {
-    var it = items[j];
-    var rColor = ROOM_COLORS[it.room] || '#94a3b8';
-    var pk = 'pk_' + (it.norm||'') + '_' + (it.nama||'');
-    // Cari rowIdx
-    var rowIdx = 0;
-    for (var k = 0; k < DATA.length; k++) { if (getPickupKey(DATA[k]) === pk) { rowIdx = DATA_ROWS[k]; break; } }
-    h += '<tr><td class="font-bold" style="color:var(--txt)">' + (j+1) + '</td>';
+  for (var j = 0; j < sorted.length; j++) {
+    var it = sorted[j];
+    var rColor = ROOM_COLORS[it.ruangan] || '#94a3b8';
+    var dateStr = it.date.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+    var timeStr = it.time.split(' ')[1] || it.time;
+
+    h += '<tr>';
+    h += '<td class="font-bold" style="color:var(--txt)">' + (j + 1) + '</td>';
+    h += '<td>' + escHtml(dateStr) + '</td>';
     h += '<td class="font-bold" style="color:var(--txt)">' + escHtml(it.nama) + '</td>';
     h += '<td>' + escHtml(it.norm) + '</td>';
-    h += '<td><span style="display:inline-flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:50%;background:' + rColor + '"></span>' + escHtml(it.room || '-') + '</span></td>';
-    h += '<td>' + escHtml(it.time) + '</td>';
-    h += '<td><button class="pickup-cancel-btn" onclick="cancelPickupStat(' + rowIdx + ',\'' + escAttr(pk) + '\')"><i class="fa-solid fa-rotate-left"></i> Batalkan</button></td></tr>';
+    h += '<td><span style="display:inline-flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:50%;background:' + rColor + '"></span>' + escHtml(it.ruangan || '-') + '</span></td>';
+    h += '<td>' + escHtml(timeStr) + '</td>';
+    h += '<td>';
+    if (it.rowIdx && it.ymd === getTodayStr()) {
+      var pk = 'pk_' + (it.norm || '') + '_' + (it.nama || '');
+      h += '<button class="pickup-cancel-btn" onclick="cancelPickupStat(' + it.rowIdx + ',\'' + escAttr(pk) + '\')"><i class="fa-solid fa-rotate-left"></i> Batalkan</button>';
+    } else {
+      h += '<span style="color:var(--muted);font-size:10px">—</span>';
+    }
+    h += '</td></tr>';
   }
   tbody.innerHTML = h;
 }
