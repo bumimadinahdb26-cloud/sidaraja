@@ -488,8 +488,8 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
   <div class="flex items-center gap-3 flex-wrap">
     <label class="text-xs font-bold" style="color:var(--muted)">Pilih Bulan:</label>
     <select id="monthFilterSelect" class="aksi-dd" onchange="onMonthFilterChange(this)" style="min-width:210px;border-color:var(--cnl);font-size:13px;padding:9px 12px">
-      <option value="today">Hari Ini</option>
-    </select>
+  <option value="today">Hari Ini</option>
+</select>
   </div>
 </div>
 <div class="mt-3 flex items-center gap-2">
@@ -1282,7 +1282,7 @@ function cancelPickup(rowIdx, pk) {
 }
 
 // ========== STATE TAMBAHAN STATISTIK ==========
-var selectedMonth = null; // null = hari ini, 'YYYY-MM' = bulan tertentu
+var selectedMonth = new Date().getFullYear() + '-' + String(new Date().getMonth() + 1).padStart(2, '0'); // default bulan ini
 var chart3Instance = null; // tren harian
 
 // ========== UTILITAS STATISTIK ==========
@@ -1297,13 +1297,10 @@ function getMonthName(m) {
   return ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'][m] || '';
 }
 
-function getDaysInMonth(year, month) {
-  return new Date(year, month + 1, 0).getDate();
-}
+function getDaysInMonth(year, month) { return new Date(year, month + 1, 0).getDate(); }
 
 function getAllPickupRecords() {
   var records = [];
-  // 1. Parse dari data sheet (historis)
   for (var i = 0; i < DATA.length; i++) {
     var d = DATA[i];
     if (d.pengambilan && d.pengambilan.trim() && d.ruangan && d.ruangan.trim()) {
@@ -1320,7 +1317,7 @@ function getAllPickupRecords() {
       }
     }
   }
-  // 2. Tambahkan pickup hari ini dari localStorage (yang belum ke sheet)
+  // Tambah pickup hari ini dari localStorage yang belum ke sheet
   var today = getTodayStr();
   var pkKeys = Object.keys(pickups);
   for (var j = 0; j < pkKeys.length; j++) {
@@ -1347,6 +1344,9 @@ function getAllPickupRecords() {
 
 function getAvailableMonths(records) {
   var map = {};
+  var nowYm = new Date().getFullYear() + '-' + String(new Date().getMonth() + 1).padStart(2, '0');
+  // Selalu sertakan bulan ini
+  map[nowYm] = { year: new Date().getFullYear(), month: new Date().getMonth(), label: getMonthName(new Date().getMonth()) + ' ' + new Date().getFullYear(), ym: nowYm };
   for (var i = 0; i < records.length; i++) {
     var ym = records[i].ym;
     if (!map[ym]) map[ym] = { year: records[i].year, month: records[i].month, label: getMonthName(records[i].month) + ' ' + records[i].year, ym: ym };
@@ -1359,7 +1359,7 @@ function getAvailableMonths(records) {
 
 function getFilteredRecords() {
   var all = getAllPickupRecords();
-  if (selectedMonth === null) {
+  if (!selectedMonth) {
     var today = getTodayStr();
     return all.filter(function(r) { return r.ymd === today; });
   }
@@ -1367,11 +1367,16 @@ function getFilteredRecords() {
 }
 
 function getPeriodLabel() {
-  if (selectedMonth === null) {
+  if (!selectedMonth) {
     return 'Hari Ini (' + new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) + ')';
   }
   var parts = selectedMonth.split('-');
   return getMonthName(parseInt(parts[1]) - 1) + ' ' + parts[0];
+}
+
+function getPeriodSubLabel() {
+  if (!selectedMonth) return 'pasien diambil hari ini';
+  return 'pasien diambil bulan ini';
 }
 
 // ========== FILTER UI ==========
@@ -1380,18 +1385,13 @@ function renderMonthFilter() {
   var months = getAvailableMonths(records);
   var el = document.getElementById('monthFilterSelect');
   if (!el) return;
-  var todayLabel = 'Hari Ini (' + new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) + ')';
-  var h = '<option value="today"' + (selectedMonth === null ? ' selected' : '') + '>' + escHtml(todayLabel) + '</option>';
-  // Tambahkan bulan ini ke daftar jika belum ada datanya
-  var currentYm = new Date().getFullYear() + '-' + String(new Date().getMonth() + 1).padStart(2, '0');
-  var hasCurrentMonth = false;
-  for (var i = 0; i < months.length; i++) { if (months[i].ym === currentYm) { hasCurrentMonth = true; break; } }
-  if (!hasCurrentMonth) {
-    months.unshift({ year: new Date().getFullYear(), month: new Date().getMonth(), label: getMonthName(new Date().getMonth()) + ' ' + new Date().getFullYear(), ym: currentYm });
+  var h = '';
+  // Bulan-bulan di atas
+  for (var i = 0; i < months.length; i++) {
+    h += '<option value="' + months[i].ym + '"' + (selectedMonth === months[i].ym ? ' selected' : '') + '>' + escHtml(months[i].label) + '</option>';
   }
-  for (var j = 0; j < months.length; j++) {
-    h += '<option value="' + months[j].ym + '"' + (selectedMonth === months[j].ym ? ' selected' : '') + '>' + escHtml(months[j].label) + '</option>';
-  }
+  // Pemisah dan opsi "Hari Ini" di bawah
+  h += '<option value="today"' + (selectedMonth === null ? ' selected' : '') + '>&nbsp;&nbsp;⚡ Hari Ini</option>';
   el.innerHTML = h;
 }
 
@@ -1405,13 +1405,13 @@ function renderStatistik() {
   renderMonthFilter();
   var filtered = getFilteredRecords();
   var label = getPeriodLabel();
-  var subLabel = selectedMonth === null ? 'pasien diambil hari ini' : 'pasien diambil periode ini';
+  var subLabel = getPeriodSubLabel();
 
-  // Update label periode di semua section
+  // Update semua label periode
   var fpl = document.getElementById('filterPeriodLabel');
   if (fpl) fpl.innerHTML = '<i class="fa-solid fa-filter mr-1"></i>Menampilkan: ' + escHtml(label);
   var ftl = document.getElementById('filterTotalLabel');
-  if (ftl) ftl.textContent = '— ' + filtered.length + ' pasien';
+  if (ftl) ftl.textContent = '— ' + filtered.length + ' ' + subLabel;
   var c3pl = document.getElementById('chart3PeriodLabel');
   if (c3pl) c3pl.textContent = '— ' + label;
   var c2pl = document.getElementById('chart2PeriodLabel');
@@ -1419,7 +1419,7 @@ function renderStatistik() {
   var tpl = document.getElementById('tablePeriodLabel');
   if (tpl) tpl.textContent = '— ' + label;
 
-  // Update label di kartu ruangan
+  // Update label di 3 kartu ruangan
   var tuL = document.getElementById('rsTuLabel');
   var mlL = document.getElementById('rsMlLabel');
   var cnL = document.getElementById('rsCndLabel');
@@ -1427,13 +1427,12 @@ function renderStatistik() {
   if (mlL) mlL.textContent = subLabel;
   if (cnL) cnL.textContent = subLabel;
 
-  renderChart1();        // Distribusi status (tidak terfilter)
-  renderRoomStats(filtered);
-  renderChart3(filtered);
-  renderChart2(filtered);
-  renderPickupDetail(filtered);
+  renderChart1();             // Status (tidak terfilter — selalu snapshot terkini)
+  renderRoomStats(filtered);   // Kartu 3 ruangan (terfilter)
+  renderChart3(filtered);      // Stacked bar harian (terfilter)
+  renderChart2(filtered);      // Pie ruangan (terfilter)
+  renderPickupDetail(filtered);// Tabel detail (terfilter)
 }
-
 // ========== CHART 1: DISTRIBUSI STATUS (TIDAK TERFILTER) ==========
 function renderChart1() {
   var counts = getStatusCounts();
