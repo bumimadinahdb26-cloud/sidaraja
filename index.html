@@ -287,6 +287,45 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 </div>
 
 <!-- ===== MODAL PROFIL ===== -->
+  <!-- ===== MODAL AMBIL PASIEN ===== -->
+<div class="modal-overlay" id="ambilModal" style="display:none" onclick="if(event.target===this)closeAmbilModal()">
+  <div class="modal-box" style="max-width:600px">
+    <div class="modal-hdr">
+      <h3><i class="fa-solid fa-hand-holding-medical mr-2" style="color:var(--cn)"></i>Hubungi & Ambil Pasien</h3>
+      <button class="modal-close" onclick="closeAmbilModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="mb-4 p-3 rounded-xl" style="background:var(--g50);border:1px solid var(--bdr)">
+        <p class="text-sm font-bold" id="mdlNama">-</p>
+        <p class="text-xs" style="color:var(--muted)" id="mdlAlamat">-</p>
+      </div>
+      
+      <label class="form-label">Template Pesan WhatsApp</label>
+      <textarea id="mdlWaText" class="form-input mb-4" rows="8" style="font-size:12px;line-height:1.5"></textarea>
+      
+      <div class="grid grid-cols-2 gap-3 mb-4">
+        <button class="contact-btn contact-btn-wa justify-center py-3" id="mdlBtnWa1" target="_blank">
+          <i class="fa-brands fa-whatsapp"></i> WA Utama
+        </button>
+        <button class="contact-btn contact-btn-wa justify-center py-3" id="mdlBtnWa2" target="_blank" style="background:#dcfce7;color:#166534">
+          <i class="fa-brands fa-whatsapp"></i> WA Cadangan
+        </button>
+        <button class="contact-btn contact-btn-call justify-center py-3" id="mdlBtnCall" target="_blank">
+          <i class="fa-solid fa-phone"></i> Telepon
+        </button>
+        <button class="contact-btn contact-btn-sms justify-center py-3" id="mdlBtnSms" target="_blank">
+          <i class="fa-solid fa-comment-sms"></i> SMS
+        </button>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="bo" onclick="closeAmbilModal()">Batal</button>
+      <button class="bg2" onclick="tandaiSudahAmbil()" style="background:linear-gradient(135deg,var(--g500),var(--g600))">
+        <i class="fa-solid fa-check"></i> Tandai Sudah Ambil
+      </button>
+    </div>
+  </div>
+</div>
 <div class="modal-overlay" id="profileModal" style="display:none" onclick="if(event.target===this)closeProfileModal()">
 <div class="modal-box">
 <div class="modal-hdr"><h3><i class="fa-solid fa-user-pen mr-2" style="color:var(--b600)"></i>Profil Petugas</h3><button class="modal-close" onclick="closeProfileModal()"><i class="fa-solid fa-xmark"></i></button></div>
@@ -369,7 +408,12 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 <button class="nav-tab active" id="tab1" onclick="switchSlide(1)"><i class="fa-solid fa-clipboard-list mr-2"></i>Dashboard</button>
 <button class="nav-tab" id="tab2" onclick="switchSlide(2)"><i class="fa-solid fa-database mr-2"></i>Data Lengkap</button>
 <button class="nav-tab" id="tab3" onclick="switchSlide(3)"><i class="fa-solid fa-hand-pointer mr-2"></i>Aksi</button>
-</div>
+</div><div class="max-w-7xl mx-auto px-4 sm:px-8 mt-6" id="navTabsWrap" style="display:none">
+  <div class="flex gap-1 flex-wrap">
+    <button class="nav-tab active" id="tab1" onclick="switchSlide(1)"><i class="fa-solid fa-clipboard-list mr-2"></i>Dashboard</button>
+    <button class="nav-tab" id="tab2" onclick="switchSlide(2)"><i class="fa-solid fa-database mr-2"></i>Data Lengkap</button>
+    <button class="nav-tab" id="tab3" onclick="switchSlide(3)"><i class="fa-solid fa-chart-pie mr-2"></i>Statistik</button>
+  </div>
 </div>
 
 <!-- ===== PATIENT VIEW ===== -->
@@ -406,35 +450,40 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 
 <!-- ===== SLIDE 1: DASHBOARD ===== -->
 <main id="slide1" class="px-4 sm:px-8 pb-16" style="display:none">
-<div class="max-w-7xl mx-auto">
-<section class="mt-6 fu">
-<div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4 stg" id="statusCards">
-<div class="stc stc-menunggu sel" onclick="clickStatusCard('menunggu')" data-key="menunggu"><div class="stc-check" style="background:#3b82f6"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe)"><i class="fa-solid fa-hourglass-half text-lg" style="color:#2563eb"></i></div><div><div class="stc-label">Menunggu</div><div class="stc-num" style="color:#1e40af" id="scMenunggu">0</div></div></div>
-<div class="stc stc-terjadwal" onclick="clickStatusCard('terjadwal')" data-key="terjadwal"><div class="stc-check" style="background:#10b981"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0)"><i class="fa-solid fa-calendar-check text-lg" style="color:#059669"></i></div><div><div class="stc-label">Terjadwal</div><div class="stc-num" style="color:#065f46" id="scTerjadwal">0</div></div></div>
-<div class="stc stc-hdlain" onclick="clickStatusCard('hdlain')" data-key="hdlain"><div class="stc-check" style="background:#f59e0b"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#fef3c7,#fde68a)"><i class="fa-solid fa-arrows-turn-right text-lg" style="color:#d97706"></i></div><div><div class="stc-label">HD Lain</div><div class="stc-num" style="color:#92400e" id="scHdlain">0</div></div></div>
-<div class="stc stc-batal" onclick="clickStatusCard('batal')" data-key="batal"><div class="stc-check" style="background:#ef4444"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#fee2e2,#fecaca)"><i class="fa-solid fa-circle-xmark text-lg" style="color:#dc2626"></i></div><div><div class="stc-label">Batal</div><div class="stc-num" style="color:#991b1b" id="scBatal">0</div></div></div>
-<div class="stc stc-meninggal" onclick="clickStatusCard('meninggal')" data-key="meninggal"><div class="stc-check" style="background:#6b7280"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#e5e7eb,#d1d5db)"><i class="fa-solid fa-heart-crack text-lg" style="color:#4b5563"></i></div><div><div class="stc-label">Meninggal</div><div class="stc-num" style="color:#374151" id="scMeninggal">0</div></div></div>
-<div class="stc stc-norespon" onclick="clickStatusCard('norespon')" data-key="norespon"><div class="stc-check" style="background:#0891b2"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#cffafe,#a5f3fc)"><i class="fa-solid fa-phone-slash text-lg" style="color:#0891b2"></i></div><div><div class="stc-label">No Respon</div><div class="stc-num" style="color:#155e75" id="scNorespon">0</div></div></div>
-<div class="stc stc-total" onclick="clickStatusCard('all')" data-key="all"><div class="stc-check" style="background:#7c3aed"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe)"><i class="fa-solid fa-users text-lg" style="color:#7c3aed"></i></div><div><div class="stc-label">Semua Data</div><div class="stc-num" style="color:#5b21b6" id="scTotal">0</div></div></div>
-</div>
-</section>
-<section class="mt-6 fu">
-<div class="csg grid grid-cols-1 lg:grid-cols-3 gap-6">
-<div class="card p-6 flex flex-col">
-<h3 class="text-sm font-bold mb-4" style="color:var(--b900)"><i class="fa-solid fa-chart-column mr-2" style="color:var(--g500)"></i>Distribusi Status</h3>
-<div class="cc"><canvas id="chart1"></canvas></div>
-<div id="leg1" class="mt-4 flex flex-wrap justify-center gap-3 text-xs font-semibold"></div>
-<div class="chart-actions"><button class="chart-act-btn" onclick="saveChartAsImage('chart1','distribusi')"><i class="fa-solid fa-download"></i> Simpan Gambar</button></div>
-</div>
-<div class="card p-6 lg:col-span-2">
-<h3 class="text-sm font-bold mb-4" style="color:var(--b900)"><i class="fa-solid fa-list-check mr-2" style="color:var(--b500)"></i>Daftar Pasien <span class="text-xs font-normal" style="color:var(--muted)" id="filterLabel">(Menunggu)</span></h3>
-<div class="tw" style="max-height:420px;overflow-y:auto;border-radius:12px;border:1px solid var(--bdr)">
-<table class="dt"><thead><tr><th>No</th><th>Nama</th><th>No RM</th><th>Umur</th><th>HbsAg</th><th>Keterangan</th><th>Status</th></tr></thead><tbody id="dashBody"></tbody></table>
-</div>
-</div>
-</div>
-</section>
-</div>
+  <div class="max-w-7xl mx-auto">
+    <section class="mt-6 fu">
+      <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4 stg" id="statusCards">
+        <!-- Kartu status tetap sama, tidak diubah -->
+        <div class="stc stc-menunggu sel" onclick="clickStatusCard('menunggu')" data-key="menunggu"><div class="stc-check" style="background:#3b82f6"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe)"><i class="fa-solid fa-hourglass-half text-lg" style="color:#2563eb"></i></div><div><div class="stc-label">Menunggu</div><div class="stc-num" style="color:#1e40af" id="scMenunggu">0</div></div></div>
+        <div class="stc stc-terjadwal" onclick="clickStatusCard('terjadwal')" data-key="terjadwal"><div class="stc-check" style="background:#10b981"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0)"><i class="fa-solid fa-calendar-check text-lg" style="color:#059669"></i></div><div><div class="stc-label">Terjadwal</div><div class="stc-num" style="color:#065f46" id="scTerjadwal">0</div></div></div>
+        <div class="stc stc-hdlain" onclick="clickStatusCard('hdlain')" data-key="hdlain"><div class="stc-check" style="background:#f59e0b"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#fef3c7,#fde68a)"><i class="fa-solid fa-arrows-turn-right text-lg" style="color:#d97706"></i></div><div><div class="stc-label">HD Lain</div><div class="stc-num" style="color:#92400e" id="scHdlain">0</div></div></div>
+        <div class="stc stc-batal" onclick="clickStatusCard('batal')" data-key="batal"><div class="stc-check" style="background:#ef4444"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#fee2e2,#fecaca)"><i class="fa-solid fa-circle-xmark text-lg" style="color:#dc2626"></i></div><div><div class="stc-label">Batal</div><div class="stc-num" style="color:#991b1b" id="scBatal">0</div></div></div>
+        <div class="stc stc-meninggal" onclick="clickStatusCard('meninggal')" data-key="meninggal"><div class="stc-check" style="background:#6b7280"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#e5e7eb,#d1d5db)"><i class="fa-solid fa-heart-crack text-lg" style="color:#4b5563"></i></div><div><div class="stc-label">Meninggal</div><div class="stc-num" style="color:#374151" id="scMeninggal">0</div></div></div>
+        <div class="stc stc-norespon" onclick="clickStatusCard('norespon')" data-key="norespon"><div class="stc-check" style="background:#0891b2"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#cffafe,#a5f3fc)"><i class="fa-solid fa-phone-slash text-lg" style="color:#0891b2"></i></div><div><div class="stc-label">No Respon</div><div class="stc-num" style="color:#155e75" id="scNorespon">0</div></div></div>
+        <div class="stc stc-total" onclick="clickStatusCard('all')" data-key="all"><div class="stc-check" style="background:#7c3aed"><i class="fa-solid fa-check"></i></div><div class="stc-icon" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe)"><i class="fa-solid fa-users text-lg" style="color:#7c3aed"></i></div><div><div class="stc-label">Semua Data</div><div class="stc-num" style="color:#5b21b6" id="scTotal">0</div></div></div>
+      </div>
+    </section>
+    
+    <section class="mt-6 fu">
+      <div class="card p-6">
+        <h3 class="text-sm font-bold mb-4" style="color:var(--b900)">
+          <i class="fa-solid fa-list-check mr-2" style="color:var(--b500)"></i>Daftar Pasien 
+          <span class="text-xs font-normal" style="color:var(--muted)" id="filterLabel">(Menunggu)</span>
+        </h3>
+        <div class="tw" style="max-height:600px;overflow-y:auto;border-radius:12px;border:1px solid var(--bdr)">
+          <table class="dt">
+            <thead>
+              <tr>
+                <th>No</th><th>Nama</th><th>No RM</th><th>Umur</th><th>HbsAg</th>
+                <th>Keterangan</th><th>Status</th><th>Info Ambil (Lokal)</th><th>Aksi Hubungi</th>
+              </tr>
+            </thead>
+            <tbody id="dashBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </div>
 </main>
 
 <!-- ===== SLIDE 2: DATA LENGKAP ===== -->
@@ -463,41 +512,36 @@ body.patient-bg{background:linear-gradient(170deg,#ecfdf5 0%,#fffbeb 40%,#fce7f3
 
 <!-- ===== SLIDE 3: AKSI — STATUS & AKSI keduanya DROPDOWN + PENGAMBILAN PASIEN ===== -->
 <main id="slide3" style="display:none" class="px-4 sm:px-8 pb-16">
-<div class="max-w-7xl mx-auto mt-6 fu">
-<div class="card p-6">
-<div class="flex items-center justify-between mb-2 flex-wrap gap-3">
-<h3 class="text-sm font-bold" style="color:var(--b900)"><i class="fa-solid fa-hand-pointer mr-2" style="color:var(--pk)"></i>Aksi Pengambilan Pasien</h3>
-<div class="flex items-center gap-2">
-<span class="conn-dot conn-load" id="aksiConnDot"></span>
-<span class="text-xs font-semibold" id="aksiConnLabel" style="color:var(--muted)">Memuat...</span>
-</div>
-</div>
-<p class="text-xs mb-4" style="color:var(--muted)">
-<i class="fa-solid fa-circle-info mr-1"></i>
-Kolom <strong style="color:var(--b600)">Status</strong> (kolom Q) dan <strong style="color:var(--pk)">Aksi</strong> (kolom R) adalah dropdown, otomatis tersimpan ke spreadsheet. Kolom <strong style="color:#0e7490">Pengambilan</strong> mencatat petugas mana yang mengambil pasien beserta waktunya (kolom S &amp; T).
-</p>
-<div class="flex gap-3 mb-4 flex-wrap">
-<div class="relative flex-1" style="min-width:200px"><i class="fa-solid fa-search iic"></i><input type="text" id="actionSearch" class="si2" placeholder="Cari pasien..." oninput="renderActionTable()"></div>
-<select id="actionFilter" class="form-input" style="width:auto;min-width:150px;padding:12px 14px" onchange="renderActionTable()">
-<option value="all">Semua Status</option>
-<option value="menunggu">Menunggu</option>
-<option value="norespon">No Respon</option>
-<option value="terjadwal">Terjadwal</option>
-<option value="hdlain">HD Lain</option>
-<option value="batal">Batal</option>
-<option value="meninggal">Meninggal</option>
-</select>
-</div>
-<div class="tw" style="max-height:62vh;overflow-y:auto;border-radius:12px;border:1px solid var(--bdr)">
-<table class="dt">
-<thead><tr><th>No</th><th>Nama</th><th>No RM</th><th>HbsAg</th><th>Status <i class="fa-solid fa-caret-down ml-1" style="opacity:.5"></i></th><th>Aksi <i class="fa-solid fa-caret-down ml-1" style="opacity:.5"></i></th><th>Pengambilan</th><th>No HP</th></tr></thead>
-<tbody id="actionBody"></tbody>
-</table>
-</div>
-<div id="aksiLoading" class="text-center py-12" style="display:none"><i class="fa-solid fa-spinner fa-spin text-2xl" style="color:var(--b500)"></i><p class="text-sm mt-2" style="color:var(--muted)">Memuat data...</p></div>
-<div id="aksiError" class="text-center py-8" style="display:none"><i class="fa-solid fa-triangle-exclamation text-2xl" style="color:var(--pk)"></i><p class="text-sm mt-2" style="color:var(--txt2)" id="aksiErrorMsg">Gagal memuat data</p><button class="bp mt-3 text-sm" onclick="loadAksiData()"><i class="fa-solid fa-arrows-rotate"></i> Coba Lagi</button></div>
-</div>
-</div>
+  <div class="max-w-7xl mx-auto mt-6 fu">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      
+      <!-- Statistik 1: Diagram Status -->
+      <div class="card p-6 flex flex-col">
+        <h3 class="text-sm font-bold mb-4" style="color:var(--b900)">
+          <i class="fa-solid fa-chart-column mr-2" style="color:var(--g500)"></i>Distribusi Status Pasien
+        </h3>
+        <div class="cc" style="height:350px"><canvas id="chart1"></canvas></div>
+        <div id="leg1" class="mt-4 flex flex-wrap justify-center gap-3 text-xs font-semibold"></div>
+        <div class="chart-actions">
+          <button class="chart-act-btn" onclick="saveChartAsImage('chart1','distribusi')">
+            <i class="fa-solid fa-download"></i> Simpan Gambar
+          </button>
+        </div>
+      </div>
+
+      <!-- Statistik 2: Persentase Pengambilan per Ruangan -->
+      <div class="card p-6 flex flex-col">
+        <h3 class="text-sm font-bold mb-4" style="color:var(--b900)">
+          <i class="fa-solid fa-hospital-user mr-2" style="color:var(--pp)"></i>Pengambilan Pasien per Ruangan
+        </h3>
+        <div class="cc" style="height:350px"><canvas id="chartRuangan"></canvas></div>
+        <p class="text-xs text-center mt-4" style="color:var(--muted)">
+          *Statistik dihitung berdasarkan sesi pengambilan petugas saat ini
+        </p>
+      </div>
+
+    </div>
+  </div>
 </main>
 
 <script>
@@ -1223,6 +1267,179 @@ function init() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+  <script>
+// Data lokal untuk menandai pasien yang sudah diambil
+let pickedUpPatients = {}; 
+let currentAmbilRow = null;
+let currentUser = { nama: "Petugas", wa: "08123456789" }; // Ini akan ditimpa saat login
+
+// Fungsi render tabel dashboard
+function renderDashboardTable(data) {
+  const body = document.getElementById('dashBody');
+  if(!body) return;
+  body.innerHTML = '';
+  
+  if (!data || data.length === 0) {
+    body.innerHTML = '<tr><td colspan="9" class="text-center py-4" style="color:var(--muted)">Tidak ada data</td></tr>';
+    return;
+  }
+
+  data.forEach((p, i) => {
+    const rowIdx = p._row;
+    const statusVal = (p.STATUS || 'MENUNGGU').toUpperCase();
+    const isMenunggu = statusVal === 'MENUNGGU';
+    const isPickedUp = pickedUpPatients[rowIdx];
+    
+    let aksiCell = '-';
+    if (isMenunggu) {
+      if (isPickedUp) {
+        aksiCell = `<span class="pickup-badge"><i class="fa-solid fa-check"></i> ${isPickedUp}</span>`;
+      } else {
+        aksiCell = `<button class="pickup-btn" onclick="openAmbilModal(${rowIdx})">
+                      <i class="fa-solid fa-hand-holding-medical"></i> Ambil Pasien
+                    </button>`;
+      }
+    } else {
+      aksiCell = `<span class="badge badge-${statusVal.toLowerCase().replace(/\s/g,'')}">${statusVal}</span>`;
+    }
+
+    // Kolom Info Ambil
+    let infoAmbil = isPickedUp ? `<span style="color:var(--g600);font-weight:700;font-size:11px"><i class="fa-solid fa-user-check"></i> ${isPickedUp}</span>` : '-';
+
+    body.innerHTML += `
+      <tr class="row-${statusVal.toLowerCase().replace(/\s/g,'')}">
+        <td>${i+1}</td>
+        <td>${p.NAMA || p['Nama Lengkap'] || '-'}</td>
+        <td>${p['NO RM'] || p.NORM || '-'}</td>
+        <td>${p.UMUR || '-'}</td>
+        <td><span class="badge badge-hbsag-${(p.HBSAG||'').includes('Reaktif')?'pos':'neg'}">${p.HBSAG || '-'}</span></td>
+        <td>${p.KETERANGAN || '-'}</td>
+        <td><span class="badge badge-${statusVal.toLowerCase().replace(/\s/g,'')}">${statusVal}</span></td>
+        <td>${infoAmbil}</td>
+        <td>${aksiCell}</td>
+      </tr>`;
+  });
+}
+
+// Fungsi Buka Modal
+function openAmbilModal(rowIdx) {
+  currentAmbilRow = rowIdx;
+  // Cari data pasien berdasarkan rowIdx (asumsi data tersimpan di global var 'allPatientData')
+  const p = allPatientData.find(x => x._row === rowIdx);
+  if(!p) return;
+
+  const nama = p.NAMA || p['Nama Lengkap'] || 'Pasien';
+  const alamat = p.ALAMAT || p['Alamat Lengkap'] || '-';
+  const wa1 = (p['NO HP'] || p.NOHP || '').replace(/[^0-9]/g, '');
+  const wa2 = (p['NO HP 2'] || '').replace(/[^0-9]/g, '');
+
+  document.getElementById('mdlNama').innerText = nama;
+  document.getElementById('mdlAlamat').innerText = alamat;
+
+  // Template Pesan
+  const msg = `Assalamu'alaikum warahmatullahi wabarakatuh.
+
+Selamat pagi, Bapak/Ibu.
+
+Perkenalkan, kami dari Tim Pendaftaran HD Rawat Jalan RSSA.
+
+Mohon maaf mengganggu waktunya. Kami ingin dan konfirmasinya, kami memastikan data yang kami miliki sudah sesuai. Apakah benar nomor WhatsApp ini milik ${nama} yang beralamat di ${alamat}?
+
+Untuk kelancaran proses administrasi dan pendaftaran layanan HD Rawat Jalan di RSSA segera konfirmasi ke nomor WA : ${currentUser.nama} (${currentUser.wa})
+
+Atas waktu dan konfirmasinya, kami ucapkan terima kasih.
+
+Wassalamu'alaikum warahmatullahi wabarakatuh.`;
+
+  document.getElementById('mdlWaText').value = msg;
+  const encodedMsg = encodeURIComponent(msg);
+
+  // Set Link Tombol
+  document.getElementById('mdlBtnWa1').href = wa1 ? `https://wa.me/62${wa1.replace(/^0/, '')}?text=${encodedMsg}` : '#';
+  document.getElementById('mdlBtnWa2').href = wa2 ? `https://wa.me/62${wa2.replace(/^0/, '')}?text=${encodedMsg}` : '#';
+  document.getElementById('mdlBtnCall').href = wa1 ? `tel:${wa1}` : '#';
+  document.getElementById('mdlBtnSms').href = wa1 ? `sms:${wa1}?body=${encodedMsg}` : '#';
+
+  // Disable tombol jika no HP tidak ada
+  document.getElementById('mdlBtnWa1').style.opacity = wa1 ? '1' : '0.5';
+  document.getElementById('mdlBtnWa2').style.opacity = wa2 ? '1' : '0.5';
+
+  document.getElementById('ambilModal').style.display = 'flex';
+}
+
+function closeAmbilModal() {
+  document.getElementById('ambilModal').style.display = 'none';
+  currentAmbilRow = null;
+}
+
+// Fungsi Tandai Sudah Ambil (Lokal)
+function tandaiSudahAmbil() {
+  if (currentAmbilRow) {
+    pickedUpPatients[currentAmbilRow] = currentUser.nama;
+    toast('✅ Pasien ditandai sudah diambil oleh ' + currentUser.nama, 'success');
+    closeAmbilModal();
+    
+    // Refresh tabel
+    const activeKey = document.querySelector('.stc.sel')?.getAttribute('data-key') || 'menunggu';
+    const filtered = activeKey === 'all' ? allPatientData : allPatientData.filter(p => (p.STATUS||'').toUpperCase() === activeKey.toUpperCase());
+    renderDashboardTable(filtered);
+    
+    // Update Chart Ruangan
+    updateRuanganChart();
+  }
+}
+
+// Update Chart Ruangan (Statistik)
+function updateRuanganChart() {
+  // Hitung jumlah pasien yang diambil per ruangan/petugas
+  const counts = {};
+  Object.values(pickedUpPatients).forEach(petugas => {
+    counts[petugas] = (counts[petugas] || 0) + 1;
+  });
+  
+  const labels = Object.keys(counts);
+  const data = Object.values(counts);
+  
+  const ctx = document.getElementById('chartRuangan');
+  if(!ctx) return;
+  
+  if(window.ruanganChart) window.ruanganChart.destroy();
+  
+  if(labels.length === 0) {
+    ctx.getContext('2d').clearRect(0,0,ctx.width, ctx.height);
+    return;
+  }
+
+  window.ruanganChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: labels,
+      datasets: [{
+        data: data,
+        backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'],
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom' },
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              let total = context.dataset.data.reduce((a,b)=>a+b, 0);
+              let val = context.raw;
+              let pct = ((val/total)*100).toFixed(1) + '%';
+              return context.label + ': ' + val + ' pasien (' + pct + ')';
+            }
+          }
+        }
+      }
+    }
+  });
+}
+</script>
 </script>
 </body>
 </html>
