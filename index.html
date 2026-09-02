@@ -12,9 +12,9 @@
 <style>
 :root {
   /* ===== Palet Kayu Jati Tua (lebih gelap) ===== */
-  --primary: #2b1608;         /* jati tua sangat gelap */
-  --primary-light: #452612;   /* jati tua */
-  --primary-accent: #7a4a22;  /* aksen jati terang */
+  --primary: #2b1608;
+  --primary-light: #452612;
+  --primary-accent: #7a4a22;
   --secondary: #e8dcc4;
   --border: #96703f;
   --text: #33220f;
@@ -27,7 +27,6 @@
   --cream-dim: #d4bb92;
   --gold: #ffd894;
 
-  /* ===== Motif Serat Kayu Jati + Pencahayaan (dipakai ulang) ===== */
   --wood-grain:
     repeating-linear-gradient(90deg, rgba(0,0,0,0.30) 0px, rgba(0,0,0,0.30) 1px, transparent 1px, transparent 8px),
     repeating-linear-gradient(90deg, transparent 0px, transparent 9px, rgba(255,220,170,0.09) 9px, rgba(255,220,170,0.09) 11px, transparent 11px, transparent 25px),
@@ -199,6 +198,25 @@ body { font-family: Arial, Helvetica, sans-serif; background: var(--bg); color: 
 .bg2:hover { transform: translateY(1px); box-shadow: 0 2px 0 #047857, 0 3px 4px rgba(0,0,0,0.2); }
 .bo { background: linear-gradient(to bottom, #ffffff, #e8dcc4); border-color: var(--border); color: var(--text); box-shadow: 0 3px 0 #96703f, 0 4px 6px rgba(0,0,0,0.12); }
 .bo:hover { transform: translateY(1px); box-shadow: 0 2px 0 #96703f, 0 3px 4px rgba(0,0,0,0.1); }
+
+/* ★★★ TAMBAHAN BARU: Tombol Khusus Google Form ★★★ */
+.btn-gform {
+  background: linear-gradient(to bottom, #4285F4, #1a73e8);
+  border: 1px solid #174ea6;
+  color: #fff;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  line-height: 1.4;
+  box-shadow: 0 3px 0 #174ea6, 0 4px 6px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.25);
+  transition: all 0.1s;
+}
+.btn-gform:hover { transform: translateY(1px); box-shadow: 0 2px 0 #174ea6, 0 3px 4px rgba(0,0,0,0.2); }
 
 .card { background: #fbf6ec; border: 1px solid var(--border); box-shadow: 0 4px 6px rgba(0,0,0,.08), 0 1px 3px rgba(0,0,0,0.1); }
 .card-header { border-bottom: 3px solid #1a0d04; padding: 8px 15px; font-weight: bold; color: var(--cream); font-size: 14px; display: flex; align-items: center; justify-content: space-between; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
@@ -628,6 +646,21 @@ table.dt tbody tr:hover td { background: #e6d3ac; }
             <div class="panduan-desc">Buka menu <strong>Data Pasien</strong>, aktifkan <strong>Mode Edit</strong> pada pratinjau spreadsheet, lalu ubah langsung kolom <strong>Q (Status)</strong> dan <strong>R (Keterangan)</strong> sesuai hasil konfirmasi pasien.</div>
           </div>
         </div>
+
+        <!-- ★★★ TAMBAHAN BARU: Panduan Pendaftaran via Google Form (Slide 1) ★★★ -->
+        <div class="panduan-item" style="border:1px solid #93c5fd;box-shadow:0 3px 0 #93c5fd;background:#eff6ff">
+          <div class="panduan-icon" style="background:#dbeafe;color:#1a73e8"><i class="fa-brands fa-google"></i></div>
+          <div>
+            <div class="panduan-step">Pendaftaran Pasien Baru</div>
+            <div class="panduan-title" style="color:#1a73e8">Pendaftaran via Google Form</div>
+            <div class="panduan-desc">Calon pasien hemodialisis baru dapat mendaftar secara daring melalui Google Form. Buka menu <strong>AKSI SIDARAJA</strong>, klik tombol <strong>Pendaftaran via Google Form</strong>, lalu isi dan kirim formulir. Data pendaftaran akan masuk ke spreadsheet untuk diproses petugas agar masuk ke daftar antrian.</div>
+            <a class="btn-gform mt-2" href="https://docs.google.com/forms/d/e/1FAIpQLScKG2eU4ToALTu8-qsK4l6JBrYG6IET76OjaaEn-ZlP34pyng/viewform" target="_blank" rel="noopener noreferrer">
+              <i class="fa-brands fa-google"></i> Buka Formulir Pendaftaran
+            </a>
+          </div>
+        </div>
+        <!-- ★★★ AKHIR TAMBAHAN: Panduan Google Form ★★★ -->
+
         <div class="panduan-item" style="border:1px solid #fca5a5;box-shadow:0 3px 0 #fca5a5;background:#fef2f2">
           <div class="panduan-icon" style="background:#fee2e2;color:#dc2626"><i class="fa-solid fa-users"></i></div>
           <div>
@@ -664,6 +697,12 @@ table.dt tbody tr:hover td { background: #e6d3ac; }
       <button class="bo" onclick="cetakPrint()"><i class="fa-solid fa-print"></i> Cetak</button>
       <button class="bp" onclick="kirimPDF()"><i class="fa-solid fa-file-pdf"></i> PDF</button>
       <button class="bg2" onclick="kirimWA()"><i class="fa-brands fa-whatsapp"></i> WA</button>
+
+      <!-- ★★★ TAMBAHAN BARU: Tombol Khusus Pendaftaran via Google Form (Slide 2) ★★★ -->
+      <a class="btn-gform" href="https://docs.google.com/forms/d/e/1FAIpQLScKG2eU4ToALTu8-qsK4l6JBrYG6IET76OjaaEn-ZlP34pyng/viewform" target="_blank" rel="noopener noreferrer">
+        <i class="fa-brands fa-google"></i> Pendaftaran via Google Form
+      </a>
+      <!-- ★★★ AKHIR TAMBAHAN: Tombol Google Form ★★★ -->
     </div>
 
     <div id="dashboardPrintArea">
