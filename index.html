@@ -11,7 +11,6 @@
 <script>tailwind.config={theme:{extend:{fontFamily:{sans:['Arial','Helvetica','sans-serif']}}}}</script>
 <style>
 :root {
-  /* ===== Palet Kayu Jati Tua (lebih gelap) ===== */
   --primary: #2b1608;
   --primary-light: #452612;
   --primary-accent: #7a4a22;
@@ -37,17 +36,28 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; border-radius: 4px !important; }
-body { font-family: Arial, Helvetica, sans-serif; background: var(--bg); color: var(--text); font-size: 13px; min-height: 100vh; }
+html { scroll-behavior: smooth; }
+body { font-family: Arial, Helvetica, sans-serif; background: var(--bg); color: var(--text); font-size: 13px; min-height: 100vh; display: flex; }
+
+/* ===== Layout App ===== */
+.app-sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 270px; max-width: 82vw; z-index: 999; transform: translateX(-100%); transition: transform 0.3s ease; display: flex; flex-direction: column; box-shadow: 4px 0 15px rgba(0,0,0,.5); border-right: 4px solid #1a0d04; background-image: var(--wood-grain), linear-gradient(to bottom, #4a2a12, #1f1006); }
+.app-sidebar.open { transform: translateX(0); }
+.app-main { flex: 1; margin-left: 0; width: 100%; transition: margin-left 0.3s; }
+.sidebar-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 998; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+.sidebar-overlay.open { opacity: 1; visibility: visible; }
+
+@media (min-width: 769px) {
+  .app-sidebar { transform: translateX(0); }
+  .app-main { margin-left: 270px; }
+  .sidebar-overlay { display: none !important; }
+  .hamburger-btn { display: none !important; }
+}
 
 /* ===== Top Navbar ===== */
 .topbar { background-image: var(--wood-grain), linear-gradient(to bottom, #5a3418, #2b1608); border-bottom: 5px solid #1a0d04; position: sticky; top: 0; z-index: 50; box-shadow: 0 5px 12px rgba(0,0,0,.45); }
-.topbar-inner { max-width: 1280px; margin: 0 auto; padding: 0 16px; display: flex; align-items: center; justify-content: space-between; height: 100px; }
+.topbar-inner { max-width: 1280px; margin: 0 auto; padding: 0 16px; display: flex; align-items: center; justify-content: space-between; height: 80px; }
 .topbar-logo { color: var(--cream); font-weight: bold; font-size: 18px; display: flex; align-items: center; gap: 10px; text-shadow: 1px 1px 3px rgba(0,0,0,.6); }
-.topbar-logo img { height: 70px; filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.6)); }
-.topbar-menu { display: flex; gap: 0; height: 100px; }
-.topbar-menu-item { padding: 0 18px; color: var(--cream); font-size: 13px; font-weight: bold; cursor: pointer; border: none; background: none; height: 100%; display: flex; align-items: center; text-decoration: none; transition: background 0.2s; text-shadow: 1px 1px 2px rgba(0,0,0,.6); }
-.topbar-menu-item:hover { background: rgba(0,0,0,0.3); }
-.topbar-menu-item.active { background: var(--secondary); color: var(--primary); box-shadow: inset 0 4px 0 var(--primary-accent); text-shadow: none; }
+.topbar-logo img { height: 56px; filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.6)); }
 .topbar-right { display: flex; align-items: center; gap: 10px; }
 .topbar-user { display: flex; align-items: center; gap: 8px; padding: 4px 12px 4px 4px; background: rgba(0,0,0,0.35); border: 1px solid rgba(0,0,0,0.5); cursor: pointer; box-shadow: inset 0 1px 0 rgba(255,255,255,0.08); }
 .topbar-user:hover { background: rgba(0,0,0,0.5); }
@@ -57,15 +67,10 @@ body { font-family: Arial, Helvetica, sans-serif; background: var(--bg); color: 
 .conn-badge { display: flex; align-items: center; gap: 8px; padding: 6px 12px; background: rgba(0,0,0,0.35); border: 1px solid rgba(0,0,0,0.5); box-shadow: inset 0 1px 0 rgba(255,255,255,0.08); }
 .conn-version { color: var(--gold); font-size: 12px; font-weight: bold; letter-spacing: 0.5px; text-shadow: 1px 1px 2px rgba(0,0,0,.5); }
 
-.hamburger-btn { display: none; width: 44px; height: 44px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.22); color: var(--cream); font-size: 20px; cursor: pointer; align-items: center; justify-content: center; box-shadow: inset 0 1px 0 rgba(255,255,255,0.08); }
+.hamburger-btn { width: 44px; height: 44px; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.22); color: var(--cream); font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 1px 0 rgba(255,255,255,0.08); }
 .hamburger-btn:active { background: rgba(0,0,0,0.5); }
 
-/* ===== Sidebar Mobile ===== */
-.sidebar-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.65); z-index: 998; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
-.sidebar-overlay.open { opacity: 1; visibility: visible; }
-.sidebar { position: fixed; top: 0; left: 0; width: 270px; max-width: 82vw; height: 100vh; height: 100dvh; z-index: 999; transform: translateX(-100%); transition: transform 0.3s ease; display: flex; flex-direction: column; box-shadow: 4px 0 15px rgba(0,0,0,.5); border-right: 4px solid #1a0d04;
-  background-image: var(--wood-grain), linear-gradient(to bottom, #4a2a12, #1f1006); }
-.sidebar.open { transform: translateX(0); }
+/* ===== Sidebar ===== */
 .sidebar-hdr { padding: 18px 16px; border-bottom: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; gap: 12px; }
 .sidebar-hdr img { height: 60px; filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.6)); }
 .sidebar-user { padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; gap: 10px; }
@@ -79,31 +84,6 @@ body { font-family: Arial, Helvetica, sans-serif; background: var(--bg); color: 
 .sidebar-menu-item.active { background: var(--secondary); color: var(--primary); box-shadow: inset 4px 0 0 var(--primary-accent); text-shadow: none; }
 .sidebar-conn { padding: 12px 20px; border-top: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; gap: 8px; color: var(--gold); font-size: 12px; font-weight: bold; text-shadow: 1px 1px 2px rgba(0,0,0,.5); }
 .sidebar-logout { margin: 0 16px 16px; padding: 12px; background: linear-gradient(to bottom, #dc2626, #991b1b); border: 1px solid #7f1d1d; color: #fff; font-weight: bold; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 3px 0 #7f1d1d; }
-.sidebar-logout:active { transform: translateY(1px); box-shadow: 0 1px 0 #7f1d1d; }
-
-/* ===== Responsif ===== */
-@media (max-width: 768px) {
-  .topbar-menu { display: none; }
-  .topbar-username { display: none; }
-  .conn-badge { display: none; }
-  .hamburger-btn { display: flex; }
-  .topbar-inner { height: 80px; padding: 0 12px; }
-  .topbar-logo img { height: 56px; }
-  .topbar-user { padding: 4px; }
-  .topbar-avatar { width: 36px; height: 36px; font-size: 15px; }
-  #statusCards { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
-  .em-card { min-height: 100px; }
-  .welcome-banner { flex-direction: column; align-items: flex-start; }
-  table.dt thead th, table.dt tbody td { padding: 6px 5px; font-size: 11px; }
-  .hero-title { font-size: 26px !important; }
-  .hero-sub { font-size: 13px !important; }
-  .sheet-frame { height: 450px !important; }
-  .room-strip { grid-template-columns: 1fr !important; }
-  .room-card img { height: 140px !important; }
-}
-@media (min-width: 769px) {
-  .sidebar, .sidebar-overlay { display: none !important; }
-}
 
 /* ===== Hero ===== */
 .hero { background-image: var(--wood-grain), linear-gradient(135deg, #3b2010 0%, #5a3418 55%, #7a4a22 100%); border: 1px solid #1a0d04; border-bottom: 6px solid #1a0d04; padding: 40px 24px; text-align: center; color: var(--cream); position: relative; overflow: hidden; box-shadow: 0 8px 16px rgba(0,0,0,0.3); }
@@ -199,7 +179,6 @@ body { font-family: Arial, Helvetica, sans-serif; background: var(--bg); color: 
 .bo { background: linear-gradient(to bottom, #ffffff, #e8dcc4); border-color: var(--border); color: var(--text); box-shadow: 0 3px 0 #96703f, 0 4px 6px rgba(0,0,0,0.12); }
 .bo:hover { transform: translateY(1px); box-shadow: 0 2px 0 #96703f, 0 3px 4px rgba(0,0,0,0.1); }
 
-/* ★★★ TAMBAHAN BARU: Tombol Khusus Google Form ★★★ */
 .btn-gform {
   background: linear-gradient(to bottom, #4285F4, #1a73e8);
   border: 1px solid #174ea6;
@@ -275,8 +254,17 @@ table.dt tbody tr:hover td { background: #e6d3ac; }
 .modal-close:hover { background: #dc2626; border-color: #fecaca; }
 .modal-body { padding: 15px; }
 
+.section-anchor { padding-top: 80px; margin-top: -80px; }
+
 @media print{body>*{display:none!important}#printArea{display:block!important}}
 ::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-track{background:#e8dcc4}::-webkit-scrollbar-thumb{background:#7a5a33}
+@media (max-width: 768px) {
+  #statusCards { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .room-strip { grid-template-columns: 1fr !important; }
+  table.dt thead th, table.dt tbody td { padding: 6px 5px; font-size: 11px; }
+  .hero-title { font-size: 26px !important; }
+  .hero-sub { font-size: 13px !important; }
+}
 </style>
 </head>
 <body>
@@ -315,14 +303,6 @@ table.dt tbody tr:hover td { background: #e6d3ac; }
           <div class="mb-3"><label class="form-label">Kata Sandi</label><div class="relative"><i class="fa-solid fa-lock absolute left-2 top-2 text-gray-400"></i><input type="password" id="loginPass" class="si2" style="padding-left:30px" placeholder="Kata sandi"></div></div>
           <div class="err-box" id="loginError"><i class="fa-solid fa-circle-xmark"></i><span id="loginErrorMsg"></span></div>
           <button class="bp w-full justify-center" onclick="doPetugasLogin()" id="btnLogin"><i class="fa-solid fa-right-to-bracket"></i> Masuk</button>
-        </div>
-        <div id="authRegisterForm" style="display:none">
-          <div class="mb-3"><label class="form-label">Nama</label><input type="text" id="regNama" class="si2" placeholder="Nama lengkap"></div>
-          <div class="mb-3"><label class="form-label">Email</label><input type="email" id="regEmail" class="si2" placeholder="email@contoh.com"></div>
-          <div class="mb-3"><label class="form-label">Sandi</label><input type="password" id="regPass" class="si2" placeholder="Min 6 karakter"></div>
-          <div class="err-box" id="regError"><i class="fa-solid fa-circle-xmark"></i><span id="regErrorMsg"></span></div>
-          <div class="ok-box" id="regOk"><i class="fa-solid fa-circle-check"></i><span id="regOkMsg"></span></div>
-          <button class="bp w-full justify-center" onclick="doPetugasRegister()" id="btnRegister"><i class="fa-solid fa-user-plus"></i> Daftar</button>
         </div>
       </div>
       <div id="userSection" style="display:none">
@@ -366,20 +346,6 @@ table.dt tbody tr:hover td { background: #e6d3ac; }
   </div>
 </div>
 
-<!-- ===== MODAL WHATSAPP PASIEN MENUNGGU ===== -->
-<div class="modal-overlay" id="menungguWaModal" style="display:none" onclick="if(event.target===this)closeMenungguWaModal()">
-  <div class="modal-box">
-    <div class="modal-hdr">
-      <h3><i class="fa-solid fa-phone-volume mr-2"></i>Hubungi Pasien Menunggu</h3>
-      <button class="modal-close" onclick="closeMenungguWaModal()"><i class="fa-solid fa-xmark"></i></button>
-    </div>
-    <div class="modal-body">
-      <p class="text-xs mb-3" style="color:var(--text-muted)">Klik tombol WhatsApp untuk menghubungi nomor pasien (kolom O) atau keluarga (kolom P).</p>
-      <div id="menungguWaList" style="max-height:60vh;overflow-y:auto"></div>
-    </div>
-  </div>
-</div>
-
 <!-- ===== MODAL KIRIM WHATSAPP ===== -->
 <div class="modal-overlay" id="waModal" style="display:none" onclick="if(event.target===this)closeWaModal()">
   <div class="modal-box">
@@ -388,6 +354,7 @@ table.dt tbody tr:hover td { background: #e6d3ac; }
       <button class="modal-close" onclick="closeWaModal()"><i class="fa-solid fa-xmark"></i></button>
     </div>
     <div class="modal-body">
+      <input type="hidden" id="waAntrian" value="">
       <div class="mb-3">
         <label class="form-label">Nama Pasien</label>
         <input type="text" id="waNama" class="si2" readonly>
@@ -399,7 +366,7 @@ table.dt tbody tr:hover td { background: #e6d3ac; }
       <div class="mb-3">
         <label class="form-label">Pilih Ruangan HD yang Kosong</label>
         <select id="waRuangan" class="si2" onchange="generateWaText()">
-          <option value="">-- Pilih Ruangan --</option>
+          <option value="">-- Tidak Ada / Belum Ada Ruangan --</option>
           <option value="Teuku Umar">Teuku Umar</option>
           <option value="Malahayati">Malahayati</option>
           <option value="Cut Nyak Dien">Cut Nyak Dien</option>
@@ -407,7 +374,7 @@ table.dt tbody tr:hover td { background: #e6d3ac; }
       </div>
       <div class="mb-3">
         <label class="form-label">Pesan WhatsApp</label>
-        <textarea id="waText" rows="10" class="si2" style="resize:vertical;font-size:12px;line-height:1.5"></textarea>
+        <textarea id="waText" rows="12" class="si2" style="resize:vertical;font-size:12px;line-height:1.5"></textarea>
       </div>
     </div>
     <div class="modal-hdr" style="border-top:1px solid var(--border);border-bottom:none;justify-content:flex-end;padding:10px 15px;background:#f0e6d0;color:#33220f;text-shadow:none;background-image:none">
@@ -417,38 +384,9 @@ table.dt tbody tr:hover td { background: #e6d3ac; }
   </div>
 </div>
 
-<!-- ===== TOP NAVBAR ===== -->
-<header id="mainHeader" style="display:none">
-  <div class="topbar">
-    <div class="topbar-inner">
-      <button class="hamburger-btn" onclick="openSidebar()" title="Menu"><i class="fa-solid fa-bars"></i></button>
-      <div class="topbar-logo">
-        <img src="logosidaraja.png" alt="Logo SIDARAJA">
-      </div>
-      <nav class="topbar-menu">
-        <button class="topbar-menu-item active" id="tab1" onclick="switchSlide(1)"><i class="fa-solid fa-house mr-2"></i>Home</button>
-        <button class="topbar-menu-item" id="tab2" onclick="switchSlide(2)"><i class="fa-solid fa-bolt mr-2"></i>AKSI SIDARAJA</button>
-        <button class="topbar-menu-item" id="tab3" onclick="switchSlide(3)"><i class="fa-solid fa-database mr-2"></i>Data Pasien</button>
-      </nav>
-      <div class="topbar-right">
-        <div class="conn-badge">
-          <span class="conn-dot conn-load" id="connDot"></span>
-          <span class="conn-version">sidarajav3.2</span>
-        </div>
-        <button class="bo" onclick="refreshData()" title="Refresh"><i class="fa-solid fa-arrows-rotate" id="refreshIcon"></i></button>
-        <div class="topbar-user" id="hdrUserProfile" onclick="doLogout()" title="Logout">
-          <div class="topbar-avatar" id="hdrUserAvatar">?</div>
-          <span class="topbar-username" id="hdrUserName">Petugas</span>
-        </div>
-        <button id="patientLogoutBtn" class="bo" style="display:none" onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i> Keluar</button>
-      </div>
-    </div>
-  </div>
-</header>
-
-<!-- ===== SIDEBAR MOBILE ===== -->
+<!-- ===== SIDEBAR (DAFTAR ISI) ===== -->
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
-<aside class="sidebar" id="mobileSidebar">
+<aside class="app-sidebar" id="appSidebar">
   <div class="sidebar-hdr">
     <img src="logosidaraja.png" alt="Logo SIDARAJA">
     <button class="hamburger-btn" onclick="closeSidebar()" style="margin-left:auto"><i class="fa-solid fa-xmark"></i></button>
@@ -461,9 +399,10 @@ table.dt tbody tr:hover td { background: #e6d3ac; }
     </div>
   </div>
   <nav class="sidebar-menu">
-    <button class="sidebar-menu-item active" id="sbTab1" onclick="switchSlideMobile(1)"><i class="fa-solid fa-house"></i> Home</button>
-    <button class="sidebar-menu-item" id="sbTab2" onclick="switchSlideMobile(2)"><i class="fa-solid fa-bolt"></i> AKSI SIDARAJA</button>
-    <button class="sidebar-menu-item" id="sbTab3" onclick="switchSlideMobile(3)"><i class="fa-solid fa-database"></i> Data Pasien</button>
+    <button class="sidebar-menu-item" onclick="scrollToSection('sectionHome')"><i class="fa-solid fa-house"></i> Home</button>
+    <button class="sidebar-menu-item" onclick="scrollToSection('sectionAksi')"><i class="fa-solid fa-bolt"></i> AKSI SIDARAJA</button>
+    <button class="sidebar-menu-item" onclick="scrollToSection('sectionData')"><i class="fa-solid fa-database"></i> Data Pasien</button>
+    <button class="sidebar-menu-item" onclick="scrollToSection('sectionPasien')"><i class="fa-solid fa-users"></i> Cek Antrian Mandiri</button>
   </nav>
   <div class="sidebar-conn">
     <span class="conn-dot conn-load" id="sbConnDot"></span>
@@ -472,364 +411,364 @@ table.dt tbody tr:hover td { background: #e6d3ac; }
   <button class="sidebar-logout" onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
 </aside>
 
-<!-- ===== PATIENT VIEW ===== -->
-<main id="patientView" style="display:none" class="px-4 sm:px-8 pb-16">
-  <div class="max-w-3xl mx-auto">
-    <div class="card mt-6">
-      <div class="card-header"><h3>Cek Antrian Anda</h3></div>
-      <div class="p-5">
-        <input type="text" id="pSearchNama" class="si2 mb-3" placeholder="Ketik Nama Pasien...">
-        <button class="bg2 w-full justify-center" onclick="patientSearch()"><i class="fa-solid fa-search"></i> Cari Antrian</button>
+<!-- ===== MAIN CONTENT ===== -->
+<div class="app-main" id="appMain" style="display:none">
+  <header id="mainHeader" style="display:none">
+    <div class="topbar">
+      <div class="topbar-inner">
+        <button class="hamburger-btn" onclick="openSidebar()" title="Menu"><i class="fa-solid fa-bars"></i></button>
+        <div class="topbar-logo">
+          <img src="logosidaraja.png" alt="Logo SIDARAJA">
+        </div>
+        <div class="topbar-right">
+          <div class="conn-badge">
+            <span class="conn-dot conn-load" id="connDot"></span>
+            <span class="conn-version">sidarajav3.2</span>
+          </div>
+          <button class="bo" onclick="refreshData()" title="Refresh"><i class="fa-solid fa-arrows-rotate" id="refreshIcon"></i></button>
+          <div class="topbar-user" id="hdrUserProfile" onclick="doLogout()" title="Logout">
+            <div class="topbar-avatar" id="hdrUserAvatar">?</div>
+            <span class="topbar-username" id="hdrUserName">Petugas</span>
+          </div>
+          <button id="patientLogoutBtn" class="bo" style="display:none" onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i> Keluar</button>
+        </div>
       </div>
     </div>
-    <div id="patientResults" class="mt-4"></div>
-  </div>
-</main>
+  </header>
 
-<!-- ===== SLIDE 1: HOME ===== -->
-<main id="slide1" class="px-4 sm:px-8 pb-16" style="display:none">
-  <div class="max-w-5xl mx-auto mt-6">
+  <!-- SECTION HOME -->
+  <section id="sectionHome" class="px-4 sm:px-8 pb-16">
+    <div class="max-w-5xl mx-auto mt-6">
+      <div class="hero">
+        <img src="logosidaraja.png" alt="Logo SIDARAJA" class="hero-logo">
+        <h1 class="hero-title">SIDARAJA</h1>
+        <div class="hero-sub">Sistem Pendaftaran Hemodialisis Rawat Jalan</div>
+        <div class="hero-tagline"><i class="fa-solid fa-hospital mr-1"></i> Instalasi Dialisis RSUD dr. Saiful Anwar Provinsi Jawa Timur</div>
+      </div>
 
-    <div class="hero">
-      <img src="logosidaraja.png" alt="Logo SIDARAJA" class="hero-logo">
-      <h1 class="hero-title">SIDARAJA</h1>
-      <div class="hero-sub">Sistem Pendaftaran Hemodialisis Rawat Jalan</div>
-      <div class="hero-tagline"><i class="fa-solid fa-hospital mr-1"></i> Instalasi Dialisis RSUD dr. Saiful Anwar Provinsi Jawa Timur</div>
-    </div>
+      <!-- Kartu Ruangan HD -->
+      <div class="room-strip">
+        <div class="room-card">
+          <img src="teukuumar.png" alt="Ruangan HD Teuku Umar">
+          <div class="rc-body">
+            <div class="rc-name">HD Teuku Umar</div>
+            <div class="rc-cap">Kapasitas 33 Bed / Mesin</div>
+            <ul class="rc-detail">
+              <li>3 mesin khusus pasien HbsAg <strong>Positif</strong></li>
+              <li>2 mesin di ruang <strong>Airborne</strong></li>
+              <li>28 mesin <strong>reguler</strong></li>
+            </ul>
+            <div class="bed-label"><i class="fa-solid fa-bed mr-1"></i>Sisa Bed Kosong</div>
+            <div class="bed-grid">
+              <div class="bed-day"><span>Sen</span><b id="bed_teukuumar_sen">–</b></div>
+              <div class="bed-day"><span>Sel</span><b id="bed_teukuumar_sel">–</b></div>
+              <div class="bed-day"><span>Rab</span><b id="bed_teukuumar_rab">–</b></div>
+              <div class="bed-day"><span>Kam</span><b id="bed_teukuumar_kam">–</b></div>
+              <div class="bed-day"><span>Jum</span><b id="bed_teukuumar_jum">–</b></div>
+              <div class="bed-day"><span>Sab</span><b id="bed_teukuumar_sab">–</b></div>
+            </div>
+            <button class="bo bed-edit-btn" onclick="openBedEdit('teukuumar')"><i class="fa-solid fa-lock"></i> Edit Sisa Bed</button>
+          </div>
+        </div>
+        <div class="room-card">
+          <img src="malahayati.png" alt="Ruangan HD Malahayati">
+          <div class="rc-body">
+            <div class="rc-name">HD Malahayati</div>
+            <div class="rc-cap">Kapasitas 29 Bed / Mesin</div>
+            <ul class="rc-detail">
+              <li>29 mesin <strong>reguler</strong> semua</li>
+            </ul>
+            <div class="bed-label"><i class="fa-solid fa-bed mr-1"></i>Sisa Bed Kosong</div>
+            <div class="bed-grid">
+              <div class="bed-day"><span>Sen</span><b id="bed_malahayati_sen">–</b></div>
+              <div class="bed-day"><span>Sel</span><b id="bed_malahayati_sel">–</b></div>
+              <div class="bed-day"><span>Rab</span><b id="bed_malahayati_rab">–</b></div>
+              <div class="bed-day"><span>Kam</span><b id="bed_malahayati_kam">–</b></div>
+              <div class="bed-day"><span>Jum</span><b id="bed_malahayati_jum">–</b></div>
+              <div class="bed-day"><span>Sab</span><b id="bed_malahayati_sab">–</b></div>
+            </div>
+            <button class="bo bed-edit-btn" onclick="openBedEdit('malahayati')"><i class="fa-solid fa-lock"></i> Edit Sisa Bed</button>
+          </div>
+        </div>
+        <div class="room-card">
+          <img src="cutnyakdien.png" alt="Ruangan HD Cut Nyak Dien">
+          <div class="rc-body">
+            <div class="rc-name">HD Cut Nyak Dien</div>
+            <div class="rc-cap">Kapasitas 27 Bed / Mesin</div>
+            <ul class="rc-detail">
+              <li>1 mesin khusus <strong>HDF</strong></li>
+              <li>26 mesin <strong>reguler</strong></li>
+            </ul>
+            <div class="bed-label"><i class="fa-solid fa-bed mr-1"></i>Sisa Bed Kosong</div>
+            <div class="bed-grid">
+              <div class="bed-day"><span>Sen</span><b id="bed_cutnyakdien_sen">–</b></div>
+              <div class="bed-day"><span>Sel</span><b id="bed_cutnyakdien_sel">–</b></div>
+              <div class="bed-day"><span>Rab</span><b id="bed_cutnyakdien_rab">–</b></div>
+              <div class="bed-day"><span>Kam</span><b id="bed_cutnyakdien_kam">–</b></div>
+              <div class="bed-day"><span>Jum</span><b id="bed_cutnyakdien_jum">–</b></div>
+              <div class="bed-day"><span>Sab</span><b id="bed_cutnyakdien_sab">–</b></div>
+            </div>
+            <button class="bo bed-edit-btn" onclick="openBedEdit('cutnyakdien')"><i class="fa-solid fa-lock"></i> Edit Sisa Bed</button>
+          </div>
+        </div>
+      </div>
 
-    <!-- Kartu Ruangan HD -->
-    <div class="room-strip">
+      <!-- Latar Belakang -->
+      <div class="about-section mt-6">
+        <div class="about-header">
+          <div class="ah-icon"><i class="fa-solid fa-book-open"></i></div>
+          <span>Latar Belakang</span>
+        </div>
+        <div class="about-body">
+          <p>Penyakit Gagal Ginjal Kronis (GGK) merupakan salah satu masalah kesehatan yang jumlah penderitanya terus meningkat setiap tahunnya. Pasien GGK memerlukan terapi pengganti ginjal berupa <strong>Hemodialisis (HD)</strong> secara rutin dan berkesinambungan, umumnya 2–3 kali per minggu, sehingga pengelolaan antrian dan penjadwalan pasien menjadi kebutuhan yang sangat krusial.</p>
+          <p>Instalasi Dialisis RSUD dr. Saiful Anwar (RSSA) melayani jumlah pasien hemodialisis yang besar dengan kapasitas ruangan dan mesin HD yang terbatas. Selama ini, proses pendataan dan penjadwalan pasien masih dilakukan secara manual melalui pencatatan di lembar kerja, sehingga sering menimbulkan beberapa permasalahan, antara lain: <strong>duplikasi data pasien</strong>, <strong>kesulitan memantau status antrian secara real-time</strong>, <strong>proses komunikasi kepada pasien yang lambat</strong> (harus menghubungi satu per satu), serta <strong>risiko kehilangan data</strong>.</p>
+          <p>Berdasarkan permasalahan tersebut, dibangunlah aplikasi <strong>SIDARAJA (Sistem Pendaftaran Hemodialisis Rawat Jalan)</strong> — sebuah sistem informasi berbasis web yang terintegrasi dengan Google Spreadsheet untuk membantu petugas Instalasi Dialisis RSSA dalam mengelola data dan antrian pasien hemodialisis secara cepat, akurat, dan terpusat.</p>
+        </div>
+      </div>
 
-      <div class="room-card">
-        <img src="teukuumar.png" alt="Ruangan HD Teuku Umar">
-        <div class="rc-body">
-          <div class="rc-name">HD Teuku Umar</div>
-          <div class="rc-cap">Kapasitas 33 Bed / Mesin</div>
-          <ul class="rc-detail">
-            <li>3 mesin khusus pasien HbsAg <strong>Positif</strong></li>
-            <li>2 mesin di ruang <strong>Airborne</strong></li>
-            <li>28 mesin <strong>reguler</strong></li>
+      <!-- Tujuan -->
+      <div class="about-section">
+        <div class="about-header">
+          <div class="ah-icon"><i class="fa-solid fa-bullseye"></i></div>
+          <span>Tujuan</span>
+        </div>
+        <div class="about-body">
+          <ul class="tujuan-list">
+            <li><div class="tujuan-num">1</div><div class="tujuan-text"><strong>Mendigitalkan pendataan pasien</strong> hemodialisis rawat jalan agar data tersimpan rapi, terpusat, dan mudah diakses kapan saja.</div></li>
+            <li><div class="tujuan-num">2</div><div class="tujuan-text"><strong>Memantau antrian dan status pasien secara real-time</strong> (Menunggu, Terjadwal, HD Lain, Batal, Meninggal, No Respon) dalam satu tampilan dashboard.</div></li>
+            <li><div class="tujuan-num">3</div><div class="tujuan-text"><strong>Mempercepat komunikasi antara petugas dan pasien</strong> melalui integrasi pesan WhatsApp otomatis, sehingga informasi jadwal ruangan kosong dapat segera disampaikan.</div></li>
+            <li><div class="tujuan-num">4</div><div class="tujuan-text"><strong>Meningkatkan efisiensi dan akurasi penjadwalan</strong> ruangan hemodialisis (Teuku Umar, Malahayati, Cut Nyak Dien) dengan meminimalkan kesalahan pencatatan manual.</div></li>
+            <li><div class="tujuan-num">5</div><div class="tujuan-text"><strong>Menyediakan transparansi bagi pasien</strong> untuk mengecek status antriannya sendiri secara mandiri tanpa harus datang ke rumah sakit.</div></li>
+            <li><div class="tujuan-num">6</div><div class="tujuan-text"><strong>Menghasilkan laporan</strong> jumlah dan distribusi status pasien yang dapat dicetak, diunduh PDF, maupun dibagikan melalui WhatsApp.</div></li>
           </ul>
-          <div class="bed-label"><i class="fa-solid fa-bed mr-1"></i>Sisa Bed Kosong</div>
-          <div class="bed-grid">
-            <div class="bed-day"><span>Sen</span><b id="bed_teukuumar_sen">–</b></div>
-            <div class="bed-day"><span>Sel</span><b id="bed_teukuumar_sel">–</b></div>
-            <div class="bed-day"><span>Rab</span><b id="bed_teukuumar_rab">–</b></div>
-            <div class="bed-day"><span>Kam</span><b id="bed_teukuumar_kam">–</b></div>
-            <div class="bed-day"><span>Jum</span><b id="bed_teukuumar_jum">–</b></div>
-            <div class="bed-day"><span>Sab</span><b id="bed_teukuumar_sab">–</b></div>
-          </div>
-          <button class="bo bed-edit-btn" onclick="openBedEdit('teukuumar')"><i class="fa-solid fa-lock"></i> Edit Sisa Bed</button>
         </div>
       </div>
 
-      <div class="room-card">
-        <img src="malahayati.png" alt="Ruangan HD Malahayati">
-        <div class="rc-body">
-          <div class="rc-name">HD Malahayati</div>
-          <div class="rc-cap">Kapasitas 29 Bed / Mesin</div>
-          <ul class="rc-detail">
-            <li>29 mesin <strong>reguler</strong> semua</li>
-          </ul>
-          <div class="bed-label"><i class="fa-solid fa-bed mr-1"></i>Sisa Bed Kosong</div>
-          <div class="bed-grid">
-            <div class="bed-day"><span>Sen</span><b id="bed_malahayati_sen">–</b></div>
-            <div class="bed-day"><span>Sel</span><b id="bed_malahayati_sel">–</b></div>
-            <div class="bed-day"><span>Rab</span><b id="bed_malahayati_rab">–</b></div>
-            <div class="bed-day"><span>Kam</span><b id="bed_malahayati_kam">–</b></div>
-            <div class="bed-day"><span>Jum</span><b id="bed_malahayati_jum">–</b></div>
-            <div class="bed-day"><span>Sab</span><b id="bed_malahayati_sab">–</b></div>
-          </div>
-          <button class="bo bed-edit-btn" onclick="openBedEdit('malahayati')"><i class="fa-solid fa-lock"></i> Edit Sisa Bed</button>
+      <!-- Panduan -->
+      <div class="about-section">
+        <div class="about-header">
+          <div class="ah-icon"><i class="fa-solid fa-map-signs"></i></div>
+          <span>Panduan Penggunaan</span>
         </div>
-      </div>
-
-      <div class="room-card">
-        <img src="cutnyakdien.png" alt="Ruangan HD Cut Nyak Dien">
-        <div class="rc-body">
-          <div class="rc-name">HD Cut Nyak Dien</div>
-          <div class="rc-cap">Kapasitas 27 Bed / Mesin</div>
-          <ul class="rc-detail">
-            <li>1 mesin khusus <strong>HDF</strong></li>
-            <li>26 mesin <strong>reguler</strong></li>
-          </ul>
-          <div class="bed-label"><i class="fa-solid fa-bed mr-1"></i>Sisa Bed Kosong</div>
-          <div class="bed-grid">
-            <div class="bed-day"><span>Sen</span><b id="bed_cutnyakdien_sen">–</b></div>
-            <div class="bed-day"><span>Sel</span><b id="bed_cutnyakdien_sel">–</b></div>
-            <div class="bed-day"><span>Rab</span><b id="bed_cutnyakdien_rab">–</b></div>
-            <div class="bed-day"><span>Kam</span><b id="bed_cutnyakdien_kam">–</b></div>
-            <div class="bed-day"><span>Jum</span><b id="bed_cutnyakdien_jum">–</b></div>
-            <div class="bed-day"><span>Sab</span><b id="bed_cutnyakdien_sab">–</b></div>
+        <div class="about-body">
+          <div class="panduan-item">
+            <div class="panduan-icon"><i class="fa-solid fa-user-shield"></i></div>
+            <div>
+              <div class="panduan-step">Langkah 1</div>
+              <div class="panduan-title">Login sebagai Petugas</div>
+              <div class="panduan-desc">Pilih mode <strong>Petugas</strong> pada halaman masuk, lalu isi email dan kata sandi untuk masuk ke dashboard aplikasi.</div>
+            </div>
           </div>
-          <button class="bo bed-edit-btn" onclick="openBedEdit('cutnyakdien')"><i class="fa-solid fa-lock"></i> Edit Sisa Bed</button>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Latar Belakang -->
-    <div class="about-section mt-6">
-      <div class="about-header">
-        <div class="ah-icon"><i class="fa-solid fa-book-open"></i></div>
-        <span>Latar Belakang</span>
-      </div>
-      <div class="about-body">
-        <p>Penyakit Gagal Ginjal Kronis (GGK) merupakan salah satu masalah kesehatan yang jumlah penderitanya terus meningkat setiap tahunnya. Pasien GGK memerlukan terapi pengganti ginjal berupa <strong>Hemodialisis (HD)</strong> secara rutin dan berkesinambungan, umumnya 2–3 kali per minggu, sehingga pengelolaan antrian dan penjadwalan pasien menjadi kebutuhan yang sangat krusial.</p>
-        <p>Instalasi Dialisis RSUD dr. Saiful Anwar (RSSA) melayani jumlah pasien hemodialisis yang besar dengan kapasitas ruangan dan mesin HD yang terbatas. Selama ini, proses pendataan dan penjadwalan pasien masih dilakukan secara manual melalui pencatatan di lembar kerja, sehingga sering menimbulkan beberapa permasalahan, antara lain: <strong>duplikasi data pasien</strong>, <strong>kesulitan memantau status antrian secara real-time</strong>, <strong>proses komunikasi kepada pasien yang lambat</strong> (harus menghubungi satu per satu), serta <strong>risiko kehilangan data</strong>.</p>
-        <p>Berdasarkan permasalahan tersebut, dibangunlah aplikasi <strong>SIDARAJA (Sistem Pendaftaran Hemodialisis Rawat Jalan)</strong> — sebuah sistem informasi berbasis web yang terintegrasi dengan Google Spreadsheet untuk membantu petugas Instalasi Dialisis RSSA dalam mengelola data dan antrian pasien hemodialisis secara cepat, akurat, dan terpusat.</p>
-      </div>
-    </div>
-
-    <!-- Tujuan -->
-    <div class="about-section">
-      <div class="about-header">
-        <div class="ah-icon"><i class="fa-solid fa-bullseye"></i></div>
-        <span>Tujuan</span>
-      </div>
-      <div class="about-body">
-        <ul class="tujuan-list">
-          <li><div class="tujuan-num">1</div><div class="tujuan-text"><strong>Mendigitalkan pendataan pasien</strong> hemodialisis rawat jalan agar data tersimpan rapi, terpusat, dan mudah diakses kapan saja.</div></li>
-          <li><div class="tujuan-num">2</div><div class="tujuan-text"><strong>Memantau antrian dan status pasien secara real-time</strong> (Menunggu, Terjadwal, HD Lain, Batal, Meninggal, No Respon) dalam satu tampilan dashboard.</div></li>
-          <li><div class="tujuan-num">3</div><div class="tujuan-text"><strong>Mempercepat komunikasi antara petugas dan pasien</strong> melalui integrasi pesan WhatsApp otomatis, sehingga informasi jadwal ruangan kosong dapat segera disampaikan.</div></li>
-          <li><div class="tujuan-num">4</div><div class="tujuan-text"><strong>Meningkatkan efisiensi dan akurasi penjadwalan</strong> ruangan hemodialisis (Teuku Umar, Malahayati, Cut Nyak Dien) dengan meminimalkan kesalahan pencatatan manual.</div></li>
-          <li><div class="tujuan-num">5</div><div class="tujuan-text"><strong>Menyediakan transparansi bagi pasien</strong> untuk mengecek status antriannya sendiri secara mandiri tanpa harus datang ke rumah sakit.</div></li>
-          <li><div class="tujuan-num">6</div><div class="tujuan-text"><strong>Menghasilkan laporan</strong> jumlah dan distribusi status pasien yang dapat dicetak, diunduh PDF, maupun dibagikan melalui WhatsApp.</div></li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Panduan -->
-    <div class="about-section">
-      <div class="about-header">
-        <div class="ah-icon"><i class="fa-solid fa-map-signs"></i></div>
-        <span>Panduan Penggunaan</span>
-      </div>
-      <div class="about-body">
-        <div class="panduan-item">
-          <div class="panduan-icon"><i class="fa-solid fa-user-shield"></i></div>
-          <div>
-            <div class="panduan-step">Langkah 1</div>
-            <div class="panduan-title">Login sebagai Petugas</div>
-            <div class="panduan-desc">Pilih mode <strong>Petugas</strong> pada halaman masuk, lalu isi email dan kata sandi untuk masuk ke dashboard aplikasi.</div>
+          <div class="panduan-item">
+            <div class="panduan-icon"><i class="fa-solid fa-bed"></i></div>
+            <div>
+              <div class="panduan-step">Langkah 2</div>
+              <div class="panduan-title">Pantau Sisa Bed Kosong di Home</div>
+              <div class="panduan-desc">Informasi kapasitas mesin dan sisa bed kosong per hari (Senin–Sabtu) tiap ruangan tampil di halaman Home. Klik <strong>Edit Sisa Bed</strong> dan masukkan password ruangan untuk memperbarui.</div>
+            </div>
           </div>
-        </div>
-        <div class="panduan-item">
-          <div class="panduan-icon"><i class="fa-solid fa-bed"></i></div>
-          <div>
-            <div class="panduan-step">Langkah 2</div>
-            <div class="panduan-title">Pantau Sisa Bed Kosong di Home</div>
-            <div class="panduan-desc">Informasi kapasitas mesin dan sisa bed kosong per hari (Senin–Sabtu) tiap ruangan tampil di halaman Home. Klik <strong>Edit Sisa Bed</strong> dan masukkan password ruangan untuk memperbarui.</div>
+          <div class="panduan-item">
+            <div class="panduan-icon"><i class="fa-solid fa-bolt"></i></div>
+            <div>
+              <div class="panduan-step">Langkah 3</div>
+              <div class="panduan-title">Buka Menu AKSI SIDARAJA</div>
+              <div class="panduan-desc">Pantau kartu status antrian (Menunggu, Terjadwal, HD Lain, dll). Klik salah satu kartu untuk menampilkan rincian daftar pasien sesuai status tersebut.</div>
+            </div>
           </div>
-        </div>
-        <div class="panduan-item">
-          <div class="panduan-icon"><i class="fa-solid fa-bolt"></i></div>
-          <div>
-            <div class="panduan-step">Langkah 3</div>
-            <div class="panduan-title">Buka Menu AKSI SIDARAJA</div>
-            <div class="panduan-desc">Pantau kartu status antrian (Menunggu, Terjadwal, HD Lain, dll). Klik salah satu kartu untuk menampilkan rincian daftar pasien sesuai status tersebut.</div>
+          <div class="panduan-item">
+            <div class="panduan-icon" style="background:#f0fdf4;color:#047857"><i class="fa-brands fa-whatsapp"></i></div>
+            <div>
+              <div class="panduan-step">Langkah 4</div>
+              <div class="panduan-title">Hubungi Pasien via WhatsApp</div>
+              <div class="panduan-desc">Klik tombol WA pada kolom paling kanan tabel, pilih ruangan HD yang kosong, lalu kirim pesan penawaran jadwal kepada pasien atau keluarganya. Pesan otomatis berisi nomor antrian pasien dengan kata-kata yang penuh empati.</div>
+            </div>
           </div>
-        </div>
-        <div class="panduan-item">
-          <div class="panduan-icon" style="background:#f0fdf4;color:#047857"><i class="fa-brands fa-whatsapp"></i></div>
-          <div>
-            <div class="panduan-step">Langkah 4</div>
-            <div class="panduan-title">Hubungi Pasien via WhatsApp</div>
-            <div class="panduan-desc">Klik tombol WA pada kolom paling kanan tabel, pilih ruangan HD yang kosong, lalu kirim pesan penawaran jadwal kepada pasien atau keluarganya.</div>
+          <div class="panduan-item">
+            <div class="panduan-icon"><i class="fa-solid fa-file-excel"></i></div>
+            <div>
+              <div class="panduan-step">Langkah 5</div>
+              <div class="panduan-title">Update Status di Menu Data Pasien</div>
+              <div class="panduan-desc">Buka menu <strong>Data Pasien</strong>, aktifkan <strong>Mode Edit</strong> pada pratinjau spreadsheet, lalu ubah langsung kolom <strong>Q (Status)</strong> dan <strong>R (Keterangan)</strong> sesuai hasil konfirmasi pasien.</div>
+            </div>
           </div>
-        </div>
-        <div class="panduan-item">
-          <div class="panduan-icon"><i class="fa-solid fa-file-excel"></i></div>
-          <div>
-            <div class="panduan-step">Langkah 5</div>
-            <div class="panduan-title">Update Status di Menu Data Pasien</div>
-            <div class="panduan-desc">Buka menu <strong>Data Pasien</strong>, aktifkan <strong>Mode Edit</strong> pada pratinjau spreadsheet, lalu ubah langsung kolom <strong>Q (Status)</strong> dan <strong>R (Keterangan)</strong> sesuai hasil konfirmasi pasien.</div>
-          </div>
-        </div>
-
-        <!-- ★★★ TAMBAHAN BARU: Panduan Pendaftaran via Google Form (Slide 1) ★★★ -->
-        <div class="panduan-item" style="border:1px solid #93c5fd;box-shadow:0 3px 0 #93c5fd;background:#eff6ff">
-          <div class="panduan-icon" style="background:#dbeafe;color:#1a73e8"><i class="fa-brands fa-google"></i></div>
-          <div>
-            <div class="panduan-step">Pendaftaran Pasien Baru</div>
-            <div class="panduan-title" style="color:#1a73e8">Pendaftaran via Google Form</div>
-            <div class="panduan-desc">Calon pasien hemodialisis baru dapat mendaftar secara daring melalui Google Form. Buka menu <strong>AKSI SIDARAJA</strong>, klik tombol <strong>Pendaftaran via Google Form</strong>, lalu isi dan kirim formulir. Data pendaftaran akan masuk ke spreadsheet untuk diproses petugas agar masuk ke daftar antrian.</div>
-            <a class="btn-gform mt-2" href="https://docs.google.com/forms/d/e/1FAIpQLScKG2eU4ToALTu8-qsK4l6JBrYG6IET76OjaaEn-ZlP34pyng/viewform" target="_blank" rel="noopener noreferrer">
-              <i class="fa-brands fa-google"></i> Buka Formulir Pendaftaran
-            </a>
-          </div>
-        </div>
-        <!-- ★★★ AKHIR TAMBAHAN: Panduan Google Form ★★★ -->
-
-        <div class="panduan-item" style="border:1px solid #fca5a5;box-shadow:0 3px 0 #fca5a5;background:#fef2f2">
-          <div class="panduan-icon" style="background:#fee2e2;color:#dc2626"><i class="fa-solid fa-users"></i></div>
-          <div>
-            <div class="panduan-step">Khusus Pasien</div>
-            <div class="panduan-title" style="color:#dc2626">Cek Antrian Mandiri</div>
-            <div class="panduan-desc">Pasien tidak perlu login. Pilih mode <strong>Pasien</strong> pada halaman masuk, ketik nama lengkap, lalu status antrian akan langsung ditampilkan.</div>
+          <div class="panduan-item" style="border:1px solid #93c5fd;box-shadow:0 3px 0 #93c5fd;background:#eff6ff">
+            <div class="panduan-icon" style="background:#dbeafe;color:#1a73e8"><i class="fa-brands fa-google"></i></div>
+            <div>
+              <div class="panduan-step">Pendaftaran Pasien Baru</div>
+              <div class="panduan-title" style="color:#1a73e8">Pendaftaran via Google Form</div>
+              <div class="panduan-desc">Calon pasien hemodialisis baru dapat mendaftar secara daring melalui Google Form. Klik tombol di bawah ini, lalu isi dan kirim formulir. Data pendaftaran akan masuk ke spreadsheet untuk diproses petugas agar masuk ke daftar antrian.</div>
+              <a class="btn-gform mt-2" href="https://docs.google.com/forms/d/e/1FAIpQLScKG2eU4ToALTu8-qsK4l6JBrYG6IET76OjaaEn-ZlP34pyng/viewform" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-google"></i> Buka Formulir Pendaftaran
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </div>
+  </section>
 
-  </div>
-</main>
-
-<!-- ===== SLIDE 2: AKSI SIDARAJA ===== -->
-<main id="slide2" class="px-4 sm:px-8 pb-16" style="display:none">
-  <div class="max-w-7xl mx-auto mt-6">
-
-    <div class="welcome-banner">
-      <div>
-        <div class="welcome-title"><i class="fa-solid fa-bolt mr-2" style="color:#d97706"></i>AKSI SIDARAJA</div>
-        <div class="welcome-sub">Pemantauan Antrian & Aksi Penjadwalan Pasien Hemodialisis</div>
-      </div>
-      <div class="welcome-date">
-        <i class="fa-solid fa-calendar-day"></i>
+  <!-- SECTION AKSI SIDARAJA -->
+  <section id="sectionAksi" class="section-anchor px-4 sm:px-8 pb-16">
+    <div class="max-w-7xl mx-auto mt-6">
+      <div class="welcome-banner">
         <div>
-          <div style="font-size:11px">Hari ini</div>
-          <div id="todayDate" style="font-weight:bold">—</div>
+          <div class="welcome-title"><i class="fa-solid fa-bolt mr-2" style="color:#d97706"></i>AKSI SIDARAJA</div>
+          <div class="welcome-sub">Pemantauan Antrian & Aksi Penjadwalan Pasien Hemodialisis</div>
         </div>
-      </div>
-    </div>
-
-    <div class="flex gap-2 mb-4 flex-wrap">
-      <button class="bo" onclick="cetakPrint()"><i class="fa-solid fa-print"></i> Cetak</button>
-      <button class="bp" onclick="kirimPDF()"><i class="fa-solid fa-file-pdf"></i> PDF</button>
-      <button class="bg2" onclick="kirimWA()"><i class="fa-brands fa-whatsapp"></i> WA</button>
-
-      <!-- ★★★ TAMBAHAN BARU: Tombol Khusus Pendaftaran via Google Form (Slide 2) ★★★ -->
-      <a class="btn-gform" href="https://docs.google.com/forms/d/e/1FAIpQLScKG2eU4ToALTu8-qsK4l6JBrYG6IET76OjaaEn-ZlP34pyng/viewform" target="_blank" rel="noopener noreferrer">
-        <i class="fa-brands fa-google"></i> Pendaftaran via Google Form
-      </a>
-      <!-- ★★★ AKHIR TAMBAHAN: Tombol Google Form ★★★ -->
-    </div>
-
-    <div id="dashboardPrintArea">
-      <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 mb-4" id="statusCards">
-        <div class="em-card active" onclick="clickStatusCard('menunggu')" data-key="menunggu">
-          <div class="em-card-icon" style="background:#dbeafe;color:#1e40af;border-color:#93c5fd"><i class="fa-solid fa-hourglass-half"></i></div>
-          <div class="em-card-num" id="scMenunggu">0</div>
-          <div class="em-card-label">Menunggu</div>
-        </div>
-        <div class="em-card" onclick="clickStatusCard('terjadwal')" data-key="terjadwal">
-          <div class="em-card-icon" style="background:#d1fae5;color:#065f46;border-color:#6ee7b7"><i class="fa-solid fa-calendar-check"></i></div>
-          <div class="em-card-num" id="scTerjadwal">0</div>
-          <div class="em-card-label">Terjadwal</div>
-        </div>
-        <div class="em-card" onclick="clickStatusCard('hdlain')" data-key="hdlain">
-          <div class="em-card-icon" style="background:#fef3c7;color:#92400e;border-color:#fcd34d"><i class="fa-solid fa-right-left"></i></div>
-          <div class="em-card-num" id="scHdlain">0</div>
-          <div class="em-card-label">HD Lain</div>
-        </div>
-        <div class="em-card" onclick="clickStatusCard('batal')" data-key="batal">
-          <div class="em-card-icon" style="background:#fee2e2;color:#991b1b;border-color:#fca5a5"><i class="fa-solid fa-ban"></i></div>
-          <div class="em-card-num" id="scBatal">0</div>
-          <div class="em-card-label">Batal</div>
-        </div>
-        <div class="em-card" onclick="clickStatusCard('meninggal')" data-key="meninggal">
-          <div class="em-card-icon" style="background:#e5e7eb;color:#374151;border-color:#9ca3af"><i class="fa-solid fa-heart-crack"></i></div>
-          <div class="em-card-num" id="scMeninggal">0</div>
-          <div class="em-card-label">Meninggal</div>
-        </div>
-        <div class="em-card" onclick="clickStatusCard('norespon')" data-key="norespon">
-          <div class="em-card-icon" style="background:#cffafe;color:#155e75;border-color:#67e8f9"><i class="fa-solid fa-phone-slash"></i></div>
-          <div class="em-card-num" id="scNorespon">0</div>
-          <div class="em-card-label">No Respon</div>
-        </div>
-        <div class="em-card" onclick="clickStatusCard('all')" data-key="all">
-          <div class="em-card-icon" style="background:#f0e2c6;color:#7a4a22;border-color:#96703f"><i class="fa-solid fa-users"></i></div>
-          <div class="em-card-num" id="scTotal">0</div>
-          <div class="em-card-label">Total Pasien</div>
-        </div>
-        <div class="em-card" style="background:#f0fdf4" onclick="openMenungguWaModal()">
-          <div class="em-card-icon" style="background:#d1fae5;color:#047857;border-color:#6ee7b7"><i class="fa-brands fa-whatsapp"></i></div>
-          <div class="em-card-num" id="scWaMenunggu" style="color:#065f46">0</div>
-          <div class="em-card-label" style="color:#047857">Hubungi WA</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <span>Daftar Pasien <span id="filterLabel" style="color:#e8cfa8">(Menunggu)</span></span>
-        </div>
-        <div style="overflow-x:auto;max-height:500px;overflow-y:auto">
-          <table class="dt">
-            <thead>
-              <tr>
-                <th>No</th>
-                <th>Nama</th>
-                <th>No RM</th>
-                <th>Umur</th>
-                <th>HbsAg</th>
-                <th>Keterangan</th>
-                <th>Status</th>
-                <th style="text-align:center">Kontak WA</th>
-              </tr>
-            </thead>
-            <tbody id="dashBody"></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-</main>
-
-<!-- ===== SLIDE 3: DATA PASIEN ===== -->
-<main id="slide3" style="display:none" class="px-4 sm:px-8 pb-16">
-  <div class="max-w-6xl mx-auto mt-6">
-    <div class="welcome-banner">
-      <div>
-        <div class="welcome-title" style="color:var(--green)"><i class="fa-solid fa-database mr-2"></i>Master Data Pasien</div>
-        <div class="welcome-sub">Data pasien Instalasi Dialisis RSSA — Google Spreadsheet</div>
-      </div>
-    </div>
-
-    <div class="card mb-4">
-      <div class="card-header" style="background-image:none;background:linear-gradient(to bottom, #34d399, #059669);border-bottom:2px solid #047857">
-        <span><i class="fa-solid fa-file-excel mr-2"></i>Spreadsheet SIDARAJA</span>
-        <a href="https://docs.google.com/spreadsheets/d/1UbMj1gbz-wDIUlT64-nnHPa2xvGxlS_fEgnaEzcU1cA/edit?resourcekey=&gid=1588121083#gid=1588121083" target="_blank" class="bo" style="font-size:11px"><i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Tab Baru</a>
-      </div>
-      <div class="p-4">
-        <div class="flex items-center justify-between flex-wrap gap-3 mb-3">
-          <div class="mode-toggle">
-            <button id="btnModeRead" class="on" onclick="setSheetMode('read')"><i class="fa-solid fa-eye"></i> Mode Baca</button>
-            <button id="btnModeEdit" onclick="setSheetMode('edit')"><i class="fa-solid fa-pen-to-square"></i> Mode Edit</button>
-          </div>
-          <div class="flex gap-2 flex-wrap">
-            <button class="bo" onclick="reloadSheetFrame()"><i class="fa-solid fa-arrows-rotate"></i> Muat Ulang</button>
-            <button class="bp" onclick="refreshData()"><i class="fa-solid fa-bolt"></i> Sinkron ke AKSI SIDARAJA</button>
+        <div class="welcome-date">
+          <i class="fa-solid fa-calendar-day"></i>
+          <div>
+            <div style="font-size:11px">Hari ini</div>
+            <div id="todayDate" style="font-weight:bold">—</div>
           </div>
         </div>
-        <p class="mb-3" style="font-size:12px;color:var(--text-muted)"><i class="fa-solid fa-circle-info mr-1"></i><strong>Mode Baca</strong>: pratinjau ringan untuk melihat data. <strong>Mode Edit</strong>: spreadsheet penuh — sel dapat diklik dan <strong>diedit langsung dari aplikasi ini</strong>.</p>
-        <iframe class="sheet-frame" id="sheetFrame" src="" loading="lazy" frameborder="0" allowfullscreen></iframe>
       </div>
-    </div>
 
-    <div class="instruction-box">
-      <div class="flex items-center gap-3 mb-4 pb-2" style="border-bottom:1px solid #fcd34d">
-        <i class="fa-solid fa-bell" style="font-size:18px;color:#d97706"></i>
-        <h4 style="font-size:14px;font-weight:bold;color:#92400e;text-transform:uppercase">Petunjuk Update Status Pasien</h4>
+      <div class="flex gap-2 mb-4 flex-wrap">
+        <button class="bo" onclick="cetakPrint()"><i class="fa-solid fa-print"></i> Cetak</button>
+        <button class="bp" onclick="kirimPDF()"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+        <button class="bg2" onclick="kirimWA()"><i class="fa-brands fa-whatsapp"></i> WA</button>
+        <a class="btn-gform" href="https://docs.google.com/forms/d/e/1FAIpQLScKG2eU4ToALTu8-qsK4l6JBrYG6IET76OjaaEn-ZlP34pyng/viewform" target="_blank" rel="noopener noreferrer">
+          <i class="fa-brands fa-google"></i> Pendaftaran via Google Form
+        </a>
       </div>
-      <div class="instruction-step">
-        <div class="instruction-num">1</div>
-        <div style="font-size:12px;color:#78350f"><strong>Hubungi pasien</strong> melalui WhatsApp pada tombol WA di halaman <strong>AKSI SIDARAJA</strong>.</div>
-      </div>
-      <div class="instruction-step">
-        <div class="instruction-num">2</div>
-        <div style="font-size:12px;color:#78350f">Klik <strong>Mode Edit</strong> di atas, lalu ubah <strong>kolom Q (Status)</strong> — pilih: MENUNGGU, TERJADWAL, HD LAIN, BATAL, MENINGGAL, NO RESPON.</div>
-      </div>
-      <div class="instruction-step">
-        <div class="instruction-num">3</div>
-        <div style="font-size:12px;color:#78350f">Isi <strong>kolom R (Keterangan/Aksi)</strong> dengan informasi tindakan.</div>
-      </div>
-      <div class="instruction-step">
-        <div class="instruction-num">4</div>
-        <div style="font-size:12px;color:#78350f">Klik <strong>Sinkron ke AKSI SIDARAJA</strong> untuk melihat perubahan pada kartu status.</div>
+
+      <div id="dashboardPrintArea">
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 mb-4" id="statusCards">
+          <div class="em-card active" onclick="clickStatusCard('menunggu')" data-key="menunggu">
+            <div class="em-card-icon" style="background:#dbeafe;color:#1e40af;border-color:#93c5fd"><i class="fa-solid fa-hourglass-half"></i></div>
+            <div class="em-card-num" id="scMenunggu">0</div>
+            <div class="em-card-label">Menunggu</div>
+          </div>
+          <div class="em-card" onclick="clickStatusCard('terjadwal')" data-key="terjadwal">
+            <div class="em-card-icon" style="background:#d1fae5;color:#065f46;border-color:#6ee7b7"><i class="fa-solid fa-calendar-check"></i></div>
+            <div class="em-card-num" id="scTerjadwal">0</div>
+            <div class="em-card-label">Terjadwal</div>
+          </div>
+          <div class="em-card" onclick="clickStatusCard('hdlain')" data-key="hdlain">
+            <div class="em-card-icon" style="background:#fef3c7;color:#92400e;border-color:#fcd34d"><i class="fa-solid fa-right-left"></i></div>
+            <div class="em-card-num" id="scHdlain">0</div>
+            <div class="em-card-label">HD Lain</div>
+          </div>
+          <div class="em-card" onclick="clickStatusCard('batal')" data-key="batal">
+            <div class="em-card-icon" style="background:#fee2e2;color:#991b1b;border-color:#fca5a5"><i class="fa-solid fa-ban"></i></div>
+            <div class="em-card-num" id="scBatal">0</div>
+            <div class="em-card-label">Batal</div>
+          </div>
+          <div class="em-card" onclick="clickStatusCard('meninggal')" data-key="meninggal">
+            <div class="em-card-icon" style="background:#e5e7eb;color:#374151;border-color:#9ca3af"><i class="fa-solid fa-heart-crack"></i></div>
+            <div class="em-card-num" id="scMeninggal">0</div>
+            <div class="em-card-label">Meninggal</div>
+          </div>
+          <div class="em-card" onclick="clickStatusCard('norespon')" data-key="norespon">
+            <div class="em-card-icon" style="background:#cffafe;color:#155e75;border-color:#67e8f9"><i class="fa-solid fa-phone-slash"></i></div>
+            <div class="em-card-num" id="scNorespon">0</div>
+            <div class="em-card-label">No Respon</div>
+          </div>
+          <div class="em-card" onclick="clickStatusCard('all')" data-key="all">
+            <div class="em-card-icon" style="background:#f0e2c6;color:#7a4a22;border-color:#96703f"><i class="fa-solid fa-users"></i></div>
+            <div class="em-card-num" id="scTotal">0</div>
+            <div class="em-card-label">Total Pasien</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <span>Daftar Pasien <span id="filterLabel" style="color:#e8cfa8">(Menunggu)</span></span>
+          </div>
+          <div style="overflow-x:auto;max-height:500px;overflow-y:auto">
+            <table class="dt">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Nama</th>
+                  <th>No RM</th>
+                  <th>Umur</th>
+                  <th>HbsAg</th>
+                  <th>Keterangan</th>
+                  <th>Status</th>
+                  <th style="text-align:center">Kontak WA</th>
+                </tr>
+              </thead>
+              <tbody id="dashBody"></tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</main>
+  </section>
+
+  <!-- SECTION DATA PASIEN -->
+  <section id="sectionData" class="section-anchor px-4 sm:px-8 pb-16">
+    <div class="max-w-6xl mx-auto mt-6">
+      <div class="welcome-banner">
+        <div>
+          <div class="welcome-title" style="color:var(--green)"><i class="fa-solid fa-database mr-2"></i>Master Data Pasien</div>
+          <div class="welcome-sub">Data pasien Instalasi Dialisis RSSA — Google Spreadsheet</div>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-header" style="background-image:none;background:linear-gradient(to bottom, #34d399, #059669);border-bottom:2px solid #047857">
+          <span><i class="fa-solid fa-file-excel mr-2"></i>Spreadsheet SIDARAJA</span>
+          <a href="https://docs.google.com/spreadsheets/d/1UbMj1gbz-wDIUlT64-nnHPa2xvGxlS_fEgnaEzcU1cA/edit?resourcekey=&gid=1588121083#gid=1588121083" target="_blank" class="bo" style="font-size:11px"><i class="fa-solid fa-arrow-up-right-from-square"></i> Buka Tab Baru</a>
+        </div>
+        <div class="p-4">
+          <div class="flex items-center justify-between flex-wrap gap-3 mb-3">
+            <div class="mode-toggle">
+              <button id="btnModeRead" class="on" onclick="setSheetMode('read')"><i class="fa-solid fa-eye"></i> Mode Baca</button>
+              <button id="btnModeEdit" onclick="setSheetMode('edit')"><i class="fa-solid fa-pen-to-square"></i> Mode Edit</button>
+            </div>
+            <div class="flex gap-2 flex-wrap">
+              <button class="bo" onclick="reloadSheetFrame()"><i class="fa-solid fa-arrows-rotate"></i> Muat Ulang</button>
+              <button class="bp" onclick="refreshData()"><i class="fa-solid fa-bolt"></i> Sinkron ke AKSI SIDARAJA</button>
+            </div>
+          </div>
+          <p class="mb-3" style="font-size:12px;color:var(--text-muted)"><i class="fa-solid fa-circle-info mr-1"></i><strong>Mode Baca</strong>: pratinjau ringan untuk melihat data. <strong>Mode Edit</strong>: spreadsheet penuh — sel dapat diklik dan <strong>diedit langsung dari aplikasi ini</strong>.</p>
+          <iframe class="sheet-frame" id="sheetFrame" src="" loading="lazy" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <div class="instruction-box">
+        <div class="flex items-center gap-3 mb-4 pb-2" style="border-bottom:1px solid #fcd34d">
+          <i class="fa-solid fa-bell" style="font-size:18px;color:#d97706"></i>
+          <h4 style="font-size:14px;font-weight:bold;color:#92400e;text-transform:uppercase">Petunjuk Update Status Pasien</h4>
+        </div>
+        <div class="instruction-step">
+          <div class="instruction-num">1</div>
+          <div style="font-size:12px;color:#78350f"><strong>Hubungi pasien</strong> melalui WhatsApp pada tombol WA di bagian <strong>AKSI SIDARAJA</strong> di atas.</div>
+        </div>
+        <div class="instruction-step">
+          <div class="instruction-num">2</div>
+          <div style="font-size:12px;color:#78350f">Klik <strong>Mode Edit</strong>, lalu ubah <strong>kolom Q (Status)</strong> — pilih: MENUNGGU, TERJADWAL, HD LAIN, BATAL, MENINGGAL, NO RESPON.</div>
+        </div>
+        <div class="instruction-step">
+          <div class="instruction-num">3</div>
+          <div style="font-size:12px;color:#78350f">Isi <strong>kolom R (Keterangan/Aksi)</strong> dengan informasi tindakan.</div>
+        </div>
+        <div class="instruction-step">
+          <div class="instruction-num">4</div>
+          <div style="font-size:12px;color:#78350f">Klik <strong>Sinkron ke AKSI SIDARAJA</strong> untuk melihat perubahan pada kartu status.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION PASIEN (CEK ANTRIAN MANDIRI) -->
+  <section id="sectionPasien" class="section-anchor px-4 sm:px-8 pb-16">
+    <div class="max-w-3xl mx-auto">
+      <div class="card mt-6">
+        <div class="card-header"><h3>Cek Antrian Anda</h3></div>
+        <div class="p-5">
+          <input type="text" id="pSearchNama" class="si2 mb-3" placeholder="Ketik Nama Pasien...">
+          <button class="bg2 w-full justify-center" onclick="patientSearch()"><i class="fa-solid fa-search"></i> Cari Antrian</button>
+        </div>
+      </div>
+      <div id="patientResults" class="mt-4"></div>
+    </div>
+  </section>
+
+</div>
 
 <script>
 var APP_VERSION = 'sidarajav3.2';
@@ -953,14 +892,21 @@ document.addEventListener('keydown', function(e) {
 
 /* ================= SIDEBAR ================= */
 function openSidebar() {
-  $('mobileSidebar').classList.add('open');
+  $('appSidebar').classList.add('open');
   $('sidebarOverlay').classList.add('open');
 }
 function closeSidebar() {
-  $('mobileSidebar').classList.remove('open');
+  $('appSidebar').classList.remove('open');
   $('sidebarOverlay').classList.remove('open');
 }
-function switchSlideMobile(n) { closeSidebar(); switchSlide(n); }
+function scrollToSection(id) {
+  closeSidebar();
+  var el = $(id);
+  if (el) {
+    var topPos = el.offsetTop - 80;
+    window.scrollTo({ top: topPos, behavior: 'smooth' });
+  }
+}
 
 /* ================= SPREADSHEET MODE ================= */
 function setSheetMode(mode) {
@@ -1029,7 +975,6 @@ function switchAuthTab(tab) {
   $('authTabLogin').className = 'auth-tab' + (tab === 'login' ? ' active' : '');
   $('authTabRegister').className = 'auth-tab' + (tab === 'register' ? ' active' : '');
   $('authLoginForm').style.display = tab === 'login' ? 'block' : 'none';
-  $('authRegisterForm').style.display = tab === 'register' ? 'block' : 'none';
 }
 
 function showErr(id, msg) { var e = $(id); if (e) { e.querySelector('span').textContent = msg; e.classList.add('show'); } }
@@ -1043,27 +988,26 @@ function doPetugasLogin() {
   enterApp('admin');
 }
 
-function doPetugasRegister() { showErr('regError', 'Fitur daftar sedang maintenance. Hubungi admin.'); }
 function doUserLogin() { currentUser = { nama: 'Pasien', role: 'Pasien' }; enterApp('patient'); }
 
 function doLogout() {
   closeSidebar();
   currentUser = null; localStorage.removeItem('sidaraja_user');
-  $('loginOverlay').style.display = 'flex'; $('mainHeader').style.display = 'none';
-  $('slide1').style.display = 'none'; $('slide2').style.display = 'none'; $('slide3').style.display = 'none';
-  $('patientView').style.display = 'none';
+  $('loginOverlay').style.display = 'flex'; 
+  $('appMain').style.display = 'none';
 }
 
 function enterApp(mode) {
-  $('loginOverlay').style.display = 'none'; $('mainHeader').style.display = 'block';
+  $('loginOverlay').style.display = 'none'; 
+  $('appMain').style.display = 'block';
+  $('mainHeader').style.display = 'block';
   if (mode === 'admin') {
-    $('slide1').style.display = 'block';
     $('hdrUserProfile').style.display = 'flex'; $('patientLogoutBtn').style.display = 'none';
-    switchSlide(1); updateProfileUI();
+    updateProfileUI();
   } else {
-    $('patientView').style.display = 'block';
     $('hdrUserProfile').style.display = 'none'; $('patientLogoutBtn').style.display = 'inline-flex';
     updateProfileUI();
+    setTimeout(function() { scrollToSection('sectionPasien'); }, 300);
   }
   refreshData();
 }
@@ -1086,18 +1030,6 @@ function updateProfileUI() {
   $('sbUserRole').textContent = currentUser.role || '';
   var today = new Date().toLocaleDateString('id-ID', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
   $('todayDate').textContent = today;
-}
-
-function switchSlide(n) {
-  for (var i = 1; i <= 3; i++) {
-    var tab = $('tab' + i), sbTab = $('sbTab' + i);
-    if (tab) tab.classList.toggle('active', i === n);
-    if (sbTab) sbTab.classList.toggle('active', i === n);
-    $('slide' + i).style.display = i === n ? 'block' : 'none';
-  }
-  if (n === 3 && !$('sheetFrame').src) {
-    $('sheetFrame').src = SHEET_READ_URL;
-  }
 }
 
 function fetchSheetData() {
@@ -1148,7 +1080,7 @@ function updateStatusCounts() {
   $('scMenunggu').textContent = counts.menunggu; $('scTerjadwal').textContent = counts.terjadwal;
   $('scHdlain').textContent = counts.hdlain; $('scBatal').textContent = counts.batal;
   $('scMeninggal').textContent = counts.meninggal; $('scNorespon').textContent = counts.norespon;
-  $('scTotal').textContent = allData.length; $('scWaMenunggu').textContent = counts.menunggu;
+  $('scTotal').textContent = allData.length;
 }
 
 function renderDashboard() {
@@ -1177,28 +1109,6 @@ function renderDashboard() {
   body.innerHTML = html;
 }
 
-function openMenungguWaModal() {
-  var list = allData.filter(function(d) { return getStatusKey(d.status) === 'menunggu'; });
-  var container = $('menungguWaList');
-  if (list.length === 0) {
-    container.innerHTML = '<div style="text-align:center;padding:20px">Tidak ada pasien menunggu</div>';
-  } else {
-    var html = '';
-    list.forEach(function(d, i) {
-      var wa1 = formatPhone(d.noHP), wa2 = formatPhone(d.noHP2);
-      html += '<div style="background:#f0e6d0;border:1px solid #dcc9a8;padding:10px;margin-bottom:8px">';
-      html += '<div style="font-weight:bold;margin-bottom:5px">' + (i+1) + '. ' + escHtml(d.nama) + '</div>';
-      html += '<div style="display:flex;gap:5px;flex-wrap:wrap">';
-      if (wa1) html += '<button onclick="openWaModal(' + d.row + ', 1)" class="btn-wa"><i class="fa-brands fa-whatsapp"></i> Pasien (O)</button>';
-      if (wa2) html += '<button onclick="openWaModal(' + d.row + ', 2)" class="btn-wa btn-wa2"><i class="fa-brands fa-whatsapp"></i> Keluarga (P)</button>';
-      html += '</div></div>';
-    });
-    container.innerHTML = html;
-  }
-  $('menungguWaModal').style.display = 'flex';
-}
-function closeMenungguWaModal() { $('menungguWaModal').style.display = 'none'; }
-
 function openWaModal(row, type) {
   var d = allData.find(function(x) { return x.row == row; });
   if (!d) return toast('Data tidak ditemukan', 'error');
@@ -1208,6 +1118,17 @@ function openWaModal(row, type) {
   $('waNama').value = d.nama;
   $('waNomor').value = wa;
   $('waRuangan').value = '';
+  
+  var antrian = '';
+  if (getStatusKey(d.status) === 'menunggu') {
+    var menungguList = allData.filter(function(x) { return getStatusKey(x.status) === 'menunggu'; });
+    var idx = menungguList.findIndex(function(x) { return x.row == row; });
+    if (idx !== -1) {
+      antrian = (idx + 1);
+    }
+  }
+  $('waAntrian').value = antrian;
+  
   generateWaText();
   $('waModal').style.display = 'flex';
 }
@@ -1216,14 +1137,37 @@ function closeWaModal() { $('waModal').style.display = 'none'; }
 function generateWaText() {
   var nama = $('waNama').value;
   var ruangan = $('waRuangan').value;
-  var text = "INSTALASI DIALISIS\nRSUD DR SAIFUL ANWAR\nPROV JAWA TIMUR\n\nSalam sehat kami sampaikan,\n\n";
-  if (ruangan) {
-    text += "Kami dari tim penjadwalan Instalasi Dialisis RSUD Dr. Saiful Anwar ingin menginformasikan bahwa saat ini di ruangan " + ruangan + " terdapat jadwal kosong untuk pelaksanaan Hemodialisis.\n\n";
-    text += "Apakah Bapak/Ibu " + nama + " bersedia untuk mengisi jadwal tersebut?\n\n";
+  var antrian = $('waAntrian').value;
+  
+  var jam = new Date().getHours();
+  var salam = "Selamat pagi";
+  if (jam >= 11 && jam < 15) salam = "Selamat siang";
+  else if (jam >= 15 && jam < 19) salam = "Selamat sore";
+  else if (jam >= 19 || jam < 4) salam = "Selamat malam";
+
+  var text = "INSTALASI DIALISIS RSUD DR SAIFUL ANWAR\nPROV JAWA TIMUR\n\n";
+  text += salam + ",\n\n";
+  text += "Salam sehat kami sampaikan untuk Bapak/Ibu " + nama + ".\n\n";
+  
+  if (antrian) {
+    text += "Semoga Bapak/Ibu dalam keadaan sehat dan senantiasa diberi kemudahan. Melalui pesan ini, kami dari tim penjadwalan ingin mengabarkan bahwa pendaftaran Hemodialisis Bapak/Ibu saat ini berada dalam daftar tunggu, dengan nomor antrian ke-*" + antrian + "*.\n\n";
+    text += "Kami sangat mengerti bahwa menunggu jadwal pengobatan mungkin terasa cukup berat. Namun, mohon kesabaran dan pengertian Bapak/Ibu. Kami senantiasa berupaya memberikan pelayanan terbaik.\n\n";
+    
+    if (ruangan) {
+      text += "Alhamdulillah, kabar baiknya saat ini di ruangan " + ruangan + " terdapat jadwal kosong. Apabila Bapak/Ibu berkenan, kami sangat memohon kesediaan untuk segera mengisi jadwal tersebut.\n\n";
+    } else {
+      text += "Kami akan segera menghubungi Bapak/Ibu kembali segera setelah ada jadwal yang tersedia.\n\n";
+    }
   } else {
-    text += "Kami dari tim penjadwalan Instalasi Dialisis RSUD Dr. Saiful Anwar ingin menghubungi Bapak/Ibu " + nama + " terkait jadwal Hemodialisis.\n\n";
+    text += "Kami dari tim penjadwalan Instalasi Dialisis ingin menghubungi Bapak/Ibu terkait jadwal Hemodialisis.\n\n";
+    if (ruangan) {
+      text += "Saat ini di ruangan " + ruangan + " terdapat jadwal kosong. Apakah Bapak/Ibu bersedia untuk mengisi jadwal tersebut?\n\n";
+    }
   }
-  text += "Mohon kesediaannya untuk memberikan konfirmasi balasan. Terima kasih atas perhatian dan kerja samanya.\n\nSalam hangat,\nTim Penjadwalan Instalasi Dialisis RSSA";
+  
+  text += "Mohon kesediaannya untuk memberikan konfirmasi balasan. Terima kasih atas perhatian dan kerja samanya.\n\n";
+  text += "Salam hangat,\nTim Penjadwalan Instalasi Dialisis RSSA";
+  
   $('waText').value = text;
 }
 
