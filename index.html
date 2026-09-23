@@ -355,6 +355,7 @@ table.dt tbody tr:hover td { background: #e6d3ac; }
     </div>
     <div class="modal-body">
       <input type="hidden" id="waAntrian" value="">
+      <input type="hidden" id="waTotalAntrian" value="">
       <div class="mb-3">
         <label class="form-label">Nama Pasien</label>
         <input type="text" id="waNama" class="si2" readonly>
@@ -1120,14 +1121,17 @@ function openWaModal(row, type) {
   $('waRuangan').value = '';
   
   var antrian = '';
+  var totalAntrian = '';
   if (getStatusKey(d.status) === 'menunggu') {
     var menungguList = allData.filter(function(x) { return getStatusKey(x.status) === 'menunggu'; });
     var idx = menungguList.findIndex(function(x) { return x.row == row; });
     if (idx !== -1) {
       antrian = (idx + 1);
+      totalAntrian = menungguList.length;
     }
   }
   $('waAntrian').value = antrian;
+  $('waTotalAntrian').value = totalAntrian;
   
   generateWaText();
   $('waModal').style.display = 'flex';
@@ -1138,6 +1142,7 @@ function generateWaText() {
   var nama = $('waNama').value;
   var ruangan = $('waRuangan').value;
   var antrian = $('waAntrian').value;
+  var totalAntrian = $('waTotalAntrian').value;
   
   var jam = new Date().getHours();
   var salam = "Selamat pagi";
@@ -1150,7 +1155,12 @@ function generateWaText() {
   text += "Salam sehat untuk Bapak/Ibu " + nama + ".\n\n";
   
   if (antrian) {
-    text += "Kami mengabarkan bahwa pendaftaran Hemodialisis Bapak/Ibu saat ini berada dalam daftar tunggu, dengan nomor antrian ke-*" + antrian + "*.\n\n";
+    text += "Kami mengabarkan bahwa pendaftaran Hemodialisis Bapak/Ibu saat ini berada dalam daftar tunggu, dengan nomor antrian ke-*" + antrian + "*";
+    if (totalAntrian) {
+      text += " dari " + totalAntrian + " pasien daftar tunggu";
+    }
+    text += ".\n\n";
+    
     text += "Kami memahami bahwa menunggu jadwal pengobatan terasa berat. Mohon kesabaran Bapak/Ibu, kami senantiasa berupaya memberikan pelayanan terbaik.\n\n";
     
     if (ruangan) {
