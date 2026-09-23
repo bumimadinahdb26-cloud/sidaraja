@@ -1147,25 +1147,24 @@ function generateWaText() {
 
   var text = "INSTALASI DIALISIS RSUD DR SAIFUL ANWAR\nPROV JAWA TIMUR\n\n";
   text += salam + ",\n\n";
-  text += "Salam sehat kami sampaikan untuk Bapak/Ibu " + nama + ".\n\n";
+  text += "Salam sehat untuk Bapak/Ibu " + nama + ".\n\n";
   
   if (antrian) {
-    text += "Semoga Bapak/Ibu dalam keadaan sehat dan senantiasa diberi kemudahan. Melalui pesan ini, kami dari tim penjadwalan ingin mengabarkan bahwa pendaftaran Hemodialisis Bapak/Ibu saat ini berada dalam daftar tunggu, dengan nomor antrian ke-*" + antrian + "*.\n\n";
-    text += "Kami sangat mengerti bahwa menunggu jadwal pengobatan mungkin terasa cukup berat. Namun, mohon kesabaran dan pengertian Bapak/Ibu. Kami senantiasa berupaya memberikan pelayanan terbaik.\n\n";
+    text += "Kami mengabarkan bahwa pendaftaran Hemodialisis Bapak/Ibu saat ini berada dalam daftar tunggu, dengan nomor antrian ke-*" + antrian + "*.\n\n";
+    text += "Kami memahami bahwa menunggu jadwal pengobatan terasa berat. Mohon kesabaran Bapak/Ibu, kami senantiasa berupaya memberikan pelayanan terbaik.\n\n";
     
     if (ruangan) {
-      text += "Alhamdulillah, kabar baiknya saat ini di ruangan " + ruangan + " terdapat jadwal kosong. Apabila Bapak/Ibu berkenan, kami sangat memohon kesediaan untuk segera mengisi jadwal tersebut.\n\n";
+      text += "Kabar baiknya, saat ini di ruangan " + ruangan + " terdapat jadwal kosong. Mohon kesediaan untuk segera mengisi jadwal tersebut.\n\n";
     } else {
-      text += "Kami akan segera menghubungi Bapak/Ibu kembali segera setelah ada jadwal yang tersedia.\n\n";
+      text += "Kami akan segera menghubungi kembali begitu ada jadwal yang tersedia.\n\n";
     }
   } else {
-    text += "Kami dari tim penjadwalan Instalasi Dialisis ingin menghubungi Bapak/Ibu terkait jadwal Hemodialisis.\n\n";
+    text += "Kami dari tim penjadwalan Instalasi Dialisis ingin menginformasikan terkait jadwal Hemodialisis.\n\n";
     if (ruangan) {
-      text += "Saat ini di ruangan " + ruangan + " terdapat jadwal kosong. Apakah Bapak/Ibu bersedia untuk mengisi jadwal tersebut?\n\n";
+      text += "Saat ini di ruangan " + ruangan + " terdapat jadwal kosong. Mohon kesediaan untuk segera mengisi jadwal tersebut.\n\n";
     }
   }
   
-  text += "Mohon kesediaannya untuk memberikan konfirmasi balasan. Terima kasih atas perhatian dan kerja samanya.\n\n";
   text += "Salam hangat,\nTim Penjadwalan Instalasi Dialisis RSSA";
   
   $('waText').value = text;
